@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-  <Resource id="baraksoft" type="javax.sql.DataSource">#Wed Mar 09 00:02:44 EET 2016
-jdbcDriver=org.apache.derby.jdbc.ClientDriver
-password=zyg
-userName=zyg
-jdbcUrl=jdbc\:derby\://localhost\:1527/BARAKSOFT_DB
-</Resource>
-</resources>
