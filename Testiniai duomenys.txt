@@ -2,31 +2,31 @@ INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GR
   VALUES('Edvardas', 'Tereikis', 'etereikis@gmail.com', 'pass123', 1, 150, 1);
   
 INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GROUP_NUMBER)
-  VALUES('Mantas', 'PetkeviËius', 'px1@gmail.com', 'pass1234', 1, 150, 1);
+  VALUES('Mantas', 'Petkeviƒçius', 'px1@gmail.com', 'pass1234', 1, 150, 1);
   
 INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GROUP_NUMBER)
-  VALUES('Martynas', 'ﬁuravliovas', 'px2@gmail.com', 'pass4321', 1, 150, 2);
+  VALUES('Martynas', '≈Ωuravliovas', 'px2@gmail.com', 'pass4321', 1, 150, 2);
   
 INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GROUP_NUMBER)
-  VALUES('ﬁygimantas', 'Skuolis', 'px3@gmail.com', 'pass321', 1, 150, 2);
+  VALUES('≈Ωygimantas', 'Skuolis', 'px3@gmail.com', 'pass321', 1, 150, 2);
   
 INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GROUP_NUMBER)
-  VALUES('Laurynas', '»inga', 'px4@gmail.com', 'pass666', 1, 150, 3);
+  VALUES('Laurynas', 'ƒåinga', 'px4@gmail.com', 'pass666', 1, 150, 3);
   
 INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IS_APPROVED, POINTS, GROUP_NUMBER)
   VALUES('Pole', 'Arlauskas', 'pole@gmail.com', 'asEsuMldc', 1, 5, 3);
   
 INSERT INTO SUMMERHOUSES(TITLE, ADDRESS, PRICE, DESCRIPTION, CAPACITY, DATE_FROM, DATE_TO)
-  VALUES('PuinÎlis', 'Pu¯ g. 38', 50, 'Very nice place!', 15, '2016-03-01', '2016-05-01');
+  VALUES('Pu≈°inƒólis', 'Pu≈°≈≥ g. 38', 50, 'Very nice place!', 15, '2016-03-01', '2016-05-01');
   
 INSERT INTO SUMMERHOUSES(TITLE, ADDRESS, PRICE, DESCRIPTION, CAPACITY, DATE_FROM, DATE_TO)
-  VALUES('EglinÎlis', 'Egli¯ g. 69', 40, 'Fresh air!', 10, '2016-03-01', '2016-06-01');
+  VALUES('Eglinƒólis', 'Egli≈≥ g. 69', 40, 'Fresh air!', 10, '2016-03-01', '2016-06-01');
   
 INSERT INTO SERVICES(TITLE, PRICE, DESCRIPTION)
   VALUES('Pirtis', 5, 'Relaxing');
   
 INSERT INTO SERVICES(TITLE, PRICE, DESCRIPTION)
-  VALUES('Masa˛as', 3, 'Ero');
+  VALUES('Masa≈æas', 3, 'Ero');
   
 INSERT INTO SERVICES(TITLE, PRICE, DESCRIPTION)
   VALUES('Baseinas', 5, 'Blue water');
