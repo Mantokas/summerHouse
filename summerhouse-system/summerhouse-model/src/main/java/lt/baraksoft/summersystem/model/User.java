@@ -46,10 +46,10 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 50)
+    @Size(min = 3, max = 25)    
     @Column(name = "firstname")
     private String firstname;
-    @Size(max = 50)
+    @Size(min = 4, max = 25)
     @Column(name = "lastname")
     private String lastname;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -60,7 +60,7 @@ public class User implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 128)
+    @Size(min = 5, max = 128)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
@@ -68,7 +68,7 @@ public class User implements Serializable {
     @Column(name = "is_approved")
     private int isApproved;
     @Basic(optional = false)
-    @NotNull
+    @NotNull    
     @Column(name = "points")
     private int points;
     @Column(name = "group_number")

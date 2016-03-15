@@ -6,6 +6,7 @@
 package lt.baraksoft.summersystem.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -50,17 +52,19 @@ public class Summerhouse implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 500)
+    @Size(min = 5, max = 500)
     @Column(name = "title")
     private String title;
-    @Size(max = 500)
-    @Column(name = "address")
+    @Size(min = 5, max = 500)
+    @Column(name = "address", unique = true)
     private String address;
-    @Column(name = "price")
-    private Integer price;
+    @Digits(integer = 4, fraction = 2)
+    @Column(name = "price", precision = 4, scale = 2)
+    private BigDecimal price;
     @Size(max = 2000)
     @Column(name = "description")
     private String description;
+    @Size(min = 2, max = 500)
     @Column(name = "capacity")
     private Integer capacity;
     @Basic(optional = false)
@@ -120,11 +124,11 @@ public class Summerhouse implements Serializable {
         this.address = address;
     }
 
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
