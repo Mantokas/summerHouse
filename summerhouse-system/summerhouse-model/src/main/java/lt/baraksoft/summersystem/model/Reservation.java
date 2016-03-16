@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Þygimantas
+ * @author ï¿½ygimantas
  */
 @Entity
 @Table(name = "reservations")
@@ -52,7 +52,7 @@ public class Reservation implements Serializable {
     @NotNull
     @Column(name = "date_to")
     @Temporal(TemporalType.DATE)
-    private Date dateTo;
+    private Date dateTo; 
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_approved")
