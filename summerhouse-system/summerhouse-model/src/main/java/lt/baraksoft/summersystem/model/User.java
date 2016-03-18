@@ -18,12 +18,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Þygimantas
+ * @author Å½ygimantas
  */
 @Entity
 @Table(name = "users")
@@ -38,7 +39,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
     @NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"),
     @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived")})
-public class User implements Serializable {
+public class User implements IEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,6 +81,9 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<Reservation> reservationList;
 
+    @Version
+    private Integer version;
+
     public User() {
     }
 
@@ -102,6 +106,10 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public String getFirstname() {

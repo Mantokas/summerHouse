@@ -23,13 +23,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Þygimantas
+ * @author Å½ygimantas
  */
 @Entity
 @Table(name = "summerhouses")
@@ -44,7 +45,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Summerhouse.findByDateFrom", query = "SELECT s FROM Summerhouse s WHERE s.dateFrom = :dateFrom"),
     @NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"),
     @NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.isArchived = :isArchived")})
-public class Summerhouse implements Serializable {
+public class Summerhouse implements IEntity<Integer>  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,6 +87,9 @@ public class Summerhouse implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouseId")
     private List<Reservation> reservationList;
 
+    @Version
+    private Integer version;
+
     public Summerhouse() {
     }
 
@@ -106,6 +110,10 @@ public class Summerhouse implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public String getTitle() {

@@ -20,11 +20,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author �ygimantas
+ * @author Žygimantas
  */
 @Entity
 @Table(name = "reservations")
@@ -35,7 +36,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Reservation.findByDateTo", query = "SELECT r FROM Reservation r WHERE r.dateTo = :dateTo"),
     @NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.isApproved = :isApproved"),
     @NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.isArchived = :isArchived")})
-public class Reservation implements Serializable {
+public class Reservation implements IEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,6 +68,9 @@ public class Reservation implements Serializable {
     @JoinColumn(name = "summerhouse_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Summerhouse summerhouseId;
+
+    @Version
+    private Integer version;
 
     public Reservation() {
     }
@@ -137,6 +141,10 @@ public class Reservation implements Serializable {
 
     public void setSummerhouseId(Summerhouse summerhouseId) {
         this.summerhouseId = summerhouseId;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     @Override

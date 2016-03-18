@@ -12,10 +12,12 @@
     
     <modules>
     	<module>summerhouse-model</module>
+        <module>summerhouse-dao</module>
     </modules>
 
     <properties>
         <javaee-api.version>7.0</javaee-api.version>
+        <persistence-api.version>1.0.2</persistence-api.version>
     </properties>
 
     <build>
@@ -39,6 +41,11 @@
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${persistence-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

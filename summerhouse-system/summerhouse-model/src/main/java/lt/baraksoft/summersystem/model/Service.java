@@ -19,12 +19,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Þygimantas
+ * @author Å½ygimantas
  */
 @Entity
 @Table(name = "services")
@@ -35,7 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
     @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"),
     @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.isArchived = :isArchived")})
-public class Service implements Serializable {
+public class Service implements IEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,6 +64,9 @@ public class Service implements Serializable {
     @ManyToMany
     private List<Summerhouse> summerhouseList;
 
+    @Version
+    private Integer version;
+
     public Service() {
     }
 
@@ -82,6 +86,10 @@ public class Service implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public String getTitle() {
