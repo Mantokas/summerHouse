@@ -9,8 +9,9 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>summerhouse-parent</name>
-	<modules></modules>
-
+	<modules>
+		<module>summerhouse-model</module>
+	</modules>
     <properties>
         <javaee-api.version>7.0</javaee-api.version>
     </properties>
