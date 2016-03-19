@@ -2,7 +2,7 @@ package lt.baraksoft.summersystem.dao.services;
 
 import lt.baraksoft.summersystem.model.User;
 
-public interface UserFacade {
+public interface UserDao {
 
 	public User get(Long id);
 

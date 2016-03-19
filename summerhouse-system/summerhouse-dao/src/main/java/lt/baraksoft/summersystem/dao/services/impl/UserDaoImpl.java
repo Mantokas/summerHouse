@@ -5,12 +5,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
-import lt.baraksoft.summersystem.dao.services.UserFacade;
+import lt.baraksoft.summersystem.dao.services.UserDao;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.model.User_;
 
 //Transactional (man atrodo by default)
-public class UserFacadeImpl extends GenericDao<User, Integer> implements UserFacade {
+public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 
 	@Override
 	public User get(Long id) {
