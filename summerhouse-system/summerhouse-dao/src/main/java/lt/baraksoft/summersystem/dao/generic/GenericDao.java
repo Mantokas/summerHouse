@@ -15,6 +15,7 @@ import lt.baraksoft.summersystem.model.IEntity;
 // Butu neblogai kazkoki equalsAndHashProvideri extendint
 public abstract class GenericDao<T extends IEntity<K>, K extends Serializable> implements IGenericDao<T, K> {
 
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	private final Class<T> entityClass;
@@ -56,15 +57,6 @@ public abstract class GenericDao<T extends IEntity<K>, K extends Serializable> i
 			return entity;
 		}
 		return entityManager.merge(entity);
-	}
-
-	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-
-	protected EntityManager getEntityManager() {
-		return entityManager;
 	}
 
 }

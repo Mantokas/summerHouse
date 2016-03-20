@@ -11,8 +11,6 @@
     </parent>
     <groupId>lt.baraksoft.summerhousesystem.dao</groupId>
     <artifactId>summerhouse-dao</artifactId>
-    <version>1.0</version>
-    <packaging>jar</packaging>
     <name>Summerhouse dao</name>
     <dependencies>
         <dependency>
