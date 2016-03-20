@@ -18,6 +18,8 @@
     <properties>
         <javaee-api.version>7.0</javaee-api.version>
         <persistence-api.version>1.0.2</persistence-api.version>
+        <hibernate-core.version>5.1.0.Final</hibernate-core.version>
+        <hibernate-jpa-api.version>1.0.0.Final</hibernate-jpa-api.version>
     </properties>
 
     <build>
@@ -46,6 +48,16 @@
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>${hibernate-jpa-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
