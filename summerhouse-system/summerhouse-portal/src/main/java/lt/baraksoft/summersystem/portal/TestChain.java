@@ -2,19 +2,18 @@ package lt.baraksoft.summersystem.portal;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Stateful;
-import javax.faces.bean.SessionScoped;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import lt.baraksoft.summersystem.dao.impl.UserDaoImpl;
+import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
 
 @Named
-@SessionScoped
-@Stateful
+@Stateless
 public class TestChain {
-
-	public UserDaoImpl userDaoImpl;
+	@Inject
+	private UserDao userDao;
 	private User user;
 	private String text = "stuff";
 
@@ -32,7 +31,7 @@ public class TestChain {
 
 	@PostConstruct
 	public void init() {
-		System.out.println(toString() + " constructed component 2.");
+		System.out.println(toString() + " constructed component 2. " + userDao.getClass().getName());
 	}
 
 	@PreDestroy
