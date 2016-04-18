@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/summerhouse-portal"> 
-	<ResourceLink global="jdbc/PollDatasource" name="jdbc/PollDatasource" type="javax.sql.DataSource" />
+	<ResourceLink global="jdbc/psk" name="jdbc/psk" type="javax.sql.DataSource" />
     <Loader loaderClass="org.apache.tomee.catalina.TomEEWebappLoader" />
 </Context>
 
