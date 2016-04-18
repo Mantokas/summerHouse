@@ -9,10 +9,6 @@
     <class>lt.baraksoft.summersystem.model.Service</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-<!--       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/psk?zeroDateTimeBehavior=convertToNull"/> -->
-<!--       <property name="javax.persistence.jdbc.user" value="root"/> -->
-<!--       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/> -->
-<!--       <property name="javax.persistence.jdbc.password" value="pass"/> -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
