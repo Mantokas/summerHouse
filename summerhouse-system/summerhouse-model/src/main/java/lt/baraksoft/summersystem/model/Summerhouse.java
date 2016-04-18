@@ -6,7 +6,7 @@
 package lt.baraksoft.summersystem.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -62,11 +62,11 @@ public class Summerhouse implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_from")
-	private LocalDateTime dateFrom;
+	private LocalDate dateFrom;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_to")
-	private LocalDateTime dateTo;
+	private LocalDate dateTo;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
@@ -86,7 +86,7 @@ public class Summerhouse implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public Summerhouse(Integer id, LocalDateTime dateFrom, LocalDateTime dateTo, boolean isArchived) {
+	public Summerhouse(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean isArchived) {
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
@@ -145,19 +145,19 @@ public class Summerhouse implements IEntity<Integer> {
 		this.capacity = capacity;
 	}
 
-	public LocalDateTime getDateFrom() {
+	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(LocalDateTime dateFrom) {
+	public void setDateFrom(LocalDate dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public LocalDateTime getDateTo() {
+	public LocalDate getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(LocalDateTime dateTo) {
+	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
 	}
 

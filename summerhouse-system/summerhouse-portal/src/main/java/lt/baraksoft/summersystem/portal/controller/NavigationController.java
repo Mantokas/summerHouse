@@ -12,4 +12,7 @@ public class NavigationController {
     public String goToLogin(){
         return "toLogin";
     }
+    public String goToSummerhouses(){
+        return "toSummer";
+    }
 }

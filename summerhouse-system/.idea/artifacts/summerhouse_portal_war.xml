@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="summerhouse-portal:war">
+    <output-path>$PROJECT_DIR$/summerhouse-portal/target</output-path>
+    <root id="archive" name="summerhouse-portal-1.0.war">
+      <element id="artifact" artifact-name="summerhouse-portal:war exploded" />
+    </root>
+  </artifact>
+</component>
