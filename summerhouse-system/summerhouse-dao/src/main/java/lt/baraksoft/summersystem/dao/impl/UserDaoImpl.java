@@ -6,8 +6,6 @@ import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
 import lt.baraksoft.summersystem.model.User;
 
-// @SessionScoped
-// Transactional (man atrodo by default)
 @Stateless
 public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 
