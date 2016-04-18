@@ -5,8 +5,8 @@
  */
 package lt.baraksoft.summersystem.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
@@ -29,147 +27,142 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "reservations")
-@NamedQueries({
-    @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
-    @NamedQuery(name = "Reservation.findById", query = "SELECT r FROM Reservation r WHERE r.id = :id"),
-    @NamedQuery(name = "Reservation.findByDateFrom", query = "SELECT r FROM Reservation r WHERE r.dateFrom = :dateFrom"),
-    @NamedQuery(name = "Reservation.findByDateTo", query = "SELECT r FROM Reservation r WHERE r.dateTo = :dateTo"),
-    @NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.isApproved = :isApproved"),
-    @NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.isArchived = :isArchived")})
+@NamedQueries({ @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"), @NamedQuery(name = "Reservation.findById", query = "SELECT r FROM Reservation r WHERE r.id = :id"),
+		@NamedQuery(name = "Reservation.findByDateFrom", query = "SELECT r FROM Reservation r WHERE r.dateFrom = :dateFrom"), @NamedQuery(name = "Reservation.findByDateTo", query = "SELECT r FROM Reservation r WHERE r.dateTo = :dateTo"),
+		@NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.isApproved = :isApproved"),
+		@NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.isArchived = :isArchived") })
 public class Reservation implements IEntity<Integer> {
+	private static final long serialVersionUID = -1807482193504644095L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id")
+	private Integer id;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "date_from")
+	private LocalDateTime dateFrom;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "date_to")
+	private LocalDateTime dateTo;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "is_approved")
+	private boolean isApproved;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "is_archived")
+	private boolean isArchived;
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	private User userId;
+	@JoinColumn(name = "summerhouse_id", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	private Summerhouse summerhouseId;
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "date_from")
-    @Temporal(TemporalType.DATE)
-    private Date dateFrom;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "date_to")
-    @Temporal(TemporalType.DATE)
-    private Date dateTo; 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "is_approved")
-    private boolean isApproved;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "is_archived")
-    private boolean isArchived;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User userId;
-    @JoinColumn(name = "summerhouse_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Summerhouse summerhouseId;
+	@Version
+	private Integer version;
 
-    @Version
-    private Integer version;
+	public Reservation() {
+	}
 
-    public Reservation() {
-    }
+	public Reservation(Integer id) {
+		this.id = id;
+	}
 
-    public Reservation(Integer id) {
-        this.id = id;
-    }
+	public Reservation(Integer id, LocalDateTime dateFrom, LocalDateTime dateTo, boolean isApproved, boolean isArchived) {
+		this.id = id;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+		this.isApproved = isApproved;
+		this.isArchived = isArchived;
+	}
 
-    public Reservation(Integer id, Date dateFrom, Date dateTo, boolean isApproved, boolean isArchived) {
-        this.id = id;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-        this.isApproved = isApproved;
-        this.isArchived = isArchived;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public LocalDateTime getDateFrom() {
+		return dateFrom;
+	}
 
-    public Date getDateFrom() {
-        return dateFrom;
-    }
+	public void setDateFrom(LocalDateTime dateFrom) {
+		this.dateFrom = dateFrom;
+	}
 
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
-    }
+	public LocalDateTime getDateTo() {
+		return dateTo;
+	}
 
-    public Date getDateTo() {
-        return dateTo;
-    }
+	public void setDateTo(LocalDateTime dateTo) {
+		this.dateTo = dateTo;
+	}
 
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
-    }
+	public boolean getIsApproved() {
+		return isApproved;
+	}
 
-    public boolean getIsApproved() {
-        return isApproved;
-    }
+	public void setIsApproved(boolean isApproved) {
+		this.isApproved = isApproved;
+	}
 
-    public void setIsApproved(boolean isApproved) {
-        this.isApproved = isApproved;
-    }
+	public boolean getIsArchived() {
+		return isArchived;
+	}
 
-    public boolean getIsArchived() {
-        return isArchived;
-    }
+	public void setIsArchived(boolean isArchived) {
+		this.isArchived = isArchived;
+	}
 
-    public void setIsArchived(boolean isArchived) {
-        this.isArchived = isArchived;
-    }
+	public User getUserId() {
+		return userId;
+	}
 
-    public User getUserId() {
-        return userId;
-    }
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
 
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
+	public Summerhouse getSummerhouseId() {
+		return summerhouseId;
+	}
 
-    public Summerhouse getSummerhouseId() {
-        return summerhouseId;
-    }
+	public void setSummerhouseId(Summerhouse summerhouseId) {
+		this.summerhouseId = summerhouseId;
+	}
 
-    public void setSummerhouseId(Summerhouse summerhouseId) {
-        this.summerhouseId = summerhouseId;
-    }
+	public Integer getVersion() {
+		return version;
+	}
 
-    public Integer getVersion() {
-        return version;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof Reservation)) {
+			return false;
+		}
+		Reservation other = (Reservation) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reservation)) {
-            return false;
-        }
-        Reservation other = (Reservation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public String toString() {
+		return "lt.baraksoft.summersystem.model.Reservation[ id=" + id + " ]";
+	}
 
-    @Override
-    public String toString() {
-        return "lt.baraksoft.summersystem.model.Reservation[ id=" + id + " ]";
-    }
-    
 }
