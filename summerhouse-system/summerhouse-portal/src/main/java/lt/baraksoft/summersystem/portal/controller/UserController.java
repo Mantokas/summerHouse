@@ -1,4 +1,4 @@
-package lt.baraksoft.summersystem.portal;
+package lt.baraksoft.summersystem.portal.controller;
 
 import javax.faces.bean.ManagedBean;
 
