@@ -12,24 +12,24 @@
 
     <f:view>
         <h:form>
-            <p:dataTable var="car" value="#{dtSortView.cars1}" style="margin-bottom:40px">
+            <p:dataTable var="user" value="#{userController.users}" style="margin-bottom:40px">
                 <f:facet name="header">
-                    Single Column Sort
+                    Klubo narių anketos
                 </f:facet>
-                <p:column headerText="Id" sortBy="#{car.id}">
-                    <h:outputText value="#{car.id}" />
+                <p:column headerText="El. paštas" sortBy="#{user.email}">
+                    <h:outputText value="#{user.email}" />
                 </p:column>
 
-                <p:column headerText="Year" sortBy="#{car.year}">
-                    <h:outputText value="#{car.year}" />
+                <p:column headerText="Vardas" sortBy="#{user.firstName}">
+                    <h:outputText value="#{user.firstName}" />
                 </p:column>
 
-                <p:column headerText="Brand" sortBy="#{car.brand}">
-                    <h:outputText value="#{car.brand}" />
+                <p:column headerText="Pavardė" sortBy="#{user.lastName}">
+                    <h:outputText value="#{user.lastName}" />
                 </p:column>
 
-                <p:column headerText="Color" sortBy="#{car.color}">
-                    <h:outputText value="#{car.color}" />
+                <p:column headerText="Taškai" sortBy="#{user.points}">
+                    <h:outputText value="#{user.points}" />
                 </p:column>
             </p:dataTable>
         </h:form>

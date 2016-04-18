@@ -7,6 +7,9 @@ import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserViewHelperImpl implements UserViewHelper {
 	@Inject
 	private UserDao userDao;
@@ -38,6 +41,27 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
 
+		return view;
+	}
+
+	@Override
+	public List<UserView> getAllUsers() {
+		List<User> entities = userDao.getAllUsers();;
+		List<UserView> views = new ArrayList<>();
+		entities.stream().forEach(e -> views.add(buildView(e)));
+		return views;
+	}
+
+	private UserView buildView(User entity){
+		UserView view = new UserView();
+		view.setId(entity.getId());
+		view.setFirstName(entity.getFirstname());
+		view.setLastName(entity.getLastname());
+		view.setEmail(entity.getEmail());
+		view.setApproved(entity.isApproved());
+		view.setArchived(entity.isArchived());
+		view.setPassword(entity.getPassword());
+		view.setPoints(entity.getPoints());
 		return view;
 	}
 
