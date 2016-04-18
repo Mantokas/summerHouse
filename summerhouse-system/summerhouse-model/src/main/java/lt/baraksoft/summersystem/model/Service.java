@@ -5,8 +5,9 @@
  */
 package lt.baraksoft.summersystem.model;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,132 +30,126 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "services")
-@NamedQueries({
-    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
-    @NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id"),
-    @NamedQuery(name = "Service.findByTitle", query = "SELECT s FROM Service s WHERE s.title = :title"),
-    @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
-    @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"),
-    @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.isArchived = :isArchived")})
+@NamedQueries({ @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"), @NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id"),
+		@NamedQuery(name = "Service.findByTitle", query = "SELECT s FROM Service s WHERE s.title = :title"), @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
+		@NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"), @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.isArchived = :isArchived") })
 public class Service implements IEntity<Integer> {
+	private static final long serialVersionUID = -3185403197832964682L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id")
+	private Integer id;
+	@Size(max = 500)
+	@Column(name = "title")
+	private String title;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "price")
+	private BigDecimal price;
+	@Size(max = 2000)
+	@Column(name = "description")
+	private String description;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "is_archived")
+	private boolean isArchived;
+	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") })
+	@ManyToMany
+	private List<Summerhouse> summerhouseList;
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Size(max = 500)
-    @Column(name = "title")
-    private String title;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "price")
-    private int price;
-    @Size(max = 2000)
-    @Column(name = "description")
-    private String description;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "is_archived")
-    private boolean isArchived;
-    @JoinTable(name = "summerhouse_services", joinColumns = {
-        @JoinColumn(name = "service_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "summerhouse_id", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Summerhouse> summerhouseList;
+	@Version
+	private Integer version;
 
-    @Version
-    private Integer version;
+	public Service() {
+	}
 
-    public Service() {
-    }
+	public Service(Integer id) {
+		this.id = id;
+	}
 
-    public Service(Integer id) {
-        this.id = id;
-    }
+	public Service(Integer id, BigDecimal price, boolean isArchived) {
+		this.id = id;
+		this.price = price;
+		this.isArchived = isArchived;
+	}
 
-    public Service(Integer id, int price, boolean isArchived) {
-        this.id = id;
-        this.price = price;
-        this.isArchived = isArchived;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getVersion() {
+		return version;
+	}
 
-    public Integer getVersion() {
-        return version;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public int getPrice() {
-        return price;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public boolean getIsArchived() {
+		return isArchived;
+	}
 
-    public boolean getIsArchived() {
-        return isArchived;
-    }
+	public void setIsArchived(boolean isArchived) {
+		this.isArchived = isArchived;
+	}
 
-    public void setIsArchived(boolean isArchived) {
-        this.isArchived = isArchived;
-    }
+	public List<Summerhouse> getSummerhouseList() {
+		return summerhouseList;
+	}
 
-    public List<Summerhouse> getSummerhouseList() {
-        return summerhouseList;
-    }
+	public void setSummerhouseList(List<Summerhouse> summerhouseList) {
+		this.summerhouseList = summerhouseList;
+	}
 
-    public void setSummerhouseList(List<Summerhouse> summerhouseList) {
-        this.summerhouseList = summerhouseList;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof Service)) {
+			return false;
+		}
+		Service other = (Service) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Service)) {
-            return false;
-        }
-        Service other = (Service) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public String toString() {
+		return "lt.baraksoft.summersystem.model.Service[ id=" + id + " ]";
+	}
 
-    @Override
-    public String toString() {
-        return "lt.baraksoft.summersystem.model.Service[ id=" + id + " ]";
-    }
-    
 }

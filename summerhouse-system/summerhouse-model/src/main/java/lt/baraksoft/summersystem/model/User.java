@@ -34,8 +34,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.isApproved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
 		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived") })
 public class User implements IEntity<Integer> {
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -887896587150521740L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)

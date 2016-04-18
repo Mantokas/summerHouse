@@ -5,7 +5,6 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-//Metamodelius reiketu auto generuoti, idk how, bet nesudetinga reik googlint
 @Generated(value = "Dali", date = "2016-03-19T10:09:57.650+0300")
 @StaticMetamodel(User.class)
 public class User_ {

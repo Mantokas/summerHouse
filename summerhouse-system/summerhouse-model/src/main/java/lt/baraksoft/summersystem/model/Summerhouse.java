@@ -38,8 +38,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "Summerhouse.findByCapacity", query = "SELECT s FROM Summerhouse s WHERE s.capacity = :capacity"), @NamedQuery(name = "Summerhouse.findByDateFrom", query = "SELECT s FROM Summerhouse s WHERE s.dateFrom = :dateFrom"),
 		@NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"), @NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.isArchived = :isArchived") })
 public class Summerhouse implements IEntity<Integer> {
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3157689849405825264L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
