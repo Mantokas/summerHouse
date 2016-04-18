@@ -20,6 +20,14 @@ public class GenericDao<T extends IEntity<K>, K extends Serializable> implements
 	@PersistenceContext(unitName = "summerhousePU")
 	private EntityManager entityManager;
 
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
 	private final Class<T> entityClass;
 
 	@SuppressWarnings("unchecked")

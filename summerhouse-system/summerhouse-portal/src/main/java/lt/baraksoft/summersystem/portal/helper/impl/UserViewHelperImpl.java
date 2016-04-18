@@ -8,7 +8,6 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 public class UserViewHelperImpl implements UserViewHelper {
-
 	@Inject
 	private UserDao userDao;
 
