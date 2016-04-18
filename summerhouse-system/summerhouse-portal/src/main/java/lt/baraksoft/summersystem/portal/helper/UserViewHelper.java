@@ -8,4 +8,6 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public interface UserViewHelper {
 
 	void save(UserView view);
+
+	UserView getUser(Integer id);
 }

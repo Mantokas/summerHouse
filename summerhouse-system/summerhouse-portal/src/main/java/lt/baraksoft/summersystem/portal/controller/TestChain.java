@@ -6,19 +6,32 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lt.baraksoft.summersystem.dao.UserDao;
-import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Named
 @Stateless
 public class TestChain {
 	@Inject
-	private UserDao userDao;
-	private User user;
+	private UserViewHelper userViewHelper;
+	private UserView userView;
 	private String text = "stuff";
 
-	public void doStuff() {
-		System.out.println(this.getClass().getName() + " *******");
+	public void save() {
+		UserView userView = new UserView();
+		userView.setFirstName("Jau issaugotas");
+		userView.setLastName("Jau issaugotas");
+		userView.setApproved(false);
+		userView.setArchived(false);
+		userView.setPassword("testt");
+		userView.setPoints(30);
+		userView.setEmail("testttt");
+		userViewHelper.save(userView);
+	}
+
+	public void showSaved() {
+		userView = userViewHelper.getUser(1);
+		System.out.println(userView.toString());
 	}
 
 	public String getText() {
@@ -31,7 +44,7 @@ public class TestChain {
 
 	@PostConstruct
 	public void init() {
-		System.out.println(toString() + " constructed component 2. " + userDao.getClass().getName());
+		System.out.println(toString() + " constructed component 2. ");
 	}
 
 	@PreDestroy
@@ -39,12 +52,12 @@ public class TestChain {
 		System.out.println(toString() + " ready to die comp 2.");
 	}
 
-	public User getUser() {
-		return user;
+	public UserView getUserView() {
+		return userView;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserView(UserView userView) {
+		this.userView = userView;
 	}
 
 	// public UserDaoImpl getUserDao() {

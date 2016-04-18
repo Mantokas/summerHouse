@@ -9,7 +9,11 @@
 	<h:form>
 		<h:commandButton value="Login" type="submit"
 			action = "#{navigationController.goToLogin}" immediate="true"/>
-                        Labas
+		<h:commandButton value="Save user" type="submit"
+			action = "#{testChain.save}" immediate="true"/>
+		<h:commandButton value="Save user" type="submit"
+			action = "#{testChain.showSaved}" immediate="true"/>
+
 	</h:form>
 </h:body>
 </html>

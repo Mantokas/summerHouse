@@ -17,7 +17,24 @@ public class UserViewHelperImpl implements UserViewHelper {
 		User entity = view.getId() != null ? userDao.get(view.getId()) : new User();
 		entity.setFirstname(view.getFirstName());
 		entity.setLastname(view.getLastName());
+		entity.setEmail(view.getEmail());
+		entity.setApproved(view.isApproved());
+		entity.setIsArchived(view.isArchived());
+		entity.setPassword(view.getPassword());
+		entity.setPoints(view.getPoints());
+		entity.setId(1);
 		userDao.save(entity);
+	}
+
+	@Override
+	public UserView getUser(Integer id) {
+		User entity = userDao.get(id);
+
+		UserView view = new UserView();
+		view.setId(entity.getId());
+		view.setFirstName(entity.getFirstname());
+
+		return view;
 	}
 
 }

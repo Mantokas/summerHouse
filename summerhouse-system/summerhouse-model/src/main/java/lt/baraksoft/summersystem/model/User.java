@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"), @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
 		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"), @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.isApproved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
+		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.approved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
 		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived") })
 public class User implements IEntity<Integer> {
 	private static final long serialVersionUID = -887896587150521740L;
@@ -59,11 +59,10 @@ public class User implements IEntity<Integer> {
 	@Size(min = 5, max = 128)
 	@Column(name = "password")
 	private String password;
-	// Debiliskas field'as reik pagalvot kaip i boolean pakonvertint
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_approved")
-	private boolean isApproved;
+	private boolean approved;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "points")
@@ -92,7 +91,7 @@ public class User implements IEntity<Integer> {
 		this.id = id;
 		this.email = email;
 		this.password = password;
-		this.isApproved = isApproved;
+		this.approved = isApproved;
 		this.points = points;
 		this.isArchived = isArchived;
 	}
@@ -141,12 +140,12 @@ public class User implements IEntity<Integer> {
 		this.password = password;
 	}
 
-	public boolean getIsApproved() {
-		return isApproved;
+	public boolean isApproved() {
+		return approved;
 	}
 
-	public void setIsApproved(boolean isApproved) {
-		this.isApproved = isApproved;
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	public int getPoints() {
