@@ -10,4 +10,6 @@ public interface UserDao {
     void findUserByEmailAndPassword(String email, String password);
 
 	void save(User entity);
+
+	User get(Integer id);
 }

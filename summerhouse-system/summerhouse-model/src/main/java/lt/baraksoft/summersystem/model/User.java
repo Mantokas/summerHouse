@@ -28,16 +28,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-		@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
-		@NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
-		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-		@NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.isApproved = :isApproved"),
-		@NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
-		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"),
-		@NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived") })
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"), @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
+		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"), @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.isApproved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
+		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived") })
 public class User implements IEntity<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -69,7 +64,7 @@ public class User implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_approved")
-	private int isApproved;
+	private boolean isApproved;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "points")
@@ -80,7 +75,7 @@ public class User implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
-	private int isArchived;
+	private boolean isArchived;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
 	private List<Reservation> reservationList;
 
@@ -94,7 +89,7 @@ public class User implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public User(Integer id, String email, String password, int isApproved, int points, int isArchived) {
+	public User(Integer id, String email, String password, boolean isApproved, int points, boolean isArchived) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -147,11 +142,11 @@ public class User implements IEntity<Integer> {
 		this.password = password;
 	}
 
-	public int getIsApproved() {
+	public boolean getIsApproved() {
 		return isApproved;
 	}
 
-	public void setIsApproved(int isApproved) {
+	public void setIsApproved(boolean isApproved) {
 		this.isApproved = isApproved;
 	}
 
@@ -171,11 +166,11 @@ public class User implements IEntity<Integer> {
 		this.groupNumber = groupNumber;
 	}
 
-	public int getIsArchived() {
+	public boolean getIsArchived() {
 		return isArchived;
 	}
 
-	public void setIsArchived(int isArchived) {
+	public void setIsArchived(boolean isArchived) {
 		this.isArchived = isArchived;
 	}
 
