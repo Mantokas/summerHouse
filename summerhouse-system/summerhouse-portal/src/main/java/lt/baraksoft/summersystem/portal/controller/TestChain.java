@@ -31,7 +31,9 @@ public class TestChain {
 
 	public void showSaved() {
 		userView = userViewHelper.getUser(1);
-		System.out.println(userView.toString());
+		System.out.println("Patvirtintas: " + userView.isApproved());
+		userView.setApproved(!userView.isApproved());
+		userViewHelper.save(userView);
 	}
 
 	public String getText() {
