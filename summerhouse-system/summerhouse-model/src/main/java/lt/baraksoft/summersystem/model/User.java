@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"), @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
 		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.approved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
-		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.isArchived = :isArchived") })
+		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.archived = :isArchived") })
 public class User implements IEntity<Integer> {
 	private static final long serialVersionUID = -887896587150521740L;
 	@Id
@@ -73,7 +73,7 @@ public class User implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
-	private boolean isArchived;
+	private boolean archived;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
 	private List<Reservation> reservationList;
 
@@ -87,13 +87,13 @@ public class User implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public User(Integer id, String email, String password, boolean isApproved, int points, boolean isArchived) {
+	public User(Integer id, String email, String password, boolean approved, int points, boolean archived) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
-		this.approved = isApproved;
+		this.approved = approved;
 		this.points = points;
-		this.isArchived = isArchived;
+		this.archived = archived;
 	}
 
 	public Integer getId() {
@@ -164,12 +164,12 @@ public class User implements IEntity<Integer> {
 		this.groupNumber = groupNumber;
 	}
 
-	public boolean getIsArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setIsArchived(boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 	public List<Reservation> getReservationList() {

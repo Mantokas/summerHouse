@@ -18,7 +18,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setLastname(view.getLastName());
 		entity.setEmail(view.getEmail());
 		entity.setApproved(view.isApproved());
-		entity.setIsArchived(view.isArchived());
+		entity.setArchived(view.isArchived());
 		entity.setPassword(view.getPassword());
 		entity.setPoints(view.getPoints());
 		entity.setId(1);
@@ -32,6 +32,9 @@ public class UserViewHelperImpl implements UserViewHelper {
 		UserView view = new UserView();
 		view.setId(entity.getId());
 		view.setFirstName(entity.getFirstname());
+		view.setLastName(entity.getLastname());
+		view.setApproved(entity.isApproved());
+		view.setArchived(entity.isArchived());
 
 		return view;
 	}
