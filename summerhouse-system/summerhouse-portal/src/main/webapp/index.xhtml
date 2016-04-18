@@ -7,10 +7,9 @@
 </h:head>
 <h:body>
 	<h:form>
-		<h:commandButton value="submit" type="submit"
-			action="#{testChain.doStuff()}" />
-<!-- 		<h:outputLabel value="#{pirmasKomponentas.text}" /> -->
-                        Labas as tekstas
+		<h:commandButton value="Login" type="submit"
+			action = "#{navigationController.goToLogin}" immediate="true"/>
+                        Labas
 	</h:form>
 </h:body>
 </html>
