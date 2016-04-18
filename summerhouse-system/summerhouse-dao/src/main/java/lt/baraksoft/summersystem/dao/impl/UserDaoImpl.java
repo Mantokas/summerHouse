@@ -11,4 +11,8 @@ import lt.baraksoft.summersystem.model.User;
 @Stateless
 public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 
+    @Override
+    public void findUserByEmailAndPassword(String email, String password) {
+
+    }
 }

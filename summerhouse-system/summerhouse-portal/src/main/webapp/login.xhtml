@@ -12,13 +12,10 @@
         <h:form>
             <h1><h:outputText value="LOGIN"/></h1>
             <h:panelGrid columns="2">
-                <h:outputLabel value="Username:"/>
-                <h:inputText id="username" value="#{userController.usersView.username}" title="Username" />
+                <h:outputLabel value="E-mail address:"/>
+                <h:inputText id="username" value="#{userController.email}" title="E-mail" />
                 <h:outputLabel value="Password:"/>
-                <h:inputText id="firstName" value="#{userController.usersView.firstname}" title="Password" />
-
-
-
+                <h:inputText id="firstName" value="#{userController.password}" title="Password"/>
             </h:panelGrid>
             <h:commandButton action="#{userController.loginUser}" value="Login"/>
 
