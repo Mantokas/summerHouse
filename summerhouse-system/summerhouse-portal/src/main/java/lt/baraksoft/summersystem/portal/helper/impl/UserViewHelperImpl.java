@@ -62,6 +62,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setArchived(entity.isArchived());
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
+		view.setGroupNumber(entity.getGroupNumber());
 		return view;
 	}
 

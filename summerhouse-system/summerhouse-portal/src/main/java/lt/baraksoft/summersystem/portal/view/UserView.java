@@ -13,6 +13,7 @@ public class UserView implements Serializable {
 	private boolean approved;
 	private boolean archived;
 	private int points;
+	private int groupNumber;
 
 	public Integer getId() {
 		return id;
@@ -78,4 +79,11 @@ public class UserView implements Serializable {
 		this.email = email;
 	}
 
+	public int getGroupNumber() {
+		return groupNumber;
+	}
+
+	public void setGroupNumber(int groupNumber) {
+		this.groupNumber = groupNumber;
+	}
 }

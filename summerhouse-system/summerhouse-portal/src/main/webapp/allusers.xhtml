@@ -28,6 +28,10 @@
                     <h:outputText value="#{user.lastName}" />
                 </p:column>
 
+                <p:column headerText="Grupės nr." sortBy="#{user.groupNumber}">
+                    <h:outputText value="#{user.groupNumber}" />
+                </p:column>
+
                 <p:column headerText="Taškai" sortBy="#{user.points}">
                     <h:outputText value="#{user.points}" />
                 </p:column>
