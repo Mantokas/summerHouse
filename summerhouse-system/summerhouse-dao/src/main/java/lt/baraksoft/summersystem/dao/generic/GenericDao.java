@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.dao.generic;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,10 +14,12 @@ import lt.baraksoft.summersystem.model.IEntity;
  */
 
 // Butu neblogai kazkoki equalsAndHashProvideri extendint
-public abstract class GenericDao<T extends IEntity<K>, K extends Serializable> implements IGenericDao<T, K> {
+@Stateless
+public class GenericDao<T extends IEntity<K>, K extends Serializable> implements IGenericDao<T, K> {
 
 	@PersistenceContext(unitName = "summerhousePU")
 	private EntityManager entityManager;
+
 	private final Class<T> entityClass;
 
 	@SuppressWarnings("unchecked")
@@ -57,5 +60,4 @@ public abstract class GenericDao<T extends IEntity<K>, K extends Serializable> i
 		}
 		return entityManager.merge(entity);
 	}
-
 }
