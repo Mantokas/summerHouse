@@ -15,8 +15,9 @@ import java.util.List;
  * Created by LaurynasC on 2016-04-19.
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class SummerhouseController implements Serializable{
+
     @Inject
     private SummerhouseViewHelper summerhouseViewHelper;
 

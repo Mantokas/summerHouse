@@ -24,6 +24,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setArchived(view.isArchived());
 		entity.setPassword(view.getPassword());
 		entity.setPoints(view.getPoints());
+		entity.setGroupNumber(view.getGroupNumber());
 		userDao.save(entity);
 	}
 

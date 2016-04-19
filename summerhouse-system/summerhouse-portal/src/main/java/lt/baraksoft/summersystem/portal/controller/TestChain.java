@@ -26,6 +26,7 @@ public class TestChain {
 		userView.setPassword("testt");
 		userView.setPoints(30);
 		userView.setEmail("testttt");
+		userView.setGroupNumber(1);
 		userViewHelper.save(userView);
 	}
 

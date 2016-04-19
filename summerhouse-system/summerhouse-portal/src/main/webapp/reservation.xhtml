@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Rezervacija</title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <p:dataTable id="singleDT" var="summerhouse" value="#{reservationController.selectedSummerhouse}">
+            <f:facet name="header">
+                Pasirinktas vasarnamis
+            </f:facet>
+            <p:column headerText="Id">
+                <h:outputText value="#{summerhouse.id}"/>
+            </p:column>
+            <p:column headerText="Pavadinimas">
+                <h:outputText value="#{summerhouse.title}"/>
+            </p:column>
+            <p:column headerText="Adresas">
+                <h:outputText value="#{summerhouse.address}"/>
+            </p:column>
+            <p:column headerText="Kaina">
+                <h:outputText value="#{summerhouse.price}"/>
+            </p:column>
+        </p:dataTable>
+
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
+        <p:calendar id="button1" value="#{reservationController.dataNuo}" showOn="button" pattern="yyyy-MM-dd"
+                    readonlyInput="true" mindate="#{reservationController.today}" maxdate="#{reservationController.validationDateTo}">
+            <p:ajax event="dateSelect" listener="#{reservationController.onDateFromSelect}" update="msgs"/>
+        </p:calendar>
+
+        <p:outputLabel for="button2" value="Rezervuoti iki:"/>
+        <p:calendar id="button2" value="#{reservationController.dataIki}" showOn="button" pattern="yyyy-MM-dd"
+                    readonlyInput="true" mindate="#{reservationController.validationDateFrom}">
+            <p:ajax event="dateSelect" listener="#{reservationController.onDateToSelect}" update="msgs"/>
+        </p:calendar>
+    </h:form>
+</h:body>
+</html>

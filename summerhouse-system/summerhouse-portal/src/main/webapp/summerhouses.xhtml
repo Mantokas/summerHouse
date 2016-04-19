@@ -32,8 +32,10 @@
                     <h:outputText value="#{summerhouse.price}"/>
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton process="singleDT" update=":form:summerhousesDetail" icon="ui-icon-search" value="View"
+                    <p:commandButton process="singleDT" update=":form:summerhousesDetail" icon="ui-icon-search" value="Peržiūrėti"
                                      oncomplete="PF('summerhouseDialog').show()"/>
+                    <p:commandButton process="singleDT" value="Rezervuoti" action="#{navigationController.goToReservation}">
+                    </p:commandButton>
                 </f:facet>
             </p:dataTable>
             <p:dialog header="Vasarnamio info" widgetVar="summerhouseDialog" modal="true" showEffect="fade" hideEffect="fade"

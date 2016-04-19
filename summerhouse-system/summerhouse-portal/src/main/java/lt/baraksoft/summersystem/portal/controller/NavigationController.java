@@ -18,4 +18,7 @@ public class NavigationController {
     public String goToSummerhousesList(){
         return "toSummer";
     }
+    public String goToReservation(){
+        return "toReservation";
+    }
 }
