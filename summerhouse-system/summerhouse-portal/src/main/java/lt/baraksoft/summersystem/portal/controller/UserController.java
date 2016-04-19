@@ -18,25 +18,12 @@ public class UserController {
 	@Inject
 	private UserViewHelper userViewHelper;
 
-	private String email;
-	private String password;
 	private List<UserView> users;
 
 	@PostConstruct
 	public void init() {
 		users = userViewHelper.getAllUsers();
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void loginUser(String email, String password) {}
-
 
 	public List<UserView> getUsers() {
 		return users;

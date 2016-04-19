@@ -12,7 +12,10 @@ public class NavigationController {
     public String goToLogin(){
         return "toLogin";
     }
-    public String goToSummerhouses(){
+    public String goToUsersList(){
+        return "toUsers";
+    }
+    public String goToSummerhousesList(){
         return "toSummer";
     }
 }

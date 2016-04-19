@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Vasarnamiai</title>
+</h:head>
+
+<h:body>
+    <f:view>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+            <p:dataTable id="singleDT" var="summerhouse" value="#{summerhouseController.summerhousesList}"
+                         selectionMode="single" selection="#{summerhouseController.selectedSummerhouse}"
+                         rowKey="#{summerhouse.id}">
+                <f:facet name="header">
+                    Vasarnamiai
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{summerhouse.id}"/>
+                </p:column>
+                <p:column headerText="Pavadinimas">
+                    <h:outputText value="#{summerhouse.title}"/>
+                </p:column>
+                <p:column headerText="Adresas">
+                    <h:outputText value="#{summerhouse.address}"/>
+                </p:column>
+                <p:column headerText="Kaina">
+                    <h:outputText value="#{summerhouse.price}"/>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton process="singleDT" update=":form:summerhousesDetail" icon="ui-icon-search" value="View"
+                                     oncomplete="PF('summerhouseDialog').show()"/>
+                </f:facet>
+            </p:dataTable>
+            <p:dialog header="Vasarnamio info" widgetVar="summerhouseDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="summerhousesDetail" style="text-align:center;">
+                    <p:panelGrid columns="2" rendered="#{not empty summerhouseController.selectedSummerhouse}"
+                                 columnClasses="label,value">
+
+                        <h:outputText value="Pavadinimas:"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.title}"/>
+
+                        <h:outputText value="Adresas:"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.address}"/>
+
+                        <h:outputText value="Aprašymas:"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.description}"/>
+
+                        <h:outputText value="Maksimalus vietų skaičius"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.capacity}"/>
+
+                        <h:outputText value="Galima rezervuoti nuo"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.date_from}"/>
+
+                        <h:outputText value="Galima rezervuoti iki"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.date_to}"/>
+
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </f:view>
+</h:body>
+</html>

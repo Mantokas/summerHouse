@@ -14,8 +14,11 @@
 		<h:commandButton value="Save user" type="submit"
 			action = "#{testChain.showSaved}" immediate="true"/>
 
-		<h:commandButton value="Summerhouse" type="submit"
-						 action = "#{navigationController.goToSummerhouses}" immediate="true"/>
+		<h:commandButton value="Vartotojai" type="submit"
+						 action = "#{navigationController.goToUsersList}" immediate="true"/>
+
+		<h:commandButton value="Vasarnamiai" type="submit"
+						 action = "#{navigationController.goToSummerhousesList}" immediate="true"/>
 
 	</h:form>
 </h:body>
