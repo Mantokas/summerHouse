@@ -8,10 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -25,7 +22,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  * Created by LaurynasC on 2016-04-19.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
@@ -37,8 +34,6 @@ public class ReservationController implements Serializable {
 
 	private Date reservationFrom;
 	private Date reservationTo;
-	private Date validationDateFrom;
-	private Date validationDateTo;
 	private Date today = new Date();
 	private List<ReservationView> reservationsList;
 
@@ -57,26 +52,25 @@ public class ReservationController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		setReservationFrom(today);
+		reservationFrom = today;
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
-	public void onDateFromSelect(SelectEvent event) {
-		Date temp = (Date) event.getObject();
-		setValidationDateFrom(temp);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
-	}
-
-	public void onDateToSelect(SelectEvent event) {
-		Date temp = (Date) event.getObject();
-		setValidationDateTo(temp);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
-	}
-	
+//	public void onDateFromSelect(SelectEvent event) {
+//		Date temp = (Date) event.getObject();
+//		setValidationDateFrom(temp);
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
+//	}
+//
+//	public void onDateToSelect(SelectEvent event) {
+//		Date temp = (Date) event.getObject();
+//		setValidationDateTo(temp);
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
+//	}
 
 	public Date getReservationTo() {
 		return reservationTo;
@@ -105,22 +99,6 @@ public class ReservationController implements Serializable {
 	public Date getToday() {
 		Calendar c = Calendar.getInstance();
 		return c.getTime();
-	}
-
-	public Date getValidationDateFrom() {
-		return validationDateFrom;
-	}
-
-	public void setValidationDateFrom(Date validationDateFrom) {
-		this.validationDateFrom = validationDateFrom;
-	}
-
-	public Date getValidationDateTo() {
-		return validationDateTo;
-	}
-
-	public void setValidationDateTo(Date validationDateTo) {
-		this.validationDateTo = validationDateTo;
 	}
 
 	public void setToday(Date today) {
