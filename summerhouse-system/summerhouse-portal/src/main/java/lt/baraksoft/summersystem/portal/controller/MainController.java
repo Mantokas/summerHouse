@@ -42,7 +42,7 @@ public class MainController {
 		view.setLastName("Pavardenis " + new Random().nextInt(100));
 		view.setApproved(false);
 		view.setArchived(false);
-		view.setPassword("aaa" + new Random().nextInt(100));
+		view.setPassword("aaa" + new Random().nextInt(10));
 		view.setPoints(new Random().nextInt(100));
 		view.setEmail(new Random().nextInt(100) + " aaa@email.lt");
 		view.setGroupNumber(new Random().nextInt(100));
