@@ -1,7 +1,6 @@
 package lt.baraksoft.summersystem.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
@@ -16,5 +15,5 @@ public class Reservation_ {
 	public static volatile SingularAttribute<Reservation, Boolean> isApproved;
 	public static volatile SingularAttribute<Reservation, Boolean> isArchived;
 	public static volatile SingularAttribute<Reservation, User> userId;
-	public static volatile SingularAttribute<Reservation, Summerhouse> summerhouseId;
+	public static volatile SingularAttribute<Reservation, Summerhouse> summerhouse;
 }

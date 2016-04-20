@@ -14,7 +14,7 @@ public class Service_ {
 	public static volatile SingularAttribute<Service, String> title;
 	public static volatile SingularAttribute<Service, BigDecimal> price;
 	public static volatile SingularAttribute<Service, String> description;
-	public static volatile SingularAttribute<Service, Boolean> isArchived;
+	public static volatile SingularAttribute<Service, Boolean> archived;
 	public static volatile SetAttribute<Service, Summerhouse> summerhouseList;
 
 }

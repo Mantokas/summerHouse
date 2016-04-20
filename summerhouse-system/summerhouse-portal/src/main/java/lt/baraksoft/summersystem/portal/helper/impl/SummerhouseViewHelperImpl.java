@@ -26,15 +26,29 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		return views;
 	}
 
+	@Override
+	public void save(SummerhouseView view) {
+		Summerhouse entity = view.getId() != null ? summerhouseDao.get(view.getId()) : new Summerhouse();
+		entity.setAddress(view.getAddress());
+		entity.setCapacity(view.getCapacity());
+		entity.setDateFrom(view.getDateFrom());
+		entity.setDateTo(view.getDateTo());
+		entity.setDescription(view.getDescription());
+		entity.setArchived(view.isArchived());
+		entity.setPrice(view.getPrice());
+		entity.setTitle(view.getTitle());
+		summerhouseDao.save(entity);
+	}
+
 	private SummerhouseView buildView(Summerhouse entity) {
 		SummerhouseView view = new SummerhouseView();
 		view.setId(entity.getId());
 		view.setAddress(entity.getAddress());
 		view.setCapacity(entity.getCapacity());
-		view.setDate_from(entity.getDateFrom());
-		view.setDate_to(entity.getDateTo());
+		view.setDateFrom(entity.getDateFrom());
+		view.setDateTo(entity.getDateTo());
 		view.setDescription(entity.getDescription());
-		view.setIsArchived(entity.getIsArchived());
+		view.setArchived(entity.isArchived());
 		view.setPrice(entity.getPrice());
 		view.setTitle(entity.getTitle());
 		return view;

@@ -1,18 +1,15 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.*;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
-import org.primefaces.event.SelectEvent;
 
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
@@ -26,9 +23,6 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
-	@ManagedProperty(value = "#{summerhouseController.selectedSummerhouse}")
-	private SummerhouseView selectedSummerhouse;
-
 	@Inject
 	ReservationViewHelper reservationViewHelper;
 
@@ -36,56 +30,41 @@ public class ReservationController implements Serializable {
 	private Date reservationTo;
 	private Date today = new Date();
 	private List<ReservationView> reservationsList;
-
-	// public Date dateFromSelect;
-	// public Date dateToSelect;
-
-	// public void save(){
-	// ReservationView reservationView = new ReservationView();
-	// reservationView.setDate_from();
-	// reservationView.setDate_to();
-	// reservationView.setIsApproved(false);
-	// reservationView.setIsArchived(false);
-	// reservationView.setSummerhouseID(selectedSummerhouse.getId());
-	// reservationView.setUserID();
-	// }
+	private SummerhouseView selectedSummerhouse;
 
 	@PostConstruct
 	public void init() {
 		reservationFrom = today;
+		selectedSummerhouse = (SummerhouseView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("summerhouse");
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
-//	public void onDateFromSelect(SelectEvent event) {
-//		Date temp = (Date) event.getObject();
-//		setValidationDateFrom(temp);
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
-//	}
-//
-//	public void onDateToSelect(SelectEvent event) {
-//		Date temp = (Date) event.getObject();
-//		setValidationDateTo(temp);
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data", format.format(event.getObject())));
-//	}
+	// public void onDateFromSelect(SelectEvent event) {
+	// Date temp = (Date) event.getObject();
+	// setValidationDateFrom(temp);
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	// facesContext.addMessage(null, new
+	// FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data",
+	// format.format(event.getObject())));
+	// }
+	//
+	// public void onDateToSelect(SelectEvent event) {
+	// Date temp = (Date) event.getObject();
+	// setValidationDateTo(temp);
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	// facesContext.addMessage(null, new
+	// FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data",
+	// format.format(event.getObject())));
+	// }
 
 	public Date getReservationTo() {
 		return reservationTo;
 	}
 
-    public Date getReservationFrom() {
-        return reservationFrom;
-    }
-
-	public SummerhouseView getSelectedSummerhouse() {
-		return selectedSummerhouse;
-	}
-
-	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
-		this.selectedSummerhouse = selectedSummerhouse;
+	public Date getReservationFrom() {
+		return reservationFrom;
 	}
 
 	public void setReservationFrom(Date reservationFrom) {
@@ -111,5 +90,13 @@ public class ReservationController implements Serializable {
 
 	public void setReservationsList(List<ReservationView> reservationsList) {
 		this.reservationsList = reservationsList;
+	}
+
+	public SummerhouseView getSelectedSummerhouse() {
+		return selectedSummerhouse;
+	}
+
+	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
+		this.selectedSummerhouse = selectedSummerhouse;
 	}
 }

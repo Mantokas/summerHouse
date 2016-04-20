@@ -10,10 +10,10 @@ public class ReservationView implements Serializable {
 	private static final long serialVersionUID = -3832371726357941392L;
 
 	private Integer id;
-	private LocalDate date_from;
-	private LocalDate date_to;
-	private Boolean isApproved;
-	private Boolean isArchived;
+	private LocalDate dateFrom;
+	private LocalDate dateTo;
+	private boolean archived;
+	private boolean approved;
 	private int summerhouseID;
 	private int userID;
 	private String userFirstname;
@@ -27,36 +27,36 @@ public class ReservationView implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getDate_from() {
-		return date_from;
+	public LocalDate getDateFrom() {
+		return dateFrom;
 	}
 
-	public void setDate_from(LocalDate date_from) {
-		this.date_from = date_from;
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
 	}
 
-	public LocalDate getDate_to() {
-		return date_to;
+	public LocalDate getDateTo() {
+		return dateTo;
 	}
 
-	public void setDate_to(LocalDate date_to) {
-		this.date_to = date_to;
+	public void setDateTo(LocalDate dateTo) {
+		this.dateTo = dateTo;
 	}
 
-	public Boolean getIsApproved() {
-		return isApproved;
+	public boolean isApproved() {
+		return approved;
 	}
 
-	public void setIsApproved(Boolean isApproved) {
-		this.isApproved = isApproved;
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
-	public Boolean getIsArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setIsArchived(Boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 	public int getSummerhouseID() {

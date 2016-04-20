@@ -6,7 +6,6 @@
 package lt.baraksoft.summersystem.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,8 +29,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "reservations")
 @NamedQueries({ @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"), @NamedQuery(name = "Reservation.findById", query = "SELECT r FROM Reservation r WHERE r.id = :id"),
 		@NamedQuery(name = "Reservation.findByDateFrom", query = "SELECT r FROM Reservation r WHERE r.dateFrom = :dateFrom"), @NamedQuery(name = "Reservation.findByDateTo", query = "SELECT r FROM Reservation r WHERE r.dateTo = :dateTo"),
-		@NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.isApproved = :isApproved"),
-		@NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.isArchived = :isArchived") })
+		@NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.approved = :isApproved"),
+		@NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.archived = :isArchived") })
 public class Reservation implements IEntity<Integer> {
 	private static final long serialVersionUID = -1807482193504644095L;
 	@Id
@@ -50,17 +49,17 @@ public class Reservation implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_approved")
-	private boolean isApproved;
+	private boolean approved;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
-	private boolean isArchived;
+	private boolean archived;
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private User user;
 	@JoinColumn(name = "summerhouse_id", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Summerhouse summerhouseId;
+	private Summerhouse summerhouse;
 
 	@Version
 	private Integer version;
@@ -72,12 +71,12 @@ public class Reservation implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public Reservation(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean isApproved, boolean isArchived) {
+	public Reservation(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean approved, boolean archived) {
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.isApproved = isApproved;
-		this.isArchived = isArchived;
+		this.approved = approved;
+		this.archived = archived;
 	}
 
 	public Integer getId() {
@@ -104,20 +103,20 @@ public class Reservation implements IEntity<Integer> {
 		this.dateTo = dateTo;
 	}
 
-	public boolean getIsApproved() {
-		return isApproved;
+	public boolean isApproved() {
+		return approved;
 	}
 
-	public void setIsApproved(boolean isApproved) {
-		this.isApproved = isApproved;
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
-	public boolean getIsArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setIsArchived(boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 	public User getUser() {
@@ -128,12 +127,12 @@ public class Reservation implements IEntity<Integer> {
 		this.user = user;
 	}
 
-	public Summerhouse getSummerhouseId() {
-		return summerhouseId;
+	public Summerhouse getSummerhouse() {
+		return summerhouse;
 	}
 
-	public void setSummerhouseId(Summerhouse summerhouseId) {
-		this.summerhouseId = summerhouseId;
+	public void setSummerhouse(Summerhouse summerhouse) {
+		this.summerhouse = summerhouse;
 	}
 
 	public Integer getVersion() {

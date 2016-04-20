@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
@@ -15,7 +16,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  * Created by LaurynasC on 2016-04-19.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class SummerhouseController implements Serializable {
 	private static final long serialVersionUID = 7327490916016914082L;
 
@@ -28,6 +29,10 @@ public class SummerhouseController implements Serializable {
 	@PostConstruct
 	public void init() {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
+	}
+
+	public void doSelectSummerhouse() {
+		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("summerhouse", selectedSummerhouse);
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {
@@ -44,5 +49,6 @@ public class SummerhouseController implements Serializable {
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
 		this.selectedSummerhouse = selectedSummerhouse;
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
 	}
 }

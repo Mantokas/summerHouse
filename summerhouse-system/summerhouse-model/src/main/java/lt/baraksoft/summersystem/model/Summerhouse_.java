@@ -19,7 +19,7 @@ public class Summerhouse_ {
 	public static volatile SingularAttribute<Summerhouse, Integer> capacity;
 	public static volatile SingularAttribute<Summerhouse, LocalDateTime> dateFrom;
 	public static volatile SingularAttribute<Summerhouse, LocalDateTime> dateTo;
-	public static volatile SingularAttribute<Summerhouse, Boolean> isArchived;
+	public static volatile SingularAttribute<Summerhouse, Boolean> archived;
 	public static volatile SetAttribute<Summerhouse, Reservation> reservationList;
 
 }

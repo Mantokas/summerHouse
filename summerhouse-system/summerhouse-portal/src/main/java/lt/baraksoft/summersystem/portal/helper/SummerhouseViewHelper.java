@@ -13,4 +13,6 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public interface SummerhouseViewHelper {
 
 	List<SummerhouseView> getAllSummerhouses();
+
+	void save(SummerhouseView view);
 }

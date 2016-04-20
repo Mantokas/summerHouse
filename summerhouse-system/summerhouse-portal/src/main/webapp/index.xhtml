@@ -7,18 +7,19 @@
 </h:head>
 <h:body>
 	<h:form>
-		<h:commandButton value="Login" type="submit"
-			action = "#{navigationController.goToLogin}" immediate="true"/>
-		<h:commandButton value="Save user" type="submit"
-			action = "#{testChain.save}" immediate="true"/>
-		<h:commandButton value="Save user" type="submit"
-			action = "#{testChain.showSaved}" immediate="true"/>
+		<h:commandButton value="Sukurti vasarnami" type="submit"
+			action="#{mainController.createSummerhouse}" />
+		<h:commandButton value="Sukurti naudotoja" type="submit"
+			action="#{mainController.createUser}"  />
+		<h:commandButton value="Sukurti rezervacija" type="submit"
+			action="#{mainController.createReservation}"  />
 
 		<h:commandButton value="Vartotojai" type="submit"
-						 action = "#{navigationController.goToUsersList}" immediate="true"/>
+			action="#{navigationController.goToUsersList}" immediate="true" />
 
 		<h:commandButton value="Vasarnamiai" type="submit"
-						 action = "#{navigationController.goToSummerhousesList}" immediate="true"/>
+			action="#{navigationController.goToSummerhousesList}"
+			immediate="true" />
 
 	</h:form>
 </h:body>

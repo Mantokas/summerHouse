@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 @Table(name = "services")
 @NamedQueries({ @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"), @NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id"),
 		@NamedQuery(name = "Service.findByTitle", query = "SELECT s FROM Service s WHERE s.title = :title"), @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
-		@NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"), @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.isArchived = :isArchived") })
+		@NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"), @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.archived = :isArchived") })
 public class Service implements IEntity<Integer> {
 	private static final long serialVersionUID = -3185403197832964682L;
 	@Id
@@ -53,7 +53,7 @@ public class Service implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
-	private boolean isArchived;
+	private boolean archived;
 	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") })
 	@ManyToMany
 	private List<Summerhouse> summerhouseList;
@@ -71,7 +71,7 @@ public class Service implements IEntity<Integer> {
 	public Service(Integer id, BigDecimal price, boolean isArchived) {
 		this.id = id;
 		this.price = price;
-		this.isArchived = isArchived;
+		this.archived = isArchived;
 	}
 
 	public Integer getId() {
@@ -110,12 +110,12 @@ public class Service implements IEntity<Integer> {
 		this.description = description;
 	}
 
-	public boolean getIsArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setIsArchived(boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 	public List<Summerhouse> getSummerhouseList() {

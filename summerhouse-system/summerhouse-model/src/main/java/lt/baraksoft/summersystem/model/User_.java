@@ -13,10 +13,10 @@ public class User_ {
 	public static volatile SingularAttribute<User, String> lastname;
 	public static volatile SingularAttribute<User, String> email;
 	public static volatile SingularAttribute<User, String> password;
-	public static volatile SingularAttribute<User, Boolean> isApproved;
+	public static volatile SingularAttribute<User, Boolean> approved;
 	public static volatile SingularAttribute<User, Integer> points;
 	public static volatile SingularAttribute<User, Integer> groupNumber;
-	public static volatile SingularAttribute<User, Boolean> isArchived;
+	public static volatile SingularAttribute<User, Boolean> archived;
 	public static volatile SetAttribute<User, Reservation> reservationList;
 
 }

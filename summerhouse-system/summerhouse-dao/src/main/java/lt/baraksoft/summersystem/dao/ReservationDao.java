@@ -1,9 +1,10 @@
 package lt.baraksoft.summersystem.dao;
 
-import lt.baraksoft.summersystem.model.Reservation;
+import java.util.List;
 
 import javax.ejb.Local;
-import java.util.List;
+
+import lt.baraksoft.summersystem.model.Reservation;
 
 /**
  * Created by LaurynasC on 2016-04-20.
@@ -11,6 +12,10 @@ import java.util.List;
 @Local
 public interface ReservationDao {
 
-    List<Reservation> getReservationsBySummerhouse(Integer summerhouseID);
+	List<Reservation> getReservationsBySummerhouse(Integer summerhouseID);
+
+	void save(Reservation entity);
+
+	Reservation get(Integer id);
 
 }
