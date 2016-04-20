@@ -1,14 +1,15 @@
 package lt.baraksoft.summersystem.portal.helper;
 
-import lt.baraksoft.summersystem.portal.view.ReservationView;
+import java.util.List;
 
 import javax.ejb.Local;
-import java.util.List;
+
+import lt.baraksoft.summersystem.portal.view.ReservationView;
 
 /**
  * Created by LaurynasC on 2016-04-19.
  */
 @Local
 public interface ReservationViewHelper {
-    List<ReservationView> getReservationsBySummerhouse(Integer summerhouseID);
+	List<ReservationView> getReservationsBySummerhouse(Integer summerhouseID);
 }

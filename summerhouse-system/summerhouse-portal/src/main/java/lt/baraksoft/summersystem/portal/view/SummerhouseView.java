@@ -8,85 +8,87 @@ import java.time.LocalDate;
  * Created by LaurynasC on 2016-04-19.
  */
 public class SummerhouseView implements Serializable {
-    private Integer id;
-    private String address;
-    private Integer capacity;
-    private LocalDate date_from;
-    private LocalDate date_to;
-    private String description;
-    private Boolean isArchived;
-    private BigDecimal price;
-    private String title;
+	private static final long serialVersionUID = 5106422725979527271L;
 
-    public String getAddress() {
-        return address;
-    }
+	private Integer id;
+	private String address;
+	private int capacity;
+	private LocalDate date_from;
+	private LocalDate date_to;
+	private String description;
+	private Boolean isArchived;
+	private BigDecimal price;
+	private String title;
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getCapacity() {
-        return capacity;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
+	public int getCapacity() {
+		return capacity;
+	}
 
-    public LocalDate getDate_from() {
-        return date_from;
-    }
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
 
-    public void setDate_from(LocalDate date_from) {
-        this.date_from = date_from;
-    }
+	public LocalDate getDate_from() {
+		return date_from;
+	}
 
-    public LocalDate getDate_to() {
-        return date_to;
-    }
+	public void setDate_from(LocalDate date_from) {
+		this.date_from = date_from;
+	}
 
-    public void setDate_to(LocalDate date_to) {
-        this.date_to = date_to;
-    }
+	public LocalDate getDate_to() {
+		return date_to;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDate_to(LocalDate date_to) {
+		this.date_to = date_to;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Boolean getIsArchived() {
-        return isArchived;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setIsArchived(Boolean isArchived) {
-        this.isArchived = isArchived;
-    }
+	public Boolean getIsArchived() {
+		return isArchived;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setIsArchived(Boolean isArchived) {
+		this.isArchived = isArchived;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

@@ -68,7 +68,7 @@ public class User implements IEntity<Integer> {
 	@Column(name = "points")
 	private int points;
 	@Column(name = "group_number")
-	private Integer groupNumber;
+	private int groupNumber;
 	// Same here
 	@Basic(optional = false)
 	@NotNull
@@ -156,11 +156,11 @@ public class User implements IEntity<Integer> {
 		this.points = points;
 	}
 
-	public Integer getGroupNumber() {
+	public int getGroupNumber() {
 		return groupNumber;
 	}
 
-	public void setGroupNumber(Integer groupNumber) {
+	public void setGroupNumber(int groupNumber) {
 		this.groupNumber = groupNumber;
 	}
 
