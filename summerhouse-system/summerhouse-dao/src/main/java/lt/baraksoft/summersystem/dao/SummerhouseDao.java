@@ -1,9 +1,10 @@
 package lt.baraksoft.summersystem.dao;
 
-import lt.baraksoft.summersystem.model.Summerhouse;
+import java.util.List;
 
 import javax.ejb.Local;
-import java.util.List;
+
+import lt.baraksoft.summersystem.model.Summerhouse;
 
 /**
  * Created by LaurynasC on 2016-04-19.
@@ -11,6 +12,10 @@ import java.util.List;
 @Local
 public interface SummerhouseDao {
 
-    List<Summerhouse> getAllSummerhouses();
+	List<Summerhouse> getAllSummerhouses();
+
+	void save(Summerhouse entity);
+
+	Summerhouse get(Integer id);
 
 }

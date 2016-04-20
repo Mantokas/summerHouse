@@ -36,7 +36,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "Summerhouse.findByTitle", query = "SELECT s FROM Summerhouse s WHERE s.title = :title"), @NamedQuery(name = "Summerhouse.findByAddress", query = "SELECT s FROM Summerhouse s WHERE s.address = :address"),
 		@NamedQuery(name = "Summerhouse.findByPrice", query = "SELECT s FROM Summerhouse s WHERE s.price = :price"), @NamedQuery(name = "Summerhouse.findByDescription", query = "SELECT s FROM Summerhouse s WHERE s.description = :description"),
 		@NamedQuery(name = "Summerhouse.findByCapacity", query = "SELECT s FROM Summerhouse s WHERE s.capacity = :capacity"), @NamedQuery(name = "Summerhouse.findByDateFrom", query = "SELECT s FROM Summerhouse s WHERE s.dateFrom = :dateFrom"),
-		@NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"), @NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.isArchived = :isArchived") })
+		@NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"), @NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.archived = :isArchived") })
 public class Summerhouse implements IEntity<Integer> {
 	private static final long serialVersionUID = -3157689849405825264L;
 	@Id
@@ -56,9 +56,9 @@ public class Summerhouse implements IEntity<Integer> {
 	@Size(max = 2000)
 	@Column(name = "description")
 	private String description;
-	@Size(min = 2, max = 500)
+
 	@Column(name = "capacity")
-	private Integer capacity;
+	private int capacity;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_from")
@@ -70,10 +70,10 @@ public class Summerhouse implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
-	private boolean isArchived;
+	private boolean archived;
 	@ManyToMany(mappedBy = "summerhouseList")
 	private List<Service> serviceList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouseId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")
 	private List<Reservation> reservationList;
 
 	@Version
@@ -86,11 +86,11 @@ public class Summerhouse implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public Summerhouse(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean isArchived) {
+	public Summerhouse(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean archived) {
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.isArchived = isArchived;
+		this.archived = archived;
 	}
 
 	public Integer getId() {
@@ -137,11 +137,11 @@ public class Summerhouse implements IEntity<Integer> {
 		this.description = description;
 	}
 
-	public Integer getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(Integer capacity) {
+	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 
@@ -161,12 +161,12 @@ public class Summerhouse implements IEntity<Integer> {
 		this.dateTo = dateTo;
 	}
 
-	public boolean getIsArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setIsArchived(boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 	public List<Service> getServiceList() {

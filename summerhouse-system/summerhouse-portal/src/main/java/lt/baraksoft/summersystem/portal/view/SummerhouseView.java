@@ -13,8 +13,8 @@ public class SummerhouseView implements Serializable {
 	private Integer id;
 	private String address;
 	private int capacity;
-	private LocalDate date_from;
-	private LocalDate date_to;
+	private LocalDate dateFrom;
+	private LocalDate dateTo;
 	private String description;
 	private Boolean isArchived;
 	private BigDecimal price;
@@ -44,20 +44,20 @@ public class SummerhouseView implements Serializable {
 		this.capacity = capacity;
 	}
 
-	public LocalDate getDate_from() {
-		return date_from;
+	public LocalDate getDateFrom() {
+		return dateFrom;
 	}
 
-	public void setDate_from(LocalDate date_from) {
-		this.date_from = date_from;
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
 	}
 
-	public LocalDate getDate_to() {
-		return date_to;
+	public LocalDate getDateTo() {
+		return dateTo;
 	}
 
-	public void setDate_to(LocalDate date_to) {
-		this.date_to = date_to;
+	public void setDateTo(LocalDate dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public String getDescription() {
@@ -68,11 +68,11 @@ public class SummerhouseView implements Serializable {
 		this.description = description;
 	}
 
-	public Boolean getIsArchived() {
+	public Boolean isArchived() {
 		return isArchived;
 	}
 
-	public void setIsArchived(Boolean isArchived) {
+	public void setArchived(Boolean isArchived) {
 		this.isArchived = isArchived;
 	}
 

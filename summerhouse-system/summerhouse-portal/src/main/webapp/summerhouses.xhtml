@@ -41,7 +41,7 @@
             <p:dialog header="Vasarnamio info" widgetVar="summerhouseDialog" modal="true" showEffect="fade" hideEffect="fade"
                       resizable="false">
                 <p:outputPanel id="summerhousesDetail" style="text-align:center;">
-                    <p:panelGrid columns="2" rendered="#{not empty summerhouseController.selectedSummerhouse}"
+                    <p:panelGrid columns="2" rendered="#{summerhouseController.selectedSummerhouse ne null}"
                                  columnClasses="label,value">
 
                         <h:outputText value="Pavadinimas:"/>
@@ -57,10 +57,10 @@
                         <h:outputText value="#{summerhouseController.selectedSummerhouse.capacity}"/>
 
                         <h:outputText value="Galima rezervuoti nuo"/>
-                        <h:outputText value="#{summerhouseController.selectedSummerhouse.date_from}"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.dateFrom}"/>
 
                         <h:outputText value="Galima rezervuoti iki"/>
-                        <h:outputText value="#{summerhouseController.selectedSummerhouse.date_to}"/>
+                        <h:outputText value="#{summerhouseController.selectedSummerhouse.dateTo}"/>
 
                     </p:panelGrid>
                 </p:outputPanel>

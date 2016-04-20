@@ -11,5 +11,9 @@ import lt.baraksoft.summersystem.portal.view.ReservationView;
  */
 @Local
 public interface ReservationViewHelper {
+
 	List<ReservationView> getReservationsBySummerhouse(Integer summerhouseID);
+
+	void save(ReservationView view);
+
 }
