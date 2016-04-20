@@ -5,6 +5,7 @@
  */
 package lt.baraksoft.summersystem.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
@@ -41,11 +42,11 @@ public class Reservation implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_from")
-	private LocalDateTime dateFrom;
+	private LocalDate dateFrom;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_to")
-	private LocalDateTime dateTo;
+	private LocalDate dateTo;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_approved")
@@ -56,7 +57,7 @@ public class Reservation implements IEntity<Integer> {
 	private boolean isArchived;
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private User userId;
+	private User user;
 	@JoinColumn(name = "summerhouse_id", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Summerhouse summerhouseId;
@@ -71,7 +72,7 @@ public class Reservation implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public Reservation(Integer id, LocalDateTime dateFrom, LocalDateTime dateTo, boolean isApproved, boolean isArchived) {
+	public Reservation(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean isApproved, boolean isArchived) {
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
@@ -87,19 +88,19 @@ public class Reservation implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public LocalDateTime getDateFrom() {
+	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(LocalDateTime dateFrom) {
+	public void setDateFrom(LocalDate dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public LocalDateTime getDateTo() {
+	public LocalDate getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(LocalDateTime dateTo) {
+	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
 	}
 
@@ -119,12 +120,12 @@ public class Reservation implements IEntity<Integer> {
 		this.isArchived = isArchived;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Summerhouse getSummerhouseId() {

@@ -32,16 +32,30 @@
         <p:growl id="msgs" showDetail="true"/>
 
         <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
-        <p:calendar id="button1" value="#{reservationController.dataNuo}" showOn="button" pattern="yyyy-MM-dd"
+        <p:calendar id="button1" value="#{reservationController.reservationFrom}" showOn="button" pattern="yyyy-MM-dd"
                     readonlyInput="true" mindate="#{reservationController.today}" maxdate="#{reservationController.validationDateTo}">
-            <p:ajax event="dateSelect" listener="#{reservationController.onDateFromSelect}" update=":form:button2"/>
+            <p:ajax event="dateSelect" listener="#{reservationController.onDateFromSelect}" update=":form:button2,msgs"/>
         </p:calendar>
 
         <p:outputLabel for="button2" value="Rezervuoti iki:"/>
-        <p:calendar id="button2" value="#{reservationController.dataIki}" showOn="button" pattern="yyyy-MM-dd"
+        <p:calendar id="button2" value="#{reservationController.reservationTo}" showOn="button" pattern="yyyy-MM-dd"
                     readonlyInput="true" mindate="#{reservationController.validationDateFrom}">
-            <p:ajax event="dateSelect" listener="#{reservationController.onDateToSelect}" update=":form:button1"/>
+            <p:ajax event="dateSelect" listener="#{reservationController.onDateToSelect}" update=":form:button1,msgs"/>
         </p:calendar>
     </h:form>
+    <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
+        <f:facet name="header">
+            Vasarnamio rezervacijos
+        </f:facet>
+        <p:column headerText="Data nuo">
+            <h:outputText value="#{reservation.date_from}"/>
+        </p:column>
+        <p:column headerText="Data iki">
+            <h:outputText value="#{reservation.date_to}"/>
+        </p:column>
+        <p:column headerText="Rezervavo">
+            <h:outputText value="#{reservation.userLastname}"/>
+        </p:column>
+    </p:dataTable>
 </h:body>
 </html>

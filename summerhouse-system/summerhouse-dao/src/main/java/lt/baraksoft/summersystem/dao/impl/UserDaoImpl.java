@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.model.User_;
 
 import java.util.ArrayList;
 import java.util.List;

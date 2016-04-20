@@ -16,6 +16,8 @@ public class ReservationView implements Serializable{
     private Boolean isArchived;
     private Integer summerhouseID;
     private Integer userID;
+    private String userFirstname;
+    private String userLastname;
 
     public Integer getId() {
         return id;
@@ -71,5 +73,21 @@ public class ReservationView implements Serializable{
 
     public void setUserID(Integer userID) {
         this.userID = userID;
+    }
+
+    public String getUserFirstname() {
+        return userFirstname;
+    }
+
+    public void setUserFirstname(String userFirstname) {
+        this.userFirstname = userFirstname;
+    }
+
+    public String getUserLastname() {
+        return userLastname;
+    }
+
+    public void setUserLastname(String userLastname) {
+        this.userLastname = userLastname;
     }
 }
