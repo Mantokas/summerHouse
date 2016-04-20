@@ -44,8 +44,6 @@ public class ReservationController implements Serializable {
 		ReservationView view = new ReservationView();
 		view.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-		view.setApproved(false);
-		view.setArchived(false);
 		view.setSummerhouseID(selectedSummerhouse.getId());
 		view.setUserID(4);// TODO set real user id
 		reservationViewHelper.save(view);
@@ -54,26 +52,6 @@ public class ReservationController implements Serializable {
 	public void doUpdateReservationList() {
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
-
-	// public void onDateFromSelect(SelectEvent event) {
-	// Date temp = (Date) event.getObject();
-	// setValidationDateFrom(temp);
-	// FacesContext facesContext = FacesContext.getCurrentInstance();
-	// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	// facesContext.addMessage(null, new
-	// FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data",
-	// format.format(event.getObject())));
-	// }
-	//
-	// public void onDateToSelect(SelectEvent event) {
-	// Date temp = (Date) event.getObject();
-	// setValidationDateTo(temp);
-	// FacesContext facesContext = FacesContext.getCurrentInstance();
-	// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	// facesContext.addMessage(null, new
-	// FacesMessage(FacesMessage.SEVERITY_INFO, "Pasirinkta data",
-	// format.format(event.getObject())));
-	// }
 
 	public Date getReservationTo() {
 		return reservationTo;

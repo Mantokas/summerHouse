@@ -49,7 +49,7 @@ public class ReservationViewHelperImpl implements ReservationViewHelper {
 		entity.setId(view.getId());
 		entity.setDateFrom(view.getDateFrom());
 		entity.setDateTo(view.getDateTo());
-		entity.setUser(userDao.get(view.getId()));
+		entity.setUser(userDao.get(view.getUserID()));
 		entity.setApproved(view.isApproved());
 		entity.setArchived(view.isArchived());
 		entity.setSummerhouse(summerhouseDao.get(view.getSummerhouseID()));
