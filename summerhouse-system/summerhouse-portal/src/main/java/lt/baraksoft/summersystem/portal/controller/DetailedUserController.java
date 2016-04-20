@@ -4,13 +4,17 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
  * Created by etere on 2016-04-20.
  */
 @ManagedBean
+@Stateless
+@ViewScoped
 public class DetailedUserController {
 
     private UserView selectedUser;
