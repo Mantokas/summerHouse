@@ -25,18 +25,6 @@ public class UserController implements Serializable {
 
 	private UserView selectedUser;
 
-
-
-	private User selectedUser2;
-
-	public User getSelectedUser2() {
-		return selectedUser2;
-	}
-
-	public void setSelectedUser2(User selectedUser2) {
-		this.selectedUser2 = selectedUser2;
-	}
-
 	public UserView getSelectedUser() {
 		return selectedUser;
 	}
@@ -49,7 +37,7 @@ public class UserController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		users = userViewHelper.getAllUsers();
+				users = userViewHelper.getAllUsers();
 	}
 
 	public List<UserView> getUsers() {
@@ -61,6 +49,7 @@ public class UserController implements Serializable {
 	}
 
 	public void doSelectUser() {
-		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("summerhouse", selectedUser);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedUser", selectedUser);
 	}
+
 }

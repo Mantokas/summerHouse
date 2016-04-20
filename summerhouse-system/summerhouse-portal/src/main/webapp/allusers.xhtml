@@ -12,7 +12,8 @@
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" />
 
-            <p:dataTable id="userDetail" var="user" value="#{userController.users}">
+            <p:dataTable id="userDetail" var="user" value="#{userController.users}" selectionMode="single" selection="#{userController.selectedUser}"
+                         rowKey="#{user.id}">
                 <f:facet name="header">
                     Klubo narių anketos
                 </f:facet>
@@ -25,8 +26,8 @@
                 </p:column>
 
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton  update=":form:userDetail" action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti">
-                         value="#{user}" target="#{userController.doSelectUser}"
+                    <p:commandButton  action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti"
+                         value="Peržiūrėti" actionListener="#{userController.doSelectUser}" process="userDetail">
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
