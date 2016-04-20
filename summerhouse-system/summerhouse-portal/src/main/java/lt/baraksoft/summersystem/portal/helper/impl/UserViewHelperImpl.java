@@ -49,7 +49,6 @@ public class UserViewHelperImpl implements UserViewHelper {
 	@Override
 	public List<UserView> getAllUsers() {
 		List<User> entities = userDao.getAllUsers();
-		;
 		List<UserView> views = new ArrayList<>();
 		entities.stream().forEach(e -> views.add(buildView(e)));
 		return views;
