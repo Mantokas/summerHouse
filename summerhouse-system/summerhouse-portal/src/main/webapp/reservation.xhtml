@@ -33,7 +33,8 @@
 
         <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
         <p:calendar id="button1" value="#{reservationController.reservationFrom}" showOn="button" pattern="yyyy-MM-dd"
-                    readonlyInput="true" mindate="#{reservationController.today}" maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays">
+                    readonlyInput="true" mindate="#{reservationController.today}"
+                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays">
             <p:ajax event="dateSelect" update=":form:button2,msgs"/>
         </p:calendar>
 
@@ -42,39 +43,40 @@
                     readonlyInput="true" mindate="#{reservationController.reservationFrom}" beforeShowDay="onlySundays">
             <p:ajax event="dateSelect" update=":form:button1,msgs"/>
         </p:calendar>
-    </h:form>
-    <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
-        <f:facet name="header">
-            Vasarnamio rezervacijos
-        </f:facet>
-        <p:column headerText="Data nuo">
-            <h:outputText value="#{reservation.dateFrom}"/>
-        </p:column>
-        <p:column headerText="Data iki">
-            <h:outputText value="#{reservation.dateTo}"/>
-        </p:column>
-        <p:column headerText="Rezervavo">
-            <h:outputText value="#{reservation.userLastname}"/>
-        </p:column>
-    </p:dataTable>
-    <h:outputScript>
-        //<![CDATA[
-     function onlyMondays(date)
-     {
-         var day = date.getDay();
-         return [day == 1, '']
-     };
- //]]>
-    </h:outputScript>
-    <h:outputScript>
-        //<![CDATA[
-     function onlySundays(date)
-     {
-         var day = date.getDay();
-         return [day == 0, '']
-     };
- //]]>
-    </h:outputScript>
 
+        <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
+            <f:facet name="header">
+                Vasarnamio rezervacijos
+            </f:facet>
+            <p:column headerText="Data nuo">
+                <h:outputText value="#{reservation.dateFrom}"/>
+            </p:column>
+            <p:column headerText="Data iki">
+                <h:outputText value="#{reservation.dateTo}"/>
+            </p:column>
+            <p:column headerText="Rezervavo">
+                <h:outputText value="#{reservation.userLastname}"/>
+            </p:column>
+        </p:dataTable>
+
+        <p:commandButton action="#{reservationController.createReservation}" value="Rezervuoti vasarnamį"
+                         immediate="true"/>
+    </h:form>
+    <h:outputScript>
+        //<![CDATA[
+     function onlyMondays(date) {
+            var day = date.getDay();
+            return [day == 1, '']
+        };
+        //]]>
+    </h:outputScript>
+    <h:outputScript>
+        //<![CDATA[
+     function onlySundays(date) {
+            var day = date.getDay();
+            return [day == 0, '']
+        };
+        //]]>
+    </h:outputScript>
 </h:body>
 </html>

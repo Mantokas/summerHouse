@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,17 @@ public class ReservationController implements Serializable {
 		reservationFrom = today;
 		selectedSummerhouse = (SummerhouseView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("summerhouse");
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
+	}
+
+	public void createReservation(){
+		ReservationView view = new ReservationView();
+		view.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		view.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		view.setApproved(false);
+		view.setArchived(false);
+		view.setSummerhouseID(selectedSummerhouse.getId());
+		view.setUserID(2);
+		reservationViewHelper.save(view);
 	}
 
 	// public void onDateFromSelect(SelectEvent event) {

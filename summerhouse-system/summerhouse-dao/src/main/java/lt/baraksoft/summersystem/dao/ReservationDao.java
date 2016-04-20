@@ -17,5 +17,4 @@ public interface ReservationDao {
 	void save(Reservation entity);
 
 	Reservation get(Integer id);
-
 }
