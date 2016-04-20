@@ -1,19 +1,21 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import lt.baraksoft.summersystem.model.User;
-import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
-import lt.baraksoft.summersystem.portal.view.UserView;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
-import java.util.List;
+
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.UserView;
 
 /**
  * Created by LaurynasC on 2016-04-18.
  */
 @ManagedBean
-public class UserController {
+public class UserController implements Serializable {
+	private static final long serialVersionUID = -4973058412300951890L;
 
 	@Inject
 	private UserViewHelper userViewHelper;
