@@ -32,7 +32,7 @@ public class SummerhouseController implements Serializable {
 	}
 
 	public void doSelectSummerhouse() {
-		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("summerhouse", selectedSummerhouse);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {
@@ -49,6 +49,5 @@ public class SummerhouseController implements Serializable {
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
 		this.selectedSummerhouse = selectedSummerhouse;
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
 	}
 }

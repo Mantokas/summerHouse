@@ -25,7 +25,7 @@ public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
 	@Inject
-	ReservationViewHelper reservationViewHelper;
+	private transient ReservationViewHelper reservationViewHelper;
 
 	private Date reservationFrom;
 	private Date reservationTo;
@@ -40,18 +40,18 @@ public class ReservationController implements Serializable {
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
-	public void createReservation(){
+	public void createReservation() {
 		ReservationView view = new ReservationView();
 		view.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setApproved(false);
 		view.setArchived(false);
 		view.setSummerhouseID(selectedSummerhouse.getId());
-		view.setUserID(4);
+		view.setUserID(4);// TODO set real user id
 		reservationViewHelper.save(view);
 	}
 
-	public void doUpdateReservationList(){
+	public void doUpdateReservationList() {
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
