@@ -47,8 +47,12 @@ public class ReservationController implements Serializable {
 		view.setApproved(false);
 		view.setArchived(false);
 		view.setSummerhouseID(selectedSummerhouse.getId());
-		view.setUserID(2);
+		view.setUserID(4);
 		reservationViewHelper.save(view);
+	}
+
+	public void doUpdateReservationList(){
+		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
 	// public void onDateFromSelect(SelectEvent event) {

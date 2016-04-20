@@ -59,8 +59,11 @@
             </p:column>
         </p:dataTable>
 
-        <p:commandButton action="#{reservationController.createReservation}" value="Rezervuoti vasarnamį"
-                         immediate="true"/>
+        <!--pirmiausiai vykdomas actionListener, o po to action ir update-->
+
+        <h:commandButton action="#{reservationController.doUpdateReservationList}" value="Rezervuoti vasarnamį"
+                         update=":form:reservations" actionListener="#{reservationController.createReservation}">
+        </h:commandButton>
     </h:form>
     <h:outputScript>
         //<![CDATA[
