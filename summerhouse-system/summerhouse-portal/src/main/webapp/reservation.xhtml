@@ -33,14 +33,14 @@
 
         <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
         <p:calendar id="button1" value="#{reservationController.reservationFrom}" showOn="button" pattern="yyyy-MM-dd"
-                    readonlyInput="true" mindate="#{reservationController.today}" maxdate="#{reservationController.validationDateTo}">
-            <p:ajax event="dateSelect" listener="#{reservationController.onDateFromSelect}" update=":form:button2,msgs"/>
+                    readonlyInput="true" mindate="#{reservationController.today}" maxdate="#{reservationController.reservationTo}">
+            <p:ajax event="dateSelect" update=":form:button2,msgs"/>
         </p:calendar>
 
         <p:outputLabel for="button2" value="Rezervuoti iki:"/>
         <p:calendar id="button2" value="#{reservationController.reservationTo}" showOn="button" pattern="yyyy-MM-dd"
-                    readonlyInput="true" mindate="#{reservationController.validationDateFrom}">
-            <p:ajax event="dateSelect" listener="#{reservationController.onDateToSelect}" update=":form:button1,msgs"/>
+                    readonlyInput="true" mindate="#{reservationController.reservationFrom}">
+            <p:ajax event="dateSelect" update=":form:button1,msgs"/>
         </p:calendar>
     </h:form>
     <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">

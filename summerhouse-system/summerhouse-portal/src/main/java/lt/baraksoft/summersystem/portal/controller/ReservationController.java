@@ -25,7 +25,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  * Created by LaurynasC on 2016-04-19.
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
@@ -57,7 +57,7 @@ public class ReservationController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		setValidationDateFrom(today);
+		setReservationFrom(today);
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
 
@@ -78,9 +78,13 @@ public class ReservationController implements Serializable {
 	}
 	
 
-	public Date getReservationTo() {//
+	public Date getReservationTo() {
 		return reservationTo;
 	}
+
+    public Date getReservationFrom() {
+        return reservationFrom;
+    }
 
 	public SummerhouseView getSelectedSummerhouse() {
 		return selectedSummerhouse;
