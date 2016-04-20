@@ -19,6 +19,13 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/allusers.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toUserInfo</from-outcome>
+            <to-view-id>/userinfo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toSummer</from-outcome>

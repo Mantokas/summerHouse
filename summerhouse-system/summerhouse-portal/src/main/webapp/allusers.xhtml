@@ -8,11 +8,11 @@
     <title>Login page</title>
 </h:head>
 <h:body>
-    <h:graphicImage library="images" name="barak.jpg"/>
-
     <f:view>
-        <h:form>
-            <p:dataTable var="user" value="#{userController.users}" style="margin-bottom:40px">
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:dataTable id="userDetail" var="user" value="#{userController.users}">
                 <f:facet name="header">
                     Klubo narių anketos
                 </f:facet>
@@ -24,16 +24,10 @@
                     <h:outputText value="#{user.firstName}" />
                 </p:column>
 
-                <p:column headerText="Pavardė" sortBy="#{user.lastName}">
-                    <h:outputText value="#{user.lastName}" />
-                </p:column>
-
-                <p:column headerText="Grupės nr." sortBy="#{user.groupNumber}">
-                    <h:outputText value="#{user.groupNumber}" />
-                </p:column>
-
-                <p:column headerText="Taškai" sortBy="#{user.points}">
-                    <h:outputText value="#{user.points}" />
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton  update=":form:userDetail" action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti">
+                         value="#{user}" target="#{userController.doSelectUser}"
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>

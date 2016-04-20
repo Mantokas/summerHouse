@@ -21,6 +21,10 @@ public class NavigationController implements Serializable {
 		return "toUsers";
 	}
 
+	public String goToUserInfo() {
+		return "toUserInfo";
+	}
+
 	public String goToSummerhousesList() {
 		return "toSummer";
 	}
