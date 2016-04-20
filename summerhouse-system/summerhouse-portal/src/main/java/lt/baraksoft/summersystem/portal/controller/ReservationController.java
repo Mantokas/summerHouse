@@ -1,20 +1,17 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import org.primefaces.event.SelectEvent;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
+
 import java.util.Calendar;
 import java.util.Date;
 
