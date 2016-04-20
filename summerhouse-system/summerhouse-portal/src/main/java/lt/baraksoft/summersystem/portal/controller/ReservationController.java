@@ -29,7 +29,7 @@ public class ReservationController implements Serializable{
     private Date dataIki;
     private Date validationDateFrom;
     private Date validationDateTo;
-    private Date today;
+    private Date today = new Date();
 
 //    public Date dateFromSelect;
 //    public Date dateToSelect;
@@ -108,5 +108,9 @@ public class ReservationController implements Serializable{
 
     public void setValidationDateTo(Date validationDateTo) {
         this.validationDateTo = validationDateTo;
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
     }
 }
