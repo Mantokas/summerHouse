@@ -1,10 +1,11 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -29,15 +30,61 @@ public class ReservationController implements Serializable {
 
 	private Date reservationFrom;
 	private Date reservationTo;
-	private Date today = new Date();
-	private List<ReservationView> reservationsList;
+	private List<ReservationView> reservationsList = new ArrayList<>();
 	private SummerhouseView selectedSummerhouse;
+	private String disabledDay;
+	private List<LocalDate> reservedDays = new ArrayList<>();
+	Boolean isValidMonday = true;
+	private LocalDate monday;
+
 
 	@PostConstruct
 	public void init() {
-		reservationFrom = today;
 		selectedSummerhouse = (SummerhouseView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("summerhouse");
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
+		buildDateConstraint();
+		reservationFrom = getNextMonday();
+	}
+
+	public Date getNextMonday() {
+		Calendar c= Calendar.getInstance();
+		c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		c.add(Calendar.DAY_OF_MONTH, 7);
+		monday = c.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		while (isValidMonday) {
+			reservedDays.stream().forEach(r -> findCorrectMonday(monday, r));
+			if (!isValidMonday){
+				isValidMonday = true;
+				monday = monday.plusDays(7);
+			}
+			else return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		}
+		return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	private void findCorrectMonday(LocalDate monday, LocalDate reservedMonday){
+		if (reservedMonday.compareTo(monday) == 0){
+			isValidMonday = false;
+		}
+	}
+
+	private void addReservedDays(ReservationView reservationView){
+		reservedDays.add(reservationView.getDateFrom());
+		reservedDays.add(reservationView.getDateTo());
+	}
+
+	private void buildDateConstraint(){
+		reservationsList.stream().forEach(r -> addReservedDays(r));
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("\"M-d-yyyy\"");
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (LocalDate item : reservedDays){
+			sb.append(item.format(sdf)).append(", ");
+		}
+		sb.append("]");
+		disabledDay = sb.toString();
 	}
 
 	public void createReservation() {
@@ -69,14 +116,7 @@ public class ReservationController implements Serializable {
 		this.reservationTo = reservationTo;
 	}
 
-	public Date getToday() {
-		Calendar c = Calendar.getInstance();
-		return c.getTime();
-	}
 
-	public void setToday(Date today) {
-		this.today = today;
-	}
 
 	public List<ReservationView> getReservationsList() {
 		return reservationsList;
@@ -92,5 +132,13 @@ public class ReservationController implements Serializable {
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
 		this.selectedSummerhouse = selectedSummerhouse;
+	}
+
+	public String getDisabledDay() {
+		return disabledDay;
+	}
+
+	public void setDisabledDay(String disabledDay) {
+		this.disabledDay = disabledDay;
 	}
 }

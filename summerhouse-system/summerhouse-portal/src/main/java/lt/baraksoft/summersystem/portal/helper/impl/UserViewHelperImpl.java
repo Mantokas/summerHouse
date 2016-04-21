@@ -31,7 +31,6 @@ public class UserViewHelperImpl implements UserViewHelper {
 	@Override
 	public UserView getUser(Integer id) {
 		User entity = userDao.get(id);
-
 		UserView view = new UserView();
 		view.setId(entity.getId());
 		view.setFirstName(entity.getFirstname());
@@ -42,7 +41,6 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
 		view.setGroupNumber(entity.getGroupNumber());
-
 		return view;
 	}
 
