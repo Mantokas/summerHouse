@@ -21,6 +21,7 @@
 		<hibernate-core.version>5.1.0.Final</hibernate-core.version>
 		<hibernate-jpa-api.version>1.0.0.Final</hibernate-jpa-api.version>
 		<junit.version>4.12</junit.version>
+		<scribe.version>2.5.3</scribe.version>
 	</properties>
 
 	<build>
@@ -75,6 +76,12 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
+			</dependency>
+			<!-- oauth -->
+			<dependency>
+				<groupId>com.github.scribejava</groupId>
+				<artifactId>scribejava-apis</artifactId>
+				<version>${scribe.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
