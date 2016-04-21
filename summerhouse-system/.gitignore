@@ -10,4 +10,16 @@ buildNumber.properties
 .settings/
 .classpath
 .project
-.idea/
+
+# Eclipse specific settings
+.classpath
+.project
+.settings
+
+# IntelliJ Idea settings
+.idea
+*.iml
+
+# Netbeans settings
+nb-configuration.xml
+nbproject
