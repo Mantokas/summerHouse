@@ -82,7 +82,7 @@ public class ReservationController implements Serializable {
 		}
 	}
 
-	private void buildDateConstraint(){
+    private void buildDateConstraint(){
 		reservationsList.stream().forEach(r -> addReservedDays(r));
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("\"M-d-yyyy\"");
 		StringBuilder sb = new StringBuilder();

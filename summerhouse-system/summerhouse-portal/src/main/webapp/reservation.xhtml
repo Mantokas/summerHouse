@@ -34,7 +34,7 @@
         <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
         <p:calendar id="button1" value="#{reservationController.reservationFrom}" showOn="button" pattern="yyyy-MM-dd"
                     readonlyInput="true" mindate="#{reservationController.nextMonday}"
-                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays" locale="lt">
+                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays" locale="tr">
             <p:ajax event="dateSelect" update=":form:button2,msgs"/>
         </p:calendar>
 
@@ -100,5 +100,6 @@
         };
         //]]>
     </h:outputScript>
+
 </h:body>
 </html>
