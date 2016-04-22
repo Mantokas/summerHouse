@@ -26,7 +26,7 @@ public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
 	@Inject
-	private transient ReservationViewHelper reservationViewHelper;
+	private ReservationViewHelper reservationViewHelper;
 
 	private Date reservationFrom;
 	private Date reservationTo;
@@ -72,12 +72,19 @@ public class ReservationController implements Serializable {
 	private void addReservedDays(ReservationView reservationView){
 		reservedDays.add(reservationView.getDateFrom());
 		reservedDays.add(reservationView.getDateTo());
+
+        reservationView.setDateFrom(reservationView.getDateFrom().plusDays(7));
+
+		while (reservationView.getDateFrom().isBefore(reservationView.getDateFrom())) {
+			reservedDays.add(reservationView.getDateFrom());
+			reservedDays.add(reservationView.getDateFrom().minusDays(1));
+			reservationView.setDateFrom(reservationView.getDateFrom().plusDays(7));
+		}
 	}
 
 	private void buildDateConstraint(){
 		reservationsList.stream().forEach(r -> addReservedDays(r));
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("\"M-d-yyyy\"");
-
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		for (LocalDate item : reservedDays){
@@ -115,8 +122,6 @@ public class ReservationController implements Serializable {
 	public void setReservationTo(Date reservationTo) {
 		this.reservationTo = reservationTo;
 	}
-
-
 
 	public List<ReservationView> getReservationsList() {
 		return reservationsList;

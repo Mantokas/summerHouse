@@ -56,7 +56,6 @@ public class Summerhouse implements IEntity<Integer> {
 	@Size(max = 2000)
 	@Column(name = "description")
 	private String description;
-
 	@Column(name = "capacity")
 	private int capacity;
 	@Basic(optional = false)
