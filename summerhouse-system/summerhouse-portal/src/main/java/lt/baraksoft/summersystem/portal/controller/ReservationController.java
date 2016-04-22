@@ -34,7 +34,7 @@ public class ReservationController implements Serializable {
 	private SummerhouseView selectedSummerhouse;
 	private String disabledDay;
 	private List<LocalDate> reservedDays = new ArrayList<>();
-	Boolean isValidMonday = true;
+	private Boolean isValidMonday = true;
 	private LocalDate monday;
 
 
@@ -70,15 +70,15 @@ public class ReservationController implements Serializable {
 	}
 
 	private void addReservedDays(ReservationView reservationView){
-		reservedDays.add(reservationView.getDateFrom());
-		reservedDays.add(reservationView.getDateTo());
-
-        reservationView.setDateFrom(reservationView.getDateFrom().plusDays(7));
-
-		while (reservationView.getDateFrom().isBefore(reservationView.getDateFrom())) {
-			reservedDays.add(reservationView.getDateFrom());
-			reservedDays.add(reservationView.getDateFrom().minusDays(1));
-			reservationView.setDateFrom(reservationView.getDateFrom().plusDays(7));
+		LocalDate dateFrom = reservationView.getDateFrom();
+        LocalDate dateTo = reservationView.getDateTo();
+        reservedDays.add(dateFrom);
+        reservedDays.add(dateTo);
+        dateFrom = dateFrom.plusDays(7);
+		while (dateFrom.isBefore(dateTo)) {
+			reservedDays.add(dateFrom);
+			reservedDays.add(dateFrom.minusDays(1));
+            dateFrom = dateFrom.plusDays(7);
 		}
 	}
 
