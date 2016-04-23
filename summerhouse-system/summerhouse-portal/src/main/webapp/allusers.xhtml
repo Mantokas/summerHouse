@@ -5,29 +5,23 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-    <title>Login page</title>
+    <title>Nariai</title>
 </h:head>
 <h:body>
     <f:view>
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" />
 
-            <p:dataTable id="userDetail" var="user" value="#{userController.users}" selectionMode="single" selection="#{userController.selectedUser}"
-                         rowKey="#{user.id}">
+            <p:dataTable id="userDetail" var="user" value="#{userController.users}">
                 <f:facet name="header">
                     Klubo narių anketos
                 </f:facet>
                 <p:column headerText="El. paštas" sortBy="#{user.email}">
                     <h:outputText value="#{user.email}" />
                 </p:column>
-
-                <p:column headerText="Vardas" sortBy="#{user.firstName}">
-                    <h:outputText value="#{user.firstName}" />
-                </p:column>
-
-                <p:column style="width:32px;text-align: center">
+                <p:column style="text-align: center">
                     <p:commandButton  action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti"
-                         value="Peržiūrėti" actionListener="#{userController.doSelectUser}" process="userDetail">
+                         value="Peržiūrėti" actionListener="#{userController.doSelectUser(user)}">
                     </p:commandButton>
                 </p:column>
             </p:dataTable>

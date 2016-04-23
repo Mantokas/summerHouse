@@ -48,7 +48,8 @@ public class UserController implements Serializable {
 		this.users = users;
 	}
 
-	public void doSelectUser() {
+	public void doSelectUser(UserView user) {
+		selectedUser = user;
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedUser", selectedUser);
 	}
 
