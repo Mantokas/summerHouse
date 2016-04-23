@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.PersistenceContexts;
 
 import lt.baraksoft.summersystem.model.IEntity;
 
@@ -16,13 +17,14 @@ import lt.baraksoft.summersystem.model.IEntity;
 
 // Butu neblogai kazkoki equalsAndHashProvideri extendint
 @Stateless
+
 public class GenericDao<T extends IEntity<K>, K extends Serializable> implements IGenericDao<T, K> {
 
 	@PersistenceContext(unitName = "summerhousePU")
 	private EntityManager entityManager;
 
-	@PersistenceContext(unitName = "summerhousePU", type = PersistenceContextType.EXTENDED)
-	private EntityManager extendedEntityManager;
+//	@PersistenceContext(unitName = "summerhousePU", type = PersistenceContextType.EXTENDED)
+//	private EntityManager extendedEntityManager;
 
 	public EntityManager getEntityManager() {
 		return entityManager;
@@ -32,13 +34,13 @@ public class GenericDao<T extends IEntity<K>, K extends Serializable> implements
 		this.entityManager = entityManager;
 	}
 
-    public EntityManager getExtendedEntityManager() {
-        return extendedEntityManager;
-    }
-
-    public void setExtendedEntityManager(EntityManager extendedEntityManager) {
-        this.extendedEntityManager = extendedEntityManager;
-    }
+//    public EntityManager getExtendedEntityManager() {
+//        return extendedEntityManager;
+//    }
+//
+//    public void setExtendedEntityManager(EntityManager extendedEntityManager) {
+//        this.extendedEntityManager = extendedEntityManager;
+//    }
 
 	private final Class<T> entityClass;
 
