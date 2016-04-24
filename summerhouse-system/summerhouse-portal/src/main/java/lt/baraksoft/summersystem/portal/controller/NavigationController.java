@@ -32,4 +32,8 @@ public class NavigationController implements Serializable {
 	public String goToReservation() {
 		return "toReservation";
 	}
+
+	public String goToLoggedUserInfo() {
+		return "toLoggedUserInfo";
+	}
 }

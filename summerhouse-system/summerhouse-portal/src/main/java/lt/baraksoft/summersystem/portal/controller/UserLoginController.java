@@ -28,7 +28,7 @@ public class UserLoginController implements Serializable{
     public void validate() {
         userView.setEmail(email);
         userView.setPassword(password);
-        setLoggedUser(userViewHelper.validateLogin(userView));
+        loggedUser = userViewHelper.validateLogin(userView);
     }
 
     public String checkLogin(){

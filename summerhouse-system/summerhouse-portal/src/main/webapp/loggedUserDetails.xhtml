@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Anketa</title>
+</h:head>
+<h:body>
+    <f:view>
+        <h:form >
+            <p:dataTable id="userDetail" var="loggedUser" value="#{userLoginController.loggedUser}">
+                <f:facet name="header">
+                   Detali informacija
+                </f:facet>
+
+                <p:column headerText="Vardas">
+                    <h:outputText value="#{loggedUser.firstName}" />
+                </p:column>
+
+                <p:column headerText="Pavardė">
+                    <h:outputText value="#{loggedUser.lastName}" />
+                </p:column>
+
+                <p:column headerText="El. paštas">
+                    <h:outputText value="#{loggedUser.email}" />
+                </p:column>
+
+                <p:column headerText="Grupės nr.">
+                    <h:outputText value="#{loggedUser.groupNumber}" />
+                </p:column>
+
+                <p:column headerText="Taškų kiekis">
+                    <h:outputText value="#{loggedUser.points}" />
+                </p:column>
+
+                <p:column headerText="Ar patvirtintas">
+                    <h:outputText value="#{loggedUser.approved}" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </f:view>
+
+</h:body>
+</html>

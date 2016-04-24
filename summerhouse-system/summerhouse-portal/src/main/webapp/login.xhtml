@@ -11,19 +11,18 @@
         <h:graphicImage library="images" name="barak.jpg"/>
 
     <h:form id="loginForm">
-        <h:inputText maxlength="255" size="20" tabindex="10" value="#{userLoginController.email}"
-                     styleClass="inputField" id="email"/>
-        <h:inputSecret maxlength="255" size="20" tabindex="20"
-                       value="#{userLoginController.password}" styleClass="inputField" id="password"/>
+        <p:inputText maxlength="255" size="20" tabindex="10" value="#{userLoginController.email}"
+                     id="email" placeholder="El. paštas"/>
+        <p:password maxlength="255" size="20" tabindex="20"
+                     value="#{userLoginController.password}" styleClass="inputField" id="password"
+                     placeholder="Slaptažodis"/>
 
-
-        <p:commandButton value="login"
+        <p:commandButton value="Prisijungti"
                          actionListener="#{userLoginController.validate}"
-                         id="submit"
+                         id="submits"
                          action="#{userLoginController.checkLogin}"
                          ajax="false"
                             />
-
 
         <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
     </h:form>
