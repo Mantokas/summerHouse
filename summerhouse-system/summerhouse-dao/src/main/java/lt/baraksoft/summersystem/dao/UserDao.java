@@ -14,4 +14,6 @@ public interface UserDao {
 	User get(Integer id);
 
 	List<User> getAllUsers();
+
+	User validateLogin(String email, String password);
 }

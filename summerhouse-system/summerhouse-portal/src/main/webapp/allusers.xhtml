@@ -12,16 +12,16 @@
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" />
 
-            <p:dataTable id="userDetail" var="user" value="#{userController.users}">
+            <p:dataTable id="userDetail" var="userView" value="#{userController.users}">
                 <f:facet name="header">
                     Klubo narių anketos
                 </f:facet>
-                <p:column headerText="El. paštas" sortBy="#{user.email}">
-                    <h:outputText value="#{user.email}" />
+                <p:column headerText="El. paštas" sortBy="#{userView.email}">
+                    <h:outputText value="#{userView.email}" />
                 </p:column>
                 <p:column style="text-align: center">
                     <p:commandButton  action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti"
-                         value="Peržiūrėti" actionListener="#{userController.doSelectUser(user)}">
+                         value="Peržiūrėti" actionListener="#{userController.doSelectUser(userView)}">
                     </p:commandButton>
                 </p:column>
             </p:dataTable>

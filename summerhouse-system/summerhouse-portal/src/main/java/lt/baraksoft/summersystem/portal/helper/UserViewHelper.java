@@ -14,4 +14,6 @@ public interface UserViewHelper {
 	UserView getUser(Integer id);
 
 	List<UserView> getAllUsers();
+
+	UserView validateLogin(UserView view);
 }

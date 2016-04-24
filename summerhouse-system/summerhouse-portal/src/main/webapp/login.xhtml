@@ -10,18 +10,25 @@
 <h:body>
         <h:graphicImage library="images" name="barak.jpg"/>
 
-    <f:view>
-        <h:form>
-            <h1><h:outputText value="LOGIN"/></h1>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="E-mail address:"/>
-                <h:inputText id="username" value="#{userController.email}" title="E-mail" />
-                <h:outputLabel value="Password:"/>
-                <h:inputText id="firstName" value="#{userController.password}" title="Password"/>
-            </h:panelGrid>
-            <h:commandButton action="#{userController.loginUser}" value="Login"/>
+    <h:form id="loginForm">
+        <h:inputText maxlength="255" size="20" tabindex="10" value="#{userLoginController.email}"
+                     styleClass="inputField" id="email"/>
+        <h:inputSecret maxlength="255" size="20" tabindex="20"
+                       value="#{userLoginController.password}" styleClass="inputField" id="password"/>
 
-        </h:form>
-    </f:view>
+
+        <p:commandButton value="login"
+                         actionListener="#{userLoginController.validate}"
+                         id="submit"
+                         action="#{userLoginController.checkLogin}"
+                         ajax="false"
+                            />
+
+
+        <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
+    </h:form>
+
+
+
 </h:body>
 </html>

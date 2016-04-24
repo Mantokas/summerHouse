@@ -52,6 +52,14 @@ public class UserViewHelperImpl implements UserViewHelper {
 		return views;
 	}
 
+	@Override
+	public UserView validateLogin(UserView view) {
+        String email = view.getEmail();
+        String password = view.getPassword();
+		User entity = userDao.validateLogin(email, password);
+        return entity != null ? buildView(entity) : null;
+	}
+
 	private UserView buildView(User entity) {
 		UserView view = new UserView();
 		view.setId(entity.getId());

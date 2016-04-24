@@ -8,9 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import lt.baraksoft.summersystem.model.User;
+
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
-import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 /**

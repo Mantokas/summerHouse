@@ -5,39 +5,39 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-    <title>Detailed user info</title>
+    <title>Detailed userView info</title>
 </h:head>
 <h:body>
     <f:view>
         <h:form >
 
-        <p:dataTable id="userDetail" var="user" value="#{detailedUserController.selectedUser}">
+        <p:dataTable id="userDetail" var="userView" value="#{detailedUserController.selectedUser}">
             <f:facet name="header">
                 Detali klubo nario anketa
             </f:facet>
 
-            <p:column headerText="Vardas" sortBy="#{user.firstName}">
-                <h:outputText value="#{user.firstName}" />
+            <p:column headerText="Vardas" sortBy="#{userView.firstName}">
+                <h:outputText value="#{userView.firstName}" />
             </p:column>
 
-            <p:column headerText="Pavardė" sortBy="#{user.lastName}">
-                <h:outputText value="#{user.lastName}" />
+            <p:column headerText="Pavardė" sortBy="#{userView.lastName}">
+                <h:outputText value="#{userView.lastName}" />
             </p:column>
 
-            <p:column headerText="El. paštas" sortBy="#{user.email}">
-                <h:outputText value="#{user.email}" />
+            <p:column headerText="El. paštas" sortBy="#{userView.email}">
+                <h:outputText value="#{userView.email}" />
             </p:column>
 
-            <p:column headerText="Grupės nr." sortBy="#{user.groupNumber}">
-                <h:outputText value="#{user.groupNumber}" />
+            <p:column headerText="Grupės nr." sortBy="#{userView.groupNumber}">
+                <h:outputText value="#{userView.groupNumber}" />
             </p:column>
 
-            <p:column headerText="Taškų kiekis" sortBy="#{user.points}">
-                <h:outputText value="#{user.points}" />
+            <p:column headerText="Taškų kiekis" sortBy="#{userView.points}">
+                <h:outputText value="#{userView.points}" />
             </p:column>
 
-            <p:column headerText="Ar patvirtintas" sortBy="#{user.approved}">
-                <h:outputText value="#{user.approved}" />
+            <p:column headerText="Ar patvirtintas" sortBy="#{userView.approved}">
+                <h:outputText value="#{userView.approved}" />
             </p:column>
 
         </p:dataTable>
