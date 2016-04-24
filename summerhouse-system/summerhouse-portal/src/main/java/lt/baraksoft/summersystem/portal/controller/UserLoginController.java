@@ -2,6 +2,7 @@ package lt.baraksoft.summersystem.portal.controller;
 
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,6 +25,10 @@ public class UserLoginController implements Serializable{
     private String email;
     private String password;
     private String errMessage;
+
+    public void updateUserFirstname(){
+        userViewHelper.updateFirstname(loggedUser);
+    }
 
     public void validate() {
         userView.setEmail(email);

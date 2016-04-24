@@ -74,4 +74,9 @@ public class UserViewHelperImpl implements UserViewHelper {
 		return view;
 	}
 
+	public void updateFirstname(UserView view){
+        User entity = userDao.get(view.getId());
+        entity.setFirstname(view.getFirstName());
+        userDao.update(entity);
+    }
 }

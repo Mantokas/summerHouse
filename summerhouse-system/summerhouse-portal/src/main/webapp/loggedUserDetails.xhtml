@@ -10,36 +10,13 @@
 <h:body>
     <f:view>
         <h:form >
-            <p:dataTable id="userDetail" var="loggedUser" value="#{userLoginController.loggedUser}">
-                <f:facet name="header">
-                   Detali informacija
-                </f:facet>
 
-                <p:column headerText="Vardas">
-                    <h:outputText value="#{loggedUser.firstName}" />
-                </p:column>
+            <h:outputLabel for="ajax" value="Vardas:" />
+            <p:inplace id="ajax" editor="true">
+                <p:ajax event="save" listener="#{userLoginController.updateUserFirstname}"  />
+                <p:inputText value="#{userLoginController.loggedUser.firstName}" required="true" label="text"/>
+            </p:inplace>
 
-                <p:column headerText="Pavardė">
-                    <h:outputText value="#{loggedUser.lastName}" />
-                </p:column>
-
-                <p:column headerText="El. paštas">
-                    <h:outputText value="#{loggedUser.email}" />
-                </p:column>
-
-                <p:column headerText="Grupės nr.">
-                    <h:outputText value="#{loggedUser.groupNumber}" />
-                </p:column>
-
-                <p:column headerText="Taškų kiekis">
-                    <h:outputText value="#{loggedUser.points}" />
-                </p:column>
-
-                <p:column headerText="Ar patvirtintas">
-                    <h:outputText value="#{loggedUser.approved}" />
-                </p:column>
-
-            </p:dataTable>
         </h:form>
     </f:view>
 

@@ -16,4 +16,6 @@ public interface UserDao {
 	List<User> getAllUsers();
 
 	User validateLogin(String email, String password);
+
+	User update(User entity);
 }

@@ -16,4 +16,6 @@ public interface UserViewHelper {
 	List<UserView> getAllUsers();
 
 	UserView validateLogin(UserView view);
+
+	void updateFirstname(UserView view);
 }

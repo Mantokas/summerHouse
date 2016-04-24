@@ -12,7 +12,9 @@
 
     <h:form id="loginForm">
         <p:inputText maxlength="255" size="20" tabindex="10" value="#{userLoginController.email}"
-                     id="email" placeholder="El. paštas"/>
+                     id="email" placeholder="El. paštas">
+
+        </p:inputText>
         <p:password maxlength="255" size="20" tabindex="20"
                      value="#{userLoginController.password}" styleClass="inputField" id="password"
                      placeholder="Slaptažodis"/>
