@@ -33,8 +33,10 @@ public class NavigationController implements Serializable {
 		return "toReservation";
 	}
 
-	public String goToLoggedUserInfo() {
-		return "toLoggedUserInfo";
+	public String goToLoggedUserInfo() { return "toLoggedUserInfo";}
+
+	public String goToUserRegistration() {
+		return "toUserRegistration";
 	}
 	public String goToSummerhousesSearch() {
 		return "toSummerhousesSearch";
