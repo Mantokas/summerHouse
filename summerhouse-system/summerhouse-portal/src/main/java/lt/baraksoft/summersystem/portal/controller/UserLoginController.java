@@ -26,8 +26,8 @@ public class UserLoginController implements Serializable{
     private String password;
     private String errMessage;
 
-    public void updateUserFirstname(){
-        userViewHelper.updateFirstname(loggedUser);
+    public void updateUser(){
+        userViewHelper.save(loggedUser);
     }
 
     public void validate() {

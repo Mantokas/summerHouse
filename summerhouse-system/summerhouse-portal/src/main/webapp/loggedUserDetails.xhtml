@@ -11,10 +11,16 @@
     <f:view>
         <h:form >
 
-            <h:outputLabel for="ajax" value="Vardas:" />
-            <p:inplace id="ajax" editor="true">
-                <p:ajax event="save" listener="#{userLoginController.updateUserFirstname}"  />
+            <h:outputLabel for="nameEdit" value="Vardas:" />
+            <p:inplace id="nameEdit" editor="true">
+                <p:ajax event="save" listener="#{userLoginController.updateUser}"  />
                 <p:inputText value="#{userLoginController.loggedUser.firstName}" required="true" label="text"/>
+            </p:inplace>
+
+            <h:outputLabel for="lastNameEdit" value="Pavardė:" />
+            <p:inplace id="lastNameEdit" editor="true">
+                <p:ajax event="save" listener="#{userLoginController.updateUser}"  />
+                <p:inputText value="#{userLoginController.loggedUser.lastName}" required="true" label="text"/>
             </p:inplace>
 
         </h:form>

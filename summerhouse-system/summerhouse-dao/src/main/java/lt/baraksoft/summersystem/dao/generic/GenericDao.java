@@ -16,8 +16,8 @@ import lt.baraksoft.summersystem.model.IEntity;
  */
 
 // Butu neblogai kazkoki equalsAndHashProvideri extendint
-@Stateless
 
+@Stateless
 public class GenericDao<T extends IEntity<K>, K extends Serializable> implements IGenericDao<T, K> {
 
 	@PersistenceContext(unitName = "summerhousePU")

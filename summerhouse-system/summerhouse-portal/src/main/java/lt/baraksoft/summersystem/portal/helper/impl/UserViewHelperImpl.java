@@ -3,14 +3,19 @@ package lt.baraksoft.summersystem.portal.helper.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.*;
 import javax.inject.Inject;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
+@Stateless
 public class UserViewHelperImpl implements UserViewHelper {
+
 	@Inject
 	private UserDao userDao;
 
@@ -73,10 +78,4 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setGroupNumber(entity.getGroupNumber());
 		return view;
 	}
-
-	public void updateFirstname(UserView view){
-        User entity = userDao.get(view.getId());
-        entity.setFirstname(view.getFirstName());
-        userDao.update(entity);
-    }
 }

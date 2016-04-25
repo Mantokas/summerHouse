@@ -2,12 +2,16 @@ package lt.baraksoft.summersystem.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.AfterBegin;
+import javax.ejb.AfterCompletion;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
@@ -41,6 +45,5 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
         }catch (NoResultException ex){
             return null;
         }
-
     }
 }
