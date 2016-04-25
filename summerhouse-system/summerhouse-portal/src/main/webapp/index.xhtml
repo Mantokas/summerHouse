@@ -18,6 +18,8 @@
         <p:commandButton value="Prisijungti" rendered="#{empty userLoginController.loggedUser}" id="notLoggedUser"
                          action="#{navigationController.goToLogin}"/>
 
+		<p:commandButton value="Atsijungti" rendered="#{not empty userLoginController.loggedUser}" id="logout"
+						 action="#{userLoginController.logout}" update=":form"/>
 
 		<h:commandButton value="Sukurti vasarnami" type="submit"
 			action="#{mainController.createSummerhouse}" />

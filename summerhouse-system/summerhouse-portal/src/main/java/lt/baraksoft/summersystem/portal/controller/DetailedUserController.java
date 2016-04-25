@@ -8,14 +8,15 @@ import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
 /**
  * Created by etere on 2016-04-20.
  */
 @ManagedBean
-@Stateless
 @ViewScoped
-public class DetailedUserController {
+public class DetailedUserController implements Serializable{
+    private static final long serialVersionUID = -2303496351679184378L;
 
     private UserView selectedUser;
 
