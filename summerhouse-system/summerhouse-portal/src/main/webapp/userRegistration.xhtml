@@ -9,50 +9,47 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:panelGrid columns="2" cellpadding="5">
-            <p:outputLabel for="date" value="Date: " />
-            <p:inputMask id="date" value="#{maskView.date}" mask="99/99/9999"/>
+        <h:panelGrid columns="2" id="grid" cellpadding="5">
+            <p:outputLabel for="firstName" value="Vardas:" />
+            <p:inputText id="firstName" value="#{registrationController.firstName}"
+                required="true" requiredMessage="Įveskite vardą!" validatorMessage="Vardas gali susidėti tik iš raidžių!">
+                <f:validateRegex pattern="[a-zA-Z]+"/>
+            </p:inputText>
 
-            <p:outputLabel for="phone" value="Phone:" />
-            <p:inputMask id="phone" value="#{maskView.phone}" mask="(999) 999-9999"/>
+            <p:outputLabel for="lastName" value="Pavardė:" />
+            <p:inputText id="lastName" value="#{registrationController.lastName}"
+                required="true" requiredMessage="Įveskite pavardę!" validatorMessage="Pavardė gali susidėti tik iš raidžių!">
+                <f:validateRegex pattern="[a-zA-Z]+"/>
+            </p:inputText>
 
-            <p:outputLabel for="phoneWithExt" value="Phone with Ext:" />
-            <p:inputMask id="phoneWithExt" value="#{maskView.phoneExt}" mask="(999) 999-9999? x99999"/>
+            <p:outputLabel for="email" value="El. paštas:" />
+            <p:inputText id="email" value="#{registrationController.email}"
+                required="true" requiredMessage="Įveskite el. paštą!" validatorMessage="Blogas el. pašto formatas!">
+                <f:validateRegex pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+            </p:inputText>
 
-            <p:outputLabel for="taxId" value="Tax Id:" />
-            <p:inputMask id="taxId" value="#{maskView.taxId}" mask="99-9999999"/>
+            <p:outputLabel for="birthday" value="Gimimo data:" />
+            <p:inputText id="birthday" value="#{registrationController.birthday}"/>
 
-            <p:outputLabel for="ssn" value="SSN:" />
-            <p:inputMask id="ssn" value="#{maskView.ssn}" mask="999-99-9999"/>
+            <p:outputLabel for="password" value="Slaptažodis:" />
+            <p:password id="password" value="#{registrationController.password}"
+                match="password2" required="true" requiredMessage="Įveskite slaptažodį!" validatorMessage="Slaptažodžiai nesutampa!" feedback="true" />
 
-            <p:outputLabel for="key"  value="Product Key: " />
-            <p:inputMask id="key" value="#{maskView.productKey}" mask="a*-999-a999"/>
+            <p:outputLabel for="password2" value="Pakartokite slaptažodį:" />
+            <p:password id="password2" value="#{registrationController.password2}"
+                required="true" requiredMessage="Pakartokite slaptažodį!"/>
 
-            <p:commandButton value="Reset" type="reset" />
-            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()"/>
         </h:panelGrid>
 
-        <p:dialog widgetVar="dlg" modal="true" resizable="false" header="Values" showEffect="fade">
-            <p:panelGrid id="display" columns="2" columnClasses="label,value">
-                <h:outputText value="Date: " />
-                <h:outputText id="dateValue" value="#{maskView.date}" />
+        <p:spacer height="10" />
 
-                <h:outputText value="Phone: " />
-                <h:outputText id="phoneValue" value="#{maskView.phone}" />
+        <p:separator />
 
-                <h:outputText value="Phone with Ext: " />
-                <h:outputText id="phoneWithExtValue" value="#{maskView.phoneExt}"/>
+        <p:messages id="messages" autoUpdate="true" />
 
-                <h:outputText value="taxId: " />
-                <h:outputText id="taxValue" value="#{maskView.taxId}" />
+        <p:commandButton value="Išvalyti laukus" type="reset" update="grid"/>
+        <p:commandButton update="grid" value="Registruotis"/>
 
-                <h:outputText value="SSN: " />
-                <h:outputText id="ssnValue" value="#{maskView.ssn}" />
-
-                <h:outputText value="Product Key: " />
-                <h:outputText id="keyValue" value="#{maskView.productKey}" />
-            </p:panelGrid>
-        </p:dialog>
     </h:form>
 </h:body>
 </html>
