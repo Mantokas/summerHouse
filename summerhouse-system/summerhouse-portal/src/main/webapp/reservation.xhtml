@@ -31,15 +31,15 @@
 
         <p:growl id="msgs" showDetail="true"/>
 
-        <p:outputLabel for="button2" value="Rezervuoti nuo:"/>
-        <p:calendar id="button1" value="#{reservationController.reservationFrom}" showOn="button" pattern="yyyy-MM-dd"
+        <p:outputLabel for="button1" value="Rezervuoti nuo: "/>
+        <p:calendar id="button1" value="#{reservationController.reservationFrom}" pattern="yyyy-MM-dd"
                     readonlyInput="true" mindate="#{reservationController.nextMonday}"
-                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays" locale="tr">
+                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays">
             <p:ajax event="dateSelect" update=":form:button2,msgs"/>
         </p:calendar>
 
-        <p:outputLabel for="button2" value="Rezervuoti iki:"/>
-        <p:calendar id="button2" value="#{reservationController.reservationTo}" showOn="button" pattern="yyyy-MM-dd"
+        <p:outputLabel for="button2" value="Rezervuoti iki: "/>
+        <p:calendar id="button2" value="#{reservationController.reservationTo}" pattern="yyyy-MM-dd"
                     readonlyInput="true" mindate="#{reservationController.reservationFrom}" beforeShowDay="onlySundays">
             <p:ajax event="dateSelect" update=":form:button1,msgs"/>
         </p:calendar>
@@ -56,6 +56,22 @@
             </p:column>
             <p:column headerText="Rezervavo">
                 <h:outputText value="#{reservation.userLastname}"/>
+            </p:column>
+        </p:dataTable>
+
+
+        <p:dataTable id="services" var="services" value="#{reservationController.servicesList}">
+            <f:facet name="header">
+                Vasarnamio papildomos paslaugos
+            </f:facet>
+            <p:column headerText="Aprašymas">
+                <h:outputText value="#{services.description}"/>
+            </p:column>
+            <p:column headerText="Kaina">
+                <h:outputText value="#{services.price}"/>
+            </p:column>
+            <p:column headerText="Pavadinimas">
+                <h:outputText value="#{services.title}"/>
             </p:column>
         </p:dataTable>
 

@@ -14,7 +14,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
+import lt.baraksoft.summersystem.portal.helper.ServiceViewHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
+import lt.baraksoft.summersystem.portal.view.ServiceView;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
 /**
@@ -28,6 +30,9 @@ public class ReservationController implements Serializable {
 	@Inject
 	private ReservationViewHelper reservationViewHelper;
 
+	@Inject
+	private ServiceViewHelper serviceViewHelper;
+
 	private Date reservationFrom;
 	private Date reservationTo;
 	private List<ReservationView> reservationsList = new ArrayList<>();
@@ -36,12 +41,13 @@ public class ReservationController implements Serializable {
 	private List<LocalDate> reservedDays = new ArrayList<>();
 	private Boolean isValidMonday = true;
 	private LocalDate monday;
-
+	private List<ServiceView> servicesList = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
 		selectedSummerhouse = (SummerhouseView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("summerhouse");
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
+		servicesList = serviceViewHelper.getServicesBySummerhouse(selectedSummerhouse.getId());
 		buildDateConstraint();
 		reservationFrom = getNextMonday();
 	}
@@ -145,5 +151,13 @@ public class ReservationController implements Serializable {
 
 	public void setDisabledDay(String disabledDay) {
 		this.disabledDay = disabledDay;
+	}
+
+	public List<ServiceView> getServicesList() {
+		return servicesList;
+	}
+
+	public void setServicesList(List<ServiceView> servicesList) {
+		this.servicesList = servicesList;
 	}
 }

@@ -31,9 +31,13 @@
 		<h:commandButton value="Vartotojai" type="submit"
 			action="#{navigationController.goToUsersList}" immediate="true" />
 
-		<h:commandButton value="Vasarnamiai" type="submit"
+		<h:commandButton value="Visi vasarnamiai" type="submit"
 			action="#{navigationController.goToSummerhousesList}"
 			immediate="true" />
+
+        <h:commandButton value="Vasarnamių paieška" type="submit"
+                         action="#{navigationController.goToSummerhousesSearch}"
+                         immediate="true" />
 	</h:form>
 </h:body>
 </html>
