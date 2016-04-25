@@ -9,6 +9,7 @@
         <navigation-case>
             <from-outcome>toLogin</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -16,6 +17,7 @@
         <navigation-case>
             <from-outcome>toUsers</from-outcome>
             <to-view-id>/allusers.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -23,6 +25,7 @@
         <navigation-case>
             <from-outcome>toUserInfo</from-outcome>
             <to-view-id>/userinfo.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -30,6 +33,7 @@
         <navigation-case>
             <from-outcome>toSummer</from-outcome>
             <to-view-id>/summerhouses.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -37,6 +41,7 @@
         <navigation-case>
             <from-outcome>toReservation</from-outcome>
             <to-view-id>/reservation.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -44,6 +49,7 @@
         <navigation-case>
             <from-outcome>goToLoggedPage</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -51,6 +57,7 @@
         <navigation-case>
             <from-outcome>toLoggedUserInfo</from-outcome>
             <to-view-id>/loggedUserDetails.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 

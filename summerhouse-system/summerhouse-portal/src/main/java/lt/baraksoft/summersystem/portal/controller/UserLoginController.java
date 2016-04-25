@@ -16,6 +16,7 @@ import java.io.Serializable;
 @ManagedBean
 @SessionScoped
 public class UserLoginController implements Serializable{
+    private static final long serialVersionUID = -7850630443992388923L;
 
     @Inject
     UserViewHelper userViewHelper;
@@ -28,6 +29,10 @@ public class UserLoginController implements Serializable{
 
     public void updateUser(){
         userViewHelper.save(loggedUser);
+    }
+
+    public void logout(){
+        loggedUser = null;
     }
 
     public void validate() {

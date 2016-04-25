@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,8 +21,10 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Named
-@Stateless
-public class MainController {
+@SessionScoped
+public class MainController implements Serializable{
+	private static final long serialVersionUID = -3124976676079274504L;
+
 	@Inject
 	private UserViewHelper userViewHelper;
 	@Inject
