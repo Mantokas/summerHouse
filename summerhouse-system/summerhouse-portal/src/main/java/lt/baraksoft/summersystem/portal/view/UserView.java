@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.portal.view;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class UserView implements Serializable {
 	private static final long serialVersionUID = 2954419213235282035L;
@@ -14,6 +15,7 @@ public class UserView implements Serializable {
 	private boolean archived;
 	private int points;
 	private int groupNumber;
+	private LocalDate validTo;
 
 	public Integer getId() {
 		return id;
@@ -85,5 +87,13 @@ public class UserView implements Serializable {
 
 	public void setGroupNumber(int groupNumber) {
 		this.groupNumber = groupNumber;
+	}
+
+	public LocalDate getValidTo() {
+		return validTo;
+	}
+
+	public void setValidTo(LocalDate validTo) {
+		this.validTo = validTo;
 	}
 }
