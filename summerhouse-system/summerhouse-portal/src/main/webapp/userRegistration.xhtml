@@ -45,11 +45,11 @@
 
         <p:commandButton value="Išvalyti laukus" type="reset" update="grid"/>
         <p:commandButton value="Registruotis" action="#{registrationController.registerUser}" actionListener="#{registrationController.addExistingEmailMessage}"
-            oncomplete="PF('confirmDialog').show()"/>
+          />
 
-        <p:dialog header="Patvirtinimas" widgetVar="confirmDialog" minHeight="40" rendered="#{not registrationController.bbs}">
+        <p:dialog header="Patvirtinimas" widgetVar="confirmDialog" minHeight="40">
             <p:outputLabel value="Naudotojas sukurtas!" />
-            <p:commandButton value="Gerai" type="submit" action="#{navigationController.goToMain}"/>
+            <p:commandButton value="Gerai" type="submit" action="#{navigationController.goToMain}" ajax="false"/>
         </p:dialog>
 
     </h:form>
