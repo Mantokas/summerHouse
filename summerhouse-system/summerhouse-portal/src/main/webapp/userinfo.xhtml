@@ -1,47 +1,56 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <h:head>
     <title>Detailed userView info</title>
 </h:head>
 <h:body>
-    <f:view>
-        <h:form >
+    <ui:composition template="/template/common/commonLayout.xhtml">
 
-        <p:dataTable id="userDetail" var="userView" value="#{detailedUserController.selectedUser}">
-            <f:facet name="header">
-                Detali klubo nario anketa
-            </f:facet>
+        <ui:define name="content">
+            <f:view>
+                <h:form>
 
-            <p:column headerText="Vardas" sortBy="#{userView.firstName}">
-                <h:outputText value="#{userView.firstName}" />
-            </p:column>
+                    <p:dataTable id="userDetail" var="userView" value="#{detailedUserController.selectedUser}">
+                        <f:facet name="header">
+                            Detali klubo nario anketa
+                        </f:facet>
 
-            <p:column headerText="Pavardė" sortBy="#{userView.lastName}">
-                <h:outputText value="#{userView.lastName}" />
-            </p:column>
+                        <p:column headerText="Vardas" sortBy="#{userView.firstName}">
+                            <h:outputText value="#{userView.firstName}"/>
+                        </p:column>
 
-            <p:column headerText="El. paštas" sortBy="#{userView.email}">
-                <h:outputText value="#{userView.email}" />
-            </p:column>
+                        <p:column headerText="Pavardė" sortBy="#{userView.lastName}">
+                            <h:outputText value="#{userView.lastName}"/>
+                        </p:column>
 
-            <p:column headerText="Grupės nr." sortBy="#{userView.groupNumber}">
-                <h:outputText value="#{userView.groupNumber}" />
-            </p:column>
+                        <p:column headerText="El. paštas" sortBy="#{userView.email}">
+                            <h:outputText value="#{userView.email}"/>
+                        </p:column>
 
-            <p:column headerText="Taškų kiekis" sortBy="#{userView.points}">
-                <h:outputText value="#{userView.points}" />
-            </p:column>
+                        <p:column headerText="Grupės nr." sortBy="#{userView.groupNumber}">
+                            <h:outputText value="#{userView.groupNumber}"/>
+                        </p:column>
 
-            <p:column headerText="Ar patvirtintas" sortBy="#{userView.approved}">
-                <h:outputText value="#{userView.approved}" />
-            </p:column>
+                        <p:column headerText="Taškų kiekis" sortBy="#{userView.points}">
+                            <h:outputText value="#{userView.points}"/>
+                        </p:column>
 
-        </p:dataTable>
-        </h:form>
-    </f:view>
+                        <p:column headerText="Ar patvirtintas" sortBy="#{userView.approved}">
+                            <h:outputText value="#{userView.approved}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </ui:define>
+    </ui:composition>
+
 </h:body>
 </html>

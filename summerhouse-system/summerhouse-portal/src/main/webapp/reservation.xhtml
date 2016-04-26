@@ -2,120 +2,131 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <h:head>
     <title>Rezervacija</title>
 </h:head>
 
 <h:body>
-    <h:form id="form">
-        <p:dataTable id="singleDT" var="summerhouse" value="#{reservationController.selectedSummerhouse}">
-            <f:facet name="header">
-                Pasirinktas vasarnamis
-            </f:facet>
-            <p:column headerText="Id">
-                <h:outputText value="#{summerhouse.id}"/>
-            </p:column>
-            <p:column headerText="Pavadinimas">
-                <h:outputText value="#{summerhouse.title}"/>
-            </p:column>
-            <p:column headerText="Adresas">
-                <h:outputText value="#{summerhouse.address}"/>
-            </p:column>
-            <p:column headerText="Kaina">
-                <h:outputText value="#{summerhouse.price}"/>
-            </p:column>
-        </p:dataTable>
 
-        <p:growl id="msgs" showDetail="true"/>
+    <ui:composition template="/template/common/commonLayout.xhtml">
 
-        <p:outputLabel for="button1" value="Rezervuoti nuo: "/>
-        <p:calendar id="button1" value="#{reservationController.reservationFrom}" pattern="yyyy-MM-dd"
-                    readonlyInput="true" mindate="#{reservationController.nextMonday}"
-                    maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays">
-            <p:ajax event="dateSelect" update=":form:button2,msgs"/>
-        </p:calendar>
+        <ui:define name="content">
+            <h:form id="form">
+                <p:dataTable id="singleDT" var="summerhouse" value="#{reservationController.selectedSummerhouse}">
+                    <f:facet name="header">
+                        Pasirinktas vasarnamis
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{summerhouse.id}"/>
+                    </p:column>
+                    <p:column headerText="Pavadinimas">
+                        <h:outputText value="#{summerhouse.title}"/>
+                    </p:column>
+                    <p:column headerText="Adresas">
+                        <h:outputText value="#{summerhouse.address}"/>
+                    </p:column>
+                    <p:column headerText="Kaina">
+                        <h:outputText value="#{summerhouse.price}"/>
+                    </p:column>
+                </p:dataTable>
 
-        <p:outputLabel for="button2" value="Rezervuoti iki: "/>
-        <p:calendar id="button2" value="#{reservationController.reservationTo}" pattern="yyyy-MM-dd"
-                    readonlyInput="true" mindate="#{reservationController.reservationFrom}" beforeShowDay="onlySundays">
-            <p:ajax event="dateSelect" update=":form:button1,msgs"/>
-        </p:calendar>
+                <p:growl id="msgs" showDetail="true"/>
 
-        <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
-            <f:facet name="header">
-                Vasarnamio rezervacijos
-            </f:facet>
-            <p:column headerText="Data nuo">
-                <h:outputText value="#{reservation.dateFrom}"/>
-            </p:column>
-            <p:column headerText="Data iki">
-                <h:outputText value="#{reservation.dateTo}"/>
-            </p:column>
-            <p:column headerText="Rezervavo">
-                <h:outputText value="#{reservation.userLastname}"/>
-            </p:column>
-        </p:dataTable>
+                <p:outputLabel for="button1" value="Rezervuoti nuo: "/>
+                <p:calendar id="button1" value="#{reservationController.reservationFrom}" pattern="yyyy-MM-dd"
+                            readonlyInput="true" mindate="#{reservationController.nextMonday}"
+                            maxdate="#{reservationController.reservationTo}" beforeShowDay="onlyMondays">
+                    <p:ajax event="dateSelect" update=":form:button2,msgs"/>
+                </p:calendar>
+
+                <p:outputLabel for="button2" value="Rezervuoti iki: "/>
+                <p:calendar id="button2" value="#{reservationController.reservationTo}" pattern="yyyy-MM-dd"
+                            readonlyInput="true" mindate="#{reservationController.reservationFrom}"
+                            beforeShowDay="onlySundays">
+                    <p:ajax event="dateSelect" update=":form:button1,msgs"/>
+                </p:calendar>
+
+                <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
+                    <f:facet name="header">
+                        Vasarnamio rezervacijos
+                    </f:facet>
+                    <p:column headerText="Data nuo">
+                        <h:outputText value="#{reservation.dateFrom}"/>
+                    </p:column>
+                    <p:column headerText="Data iki">
+                        <h:outputText value="#{reservation.dateTo}"/>
+                    </p:column>
+                    <p:column headerText="Rezervavo">
+                        <h:outputText value="#{reservation.userLastname}"/>
+                    </p:column>
+                </p:dataTable>
 
 
-        <p:dataTable id="services" var="services" value="#{reservationController.servicesList}">
-            <f:facet name="header">
-                Vasarnamio papildomos paslaugos
-            </f:facet>
-            <p:column headerText="Aprašymas">
-                <h:outputText value="#{services.description}"/>
-            </p:column>
-            <p:column headerText="Kaina">
-                <h:outputText value="#{services.price}"/>
-            </p:column>
-            <p:column headerText="Pavadinimas">
-                <h:outputText value="#{services.title}"/>
-            </p:column>
-        </p:dataTable>
+                <p:dataTable id="services" var="services" value="#{reservationController.servicesList}">
+                    <f:facet name="header">
+                        Vasarnamio papildomos paslaugos
+                    </f:facet>
+                    <p:column headerText="Aprašymas">
+                        <h:outputText value="#{services.description}"/>
+                    </p:column>
+                    <p:column headerText="Kaina">
+                        <h:outputText value="#{services.price}"/>
+                    </p:column>
+                    <p:column headerText="Pavadinimas">
+                        <h:outputText value="#{services.title}"/>
+                    </p:column>
+                </p:dataTable>
 
-        <!--pirmiausiai vykdomas actionListener, o po to action ir update-->
+                <!--pirmiausiai vykdomas actionListener, o po to action ir update-->
 
-        <p:commandButton action="#{reservationController.doUpdateReservationList}" value="Rezervuoti vasarnamį"
-                         update=":form:reservations" actionListener="#{reservationController.createReservation}"/>
-    </h:form>
-    <h:outputScript>
-        //<![CDATA[
-      var disabledDays = #{reservationController.disabledDay};
-        function onlyMondays(date) {
-            var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-            var day = date.getDay();
-            if (day == 1){
-            for (i = 0; i < disabledDays.length; i++) {
-                if($.inArray((m+1) + '-' + d + '-' + y,disabledDays) != -1) {
+                <p:commandButton action="#{reservationController.doUpdateReservationList}" value="Rezervuoti vasarnamį"
+                                 update=":form:reservations"
+                                 actionListener="#{reservationController.createReservation}"/>
+            </h:form>
+            <h:outputScript>
+                //<![CDATA[
+                var disabledDays = #{reservationController.disabledDay};
+
+                function onlyMondays(date) {
+                    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+                    var day = date.getDay();
+                    if (day == 1) {
+                        for (i = 0; i < disabledDays.length; i++) {
+                            if ($.inArray((m + 1) + '-' + d + '-' + y, disabledDays) != -1) {
+                                return [false];
+                            }
+                            else return [true];
+                        }
+                    }
                     return [false];
-                }
-                else return [true];
-            }
-            }
-            return [false];
-        };
-        //]]>
-    </h:outputScript>
-    <h:outputScript>
-        //<![CDATA[
-      var disabledDays = #{reservationController.disabledDay};
-        function onlySundays(date) {
-            var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-            var day = date.getDay();
-            if (day == 0){
-            for (i = 0; i < disabledDays.length; i++) {
-                if($.inArray((m+1) + '-' + d + '-' + y,disabledDays) != -1) {
-                    return [false];
-                }
-                else return [true];
-            }
-            }
-            return [false];
-        };
-        //]]>
-    </h:outputScript>
+                };
+                //]]>
+            </h:outputScript>
+            <h:outputScript>
+                //<![CDATA[
+                var disabledDays = #{reservationController.disabledDay};
 
+                function onlySundays(date) {
+                    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+                    var day = date.getDay();
+                    if (day == 0) {
+                        for (i = 0; i < disabledDays.length; i++) {
+                            if ($.inArray((m + 1) + '-' + d + '-' + y, disabledDays) != -1) {
+                                return [false];
+                            }
+                            else return [true];
+                        }
+                    }
+                    return [false];
+                };
+                //]]>
+            </h:outputScript>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>
