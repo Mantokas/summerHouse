@@ -5,6 +5,7 @@
  */
 package lt.baraksoft.summersystem.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -74,6 +75,11 @@ public class User implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "valid_to")
+    private LocalDate validTo;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Reservation> reservationList;
 
@@ -171,6 +177,14 @@ public class User implements IEntity<Integer> {
 	public void setArchived(boolean archived) {
 		this.archived = archived;
 	}
+
+    public LocalDate getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDate validTo) {
+        this.validTo = validTo;
+    }
 
 	public List<Reservation> getReservationList() {
 		return reservationList;
