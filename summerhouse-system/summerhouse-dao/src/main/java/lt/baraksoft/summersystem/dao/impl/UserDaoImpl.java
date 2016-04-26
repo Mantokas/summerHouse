@@ -46,4 +46,21 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
             return null;
         }
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+
+        Root<User> root = criteria.from(User.class);
+
+        criteria.where(cb.equal(root.get(User_.email), email));
+        criteria.select(root);
+
+        try{
+            return getEntityManager().createQuery(criteria).getSingleResult();
+        }catch (NoResultException ex){
+            return null;
+        }
+    }
 }

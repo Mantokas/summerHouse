@@ -40,7 +40,7 @@
                          immediate="true" />
 
 		<h:commandButton value="Registracija" type="submit"
-			action="#{navigationController.goToUserRegistration}" immediate="true" />
+			action="#{navigationController.goToUserRegistration}" immediate="true" rendered="#{empty userLoginController.loggedUser}" />
 
 	</h:form>
 </h:body>

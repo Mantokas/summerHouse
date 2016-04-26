@@ -1,69 +1,58 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.UserView;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 /**
  * Created by etere on 2016-04-25.
  */
 @ManagedBean
+@ViewScoped
 public class RegistrationController {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private Date birthday;
-    private String password;
-    private String password2;
+    @Inject
+    private UserViewHelper userViewHelper;
+    private UserView view;
 
-    public Date getBirthday() {
-        return birthday;
+    private boolean bbs;
+
+    @PostConstruct
+    public void init() {
+        view = new UserView();
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void registerUser(){
+
+        bbs = userViewHelper.register(view);
     }
 
-    public String getPassword() {
-        return password;
+    public void addExistingEmailMessage(){
+        if(bbs)
+        FacesContext.getCurrentInstance().addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
+
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public UserView getUserView() {
+        return view;
     }
 
-    public String getPassword2() {
-        return password2;
+    public void setUserView(UserView view) {
+        this.view = view;
     }
 
-    public void setPassword2(String password2) {
-        this.password2 = password2;
+    public boolean isBbs() {
+        return bbs;
     }
 
-    public String getEmail() {
-        return email;
+    public void setBbs(boolean bbs) {
+        this.bbs = bbs;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-
 }

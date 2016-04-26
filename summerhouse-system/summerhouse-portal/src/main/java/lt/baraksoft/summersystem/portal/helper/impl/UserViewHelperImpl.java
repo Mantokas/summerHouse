@@ -3,10 +3,8 @@ package lt.baraksoft.summersystem.portal.helper.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.inject.Inject;
-import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
@@ -63,6 +61,17 @@ public class UserViewHelperImpl implements UserViewHelper {
         String password = view.getPassword();
 		User entity = userDao.validateLogin(email, password);
         return entity != null ? buildView(entity) : null;
+	}
+
+	@Override
+	public boolean register(UserView view) {
+		String email = view.getEmail();
+
+		if(userDao.getUserByEmail(email) != null)
+			return false;
+		save(view);
+		return true;
+
 	}
 
 	private UserView buildView(User entity) {

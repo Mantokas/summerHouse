@@ -8,36 +8,32 @@
     <title>Naudotojo registracija</title>
 </h:head>
 <h:body>
-    <h:form>
+    <h:form id = "userRegistrationForm">
         <h:panelGrid columns="2" id="grid" cellpadding="5">
             <p:outputLabel for="firstName" value="Vardas:" />
-            <p:inputText id="firstName" value="#{registrationController.firstName}"
+            <p:inputText id="firstName" value="#{registrationController.userView.firstName}"
                 required="true" requiredMessage="Įveskite vardą!" validatorMessage="Vardas gali susidėti tik iš raidžių!">
                 <f:validateRegex pattern="[a-zA-Z]+"/>
             </p:inputText>
 
             <p:outputLabel for="lastName" value="Pavardė:" />
-            <p:inputText id="lastName" value="#{registrationController.lastName}"
+            <p:inputText id="lastName" value="#{registrationController.userView.lastName}"
                 required="true" requiredMessage="Įveskite pavardę!" validatorMessage="Pavardė gali susidėti tik iš raidžių!">
                 <f:validateRegex pattern="[a-zA-Z]+"/>
             </p:inputText>
 
             <p:outputLabel for="email" value="El. paštas:" />
-            <p:inputText id="email" value="#{registrationController.email}"
+            <p:inputText id="email" value="#{registrationController.userView.email}"
                 required="true" requiredMessage="Įveskite el. paštą!" validatorMessage="Blogas el. pašto formatas!">
                 <f:validateRegex pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
             </p:inputText>
 
-            <p:outputLabel for="birthday" value="Gimimo data:" />
-            <p:inputText id="birthday" value="#{registrationController.birthday}"/>
-
             <p:outputLabel for="password" value="Slaptažodis:" />
-            <p:password id="password" value="#{registrationController.password}"
+            <p:password id="password" value="#{registrationController.userView.password}"
                 match="password2" required="true" requiredMessage="Įveskite slaptažodį!" validatorMessage="Slaptažodžiai nesutampa!" feedback="true" />
 
             <p:outputLabel for="password2" value="Pakartokite slaptažodį:" />
-            <p:password id="password2" value="#{registrationController.password2}"
-                required="true" requiredMessage="Pakartokite slaptažodį!"/>
+            <p:password id="password2" required="true" requiredMessage="Pakartokite slaptažodį!"/>
 
         </h:panelGrid>
 
@@ -48,7 +44,7 @@
         <p:messages id="messages" autoUpdate="true" />
 
         <p:commandButton value="Išvalyti laukus" type="reset" update="grid"/>
-        <p:commandButton update="grid" value="Registruotis"/>
+        <p:commandButton update="grid" value="Registruotis" action="#{registrationController.registerUser}" actionListener="#{registrationController.addExistingEmailMessage}"/>
 
     </h:form>
 </h:body>
