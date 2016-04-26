@@ -57,7 +57,7 @@ public class Summerhouse implements IEntity<Integer> {
 	@Column(name = "description")
 	private String description;
 	@Column(name = "capacity")
-	private int capacity;
+	private Integer capacity;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "date_from")
@@ -140,7 +140,7 @@ public class Summerhouse implements IEntity<Integer> {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 

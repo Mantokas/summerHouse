@@ -66,9 +66,9 @@ public class User implements IEntity<Integer> {
 	private boolean approved;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "points")
+	@Column(name = "points", columnDefinition = "int default 0")
 	private int points;
-	@Column(name = "group_number")
+	@Column(name = "group_number", columnDefinition = "int default 0")
 	private int groupNumber;
 	// Same here
 	@Basic(optional = false)

@@ -1,8 +1,11 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.UserView;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import javax.inject.Inject;
 
 /**
  * Created by etere on 2016-04-25.
@@ -10,60 +13,25 @@ import java.util.Date;
 @ManagedBean
 public class RegistrationController {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private Date birthday;
-    private String password;
-    private String password2;
+    @Inject
+    private UserViewHelper userViewHelper;
+    private UserView view;
 
-    public Date getBirthday() {
-        return birthday;
+    @PostConstruct
+    public void init() {
+        view = new UserView();
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void registerUser(){
+
+        userViewHelper.register(view);
     }
 
-    public String getPassword() {
-        return password;
+    public UserView getUserView() {
+        return view;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserView(UserView view) {
+        this.view = view;
     }
-
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-
 }

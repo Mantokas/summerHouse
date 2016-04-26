@@ -65,6 +65,12 @@ public class UserViewHelperImpl implements UserViewHelper {
         return entity != null ? buildView(entity) : null;
 	}
 
+	@Override
+	public void register(UserView view) {
+		//DO VALIDATION
+		save(view);
+	}
+
 	private UserView buildView(User entity) {
 		UserView view = new UserView();
 		view.setId(entity.getId());
