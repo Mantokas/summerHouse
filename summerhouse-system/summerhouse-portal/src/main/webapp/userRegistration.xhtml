@@ -8,7 +8,7 @@
     <title>Naudotojo registracija</title>
 </h:head>
 <h:body>
-    <h:form>
+    <h:form id = "userRegistrationForm">
         <h:panelGrid columns="2" id="grid" cellpadding="5">
             <p:outputLabel for="firstName" value="Vardas:" />
             <p:inputText id="firstName" value="#{registrationController.userView.firstName}"
@@ -44,7 +44,7 @@
         <p:messages id="messages" autoUpdate="true" />
 
         <p:commandButton value="Išvalyti laukus" type="reset" update="grid"/>
-        <p:commandButton update="grid" value="Registruotis" action="#{registrationController.registerUser}"/>
+        <p:commandButton update="grid" value="Registruotis" action="#{registrationController.registerUser}" actionListener="#{registrationController.addExistingEmailMessage}"/>
 
     </h:form>
 </h:body>

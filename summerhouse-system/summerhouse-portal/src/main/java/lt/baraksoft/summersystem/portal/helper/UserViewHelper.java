@@ -17,6 +17,6 @@ public interface UserViewHelper {
 
 	UserView validateLogin(UserView view);
 
-	void register(UserView view);
+	boolean register(UserView view);
 
 }
