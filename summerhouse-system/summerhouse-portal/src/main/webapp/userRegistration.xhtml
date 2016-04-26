@@ -44,7 +44,13 @@
         <p:messages id="messages" autoUpdate="true" />
 
         <p:commandButton value="Išvalyti laukus" type="reset" update="grid"/>
-        <p:commandButton update="grid" value="Registruotis" action="#{registrationController.registerUser}" actionListener="#{registrationController.addExistingEmailMessage}"/>
+        <p:commandButton value="Registruotis" action="#{registrationController.registerUser}" actionListener="#{registrationController.addExistingEmailMessage}"
+            oncomplete="PF('confirmDialog').show()"/>
+
+        <p:dialog header="Patvirtinimas" widgetVar="confirmDialog" minHeight="40" rendered="#{not registrationController.bbs}">
+            <p:outputLabel value="Naudotojas sukurtas!" />
+            <p:commandButton value="Gerai" type="submit" action="#{navigationController.goToMain}"/>
+        </p:dialog>
 
     </h:form>
 </h:body>

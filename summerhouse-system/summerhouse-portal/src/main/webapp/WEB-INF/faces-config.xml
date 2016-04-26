@@ -68,6 +68,13 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/userRegistration.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toMain</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
 
         <from-view-id>*</from-view-id>
         <navigation-case>
