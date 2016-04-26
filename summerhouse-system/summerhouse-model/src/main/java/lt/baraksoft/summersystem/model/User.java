@@ -75,8 +75,7 @@ public class User implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "valid_to")
     private LocalDate validTo;
 

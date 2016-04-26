@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
+import org.primefaces.event.SelectEvent;
 
 /**
  * Created by LaurynasC on 2016-04-19.
@@ -25,10 +26,15 @@ public class SummerhouseController implements Serializable {
 
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
+	private Boolean disabled = true;
 
 	@PostConstruct
 	public void init() {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
+	}
+
+	public void onRowSelect(SelectEvent event){
+		disabled = false;
 	}
 
 	public void doSelectSummerhouse() {
@@ -49,5 +55,13 @@ public class SummerhouseController implements Serializable {
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
 		this.selectedSummerhouse = selectedSummerhouse;
+	}
+
+	public Boolean getDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 }
