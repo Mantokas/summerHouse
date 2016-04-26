@@ -36,18 +36,15 @@ public class RegistrationController implements Serializable{
 
     public void registerUser(){
         bbs = userViewHelper.register(view);
-
+        if (!bbs) {
+            FacesContext.getCurrentInstance().addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         List<FacesMessage> messagesList = context.getMessageList();
         if (messagesList.isEmpty()){
             RequestContext context2 = RequestContext.getCurrentInstance();
             context2.execute("PF('confirmDialog').show();");
         }
-    }
-
-    public void addExistingEmailMessage(){
-        if(bbs)
-        FacesContext.getCurrentInstance().addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
     }
 
     public UserView getUserView() {
