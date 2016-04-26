@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 /**
@@ -75,8 +76,7 @@ public class User implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
-
-    @Column(name = "valid_to")
+    @Column(name = "valid_to", nullable = true)
     private LocalDate validTo;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
