@@ -51,7 +51,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>excite-bike</artifactId>
+			<artifactId>south-street</artifactId>
 			<version>1.0.10</version>
 		</dependency>
 	</dependencies>
