@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
 
 /**
@@ -17,5 +18,7 @@ public interface SummerhouseDao {
 	void save(Summerhouse entity);
 
 	Summerhouse get(Integer id);
+
+	List<Summerhouse> search(SummerhouseSearch search);
 
 }

@@ -6,9 +6,6 @@ import java.lang.reflect.ParameterizedType;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.PersistenceContexts;
-
 import lt.baraksoft.summersystem.model.IEntity;
 
 /**

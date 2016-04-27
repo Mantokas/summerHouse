@@ -22,28 +22,32 @@
                             Detali klubo nario anketa
                         </f:facet>
 
-                        <p:column headerText="Vardas" sortBy="#{userView.firstName}">
+                        <p:column headerText="Vardas">
                             <h:outputText value="#{userView.firstName}"/>
                         </p:column>
 
-                        <p:column headerText="Pavardė" sortBy="#{userView.lastName}">
+                        <p:column headerText="Pavardė">
                             <h:outputText value="#{userView.lastName}"/>
                         </p:column>
 
-                        <p:column headerText="El. paštas" sortBy="#{userView.email}">
+                        <p:column headerText="El. paštas">
                             <h:outputText value="#{userView.email}"/>
                         </p:column>
 
-                        <p:column headerText="Grupės nr." sortBy="#{userView.groupNumber}">
+                        <p:column headerText="Grupės nr.">
                             <h:outputText value="#{userView.groupNumber}"/>
                         </p:column>
 
-                        <p:column headerText="Taškų kiekis" sortBy="#{userView.points}">
+                        <p:column headerText="Taškų kiekis">
                             <h:outputText value="#{userView.points}"/>
                         </p:column>
 
-                        <p:column headerText="Ar patvirtintas" sortBy="#{userView.approved}">
-                            <h:outputText value="#{userView.approved}"/>
+                        <p:column headerText="Statusas" rendered="#{userView.approved}">
+                            <h:outputText value="Klubo narys"/>
+                        </p:column>
+
+                        <p:column headerText="Statusas" rendered="#{!userView.approved}">
+                            <h:outputText value="Kandidatas"/>
                         </p:column>
 
                     </p:dataTable>

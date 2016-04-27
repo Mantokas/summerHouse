@@ -9,6 +9,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import lt.baraksoft.summersystem.dao.SummerhouseDao;
+import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
+import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import org.primefaces.event.SelectEvent;
@@ -23,6 +26,9 @@ public class SummerhouseController implements Serializable {
 
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
+
+	@Inject
+	private SummerhouseDao summerhouseDao;
 
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
@@ -39,6 +45,8 @@ public class SummerhouseController implements Serializable {
 
 	public void doSelectSummerhouse() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
+
+
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {

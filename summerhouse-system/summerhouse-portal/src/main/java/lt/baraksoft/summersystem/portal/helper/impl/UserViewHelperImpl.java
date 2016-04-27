@@ -3,10 +3,12 @@ package lt.baraksoft.summersystem.portal.helper.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
@@ -30,6 +32,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setPassword(view.getPassword());
 		entity.setPoints(view.getPoints());
 		entity.setGroupNumber(view.getGroupNumber());
+        entity.setValidTo(view.getValidTo());
 		userDao.save(entity);
 	}
 

@@ -8,7 +8,6 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,7 +21,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Named
 @SessionScoped
-public class MainController implements Serializable{
+public class MainController implements Serializable {
 	private static final long serialVersionUID = -3124976676079274504L;
 
 	@Inject
@@ -34,6 +33,13 @@ public class MainController implements Serializable{
 
 	@PostConstruct
 	public void init() {
+		// PVZ kaip mail'as siunciamas
+		// Email email = new Email();
+		// email.setMessageContent("Sveikiname sėkmingai užsiregistravus mūsų
+		// sistemoje!");
+		// email.setRecipient("mantas.petkeviciuus@gmail.com");
+		// email.setSubject("Summersystem registration");
+		// mailService.sendMessage(email);
 	}
 
 	@PreDestroy
