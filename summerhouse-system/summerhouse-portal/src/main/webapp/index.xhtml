@@ -48,13 +48,11 @@
                                  action="#{navigationController.goToUserRegistration}" immediate="true"
                                  rendered="#{empty userLoginController.loggedUser}"/>
 
+                <h:commandButton value="prisijungimo page" type="submit"
+                                 action="#{navigationController.goToSignin}" immediate="true"/>
+
             </h:form>
         </ui:define>
-
-        <ui:define name="footer">
-            <h2>This is index Footer</h2>
-        </ui:define>
-
     </ui:composition>
 </h:body>
 </html>

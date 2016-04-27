@@ -38,9 +38,9 @@ public class NavigationController implements Serializable {
 	public String goToUserRegistration() {
 		return "toUserRegistration";
 	}
-	public String goToSummerhousesSearch() {
-		return "toSummerhousesSearch";
-	}
+	public String goToSummerhousesSearch() {return "toSummerhousesSearch";	}
+
+	public String goToSignin() {return "toSignin";	}
 
 	public String goToMain() {
 		return "toMain";
