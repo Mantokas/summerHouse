@@ -13,6 +13,9 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lt.baraksoft.summersystem.dao.SummerhouseDao;
+import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
+import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
@@ -31,9 +34,12 @@ public class MainController implements Serializable{
 	private SummerhouseViewHelper summerhouseViewHelper;
 	@Inject
 	private ReservationViewHelper reservationViewHelper;
+	@Inject
+	private SummerhouseDao summerhouseDao;
 
 	@PostConstruct
 	public void init() {
+
 	}
 
 	@PreDestroy
