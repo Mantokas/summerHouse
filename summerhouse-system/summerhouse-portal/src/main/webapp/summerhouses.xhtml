@@ -17,7 +17,6 @@
         <ui:define name="content">
             <f:view>
                 <h:form id="form" rendered="#{not empty userLoginController.loggedUser}">
-                    <p:growl id="msgs" showDetail="true"/>
                     <p:dataTable id="singleDT" var="summerhouse"
                                  value="#{summerhouseController.summerhousesList}"
                                  selectionMode="single"
@@ -28,16 +27,16 @@
                         <f:facet name="header">
                             Vasarnamiai
                         </f:facet>
-                        <p:column headerText="Id">
+                        <p:column headerText="Id" sortBy="#{summerhouse.id}">
                             <h:outputText value="#{summerhouse.id}"/>
                         </p:column>
-                        <p:column headerText="Pavadinimas">
+                        <p:column headerText="Pavadinimas" sortBy="#{summerhouse.title}">
                             <h:outputText value="#{summerhouse.title}"/>
                         </p:column>
-                        <p:column headerText="Adresas">
+                        <p:column headerText="Adresas" sortBy="#{summerhouse.address}">
                             <h:outputText value="#{summerhouse.address}"/>
                         </p:column>
-                        <p:column headerText="Kaina">
+                        <p:column headerText="Kaina" sortBy="#{summerhouse.price}">
                             <h:outputText value="#{summerhouse.price}"/>
                         </p:column>
                         <f:facet name="footer">
@@ -100,16 +99,16 @@
                         <f:facet name="header">
                             Vasarnamiai
                         </f:facet>
-                        <p:column headerText="Id">
+                        <p:column headerText="Id" sortBy="#{summerhouse2.id}">
                             <h:outputText value="#{summerhouse2.id}"/>
                         </p:column>
-                        <p:column headerText="Pavadinimas">
+                        <p:column headerText="Pavadinimas" sortBy="#{summerhouse2.title}">
                             <h:outputText value="#{summerhouse2.title}"/>
                         </p:column>
-                        <p:column headerText="Adresas">
+                        <p:column headerText="Adresas" sortBy="#{summerhouse2.address}">
                             <h:outputText value="#{summerhouse2.address}"/>
                         </p:column>
-                        <p:column headerText="Kaina">
+                        <p:column headerText="Kaina" sortBy="#{summerhouse.price}">
                             <h:outputText value="#{summerhouse2.price}"/>
                         </p:column>
                         <f:facet name="footer">
