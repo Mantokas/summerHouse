@@ -8,14 +8,10 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lt.baraksoft.summersystem.dao.SummerhouseDao;
-import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
-import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
@@ -25,7 +21,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Named
 @SessionScoped
-public class MainController implements Serializable{
+public class MainController implements Serializable {
 	private static final long serialVersionUID = -3124976676079274504L;
 
 	@Inject
@@ -34,12 +30,16 @@ public class MainController implements Serializable{
 	private SummerhouseViewHelper summerhouseViewHelper;
 	@Inject
 	private ReservationViewHelper reservationViewHelper;
-	@Inject
-	private SummerhouseDao summerhouseDao;
 
 	@PostConstruct
 	public void init() {
-
+		// PVZ kaip mail'as siunciamas
+		// Email email = new Email();
+		// email.setMessageContent("Sveikiname sėkmingai užsiregistravus mūsų
+		// sistemoje!");
+		// email.setRecipient("mantas.petkeviciuus@gmail.com");
+		// email.setSubject("Summersystem registration");
+		// mailService.sendMessage(email);
 	}
 
 	@PreDestroy

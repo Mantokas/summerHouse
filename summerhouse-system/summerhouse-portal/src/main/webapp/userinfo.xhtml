@@ -42,8 +42,12 @@
                             <h:outputText value="#{userView.points}"/>
                         </p:column>
 
-                        <p:column headerText="Ar patvirtintas">
-                            <h:outputText value="#{userView.approved}"/>
+                        <p:column headerText="Statusas" rendered="#{userView.approved}">
+                            <h:outputText value="Klubo narys"/>
+                        </p:column>
+
+                        <p:column headerText="Statusas" rendered="#{!userView.approved}">
+                            <h:outputText value="Kandidatas"/>
                         </p:column>
 
                     </p:dataTable>

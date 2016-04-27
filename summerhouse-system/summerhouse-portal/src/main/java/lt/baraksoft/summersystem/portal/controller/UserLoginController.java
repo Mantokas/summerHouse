@@ -4,6 +4,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 
+import javax.enterprise.context.Conversation;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
