@@ -87,4 +87,5 @@ public class UserLoginController implements Serializable{
     public UserView getLoggedUser() {
         return loggedUser;
     }
+
 }
