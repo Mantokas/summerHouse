@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
+import lt.baraksoft.summersystem.portal.helper.ServiceViewHelper;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
 /**
  * Created by LaurynasC on 2016-04-19.
  */
+
+@Stateless
 public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 
 	@Inject
 	private SummerhouseDao summerhouseDao;
+
+	@Inject
+	private ServiceViewHelper serviceViewHelper;
 
 	@Override
 	public List<SummerhouseView> getAllSummerhouses() {
@@ -60,6 +67,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		view.setArchived(entity.isArchived());
 		view.setPrice(entity.getPrice());
 		view.setTitle(entity.getTitle());
+		view.setServiceViews(serviceViewHelper.buildViews(entity.getServiceList()));
 		return view;
 	}
 

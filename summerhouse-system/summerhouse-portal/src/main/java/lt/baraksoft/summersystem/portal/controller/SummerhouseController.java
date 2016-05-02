@@ -45,8 +45,6 @@ public class SummerhouseController implements Serializable {
 
 	public void doSelectSummerhouse() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
-
-
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {
