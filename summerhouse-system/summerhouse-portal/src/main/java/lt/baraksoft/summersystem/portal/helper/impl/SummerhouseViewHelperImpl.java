@@ -2,10 +2,12 @@ package lt.baraksoft.summersystem.portal.helper.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
+import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
@@ -38,6 +40,13 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		entity.setPrice(view.getPrice());
 		entity.setTitle(view.getTitle());
 		summerhouseDao.save(entity);
+	}
+
+	@Override
+	public List<SummerhouseView> search(SummerhouseSearch search) {
+		List<SummerhouseView> views = new ArrayList<>();
+		summerhouseDao.search(search).stream().forEach(s -> views.add(buildView(s)));
+		return views;
 	}
 
 	private SummerhouseView buildView(Summerhouse entity) {
