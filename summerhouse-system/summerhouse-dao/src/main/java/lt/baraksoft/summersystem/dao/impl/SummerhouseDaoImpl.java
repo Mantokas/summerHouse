@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Predicate;
 
+import com.sun.deploy.util.StringUtils;
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
@@ -43,10 +44,14 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 	private List<Predicate> buildPredicates(SummerhouseSearch search, CriteriaBuilder builder, Root<Summerhouse> root) {
 		List<Predicate> predicates = new ArrayList<>();
 
-		predicates.add(builder.equal(root.get(Summerhouse_.archived), search.isArchived()));
+		//predicates.add(builder.equal(root.get(Summerhouse_.archived), search.isArchived()));
 
 		if (search.getCapacity() != 0) {
 			predicates.add(builder.equal(root.get(Summerhouse_.capacity), search.getCapacity()));
+		}
+
+		if (search.getTitle() != null && !search.getTitle().isEmpty()) {
+			predicates.add(builder.equal(root.get(Summerhouse_.title), search.getTitle()));
 		}
 
 		return predicates;
