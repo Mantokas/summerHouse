@@ -13,11 +13,15 @@
 
         <ui:define name="content">
 
+            <div >
+                <h:graphicImage style="background-size: cover;" library="images" name="backround.png"/>
+            </div>
+
+
+
             <h:form id="form1">
 
 
-                <p:commandButton value="Atsijungti"  id="logout"
-                                 actionListener="#{userLoginController.logout}" action="#{navigationController.goToSignin}" update=":form1"/>
 
                 <h:commandButton class="btn btn-default" value="Sukurti vasarnami" type="submit"
                                  action="#{mainController.createSummerhouse}"/>

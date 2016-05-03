@@ -18,17 +18,14 @@
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
 
-                    <p:dataTable id="userDetail" var="userView" value="#{userController.users}">
+                    <p:dataTable styleClass="list-group" id="userDetail" var="userView" value="#{userController.users}">
                         <f:facet name="header">
                             Klubo narių anketos
                         </f:facet>
-                        <p:column headerText="El. paštas" sortBy="#{userView.email}">
-                            <h:outputText value="#{userView.email}"/>
-                        </p:column>
-                        <p:column style="text-align: center">
-                            <p:commandButton class="btn btn-success" action="#{navigationController.goToUserInfo}"
-                                             icon="ui-icon-search" title="Peržiūrėti"
-                                             value="Peržiūrėti"
+                        <p:column styleClass="list-group-item" headerText="El. paštas" sortBy="#{userView.email}">
+                            <p:commandButton action="#{navigationController.goToUserInfo}"
+                                             title="#{userView.email}"
+                                             value="#{userView.email}"
                                              actionListener="#{userController.doSelectUser(userView)}">
                             </p:commandButton>
                         </p:column>

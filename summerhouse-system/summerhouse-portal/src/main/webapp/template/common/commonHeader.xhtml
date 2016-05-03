@@ -10,39 +10,49 @@
 <body>
 <ui:composition>
 
+    <f:metadata>
+        <f:viewAction action="#{navigationController.checkLoggedUser}"/>
+    </f:metadata>
 
     <div class="container">
         <h:form id="form12">
             <!-- Static navbar -->
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <f:metadata>
-                            <f:viewAction action="#{navigationController.checkLoggedUser}"/>
-                        </f:metadata>
 
-                        <p:commandButton type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
-                                         rendered="#{not empty userLoginController.loggedUser}"
-                                         id="loggedUser"
-                                         value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
-                                         action="#{navigationController.goToLoggedUserInfo}"
-                        />
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                         <a class="navbar-brand" >Project name</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a>HOME</a></li>
-                            <li>About</li>
-                            <li>Contact</li>
+
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active">Default <span class="sr-only">(current)</span></li>
-                            <li>Static top</li>
-                            <li>Fixed top</li>
+
+
+                            <li>
+
+                                <p:commandLink value="Atsijungti"  id="logout" actionListener="#{userLoginController.logout}" action="#{navigationController.goToSignin}"/>
+
+                            </li>
+                            <li>
+
+                                    <p:commandLink  rendered="#{not empty userLoginController.loggedUser}"
+                                                   id="loggedUser"
+                                                   value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
+                                                   action="#{navigationController.goToLoggedUserInfo}"
+                                    />
+
+                            </li>
+
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
