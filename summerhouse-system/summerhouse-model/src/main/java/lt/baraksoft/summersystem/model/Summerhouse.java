@@ -41,7 +41,6 @@ public class Summerhouse implements IEntity<Integer> {
 	private static final long serialVersionUID = -3157689849405825264L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "id")
 	private Integer id;
 	@Size(min = 5, max = 500)

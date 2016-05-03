@@ -8,18 +8,7 @@ package lt.baraksoft.summersystem.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
@@ -39,8 +28,7 @@ public class User implements IEntity<Integer> {
 	private static final long serialVersionUID = -887896587150521740L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "id")
+    @Column(name = "id")
 	private Integer id;
 	@Size(min = 3, max = 25)
 	@Column(name = "firstname")
@@ -78,6 +66,12 @@ public class User implements IEntity<Integer> {
 	private boolean archived;
     @Column(name = "valid_to", nullable = true)
     private LocalDate validTo;
+
+	@JoinTable(name = "user_payments", joinColumns = { @JoinColumn(name = "user_id",
+			referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "payment_id",
+			referencedColumnName = "id") })
+	@ManyToMany
+	private List<Payment> paymentList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Reservation> reservationList;
