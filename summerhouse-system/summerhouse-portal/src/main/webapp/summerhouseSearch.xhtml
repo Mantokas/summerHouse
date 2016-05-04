@@ -14,24 +14,35 @@
     <ui:composition template="/template/common/commonLayout.xhtml">
 
     <ui:define name="content">
-    <h:form id="summerhousesSearchForm">
+        <f:view>
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
 
-        <h:panelGrid>
+                <p:outputLabel for="capacity" value="Vasarnamio talpa:"/>
+                <p:inputText id="capacity" value="#{searchController.searchObject.capacity}">
+                </p:inputText>
 
-        <p:outputLabel for="button1" value="Laisvas nuo: "/>
-        <p:calendar id="button1" pattern="yyyy-MM-dd"
-                    readonlyInput="true">
-            <p:ajax event="dateSelect" update=""/>
-        </p:calendar>
+                <p:outputLabel for="title" value="Vasarnamio pavadinimas:"/>
+                <p:inputText id="title" value="#{searchController.searchObject.title}">
+                </p:inputText>
 
-        <p:outputLabel for="button2" value="Laisvas iki: "/>
-        <p:calendar id="button2" pattern="yyyy-MM-dd"
-                    readonlyInput="true">
-            <p:ajax event="dateSelect" update=""/>
-        </p:calendar>
+                <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="summerhousesSearch"/>
 
-        </h:panelGrid>
-    </h:form>
+                <p:dataTable id="summerhousesSearch" var="summerhouseView" value="#{searchController.list}">
+                    <f:facet name="header">
+                        Vasarnamių paieška
+                    </f:facet>
+                    <p:column headerText="Pavadinimas" sortBy="#{summerhouseView.title}">
+                        <h:outputText value="#{summerhouseView.title}"/>
+                    </p:column>
+                    <p:column headerText="Talpa" sortBy="#{summerhouseView.capacity}">
+                        <h:outputText value="#{summerhouseView.capacity}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </f:view>
     </ui:define>
     </ui:composition>
 </h:body>

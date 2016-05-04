@@ -67,7 +67,7 @@
                 </p:dataTable>
 
 
-                <p:dataTable id="services" var="services" value="#{reservationController.servicesList}">
+                <p:dataTable id="services" var="services" value="#{reservationController.selectedSummerhouse.serviceViews}">
                     <f:facet name="header">
                         Vasarnamio papildomos paslaugos
                     </f:facet>
@@ -88,6 +88,7 @@
                                  update=":form:reservations"
                                  actionListener="#{reservationController.createReservation}"/>
             </h:form>
+
             <h:outputScript>
                 //<![CDATA[
                 var disabledDays = #{reservationController.disabledDay};

@@ -7,6 +7,7 @@
     <class>lt.baraksoft.summersystem.model.Reservation</class>
     <class>lt.baraksoft.summersystem.model.Summerhouse</class>
     <class>lt.baraksoft.summersystem.model.Service</class>
+    <class>lt.baraksoft.summersystem.model.Payment</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

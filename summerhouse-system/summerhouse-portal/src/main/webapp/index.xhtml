@@ -45,6 +45,9 @@
                                  action="#{navigationController.goToUserRegistration}" immediate="true"
                                  rendered="#{empty userLoginController.loggedUser}"/>
 
+                <h:commandButton value="Mokėjimai" type="submit"
+                                 action="#{navigationController.goToPayment}" immediate="true"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

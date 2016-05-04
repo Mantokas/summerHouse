@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
@@ -16,7 +17,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 /**
  * Created by LaurynasC on 2016-04-18.
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class UserController implements Serializable {
 	private static final long serialVersionUID = -4973058412300951890L;

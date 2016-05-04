@@ -1,6 +1,9 @@
 package lt.baraksoft.summersystem.portal.helper;
 
+import lt.baraksoft.summersystem.model.Service;
+import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.view.ServiceView;
+import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -12,5 +15,5 @@ import java.util.List;
 @Local
 public interface ServiceViewHelper {
 
-    List<ServiceView> getServicesBySummerhouse(int summerhouseID);
+    List<ServiceView> buildViews(List<Service> entities);
 }

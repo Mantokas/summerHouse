@@ -37,7 +37,6 @@ public class Service implements IEntity<Integer> {
 	private static final long serialVersionUID = -3185403197832964682L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "id")
 	private Integer id;
 	@Size(max = 500)

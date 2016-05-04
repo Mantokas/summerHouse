@@ -46,4 +46,8 @@ public class NavigationController implements Serializable {
 		return "toSignCheck";
 	}
 
+	public String goToPayment() {
+		return "toPayment";
+	}
+
 }
