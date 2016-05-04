@@ -46,10 +46,11 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/signin.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toUserRegistration</from-outcome>
             <to-view-id>/userRegistration.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

@@ -5,28 +5,33 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.TransactionSynchronizationRegistry;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by etere on 2016-04-25.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@Stateful
+@RequestScoped
 public class RegistrationController implements Serializable{
     private static final long serialVersionUID = 4283433840276008899L;
 
     @Inject
     private UserViewHelper userViewHelper;
-    private UserView view;
 
-    private boolean bbs;
+    private UserView view;
+    private boolean emailExist;
     private boolean dialogVisible;
 
     @PostConstruct
@@ -35,8 +40,8 @@ public class RegistrationController implements Serializable{
     }
 
     public void registerUser(){
-        bbs = userViewHelper.register(view);
-        if (!bbs) {
+        emailExist = userViewHelper.register(view);
+        if (!emailExist) {
             FacesContext.getCurrentInstance().addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
         }
         FacesContext context = FacesContext.getCurrentInstance();
@@ -55,12 +60,12 @@ public class RegistrationController implements Serializable{
         this.view = view;
     }
 
-    public boolean isBbs() {
-        return bbs;
+    public boolean isEmailExist() {
+        return emailExist;
     }
 
-    public void setBbs(boolean bbs) {
-        this.bbs = bbs;
+    public void setEmailExist(boolean emailExist) {
+        this.emailExist = emailExist;
     }
 
     public boolean isDialogVisible() {

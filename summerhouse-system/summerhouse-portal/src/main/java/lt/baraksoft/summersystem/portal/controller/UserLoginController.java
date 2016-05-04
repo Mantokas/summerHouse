@@ -49,7 +49,7 @@ public class UserLoginController implements Serializable{
     public String checkLogin(){
         if (loggedUser != null){
             errMessage = "";
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loggedUser", loggedUser);
+            //FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loggedUser", loggedUser);
             return "goToLoggedPage";
         }
         else {
