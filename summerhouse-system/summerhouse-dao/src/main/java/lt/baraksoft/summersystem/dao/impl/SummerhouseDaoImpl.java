@@ -8,8 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Predicate;
-
-import com.sun.deploy.util.StringUtils;
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;

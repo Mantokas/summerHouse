@@ -89,8 +89,15 @@
         <from-view-id>/signin.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>goToLoggedPage</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/index.xhtml?faces-redirect=true</to-view-id>
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toPayment</from-outcome>
+            <to-view-id>/paymentProcess.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

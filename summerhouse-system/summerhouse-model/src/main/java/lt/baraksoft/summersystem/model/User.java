@@ -187,6 +187,14 @@ public class User implements IEntity<Integer> {
 		this.reservationList = reservationList;
 	}
 
+	public List<Payment> getPaymentList() {
+		return paymentList;
+	}
+
+	public void setPaymentList(List<Payment> paymentList) {
+		this.paymentList = paymentList;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -212,5 +220,6 @@ public class User implements IEntity<Integer> {
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.User[ id=" + id + " ]";
 	}
+
 
 }

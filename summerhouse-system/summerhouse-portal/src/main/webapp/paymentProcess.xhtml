@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:event listener="#{paymentController.initConversation}"
+         type="preRenderView"/>
+
+<h:head>
+    <title>Mokėjimas</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+                <h:form>
+                    <p:growl id="msgs" showDetail="true" />
+                    <p:steps activeIndex="#{paymentController.activeIndex}" styleClass="custom" readonly="true">
+                        <p:menuitem value="Mokėjimo tipas"/>
+                        <p:menuitem value="Mokėjimo ypatybės"/>
+                        <p:menuitem value="Patvirtinimas"/>
+                    </p:steps>
+
+                    <p:outputPanel header="Pasirinkite mokėjimo tipą" rendered="#{paymentController.isCurrentForm('PAYMENT_TYPE')}">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="city" value="Mokėjimas: " />
+                            <p:selectOneMenu id="city" value="#{paymentController.selectedPaymentValue}">
+                                <f:selectItem itemLabel="Pasirinkite" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{paymentController.clubPayTypes}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <p:separator />
+
+                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{paymentController.checkPaymentAmount}"/>
+                    </p:outputPanel>
+
+
+                    <p:outputPanel rendered="#{paymentController.isCurrentForm('PAYMENT_PROPERTIES')}">
+                        <h1>Mokėjimo informacija</h1>
+                        <h:panelGrid id="grid" columns="3" rendered="#{paymentController.validTo == null}">
+                            <p:outputLabel for="valid" value="Dabartinė narystė galioja iki: "/>
+                            <p:inputText id="valid" value="NEGALIOJA" readonly="true"/>
+                            <p:message for="valid"/>
+
+                            <p:outputLabel for="firstname" value="Mokėtojo vardas: "/>
+                            <p:inputText id="firstname" value="#{paymentController.loggedUser.firstname}" readonly="true"/>
+                            <p:message for="firstname"/>
+
+                            <p:outputLabel for="lastname" value="Mokėtojo vardas: "/>
+                            <p:inputText id="lastname" value="#{paymentController.loggedUser.lastname}" readonly="true"/>
+                            <p:message for="lastname"/>
+
+                            <p:outputLabel for="purpose" value="Mokėjimo paskirtis: "/>
+                            <p:inputText id="purpose" value="#{paymentController.purpose}" readonly="true"/>
+                            <p:message for="purpose"/>
+
+                            <p:outputLabel for="sum" value="Suma: "/>
+                            <p:inputText id="sum" value="#{paymentController.amount}" readonly="true"/>
+                            <p:message for="sum"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid id="grid2" columns="3" rendered="#{paymentController.validTo != null}">
+                            <p:outputLabel for="valid2" value="Dabartinė narystė galioja iki: "/>
+                            <p:inputText id="valid2" value="#{paymentController.validTo}" readonly="true"/>
+                            <p:message for="valid2"/>
+
+                            <p:outputLabel for="firstname2" value="Mokėtojo vardas: "/>
+                            <p:inputText id="firstname2" value="#{paymentController.loggedUser.firstname}" readonly="true"/>
+                            <p:message for="firstname2"/>
+
+                            <p:outputLabel for="lastname2" value="Mokėtojo vardas: "/>
+                            <p:inputText id="lastname2" value="#{paymentController.loggedUser.lastname}" readonly="true"/>
+                            <p:message for="lastname2"/>
+
+                            <p:outputLabel for="purpose2" value="Mokėjimo paskirtis: "/>
+                            <p:inputText id="purpose2" value="#{paymentController.purpose}" readonly="true"/>
+                            <p:message for="purpose2"/>
+
+                            <p:outputLabel for="sum2" value="Suma: "/>
+                            <p:inputText id="sum2" value="#{paymentController.amount}" readonly="true"/>
+                            <p:message for="sum2"/>
+                        </h:panelGrid>
+
+                        <p:separator />
+
+                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{paymentController.createPayment}"/>
+                    </p:outputPanel>
+
+
+
+
+                    <p:outputPanel rendered="#{paymentController.isCurrentForm('CONFIRMATION')}">
+                        <h1>Patvirtinimas</h1>
+                        <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
+                        <p:commandButton value="Patvirtinti" action="#{paymentController.ok}" ajax="false"/>
+                        <p:commandButton value="Atšaukti" action="#{paymentController.cancel}" ajax="false"/>
+                    </p:outputPanel>
+
+
+                    <style type="text/css">
+                        .ui-steps .ui-steps-item {
+                            width: 33%;
+                        }
+
+                        .ui-state-highlight {
+                            text-shadow: none !important;
+                        }
+
+                        .ui-steps.custom {
+                            margin-bottom: 30px;
+                            margin-left: 30px;
+                            margin-right: 30px;
+                        }
+
+                        .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+                            height: 10px;
+                            padding: 0 1em;
+                        }
+
+                        .ui-steps.custom .ui-steps-item .ui-steps-number {
+                            background-color: rgba(75, 255, 93, 0.58);
+                            color: #FFFFFF;
+                            display: inline-block;
+                            width: 30px;
+                            border-radius: 10px;
+                            margin-top: -10px;
+                            margin-bottom: 10px;
+                        }
+                    </style>
+
+                </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
