@@ -6,16 +6,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
-<f:event listener="#{paymentController.initConversation}"
-         type="preRenderView"/>
-
 <h:head>
-    <title>Mokėjimas</title>
 </h:head>
 
 <h:body>
     <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="title">Mokėjimas</ui:define>
         <ui:define name="content">
 
                 <h:form>
@@ -32,7 +28,11 @@
                             <p:selectOneMenu id="city" value="#{paymentController.selectedPaymentValue}">
                                 <f:selectItem itemLabel="Pasirinkite" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{paymentController.clubPayTypes}" />
+                                <p:ajax listener="#{paymentController.calculateSum}" update="price"/>
                             </p:selectOneMenu>
+
+                            <p:outputLabel for="price" value="Suma: " />
+                            <p:inputText id = "price" value="#{paymentController.amount} taškų" readonly="true"/>
                         </h:panelGrid>
 
                         <p:separator />
@@ -61,7 +61,7 @@
                             <p:message for="purpose"/>
 
                             <p:outputLabel for="sum" value="Suma: "/>
-                            <p:inputText id="sum" value="#{paymentController.amount}" readonly="true"/>
+                            <p:inputText id="sum" value="#{paymentController.amount} taškų" readonly="true"/>
                             <p:message for="sum"/>
                         </h:panelGrid>
 
@@ -83,7 +83,7 @@
                             <p:message for="purpose2"/>
 
                             <p:outputLabel for="sum2" value="Suma: "/>
-                            <p:inputText id="sum2" value="#{paymentController.amount}" readonly="true"/>
+                            <p:inputText id="sum2" value="#{paymentController.amount} taškų" readonly="true"/>
                             <p:message for="sum2"/>
                         </h:panelGrid>
 

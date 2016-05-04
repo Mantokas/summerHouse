@@ -71,6 +71,11 @@ public class PaymentController implements Serializable {
         return currentForm == form;
     }
 
+    public void calculateSum(){
+        yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
+        amount = yearLength * 20;
+    }
+
     public void checkPaymentAmount() {
         if (!conversation.isTransient()) {
             conversation.end();
@@ -78,6 +83,7 @@ public class PaymentController implements Serializable {
             activeIndex = 0;
             return;
         }
+
 
         conversation.begin();
 
