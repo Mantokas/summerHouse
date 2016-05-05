@@ -10,10 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.ServiceViewHelper;
@@ -24,8 +24,8 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 /**
  * Created by LaurynasC on 2016-04-19.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
@@ -34,6 +34,9 @@ public class ReservationController implements Serializable {
 
 	@Inject
 	private ServiceViewHelper serviceViewHelper;
+
+	@Inject
+	private UserLoginController userLoginController;
 
 	private Date reservationFrom;
 	private Date reservationTo;
@@ -113,7 +116,7 @@ public class ReservationController implements Serializable {
 		view.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setSummerhouseID(selectedSummerhouse.getId());
-		view.setUserID(4);// TODO set real user id
+		view.setUserID(userLoginController.getLoggedUser().getId());
 		reservationViewHelper.save(view);
 	}
 

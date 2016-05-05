@@ -47,7 +47,7 @@
                             <p:commandButton id="reserveSummerhouse" process="singleDT" value="Rezervuoti"
                                              action="#{navigationController.goToReservation}"
                                              actionListener="#{summerhouseController.doSelectSummerhouse}"
-                                             disabled="#{summerhouseController.disabled}"/>
+                                             disabled="#{summerhouseController.disabled}" ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                     <p:dialog header="Vasarnamio info" widgetVar="summerhouseDialog"

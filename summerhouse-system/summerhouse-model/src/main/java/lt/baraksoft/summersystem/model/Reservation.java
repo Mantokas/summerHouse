@@ -5,6 +5,7 @@
  */
 package lt.baraksoft.summersystem.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,6 +41,14 @@ public class Reservation implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_approved")
 	private boolean approved;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "amount_of_people")
+	private Integer amountOfPeople;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "price")
+	private BigDecimal price;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
@@ -165,5 +174,21 @@ public class Reservation implements IEntity<Integer> {
 	@Override
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Reservation[ id=" + id + " ]";
+	}
+
+	public Integer getAmountOfPeople() {
+		return amountOfPeople;
+	}
+
+	public void setAmountOfPeople(Integer amountOfPeople) {
+		this.amountOfPeople = amountOfPeople;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 }

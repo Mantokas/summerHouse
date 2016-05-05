@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import lt.baraksoft.summersystem.model.Summerhouse_;
  * Created by LaurynasC on 2016-04-19.
  */
 @Stateless
-public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> implements SummerhouseDao {
+public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> implements SummerhouseDao, Serializable {
 
 	@Override
 	public List<Summerhouse> getAllSummerhouses() {
