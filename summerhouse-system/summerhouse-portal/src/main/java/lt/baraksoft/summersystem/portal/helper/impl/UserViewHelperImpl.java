@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
-public class UserViewHelperImpl implements UserViewHelper {
+public class UserViewHelperImpl implements UserViewHelper, Serializable {
+
+	private static final long serialVersionUID = 3704824831918769814L;
 
 	@Inject
 	private UserDao userDao;
@@ -76,7 +79,6 @@ public class UserViewHelperImpl implements UserViewHelper {
 			return false;
 		save(view);
 		return true;
-
 	}
 
 	private UserView buildView(User entity) {

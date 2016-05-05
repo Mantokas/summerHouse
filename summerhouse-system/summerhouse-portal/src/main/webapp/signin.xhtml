@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:body>
+
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="header">
+            <!--turinį dėti čia-->
+        </ui:define>
+        <ui:define name="content">
+
+            <div class="container">
+
+                <h:graphicImage library="images" name="barak.jpg"/>
+
+                <h:form id="loginForm" class="form-signin">
+                    <h2 class="form-signin-heading">Prisijunkite</h2>
+                    <p:inputText  maxlength="255" class="form-control" size="20" tabindex="10" value="#{userLoginController.email}"
+                                 id="email" placeholder="El. paštas">
+
+                    </p:inputText>
+                    <p:password maxlength="255" size="20" tabindex="20"
+                                value="#{userLoginController.password}" styleClass="inputField" id="password"
+                                placeholder="Slaptažodis"/>
+
+                    <p:commandButton class="btn btn-lg btn-primary btn-block"
+                                     value="Prisijungti"
+                                     actionListener="#{userLoginController.validate}"
+                                     id="submits"
+                                     action="#{userLoginController.checkLogin}"
+                                     ajax="false"
+                    />
+
+                    <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
+
+                    <p:commandLink
+                                     value="Registruotis"
+                                     id="register"
+                                     action="#{navigationController.goToUserRegistration}"
+                                     ajax="false"
+                    />
+                </h:form>
+
+            </div> <!-- /container -->
+
+        </ui:define>
+        <ui:define name="footer">
+            <!--turinį dėti čia-->
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

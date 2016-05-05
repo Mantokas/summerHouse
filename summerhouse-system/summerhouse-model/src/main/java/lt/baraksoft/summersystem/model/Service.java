@@ -37,7 +37,6 @@ public class Service implements IEntity<Integer> {
 	private static final long serialVersionUID = -3185403197832964682L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "id")
 	private Integer id;
 	@Size(max = 500)
@@ -57,6 +56,10 @@ public class Service implements IEntity<Integer> {
 	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") })
 	@ManyToMany
 	private List<Summerhouse> summerhouseList;
+
+	@JoinTable(name = "reservation_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "reservation_id", referencedColumnName = "id") })
+	@ManyToMany
+	private List<Reservation> reservationList;
 
 	@Version
 	private Integer version;

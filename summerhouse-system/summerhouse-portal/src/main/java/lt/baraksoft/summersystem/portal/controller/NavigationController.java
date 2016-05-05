@@ -13,10 +13,6 @@ import javax.inject.Named;
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;
 
-	public String goToLogin() {
-		return "toLogin";
-	}
-
 	public String goToUsersList() {
 		return "toUsers";
 	}
@@ -38,11 +34,20 @@ public class NavigationController implements Serializable {
 	public String goToUserRegistration() {
 		return "toUserRegistration";
 	}
-	public String goToSummerhousesSearch() {
-		return "toSummerhousesSearch";
-	}
+	public String goToSummerhousesSearch() {return "toSummerhousesSearch";	}
+
+	public String goToSignin() {return "toSignin";	}
 
 	public String goToMain() {
 		return "toMain";
 	}
+
+	public String checkLoggedUser() {
+		return "toSignCheck";
+	}
+
+	public String goToPayment() {
+		return "toPayment";
+	}
+
 }

@@ -43,13 +43,12 @@ public class ReservationController implements Serializable {
 	private List<LocalDate> reservedDays = new ArrayList<>();
 	private Boolean isValidMonday = true;
 	private LocalDate monday;
-	private List<ServiceView> servicesList = new ArrayList<>();
+	private List<ServiceView> selectedServices = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
 		selectedSummerhouse = (SummerhouseView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("summerhouse");
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
-		servicesList = serviceViewHelper.getServicesBySummerhouse(selectedSummerhouse.getId());
 		buildDateConstraint();
 		reservationFrom = getNextMonday();
 	}
@@ -99,7 +98,14 @@ public class ReservationController implements Serializable {
 			sb.append(item.format(sdf)).append(", ");
 		}
 		sb.append("]");
-		disabledDay = sb.toString();
+
+		if (reservedDays.isEmpty()){
+			disabledDay = "[\"\"]";
+		}
+		else {
+			disabledDay = sb.toString();
+		}
+
 	}
 
 	public void createReservation() {
@@ -155,11 +161,11 @@ public class ReservationController implements Serializable {
 		this.disabledDay = disabledDay;
 	}
 
-	public List<ServiceView> getServicesList() {
-		return servicesList;
+	public List<ServiceView> getSelectedServices() {
+		return selectedServices;
 	}
 
-	public void setServicesList(List<ServiceView> servicesList) {
-		this.servicesList = servicesList;
+	public void setSelectedServices(List<ServiceView> selectedServices) {
+		this.selectedServices = selectedServices;
 	}
 }

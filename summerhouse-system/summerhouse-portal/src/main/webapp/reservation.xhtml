@@ -66,11 +66,11 @@
                     </p:column>
                 </p:dataTable>
 
-
-                <p:dataTable id="services" var="services" value="#{reservationController.servicesList}">
+                <p:dataTable id="services" var="services" value="#{reservationController.selectedSummerhouse.serviceViews}" selection="#{reservationController.selectedServices}" rowKey="#{services.id}">
                     <f:facet name="header">
                         Vasarnamio papildomos paslaugos
                     </f:facet>
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column headerText="Aprašymas">
                         <h:outputText value="#{services.description}"/>
                     </p:column>
@@ -88,6 +88,7 @@
                                  update=":form:reservations"
                                  actionListener="#{reservationController.createReservation}"/>
             </h:form>
+
             <h:outputScript>
                 //<![CDATA[
                 var disabledDays = #{reservationController.disabledDay};

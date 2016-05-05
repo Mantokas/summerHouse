@@ -41,7 +41,6 @@ public class Summerhouse implements IEntity<Integer> {
 	private static final long serialVersionUID = -3157689849405825264L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "id")
 	private Integer id;
 	@Size(min = 5, max = 500)
@@ -70,8 +69,10 @@ public class Summerhouse implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
+
 	@ManyToMany(mappedBy = "summerhouseList")
 	private List<Service> serviceList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")
 	private List<Reservation> reservationList;
 

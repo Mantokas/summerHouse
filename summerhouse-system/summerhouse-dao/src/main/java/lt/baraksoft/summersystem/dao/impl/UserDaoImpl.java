@@ -1,17 +1,13 @@
 package lt.baraksoft.summersystem.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.AfterBegin;
-import javax.ejb.AfterCompletion;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
@@ -19,7 +15,8 @@ import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.model.User_;
 
 @Stateless
-public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
+public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao, Serializable {
+    private static final long serialVersionUID = -3286940367084010427L;
 
     @Override
     public List<User> getAllUsers() {
@@ -63,4 +60,5 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
             return null;
         }
     }
+
 }

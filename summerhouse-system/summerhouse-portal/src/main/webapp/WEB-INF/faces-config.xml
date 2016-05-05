@@ -4,14 +4,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>toLogin</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
@@ -53,18 +46,11 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>goToLoggedPage</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/signin.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toUserRegistration</from-outcome>
             <to-view-id>/userRegistration.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -75,7 +61,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>toLoggedUserInfo</from-outcome>
@@ -84,4 +69,36 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toSignin</from-outcome>
+            <to-view-id>/signin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toSignCheck</from-outcome>
+            <if>#{userLoginController.loggedUser == null}</if>
+            <to-view-id>/signin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/signin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>goToLoggedPage</from-outcome>
+            <to-view-id>/index.xhtml?faces-redirect=true</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toPayment</from-outcome>
+            <to-view-id>/paymentProcess.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
