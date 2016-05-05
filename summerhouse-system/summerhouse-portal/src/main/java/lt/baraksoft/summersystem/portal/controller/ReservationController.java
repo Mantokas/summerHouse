@@ -102,10 +102,9 @@ public class ReservationController implements Serializable {
 		}
 		sb.append("]");
 
-		if (reservedDays.isEmpty()){
+		if (reservedDays.isEmpty()) {
 			disabledDay = "[\"\"]";
-		}
-		else {
+		} else {
 			disabledDay = sb.toString();
 		}
 
