@@ -96,7 +96,7 @@ public class PaymentController implements Serializable {
 
             //UserView loggedUser = (UserView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loggedUser"); //// TODO: 2016-05-04 prisijunges useris
 
-            loggedUser = userDao.get(1);
+            loggedUser = userDao.get(4);
             int points = loggedUser.getPoints();
 
             if (points < amount) {

@@ -6761,8 +6761,6 @@ button.close {
 
 .custom-nav-bar-btn {
   margin: 7.5px -15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
   line-height: 20px;
   position: relative;
   display: block;
@@ -6784,6 +6782,9 @@ button.close {
 }
 
 .image-bg-fluid-height {
-  background: url('http://lorempixel.com/g/1920/500/') no-repeat center center scroll;
-  padding: 100px 0;
+  /*;url('../images/backround.png')*/
+  background: url('http://lorempixel.com/g/1920/500/') no-repeat scroll center;
+  padding: 200px 0;
 }
+
+.select-meniu

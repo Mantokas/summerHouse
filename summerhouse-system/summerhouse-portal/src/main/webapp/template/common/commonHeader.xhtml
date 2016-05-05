@@ -20,39 +20,53 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-
-
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" >Project name</a>
+                        <a class="navbar-brand">Labanoro draugai</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a>HOME</a></li>
-
+                            <li class="active">
+                                <p:commandLink value="Pradžia" type="submit"
+                                               action="#{navigationController.goToMain}" immediate="true"/>
+                            </li>
+                            <li>
+                                <p:commandLink value="Vartotojai" type="submit"
+                                               action="#{navigationController.goToUsersList}" immediate="true"/>
+                            </li>
+                            <li>
+                                <p:commandLink  value="Visi vasarnamiai" type="submit"
+                                                 action="#{navigationController.goToSummerhousesList}"
+                                                 immediate="true"/>
+                            </li>
+                            <li>
+                                <p:commandLink  value="Vasarnamių paieška" type="submit"
+                                                 action="#{navigationController.goToSummerhousesSearch}"
+                                                 immediate="true"/>
+                            </li>
+                            <li>
+                                <p:commandLink  value="Mokėjimai" type="submit"
+                                                 action="#{navigationController.goToPayment}" immediate="true"/>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-
-
                             <li>
-
-                                <p:commandLink value="Atsijungti"  id="logout" actionListener="#{userLoginController.logout}" action="#{navigationController.goToSignin}"/>
-
+                                <p:commandLink value="Atsijungti" id="logout"
+                                               actionListener="#{userLoginController.logout}"
+                                               action="#{navigationController.goToSignin}"/>
                             </li>
                             <li>
-
-                                    <p:commandLink  rendered="#{not empty userLoginController.loggedUser}"
-                                                   id="loggedUser"
-                                                   value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
-                                                   action="#{navigationController.goToLoggedUserInfo}"
-                                    />
-
+                                <p:commandLink rendered="#{not empty userLoginController.loggedUser}"
+                                               id="loggedUser"
+                                               value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
+                                               action="#{navigationController.goToLoggedUserInfo}"
+                                />
                             </li>
-
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->

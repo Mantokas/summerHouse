@@ -6,7 +6,7 @@
 
 
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+
         <navigation-case>
             <from-outcome>toSummerhousesSearch</from-outcome>
             <to-view-id>/summerhouseSearch.xhtml</to-view-id>
@@ -14,7 +14,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+
         <navigation-case>
             <from-outcome>toUsers</from-outcome>
             <to-view-id>/allusers.xhtml</to-view-id>
@@ -22,7 +22,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/allusers.xhtml</from-view-id>
+
         <navigation-case>
             <from-outcome>toUserInfo</from-outcome>
             <to-view-id>/userinfo.xhtml</to-view-id>
@@ -30,7 +30,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toSummer</from-outcome>
             <to-view-id>/summerhouses.xhtml</to-view-id>
@@ -38,7 +37,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/summerhouses.xhtml</from-view-id>
+
         <navigation-case>
             <from-outcome>toReservation</from-outcome>
             <to-view-id>/reservation.xhtml</to-view-id>
@@ -54,7 +53,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userRegistration.xhtml</from-view-id>
+        <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>toMain</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
@@ -70,7 +69,6 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toSignin</from-outcome>
             <to-view-id>/signin.xhtml</to-view-id>
@@ -95,7 +93,6 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toPayment</from-outcome>
             <to-view-id>/paymentProcess.xhtml</to-view-id>

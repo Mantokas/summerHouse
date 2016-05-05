@@ -13,40 +13,25 @@
 
         <ui:define name="content">
 
-            <div >
-                <h:graphicImage style="background-size: cover;" library="images" name="backround.png"/>
+            <div class="image-bg-fluid-height">
             </div>
 
 
 
             <h:form id="form1">
 
-
-
                 <h:commandButton class="btn btn-default" value="Sukurti vasarnami" type="submit"
                                  action="#{mainController.createSummerhouse}"/>
-                <h:commandButton styleClass="" value="Sukurti naudotoja" type="submit"
+                <h:commandButton class="btn btn-default" value="Sukurti naudotoja" type="submit"
                                  action="#{mainController.createUser}"/>
-                <h:commandButton value="Sukurti rezervacija" type="submit"
+                <h:commandButton class="btn btn-default" value="Sukurti rezervacija" type="submit"
                                  action="#{mainController.createReservation}"/>
 
-                <h:commandButton value="Vartotojai" type="submit"
-                                 action="#{navigationController.goToUsersList}" immediate="true"/>
-
-                <h:commandButton value="Visi vasarnamiai" type="submit"
-                                 action="#{navigationController.goToSummerhousesList}"
-                                 immediate="true"/>
-
-                <h:commandButton value="Vasarnamių paieška" type="submit"
-                                 action="#{navigationController.goToSummerhousesSearch}"
-                                 immediate="true"/>
-
-                <h:commandButton value="Registracija" type="submit"
+                <h:commandButton class="btn btn-default" value="Registracija" type="submit"
                                  action="#{navigationController.goToUserRegistration}" immediate="true"
                                  rendered="#{empty userLoginController.loggedUser}"/>
 
-                <h:commandButton value="Mokėjimai" type="submit"
-                                 action="#{navigationController.goToPayment}" immediate="true"/>
+
 
             </h:form>
         </ui:define>
