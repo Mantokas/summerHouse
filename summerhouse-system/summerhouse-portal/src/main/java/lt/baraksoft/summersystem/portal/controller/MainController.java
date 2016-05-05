@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,11 +25,11 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class MainController implements Serializable {
 	private static final long serialVersionUID = -3124976676079274504L;
 
-	@Inject
+	@EJB
 	private UserViewHelper userViewHelper;
-	@Inject
+	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
-	@Inject
+	@EJB
 	private ReservationViewHelper reservationViewHelper;
 
 	@PostConstruct

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -29,7 +30,7 @@ import org.primefaces.event.SelectEvent;
 public class SummerhouseController implements Serializable {
 	private static final long serialVersionUID = 7327490916016914082L;
 
-	@Inject
+	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
 
 	@Inject
@@ -48,8 +49,9 @@ public class SummerhouseController implements Serializable {
 		disabled = false;
 	}
 
-	public void doSelectSummerhouse() {
+	public String doSelectSummerhouse() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
+        return "goToReservation";
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {

@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.portal.controller;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import javax.enterprise.context.SessionScoped;
@@ -20,7 +21,7 @@ import java.io.Serializable;
 public class UserLoginController implements Serializable{
     private static final long serialVersionUID = -7850630443992388923L;
 
-    @Inject
+    @EJB
     UserViewHelper userViewHelper;
 
     private UserView userView = new UserView();

@@ -53,7 +53,7 @@
 
                 <p:dataTable id="reservations" var="reservation" value="#{reservationController.reservationsList}">
                     <f:facet name="header">
-                        Vasarnamio rezervacijos
+                        Vasarnamio esamos rezervacijos
                     </f:facet>
                     <p:column headerText="Data nuo">
                         <h:outputText value="#{reservation.dateFrom}"/>
@@ -84,9 +84,9 @@
 
                 <!--pirmiausiai vykdomas actionListener, o po to action ir update-->
 
-                <p:commandButton action="#{reservationController.doUpdateReservationList}" value="Rezervuoti vasarnamį"
+                <p:commandButton value="Rezervuoti vasarnamį"
                                  update=":form:reservations"
-                                 actionListener="#{reservationController.createReservation}"/>
+                                 action="#{reservationController.doUpdateReservationList}"/>
             </h:form>
 
             <h:outputScript>

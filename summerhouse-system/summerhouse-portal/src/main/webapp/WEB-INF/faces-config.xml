@@ -44,8 +44,8 @@
     <navigation-rule>
         <from-view-id>/summerhouses.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>toReservation</from-outcome>
-            <to-view-id>/reservation.xhtml?faces-redirect=true</to-view-id>
+            <from-outcome>goToReservation</from-outcome>
+            <to-view-id>/reservationPaymentProcess.xhtml?faces-redirect=true</to-view-id>
             <redirect/>
         </navigation-case>
 

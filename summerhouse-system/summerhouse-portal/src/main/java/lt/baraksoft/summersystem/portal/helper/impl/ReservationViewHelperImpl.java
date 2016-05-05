@@ -18,7 +18,7 @@ import lt.baraksoft.summersystem.portal.view.ReservationView;
  * Created by LaurynasC on 2016-04-19.
  */
 @Stateless
-public class ReservationViewHelperImpl implements ReservationViewHelper, Serializable {
+public class ReservationViewHelperImpl implements ReservationViewHelper {
 
 	@Inject
 	private ReservationDao reservationDao;

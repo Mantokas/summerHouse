@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -29,10 +30,10 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
-	@Inject
+	@EJB
 	private ReservationViewHelper reservationViewHelper;
 
-	@Inject
+	@EJB
 	private ServiceViewHelper serviceViewHelper;
 
 	@Inject
@@ -119,8 +120,9 @@ public class ReservationController implements Serializable {
 		reservationViewHelper.save(view);
 	}
 
-	public void doUpdateReservationList() {
+	public String doUpdateReservationList() {
 		reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
+        return "goToReservationPayment";
 	}
 
 	public Date getReservationTo() {

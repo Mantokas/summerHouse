@@ -29,7 +29,7 @@ import java.util.List;
 @Named
 @ConversationScoped
 @Stateful
-public class PaymentController implements Serializable {
+public class AnnualFeeController implements Serializable {
 
     private static final long serialVersionUID = 390311249488898840L;
 
@@ -87,7 +87,6 @@ public class PaymentController implements Serializable {
             activeIndex = 0;
             return;
         }
-
 
         conversation.begin();
 

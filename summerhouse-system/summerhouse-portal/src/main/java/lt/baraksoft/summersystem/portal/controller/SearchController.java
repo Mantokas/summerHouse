@@ -20,6 +20,7 @@ public class SearchController {
 
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
+
 	private List<SummerhouseView> list;
 	private SummerhouseSearch searchObject;
 

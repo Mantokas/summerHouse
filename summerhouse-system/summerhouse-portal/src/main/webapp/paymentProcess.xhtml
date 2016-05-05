@@ -16,90 +16,90 @@
 
                 <h:form>
                     <p:growl id="msgs" showDetail="true" />
-                    <p:steps activeIndex="#{paymentController.activeIndex}" styleClass="custom" readonly="true">
+                    <p:steps activeIndex="#{annualFeeController.activeIndex}" styleClass="custom" readonly="true">
                         <p:menuitem value="Mokėjimo tipas"/>
                         <p:menuitem value="Mokėjimo ypatybės"/>
                         <p:menuitem value="Patvirtinimas"/>
                     </p:steps>
 
-                    <p:outputPanel header="Pasirinkite mokėjimo tipą" rendered="#{paymentController.isCurrentForm('PAYMENT_TYPE')}">
+                    <p:outputPanel header="Pasirinkite mokėjimo tipą" rendered="#{annualFeeController.isCurrentForm('PAYMENT_TYPE')}">
                         <h:panelGrid columns="2" cellpadding="5">
                             <p:outputLabel for="city" value="Mokėjimas: " />
-                            <p:selectOneMenu id="city" value="#{paymentController.selectedPaymentValue}">
+                            <p:selectOneMenu id="city" value="#{annualFeeController.selectedPaymentValue}">
                                 <f:selectItem itemLabel="Pasirinkite" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{paymentController.clubPayTypes}" />
-                                <p:ajax listener="#{paymentController.calculateSum}" update="price"/>
+                                <f:selectItems value="#{annualFeeController.clubPayTypes}" />
+                                <p:ajax listener="#{annualFeeController.calculateSum}" update="price"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel for="price" value="Suma: " />
-                            <p:inputText id = "price" value="#{paymentController.amount} taškų" readonly="true"/>
+                            <p:inputText id = "price" value="#{annualFeeController.amount} taškų" readonly="true"/>
                         </h:panelGrid>
 
                         <p:separator />
 
-                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{paymentController.checkPaymentAmount}"/>
+                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}"/>
                     </p:outputPanel>
 
 
-                    <p:outputPanel rendered="#{paymentController.isCurrentForm('PAYMENT_PROPERTIES')}">
+                    <p:outputPanel rendered="#{annualFeeController.isCurrentForm('PAYMENT_PROPERTIES')}">
                         <h1>Mokėjimo informacija</h1>
-                        <h:panelGrid id="grid" columns="3" rendered="#{paymentController.validTo == null}">
+                        <h:panelGrid id="grid" columns="3" rendered="#{annualFeeController.validTo == null}">
                             <p:outputLabel for="valid" value="Dabartinė narystė galioja iki: "/>
                             <p:inputText id="valid" value="NEGALIOJA" readonly="true"/>
                             <p:message for="valid"/>
 
                             <p:outputLabel for="firstname" value="Mokėtojo vardas: "/>
-                            <p:inputText id="firstname" value="#{paymentController.loggedUser.firstname}" readonly="true"/>
+                            <p:inputText id="firstname" value="#{annualFeeController.loggedUser.firstname}" readonly="true"/>
                             <p:message for="firstname"/>
 
                             <p:outputLabel for="lastname" value="Mokėtojo vardas: "/>
-                            <p:inputText id="lastname" value="#{paymentController.loggedUser.lastname}" readonly="true"/>
+                            <p:inputText id="lastname" value="#{annualFeeController.loggedUser.lastname}" readonly="true"/>
                             <p:message for="lastname"/>
 
                             <p:outputLabel for="purpose" value="Mokėjimo paskirtis: "/>
-                            <p:inputText id="purpose" value="#{paymentController.purpose}" readonly="true"/>
+                            <p:inputText id="purpose" value="#{annualFeeController.purpose}" readonly="true"/>
                             <p:message for="purpose"/>
 
                             <p:outputLabel for="sum" value="Suma: "/>
-                            <p:inputText id="sum" value="#{paymentController.amount} taškų" readonly="true"/>
+                            <p:inputText id="sum" value="#{annualFeeController.amount} taškų" readonly="true"/>
                             <p:message for="sum"/>
                         </h:panelGrid>
 
-                        <h:panelGrid id="grid2" columns="3" rendered="#{paymentController.validTo != null}">
+                        <h:panelGrid id="grid2" columns="3" rendered="#{annualFeeController.validTo != null}">
                             <p:outputLabel for="valid2" value="Dabartinė narystė galioja iki: "/>
-                            <p:inputText id="valid2" value="#{paymentController.validTo}" readonly="true"/>
+                            <p:inputText id="valid2" value="#{annualFeeController.validTo}" readonly="true"/>
                             <p:message for="valid2"/>
 
                             <p:outputLabel for="firstname2" value="Mokėtojo vardas: "/>
-                            <p:inputText id="firstname2" value="#{paymentController.loggedUser.firstname}" readonly="true"/>
+                            <p:inputText id="firstname2" value="#{annualFeeController.loggedUser.firstname}" readonly="true"/>
                             <p:message for="firstname2"/>
 
                             <p:outputLabel for="lastname2" value="Mokėtojo vardas: "/>
-                            <p:inputText id="lastname2" value="#{paymentController.loggedUser.lastname}" readonly="true"/>
+                            <p:inputText id="lastname2" value="#{annualFeeController.loggedUser.lastname}" readonly="true"/>
                             <p:message for="lastname2"/>
 
                             <p:outputLabel for="purpose2" value="Mokėjimo paskirtis: "/>
-                            <p:inputText id="purpose2" value="#{paymentController.purpose}" readonly="true"/>
+                            <p:inputText id="purpose2" value="#{annualFeeController.purpose}" readonly="true"/>
                             <p:message for="purpose2"/>
 
                             <p:outputLabel for="sum2" value="Suma: "/>
-                            <p:inputText id="sum2" value="#{paymentController.amount} taškų" readonly="true"/>
+                            <p:inputText id="sum2" value="#{annualFeeController.amount} taškų" readonly="true"/>
                             <p:message for="sum2"/>
                         </h:panelGrid>
 
                         <p:separator />
 
-                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{paymentController.createPayment}"/>
+                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
                     </p:outputPanel>
 
 
 
 
-                    <p:outputPanel rendered="#{paymentController.isCurrentForm('CONFIRMATION')}">
+                    <p:outputPanel rendered="#{annualFeeController.isCurrentForm('CONFIRMATION')}">
                         <h1>Patvirtinimas</h1>
                         <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
-                        <p:commandButton value="Patvirtinti" action="#{paymentController.ok}" ajax="false"/>
-                        <p:commandButton value="Atšaukti" action="#{paymentController.cancel}" ajax="false"/>
+                        <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" ajax="false"/>
+                        <p:commandButton value="Atšaukti" action="#{annualFeeController.cancel}" ajax="false"/>
                     </p:outputPanel>
 
 

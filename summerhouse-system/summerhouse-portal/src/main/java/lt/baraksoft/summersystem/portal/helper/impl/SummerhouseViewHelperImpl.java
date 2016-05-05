@@ -20,7 +20,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  */
 
 @Stateless
-public class SummerhouseViewHelperImpl implements SummerhouseViewHelper, Serializable {
+public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 
 	@Inject
 	private SummerhouseDao summerhouseDao;
