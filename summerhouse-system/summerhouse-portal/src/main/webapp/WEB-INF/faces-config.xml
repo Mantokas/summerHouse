@@ -45,7 +45,7 @@
         <from-view-id>/summerhouses.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toReservation</from-outcome>
-            <to-view-id>/reservation.xhtml</to-view-id>
+            <to-view-id>/reservation.xhtml?faces-redirect=true</to-view-id>
             <redirect/>
         </navigation-case>
 
