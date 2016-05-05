@@ -43,10 +43,6 @@ public class Reservation implements IEntity<Integer> {
 	private boolean approved;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "amount_of_people")
-	private Integer amountOfPeople;
-	@Basic(optional = false)
-	@NotNull
 	@Column(name = "price")
 	private BigDecimal price;
 	@Basic(optional = false)
