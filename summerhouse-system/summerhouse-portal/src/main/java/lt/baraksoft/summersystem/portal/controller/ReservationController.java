@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +25,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  * Created by LaurynasC on 2016-04-19.
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
