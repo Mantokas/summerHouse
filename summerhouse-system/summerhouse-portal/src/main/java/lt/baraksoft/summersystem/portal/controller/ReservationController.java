@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.ServiceViewHelper;
@@ -22,8 +24,8 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 /**
  * Created by LaurynasC on 2016-04-19.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@SessionScoped
 public class ReservationController implements Serializable {
 	private static final long serialVersionUID = 5810155872071867868L;
 
@@ -32,6 +34,9 @@ public class ReservationController implements Serializable {
 
 	@Inject
 	private ServiceViewHelper serviceViewHelper;
+
+	@Inject
+	private UserLoginController userLoginController;
 
 	private Date reservationFrom;
 	private Date reservationTo;
@@ -52,55 +57,54 @@ public class ReservationController implements Serializable {
 	}
 
 	public Date getNextMonday() {
-		Calendar c= Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		c.add(Calendar.DAY_OF_MONTH, 7);
 		monday = c.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 		while (isValidMonday) {
 			reservedDays.stream().forEach(r -> findCorrectMonday(monday, r));
-			if (!isValidMonday){
+			if (!isValidMonday) {
 				isValidMonday = true;
 				monday = monday.plusDays(7);
-			}
-			else return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			} else
+				return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		}
 		return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
-	private void findCorrectMonday(LocalDate monday, LocalDate reservedMonday){
-		if (reservedMonday.compareTo(monday) == 0){
+	private void findCorrectMonday(LocalDate monday, LocalDate reservedMonday) {
+		if (reservedMonday.compareTo(monday) == 0) {
 			isValidMonday = false;
 		}
 	}
 
-	private void addReservedDays(ReservationView reservationView){
+	private void addReservedDays(ReservationView reservationView) {
 		LocalDate dateFrom = reservationView.getDateFrom();
-        LocalDate dateTo = reservationView.getDateTo();
-        reservedDays.add(dateFrom);
-        reservedDays.add(dateTo);
-        dateFrom = dateFrom.plusDays(7);
+		LocalDate dateTo = reservationView.getDateTo();
+		reservedDays.add(dateFrom);
+		reservedDays.add(dateTo);
+		dateFrom = dateFrom.plusDays(7);
 		while (dateFrom.isBefore(dateTo)) {
 			reservedDays.add(dateFrom);
 			reservedDays.add(dateFrom.minusDays(1));
-            dateFrom = dateFrom.plusDays(7);
+			dateFrom = dateFrom.plusDays(7);
 		}
 	}
 
-    private void buildDateConstraint(){
+	private void buildDateConstraint() {
 		reservationsList.stream().forEach(r -> addReservedDays(r));
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("\"M-d-yyyy\"");
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
-		for (LocalDate item : reservedDays){
+		for (LocalDate item : reservedDays) {
 			sb.append(item.format(sdf)).append(", ");
 		}
 		sb.append("]");
 
-		if (reservedDays.isEmpty()){
+		if (reservedDays.isEmpty()) {
 			disabledDay = "[\"\"]";
-		}
-		else {
+		} else {
 			disabledDay = sb.toString();
 		}
 
@@ -111,7 +115,7 @@ public class ReservationController implements Serializable {
 		view.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		view.setSummerhouseID(selectedSummerhouse.getId());
-		view.setUserID(4);// TODO set real user id
+		view.setUserID(userLoginController.getLoggedUser().getId());
 		reservationViewHelper.save(view);
 	}
 

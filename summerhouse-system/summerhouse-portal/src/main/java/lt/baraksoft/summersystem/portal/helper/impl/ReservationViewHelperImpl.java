@@ -1,8 +1,10 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.dao.ReservationDao;
@@ -15,7 +17,8 @@ import lt.baraksoft.summersystem.portal.view.ReservationView;
 /**
  * Created by LaurynasC on 2016-04-19.
  */
-public class ReservationViewHelperImpl implements ReservationViewHelper {
+@Stateless
+public class ReservationViewHelperImpl implements ReservationViewHelper, Serializable {
 
 	@Inject
 	private ReservationDao reservationDao;

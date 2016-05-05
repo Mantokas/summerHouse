@@ -1,20 +1,19 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.io.Serializable;
 
 /**
  * Created by etere on 2016-04-20.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class DetailedUserController implements Serializable{
     private static final long serialVersionUID = -2303496351679184378L;
 

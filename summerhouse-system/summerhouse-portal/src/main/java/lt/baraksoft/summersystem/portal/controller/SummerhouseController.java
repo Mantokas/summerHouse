@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
@@ -19,8 +23,9 @@ import org.primefaces.event.SelectEvent;
 /**
  * Created by LaurynasC on 2016-04-19.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@SessionScoped
+@Stateful
 public class SummerhouseController implements Serializable {
 	private static final long serialVersionUID = 7327490916016914082L;
 
@@ -39,7 +44,7 @@ public class SummerhouseController implements Serializable {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
-	public void onRowSelect(SelectEvent event){
+	public void onRowSelect(){
 		disabled = false;
 	}
 
