@@ -13,19 +13,12 @@
 
         <ui:define name="content">
 
-            <f:metadata>
-                <f:viewAction action="#{navigationController.checkLoggedUser}"/>
-            </f:metadata>
-            
-            <h:form id="form1">
-                <p:commandButton rendered="#{not empty userLoginController.loggedUser}"
-                                 id="loggedUser"
-                                 value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
-                                 action="#{navigationController.goToLoggedUserInfo}"
-                />
+            <div class="image-bg-fluid-height">
+            </div>
 
-                <p:commandButton value="Atsijungti" rendered="#{not empty userLoginController.loggedUser}" id="logout"
-                                 actionListener="#{userLoginController.logout}" action="#{navigationController.goToSignin}" update=":form1"/>
+
+
+            <h:form id="form1">
 
                 <h:commandButton value="Vartotojai" type="submit"
                                  action="#{navigationController.goToUsersList}" immediate="true"/>
@@ -41,9 +34,6 @@
                 <h:commandButton value="Registracija" type="submit"
                                  action="#{navigationController.goToUserRegistration}" immediate="true"
                                  rendered="#{empty userLoginController.loggedUser}"/>
-
-                <h:commandButton value="Mokėjimai" type="submit"
-                                 action="#{navigationController.goToPayment}" immediate="true"/>
 
             </h:form>
         </ui:define>
