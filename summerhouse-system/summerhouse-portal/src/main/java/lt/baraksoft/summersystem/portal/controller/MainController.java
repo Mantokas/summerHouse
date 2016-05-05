@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.SessionScoped;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -40,10 +40,6 @@ public class MainController implements Serializable {
 		// email.setRecipient("mantas.petkeviciuus@gmail.com");
 		// email.setSubject("Summersystem registration");
 		// mailService.sendMessage(email);
-	}
-
-	@PreDestroy
-	public void aboutToDie() {
 	}
 
 	public void createUser() {

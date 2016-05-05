@@ -4,6 +4,7 @@ import lt.baraksoft.summersystem.dao.PaymentDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
 
@@ -39,6 +40,9 @@ public class PaymentController implements Serializable {
 
     @Inject
     private Conversation conversation;
+
+    @Inject
+    private UserLoginController userLoginController;
 
     @Inject
     private PaymentDao paymentDao;
@@ -94,9 +98,9 @@ public class PaymentController implements Serializable {
             yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
             amount = yearLength * 20;
 
-            //UserView loggedUser = (UserView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loggedUser"); //// TODO: 2016-05-04 prisijunges useris
+            UserView loggedUserView = userLoginController.getLoggedUser();
 
-            loggedUser = userDao.get(1);
+            loggedUser = userDao.get(loggedUserView.getId());
             int points = loggedUser.getPoints();
 
             if (points < amount) {

@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
  */
 
 @Stateless
-public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
+public class SummerhouseViewHelperImpl implements SummerhouseViewHelper, Serializable {
 
 	@Inject
 	private SummerhouseDao summerhouseDao;
