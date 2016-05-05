@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:composition template="/template/common/commonLayout.xhtml">
+		<ui:define name="title">Vasarnamiu administravimas</ui:define>
+		<ui:define name="content">
+		
+			<h:form id="summerhouseForm">
+				<h:panelGrid columns="2" id="grid" cellpadding="5">
+				
+					<p:outputLabel for="title" value="Pavadinimas" />
+					<p:inputText id="title" value="#{summerhouseAdminController.summerhouse.title}" required="true" requiredMessage="Įveskite vasarnamio pavadinimą!" validatorMessage="Pavadinimas gali susidėti tik iš raidžių!">
+						<f:validateRegex pattern="[a-zA-Z]+" />
+					</p:inputText>
+					
+					<p:outputLabel for="adress" value="Adresas" />
+					<p:inputText id="adress" value="#{summerhouseAdminController.summerhouse.address}" required="true" requiredMessage="Įveskite vasarnamio adresą!" />
+					
+					<p:outputLabel for="capacity" value="Vasarnamio talpinamų žmonių skaičius" />
+					<p:inputText id="capacity" value="#{summerhouseAdminController.summerhouse.capacity}" required="false" validatorMessage="Talpa gali susidėti tik iš skaičių!">
+						<f:validateRegex pattern="^[0-9]*$" />
+					</p:inputText>
+
+					<p:outputLabel for="dateFrom" value="Vasarnamis rezervuojamas nuo:" />
+					<p:calendar id="dateFrom" value="#{summerhouseAdminController.dateFrom}"/>
+					
+					<p:outputLabel for="dateTo" value="Vasarnamis rezervuojamas iki:" />
+					<p:calendar id="dateTo" value="#{summerhouseAdminController.dateTo}"/>
+					
+					<p:outputLabel for="price" value="Vasarnamio nuomos savaitei kaina:" />
+					<p:inputText id="price" value="#{summerhouseAdminController.summerhouse.price}" required="true" requiredMessage="Įveskite vasarnamio kainą!" validatorMessage="Kaina gali susidėti tik iš skaičių!">
+						<f:validateRegex pattern="^[0-9]*$" />
+					</p:inputText>
+					
+					<p:outputLabel for="description" value="Aprašymas" />
+					<p:inputText id="description" value="#{summerhouseAdminController.summerhouse.description}" required="false"  />
+
+				</h:panelGrid>
+				<p:commandButton value="Sukurti vasarnamį" action="#{summerhouseAdminController.doCreate}"/>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

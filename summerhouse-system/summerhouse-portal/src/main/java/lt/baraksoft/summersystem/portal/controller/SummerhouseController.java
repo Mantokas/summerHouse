@@ -5,20 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lt.baraksoft.summersystem.dao.SummerhouseDao;
-import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
-import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
-import org.primefaces.event.SelectEvent;
 
 /**
  * Created by LaurynasC on 2016-04-19.
@@ -32,9 +25,6 @@ public class SummerhouseController implements Serializable {
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
 
-	@Inject
-	private SummerhouseDao summerhouseDao;
-
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
 	private Boolean disabled = true;
@@ -44,7 +34,7 @@ public class SummerhouseController implements Serializable {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
-	public void onRowSelect(){
+	public void onRowSelect() {
 		disabled = false;
 	}
 

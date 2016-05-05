@@ -1,9 +1,9 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -40,12 +40,12 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper, Seriali
 	public void save(SummerhouseView view) {
 		Summerhouse entity = view.getId() != null ? summerhouseDao.get(view.getId()) : new Summerhouse();
 		entity.setAddress(view.getAddress());
-		entity.setCapacity(view.getCapacity());
+		entity.setCapacity(Integer.valueOf(view.getCapacity()));
 		entity.setDateFrom(view.getDateFrom());
 		entity.setDateTo(view.getDateTo());
 		entity.setDescription(view.getDescription());
 		entity.setArchived(view.isArchived());
-		entity.setPrice(view.getPrice());
+		entity.setPrice(new BigDecimal(view.getPrice()));
 		entity.setTitle(view.getTitle());
 		summerhouseDao.save(entity);
 	}
@@ -61,12 +61,12 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper, Seriali
 		SummerhouseView view = new SummerhouseView();
 		view.setId(entity.getId());
 		view.setAddress(entity.getAddress());
-		view.setCapacity(entity.getCapacity());
+		view.setCapacity(String.valueOf(entity.getCapacity()));
 		view.setDateFrom(entity.getDateFrom());
 		view.setDateTo(entity.getDateTo());
 		view.setDescription(entity.getDescription());
 		view.setArchived(entity.isArchived());
-		view.setPrice(entity.getPrice());
+		view.setPrice(entity.getPrice().toString());
 		view.setTitle(entity.getTitle());
 		view.setServiceViews(serviceViewHelper.buildViews(entity.getServiceList()));
 		return view;
