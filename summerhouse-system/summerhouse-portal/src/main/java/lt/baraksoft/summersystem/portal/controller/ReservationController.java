@@ -41,6 +41,7 @@ public class ReservationController implements Serializable {
 	private List<LocalDate> reservedDays = new ArrayList<>();
 	private Boolean isValidMonday = true;
 	private LocalDate monday;
+	private List<ServiceView> selectedServices = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
@@ -158,4 +159,11 @@ public class ReservationController implements Serializable {
 		this.disabledDay = disabledDay;
 	}
 
+	public List<ServiceView> getSelectedServices() {
+		return selectedServices;
+	}
+
+	public void setSelectedServices(List<ServiceView> selectedServices) {
+		this.selectedServices = selectedServices;
+	}
 }

@@ -4,14 +4,13 @@ import lt.baraksoft.summersystem.dao.PaymentDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.User;
-import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
 
 import javax.annotation.PostConstruct;
+
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,7 +28,7 @@ import java.util.List;
 @Named
 @ConversationScoped
 @Stateful
-public class PaymentController implements Serializable{
+public class PaymentController implements Serializable {
 
     private static final long serialVersionUID = 390311249488898840L;
 
@@ -56,6 +55,7 @@ public class PaymentController implements Serializable{
     private int amount;
     private int yearLength;
     private CURRENT_FORM currentForm = CURRENT_FORM.PAYMENT_TYPE;
+
     private enum CURRENT_FORM {
         PAYMENT_TYPE, PAYMENT_PROPERTIES, CONFIRMATION
     }
@@ -71,6 +71,11 @@ public class PaymentController implements Serializable{
         return currentForm == form;
     }
 
+    public void calculateSum(){
+        yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
+        amount = yearLength * 20;
+    }
+
     public void checkPaymentAmount() {
         if (!conversation.isTransient()) {
             conversation.end();
@@ -79,26 +84,26 @@ public class PaymentController implements Serializable{
             return;
         }
 
+
         conversation.begin();
 
-        if(selectedPaymentValue.equals("")) {
+        if (selectedPaymentValue.equals("")) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepasirinkote mokėjimo!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        else{
-             yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
-             amount = yearLength * 20;
+        } else {
+            yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
+            amount = yearLength * 20;
 
-            //UserView loggedUser = (UserView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loggedUser");
+            //UserView loggedUser = (UserView) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loggedUser"); //// TODO: 2016-05-04 prisijunges useris
 
             loggedUser = userDao.get(1);
             int points = loggedUser.getPoints();
 
-            if (points < amount){
+            if (points < amount) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Mokėjimui reikia " + amount + " taškų, Jūs turite " + points + " taškų");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            else{
+            else {
                 purpose = "Narystės pratęsimas " + selectedPaymentValue;
                 validTo = loggedUser.getValidTo();
                 loggedUser.setPoints(points - amount);
@@ -125,11 +130,10 @@ public class PaymentController implements Serializable{
 
         loggedUser.getPaymentList().add(payment);
 
-        if (validTo != null){
-            loggedUser.setValidTo(validTo.plusDays(365*yearLength));
-        }
-        else {
-            loggedUser.setValidTo(LocalDate.now().plusDays(365*yearLength));
+        if (validTo != null) {
+            loggedUser.setValidTo(validTo.plusDays(365 * yearLength));
+        } else {
+            loggedUser.setValidTo(LocalDate.now().plusDays(365 * yearLength));
         }
         currentForm = CURRENT_FORM.CONFIRMATION;
         activeIndex = 2;

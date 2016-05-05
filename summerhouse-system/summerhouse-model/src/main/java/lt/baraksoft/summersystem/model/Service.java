@@ -57,6 +57,10 @@ public class Service implements IEntity<Integer> {
 	@ManyToMany
 	private List<Summerhouse> summerhouseList;
 
+	@JoinTable(name = "reservation_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "reservation_id", referencedColumnName = "id") })
+	@ManyToMany
+	private List<Reservation> reservationList;
+
 	@Version
 	private Integer version;
 

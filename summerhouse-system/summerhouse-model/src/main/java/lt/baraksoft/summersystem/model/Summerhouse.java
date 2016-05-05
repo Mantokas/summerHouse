@@ -69,8 +69,10 @@ public class Summerhouse implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
+
 	@ManyToMany(mappedBy = "summerhouseList")
 	private List<Service> serviceList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")
 	private List<Reservation> reservationList;
 

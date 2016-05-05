@@ -38,6 +38,13 @@
                     />
 
                     <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
+
+                    <p:commandLink
+                                     value="Registruotis"
+                                     id="register"
+                                     action="#{navigationController.goToUserRegistration}"
+                                     ajax="false"
+                    />
                 </h:form>
 
             </div> <!-- /container -->
