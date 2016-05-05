@@ -172,14 +172,6 @@ public class Reservation implements IEntity<Integer> {
 		return "lt.baraksoft.summersystem.model.Reservation[ id=" + id + " ]";
 	}
 
-	public Integer getAmountOfPeople() {
-		return amountOfPeople;
-	}
-
-	public void setAmountOfPeople(Integer amountOfPeople) {
-		this.amountOfPeople = amountOfPeople;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
 	}
