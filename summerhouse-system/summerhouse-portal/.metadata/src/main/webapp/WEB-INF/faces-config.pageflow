@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf146248766842726" configfile="/summerhouse-portal/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf146248766842726" configfile="/summerhouse-portal/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1714" id="pf146282290325457" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf146282290325462 pf146282290325463 pf146282330863893 pf146282330863894 pf146282330863895 pf146282330863896 pf146282330863897 pf146282330863898" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="signin.xhtml" x="338" y="946" id="pf146282290325470" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf146282290325471 pf146282290325472" inlinks="pf146282330863896" path="/signin.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="userRegistration.xhtml" x="554" y="754" id="pf146282290325473" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf146282290325471" path="/userRegistration.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="1714" id="pf146282290325474" referenceLink="//@navigationRule.0/@fromViewId|" inlinks="pf146282290325462" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="loggedUserDetails.xhtml" x="338" y="2866" id="pf146282290325577" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf146282290325463" path="/loggedUserDetails.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml?faces-redirect=true" x="554" y="1138" id="pf146282290325579" referenceLink="//@navigationRule.10/@navigationCase.0/@toViewId|" inlinks="pf146282290325472" path="/index.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="allusers.xhtml" id="pf146282291239483" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf146282330863899" inlinks="pf146282330863894" path="/allusers.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="summerhouses.xhtml" id="pf146282294524287" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf1462823308638100" inlinks="pf146282330863895" path="/summerhouses.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="reservationPaymentProcess.xhtml?faces-redirect=true" id="pf1462823308638101" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf1462823308638100" path="/reservationPaymentProcess.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="userinfo.xhtml" id="pf1462823308638102" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf146282330863899" path="/userinfo.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="summerhouseSearch.xhtml" id="pf1462823308638103" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf146282330863893" path="/summerhouseSearch.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="signin.xhtml?faces-redirect=true" id="pf1462823308638104" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" inlinks="pf146282330863897" path="/signin.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="paymentProcess.xhtml" id="pf1462823308638105" referenceLink="//@navigationRule.11/@navigationCase.0/@toViewId|" inlinks="pf146282330863898" path="/paymentProcess.xhtml"/>
+  <links id="pf146282290325471" target="pf146282290325473" source="pf146282290325470" outcome="toUserRegistration" redirect="true"/>
+  <links id="pf146282290325462" target="pf146282290325474" source="pf146282290325457" outcome="toMain"/>
+  <links id="pf146282290325463" target="pf146282290325577" source="pf146282290325457" outcome="toLoggedUserInfo" redirect="true"/>
+  <links id="pf146282290325472" target="pf146282290325579" source="pf146282290325470" outcome="goToLoggedPage"/>
+  <links id="pf1462823308638100" target="pf1462823308638101" source="pf146282294524287" outcome="goToReservation" redirect="true"/>
+  <links id="pf146282330863899" target="pf1462823308638102" source="pf146282291239483" outcome="toUserInfo" redirect="true"/>
+  <links id="pf146282330863893" target="pf1462823308638103" source="pf146282290325457" outcome="toSummerhousesSearch" redirect="true"/>
+  <links id="pf146282330863894" target="pf146282291239483" source="pf146282290325457" outcome="toUsers" redirect="true"/>
+  <links id="pf146282330863895" target="pf146282294524287" source="pf146282290325457" outcome="toSummer" redirect="true"/>
+  <links id="pf146282330863896" target="pf146282290325470" source="pf146282290325457" outcome="toSignin"/>
+  <links id="pf146282330863897" target="pf1462823308638104" source="pf146282290325457" outcome="toSignCheck"/>
+  <links id="pf146282330863898" target="pf1462823308638105" source="pf146282290325457" outcome="toPayment"/>
+</pageflow:Pageflow>
