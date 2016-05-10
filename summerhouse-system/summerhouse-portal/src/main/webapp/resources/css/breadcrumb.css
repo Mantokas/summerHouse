@@ -4,11 +4,10 @@
     font: 18px Helvetica, Arial, Sans-Serif;
     text-align: center;
     background-color: transparent;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    margin-left: 200px;
-    margin-right: 200px;
-    padding: 0 20px;
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 10%;
 }
 .breadcrumbas li {
     float: left;
@@ -67,4 +66,8 @@
 
 .customOutputPanel {
   margin-top: 200px;
+}
+
+.ui-growl {
+    z-index: 1050 !important;
 }
