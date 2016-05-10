@@ -54,7 +54,6 @@ public class AnnualFeeController implements Serializable {
     private String selectedPaymentValue;
     private List<String> clubPayTypes = new ArrayList<>();
     private User loggedUser;
-    private LocalDate validTo;
     private String purpose;
     private int amount;
     private int yearLength;
@@ -108,7 +107,6 @@ public class AnnualFeeController implements Serializable {
             }
             else {
                 purpose = "Narystės pratęsimas " + selectedPaymentValue;
-                validTo = loggedUser.getValidTo();
                 loggedUser.setPoints(points - amount);
                 currentForm = CURRENT_FORM.PAYMENT_PROPERTIES;
                 activeIndex = 1;
@@ -133,8 +131,8 @@ public class AnnualFeeController implements Serializable {
 
         loggedUser.getPaymentList().add(payment);
 
-        if (validTo != null) {
-            loggedUser.setValidTo(validTo.plusDays(365 * yearLength));
+        if (loggedUser.getValidTo() != null) {
+            loggedUser.setValidTo(loggedUser.getValidTo().plusDays(365 * yearLength));
         } else {
             loggedUser.setValidTo(LocalDate.now().plusDays(365 * yearLength));
         }
@@ -199,14 +197,6 @@ public class AnnualFeeController implements Serializable {
 
     public User getLoggedUser() {
         return loggedUser;
-    }
-
-    public LocalDate getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(LocalDate validTo) {
-        this.validTo = validTo;
     }
 
     public String getPurpose() {

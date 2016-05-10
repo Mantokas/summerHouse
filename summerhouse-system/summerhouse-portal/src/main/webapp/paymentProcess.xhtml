@@ -16,16 +16,16 @@
 
                 <h:form>
                     <p:growl id="msgs" showDetail="true" />
-                    <p:steps activeIndex="#{annualFeeController.activeIndex}" styleClass="custom" readonly="true">
+                    <p:steps activeIndex="#{annualFeeController.activeIndex}" styleClass="breadcrumbas" readonly="true">
                         <p:menuitem value="Mokėjimo tipas"/>
                         <p:menuitem value="Mokėjimo ypatybės"/>
                         <p:menuitem value="Patvirtinimas"/>
                     </p:steps>
 
                     <p:outputPanel header="Pasirinkite mokėjimo tipą" rendered="#{annualFeeController.isCurrentForm('PAYMENT_TYPE')}">
-                        <h:panelGrid columns="2" cellpadding="5">
+                        <h:panelGrid columns="2" cellpadding="5" styleClass="customPanelGrid">
                             <p:outputLabel for="city" value="Mokėjimas: " />
-                            <p:selectOneMenu id="city" value="#{annualFeeController.selectedPaymentValue}">
+                            <p:selectOneMenu id="city" value="#{annualFeeController.selectedPaymentValue}" panelStyleClass="panel" styleClass="selectItem">
                                 <f:selectItem itemLabel="Pasirinkite" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{annualFeeController.clubPayTypes}" />
                                 <p:ajax listener="#{annualFeeController.calculateSum}" update="price"/>
@@ -33,17 +33,22 @@
 
                             <p:outputLabel for="price" value="Suma: " />
                             <p:inputText id = "price" value="#{annualFeeController.amount} taškų" readonly="true"/>
+
                         </h:panelGrid>
 
-                        <p:separator />
+                        <p:separator styleClass="customSeparator"/>
 
-                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}"/>
+                        <h:panelGrid columns="1" cellpadding="5">
+                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="customButton"/>
+                        </h:panelGrid>
+
+
                     </p:outputPanel>
 
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('PAYMENT_PROPERTIES')}">
                         <h1>Mokėjimo informacija</h1>
-                        <h:panelGrid id="grid" columns="3" rendered="#{annualFeeController.validTo == null}">
+                        <h:panelGrid id="grid" columns="3" rendered="#{annualFeeController.loggedUser.validTo == null}">
                             <p:outputLabel for="valid" value="Dabartinė narystė galioja iki: "/>
                             <p:inputText id="valid" value="NEGALIOJA" readonly="true"/>
                             <p:message for="valid"/>
@@ -65,9 +70,9 @@
                             <p:message for="sum"/>
                         </h:panelGrid>
 
-                        <h:panelGrid id="grid2" columns="3" rendered="#{annualFeeController.validTo != null}">
+                        <h:panelGrid id="grid2" columns="3" rendered="#{annualFeeController.loggedUser.validTo != null}">
                             <p:outputLabel for="valid2" value="Dabartinė narystė galioja iki: "/>
-                            <p:inputText id="valid2" value="#{annualFeeController.validTo}" readonly="true"/>
+                            <p:inputText id="valid2" value="#{annualFeeController.loggedUser.validTo}" readonly="true"/>
                             <p:message for="valid2"/>
 
                             <p:outputLabel for="firstname2" value="Mokėtojo vardas: "/>
@@ -101,38 +106,6 @@
                         <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" ajax="false"/>
                         <p:commandButton value="Atšaukti" action="#{annualFeeController.cancel}" ajax="false"/>
                     </p:outputPanel>
-
-
-                    <style type="text/css">
-                        .ui-steps .ui-steps-item {
-                            width: 33%;
-                        }
-
-                        .ui-state-highlight {
-                            text-shadow: none !important;
-                        }
-
-                        .ui-steps.custom {
-                            margin-bottom: 30px;
-                            margin-left: 30px;
-                            margin-right: 30px;
-                        }
-
-                        .ui-steps.custom .ui-steps-item .ui-menuitem-link {
-                            height: 10px;
-                            padding: 0 1em;
-                        }
-
-                        .ui-steps.custom .ui-steps-item .ui-steps-number {
-                            background-color: rgba(75, 255, 93, 0.58);
-                            color: #FFFFFF;
-                            display: inline-block;
-                            width: 30px;
-                            border-radius: 10px;
-                            margin-top: -10px;
-                            margin-bottom: 10px;
-                        }
-                    </style>
 
                 </h:form>
 
