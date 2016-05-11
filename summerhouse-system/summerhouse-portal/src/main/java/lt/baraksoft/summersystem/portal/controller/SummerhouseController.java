@@ -8,7 +8,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
@@ -41,7 +40,7 @@ public class SummerhouseController implements Serializable {
 
 	public String doSelectSummerhouse() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
-        return "goToReservation";
+		return "goToReservation";
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {

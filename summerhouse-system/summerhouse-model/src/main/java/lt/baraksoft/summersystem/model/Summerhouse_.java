@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.annotation.Generated;
@@ -17,8 +18,8 @@ public class Summerhouse_ {
 	public static volatile SingularAttribute<Summerhouse, BigDecimal> price;
 	public static volatile SingularAttribute<Summerhouse, String> description;
 	public static volatile SingularAttribute<Summerhouse, Integer> capacity;
-	public static volatile SingularAttribute<Summerhouse, LocalDateTime> dateFrom;
-	public static volatile SingularAttribute<Summerhouse, LocalDateTime> dateTo;
+	public static volatile SingularAttribute<Summerhouse, LocalDate> dateFrom;
+	public static volatile SingularAttribute<Summerhouse, LocalDate> dateTo;
 	public static volatile SingularAttribute<Summerhouse, Boolean> archived;
 	public static volatile SetAttribute<Summerhouse, Reservation> reservationList;
 
