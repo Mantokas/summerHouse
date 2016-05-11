@@ -18,22 +18,22 @@ public class SummerhouseSearch implements Serializable {
 	private boolean archived;
 	private BigDecimal price;
 	private String title;
-	private LocalDateTime dateFrom;
-	private LocalDateTime dateTo;
+	private LocalDate dateFrom;
+	private LocalDate dateTo;
 
-	public LocalDateTime getDateFrom() {
+	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(LocalDateTime dateFrom) {
+	public void setDateFrom(LocalDate dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public LocalDateTime getDateTo() {
+	public LocalDate getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(LocalDateTime dateTo) {
+	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
 	}
 

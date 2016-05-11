@@ -1,5 +1,7 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,16 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
-import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by etere on 2016-04-27.
@@ -28,26 +22,32 @@ public class SearchController {
 
     @Inject
     private SummerhouseViewHelper summerhouseViewHelper;
+
     private List<SummerhouseView> list;
     private SummerhouseSearch searchObject;
-    private Date dateFrom;
+	private Date dateFrom;
     private Date dateTo;
 
     @PostConstruct
     public void init() {
-        searchObject = new SummerhouseSearch();
-        list = summerhouseViewHelper.search(searchObject);
-    }
-	@Inject
-	private SummerhouseViewHelper summerhouseViewHelper;
-
-	private List<SummerhouseView> list;
-	private SummerhouseSearch searchObject;
-
-	@PostConstruct
-	public void init() {
 		searchObject = new SummerhouseSearch();
 		list = summerhouseViewHelper.search(searchObject);
+    }
+
+	public Date getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Date getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public List<SummerhouseView> getList() {
@@ -63,6 +63,10 @@ public class SearchController {
 	}
 
 	public void doUpdateSummerhouseList() {
+		if(dateFrom != null){
+			searchObject.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+		}
 		list = summerhouseViewHelper.search(searchObject);
 	}
 
