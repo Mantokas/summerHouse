@@ -18,13 +18,31 @@
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true"/>
 
-                <p:outputLabel for="capacity" value="Vasarnamio talpa:"/>
-                <p:inputText id="capacity" value="#{searchController.searchObject.capacity}">
-                </p:inputText>
+                <p:outputLabel for="capacity" value="Ieškoti pagal:"/><br></br>
 
-                <p:outputLabel for="title" value="Vasarnamio pavadinimas:"/>
-                <p:inputText id="title" value="#{searchController.searchObject.title}">
-                </p:inputText>
+                <h:panelGrid>
+
+                    <p:outputLabel for="button1" value="Laisvas nuo: "/>
+                    <p:calendar id="button1" value="#{searchController.searchObject.dateFrom}"
+                                readonlyInput="true">
+                        <p:ajax event="dateSelect"/>
+                    </p:calendar>
+
+                    <p:outputLabel for="button2" value="Laisvas iki: "/>
+                    <p:calendar id="button2" pattern="yyyy-MM-dd" value="#{searchController.searchObject.dateTo}"
+                                readonlyInput="true">
+                        <p:ajax event="dateSelect"/>
+                    </p:calendar>
+
+                </h:panelGrid>
+
+                <p:outputLabel for="title" value="Vasarnamio pavadinimą "/>
+                <p:inputText id="title" value="#{searchController.searchObject.title}" placeholder="Vasarnamio pavadinimas">
+                </p:inputText> <br></br>
+
+                <p:outputLabel for="title" value="Talpą "/>
+                <p:inputText id="capacity" value="#{searchController.searchObject.capacity}" placeholder="Talpa">
+                </p:inputText> <br></br>
 
                 <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="summerhousesSearch"/>
 
@@ -37,6 +55,9 @@
                     </p:column>
                     <p:column headerText="Talpa" sortBy="#{summerhouseView.capacity}">
                         <h:outputText value="#{summerhouseView.capacity}"/>
+                    </p:column>
+                    <p:column headerText="Laisvas nuo" sortBy="#{summerhouseView.dateFrom}">
+                        <h:outputText value="#{summerhouseView.dateFrom}"/>
                     </p:column>
 
                 </p:dataTable>

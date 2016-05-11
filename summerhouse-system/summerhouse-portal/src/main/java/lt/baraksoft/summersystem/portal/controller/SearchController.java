@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +25,8 @@ public class SearchController {
     private SummerhouseViewHelper summerhouseViewHelper;
     private List<SummerhouseView> list;
     private SummerhouseSearch searchObject;
-
+    private Date dateFrom;
+    private Date dateTo;
 
     @PostConstruct
     public void init() {
