@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.portal.controller;
 import java.io.Serializable;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -20,18 +21,25 @@ public class SummerhouseAdminController implements Serializable {
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
 
+	private List<SummerhouseView> summerhousesList;
+	private SummerhouseView selectedSummerhouse;
 	private SummerhouseView summerhouse = new SummerhouseView();
 	private Date dateFrom;
 	private Date dateTo;
 
 	@PostConstruct
 	public void init() {
+		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
 	public void doCreate() {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouseViewHelper.save(summerhouse);
+		summerhousesList.add(summerhouse);
+	}
+
+	public void onSelect() {
 	}
 
 	public SummerhouseView getSummerhouse() {
@@ -56,6 +64,22 @@ public class SummerhouseAdminController implements Serializable {
 
 	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
+	}
+
+	public List<SummerhouseView> getSummerhousesList() {
+		return summerhousesList;
+	}
+
+	public void setSummerhousesList(List<SummerhouseView> summerhousesList) {
+		this.summerhousesList = summerhousesList;
+	}
+
+	public SummerhouseView getSelectedSummerhouse() {
+		return selectedSummerhouse;
+	}
+
+	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
+		this.selectedSummerhouse = selectedSummerhouse;
 	}
 
 }

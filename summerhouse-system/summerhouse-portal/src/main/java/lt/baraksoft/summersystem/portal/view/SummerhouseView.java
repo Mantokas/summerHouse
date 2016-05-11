@@ -101,4 +101,8 @@ public class SummerhouseView implements Serializable {
 	public void setServiceViews(List<ServiceView> serviceViews) {
 		this.serviceViews = serviceViews;
 	}
+
+	public String getArchivedString() {
+		return archived ? "Archyvuotas" : "Nearchyvuotas";
+	}
 }
