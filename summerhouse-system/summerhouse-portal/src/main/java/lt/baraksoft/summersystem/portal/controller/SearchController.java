@@ -1,5 +1,7 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,16 +20,34 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 @RequestScoped
 public class SearchController {
 
-	@Inject
-	private SummerhouseViewHelper summerhouseViewHelper;
+    @Inject
+    private SummerhouseViewHelper summerhouseViewHelper;
 
-	private List<SummerhouseView> list;
-	private SummerhouseSearch searchObject;
+    private List<SummerhouseView> list;
+    private SummerhouseSearch searchObject;
+	private Date dateFrom;
+    private Date dateTo;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 		searchObject = new SummerhouseSearch();
 		list = summerhouseViewHelper.search(searchObject);
+    }
+
+	public Date getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Date getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public List<SummerhouseView> getList() {
@@ -43,6 +63,10 @@ public class SearchController {
 	}
 
 	public void doUpdateSummerhouseList() {
+		if(dateFrom != null)
+			searchObject.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		if(dateTo != null)
+			searchObject.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		list = summerhouseViewHelper.search(searchObject);
 	}
 

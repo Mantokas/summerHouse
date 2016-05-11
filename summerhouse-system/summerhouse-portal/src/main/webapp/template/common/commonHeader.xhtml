@@ -48,7 +48,7 @@
                                 <p:commandLink  value="Vasarnamių paieška" type="submit"
                                                  action="#{navigationController.goToSummerhousesSearch}"
                                                  immediate="true"/>
-                            </li>
+                            </li >
                             <li>
                                 <p:commandLink  value="Sumokėti metinį narystės mokestį" type="submit"
                                                  action="#{navigationController.goToPayment}" immediate="true"/>
@@ -56,22 +56,28 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <p:commandLink value="Atsijungti" id="logout"
-                                               actionListener="#{userLoginController.logout}"
-                                               action="#{navigationController.goToSignin}"/>
-                            </li>
-                            <li>
                                 <p:commandLink rendered="#{not empty userLoginController.loggedUser}"
                                                id="loggedUser"
                                                value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
                                                action="#{navigationController.goToLoggedUserInfo}"
                                 />
                             </li>
+                            <li>
+                                <p:commandLink value="Atsijungti" id="logout"
+                                               actionListener="#{userLoginController.logout}"
+                                               action="#{navigationController.goToSignin}"/>
+                            </li>
+
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
             </nav>
 
+            <h:outputScript>
+                $(document).ready(function() {
+                    $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+                });
+            </h:outputScript>
 
         </h:form>
     </div> <!-- /container -->

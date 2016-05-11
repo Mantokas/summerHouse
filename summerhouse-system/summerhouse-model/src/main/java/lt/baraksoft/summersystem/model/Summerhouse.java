@@ -43,10 +43,8 @@ public class Summerhouse implements IEntity<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Size(min = 5, max = 500)
 	@Column(name = "title")
 	private String title;
-	@Size(min = 5, max = 500)
 	@Column(name = "address", unique = true)
 	private String address;
 	@Digits(integer = 4, fraction = 2)
