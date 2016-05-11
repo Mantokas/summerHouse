@@ -12,6 +12,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

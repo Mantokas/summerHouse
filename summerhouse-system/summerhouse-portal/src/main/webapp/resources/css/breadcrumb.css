@@ -1,0 +1,73 @@
+.breadcrumbas {
+    list-style: none;
+    overflow: hidden;
+    font: 18px Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    background-color: transparent;
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 10%;
+}
+.breadcrumbas li {
+    float: left;
+    width: 33.33%;
+}
+.breadcrumbas li a {
+    color: white;
+    text-decoration: none;
+    background: hsl(128, 100%, 32%);
+    position: relative;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.customSeparator{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: green;
+}
+
+.selectItem .ui-selectonemenu-trigger{
+    background: rgba(71, 255, 0, 0.24);
+    width: 30px !important;
+}
+
+.selectItem .ui-icon{
+    margin-bottom: 15% !important;
+    margin-top: 25% !important;
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+}
+
+.panel .ui-selectonemenu-list {
+    background: rgba(71, 255, 0, 0.24);
+}
+
+.customPanelGrid .ui-widget{
+    margin-right: 15px;
+}
+
+.customPanelGrid{
+    margin-top: 100px;
+}
+
+.customPanelGrid > tbody > tr{
+  display: inline-block;
+}
+
+.customButton {
+    background-image: none;
+    background-color: green;
+    color: white;
+    font-size: 20px !important;
+}
+
+.customOutputPanel {
+  margin-top: 200px;
+}
+
+.ui-growl {
+    z-index: 1050 !important;
+}

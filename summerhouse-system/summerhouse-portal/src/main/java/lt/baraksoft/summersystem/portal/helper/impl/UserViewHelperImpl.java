@@ -17,9 +17,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
-public class UserViewHelperImpl implements UserViewHelper, Serializable {
-
-	private static final long serialVersionUID = 3704824831918769814L;
+public class UserViewHelperImpl implements UserViewHelper{
 
 	@Inject
 	private UserDao userDao;

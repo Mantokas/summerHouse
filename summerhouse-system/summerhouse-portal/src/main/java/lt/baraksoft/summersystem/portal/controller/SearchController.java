@@ -1,7 +1,12 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import lt.baraksoft.summersystem.dao.SummerhouseDao;
-import lt.baraksoft.summersystem.dao.impl.SummerhouseDaoImpl;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
@@ -17,8 +22,8 @@ import java.util.List;
 /**
  * Created by etere on 2016-04-27.
  */
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class SearchController {
 
     @Inject
@@ -33,21 +38,32 @@ public class SearchController {
         searchObject = new SummerhouseSearch();
         list = summerhouseViewHelper.search(searchObject);
     }
+	@Inject
+	private SummerhouseViewHelper summerhouseViewHelper;
 
-    public List<SummerhouseView> getList() {
-        return list;
-    }
+	private List<SummerhouseView> list;
+	private SummerhouseSearch searchObject;
 
-    public SummerhouseSearch getSearchObject() {
-        return searchObject;
-    }
+	@PostConstruct
+	public void init() {
+		searchObject = new SummerhouseSearch();
+		list = summerhouseViewHelper.search(searchObject);
+	}
 
-    public void setSearchObject(SummerhouseSearch searchObject) {
-        this.searchObject = searchObject;
-    }
+	public List<SummerhouseView> getList() {
+		return list;
+	}
 
-    public void doUpdateSummerhouseList() {
-        list = summerhouseViewHelper.search(searchObject);
-    }
+	public SummerhouseSearch getSearchObject() {
+		return searchObject;
+	}
+
+	public void setSearchObject(SummerhouseSearch searchObject) {
+		this.searchObject = searchObject;
+	}
+
+	public void doUpdateSummerhouseList() {
+		list = summerhouseViewHelper.search(searchObject);
+	}
 
 }

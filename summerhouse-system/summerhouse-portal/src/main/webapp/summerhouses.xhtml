@@ -45,10 +45,8 @@
                                              value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
                                              disabled="#{summerhouseController.disabled}"/>
                             <p:commandButton id="reserveSummerhouse" process="singleDT" value="Rezervuoti"
-                                             action="#{navigationController.goToReservation}"
-                                             actionListener="#{summerhouseController.doSelectSummerhouse}"
-                                             disabled="#{summerhouseController.disabled}"
-                            />
+                                             action="#{summerhouseController.doSelectSummerhouse}"
+                                             disabled="#{summerhouseController.disabled}"/>
                         </f:facet>
                     </p:dataTable>
                     <p:dialog header="Vasarnamio info" widgetVar="summerhouseDialog"

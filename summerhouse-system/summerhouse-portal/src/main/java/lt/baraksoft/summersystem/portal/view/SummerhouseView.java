@@ -1,9 +1,6 @@
 package lt.baraksoft.summersystem.portal.view;
 
-import lt.baraksoft.summersystem.model.Service;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +13,12 @@ public class SummerhouseView implements Serializable {
 
 	private Integer id;
 	private String address;
-	private int capacity;
+	private String capacity;
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
 	private String description;
-	private Boolean isArchived;
-	private BigDecimal price;
+	private boolean archived;
+	private String price;
 	private String title;
 	private List<ServiceView> serviceViews = new ArrayList<>();
 
@@ -41,11 +38,11 @@ public class SummerhouseView implements Serializable {
 		this.id = id;
 	}
 
-	public int getCapacity() {
+	public String getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
+	public void setCapacity(String capacity) {
 		this.capacity = capacity;
 	}
 
@@ -73,19 +70,19 @@ public class SummerhouseView implements Serializable {
 		this.description = description;
 	}
 
-	public Boolean isArchived() {
-		return isArchived;
+	public boolean isArchived() {
+		return archived;
 	}
 
-	public void setArchived(Boolean isArchived) {
-		this.isArchived = isArchived;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
