@@ -6786,8 +6786,8 @@ button.close {
 }
 
 .image-bg-fluid-height {
-  /*;url('../images/backround.png')*/
-  background: url('http://lorempixel.com/g/1920/500/') no-repeat scroll center;
+  /*; url('http://lorempixel.com/g/1920/500/')*/
+  background: url('../images/Labanoras2.jpg') no-repeat scroll center;
   padding: 200px 0;
 }
 
