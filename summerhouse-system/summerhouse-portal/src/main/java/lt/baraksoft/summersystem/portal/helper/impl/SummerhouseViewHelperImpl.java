@@ -45,7 +45,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		entity.setDateTo(view.getDateTo());
 		entity.setDescription(view.getDescription());
 		entity.setArchived(view.isArchived());
-		entity.setPrice(new BigDecimal(view.getPrice()));
+		entity.setPrice(view.getPrice());
 		entity.setTitle(view.getTitle());
 		summerhouseDao.save(entity);
 	}
@@ -66,7 +66,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		view.setDateTo(entity.getDateTo());
 		view.setDescription(entity.getDescription());
 		view.setArchived(entity.isArchived());
-		view.setPrice(entity.getPrice().toString());
+		view.setPrice(entity.getPrice());
 		view.setTitle(entity.getTitle());
 		view.setServiceViews(serviceViewHelper.buildViews(entity.getServiceList()));
 		return view;

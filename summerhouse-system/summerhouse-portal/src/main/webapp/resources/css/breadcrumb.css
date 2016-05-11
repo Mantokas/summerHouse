@@ -1,3 +1,31 @@
+.breadcrumb4steps{
+    list-style: none;
+    overflow: hidden;
+    font: 18px Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    background-color: transparent;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
+    padding: 0 20px;
+}
+
+.breadcrumb4steps li {
+    float: left;
+    width: 25%;
+}
+
+.breadcrumb4steps li a {
+    color: white;
+    text-decoration: none;
+    background: hsl(128, 100%, 32%);
+    position: relative;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
 .breadcrumbas {
     list-style: none;
     overflow: hidden;

@@ -1,7 +1,10 @@
 package lt.baraksoft.summersystem.portal.view;
 
+import lt.baraksoft.summersystem.model.Summerhouse;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by LaurynasC on 2016-04-25.
@@ -14,6 +17,7 @@ public class ServiceView implements Serializable{
     private Boolean archived;
     private BigDecimal price;
     private String title;
+    private List<Summerhouse> summerhouseList;
 
     public int getId() {
         return id;
@@ -53,5 +57,13 @@ public class ServiceView implements Serializable{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Summerhouse> getSummerhouseList() {
+        return summerhouseList;
+    }
+
+    public void setSummerhouseList(List<Summerhouse> summerhouseList) {
+        this.summerhouseList = summerhouseList;
     }
 }

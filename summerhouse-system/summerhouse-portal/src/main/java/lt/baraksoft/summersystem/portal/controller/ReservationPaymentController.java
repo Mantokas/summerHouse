@@ -1,15 +1,21 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.dao.ReservationDao;
+import lt.baraksoft.summersystem.dao.SummerhouseDao;
+import lt.baraksoft.summersystem.dao.UserDao;
+import lt.baraksoft.summersystem.model.Reservation;
+import lt.baraksoft.summersystem.model.Service;
+import lt.baraksoft.summersystem.portal.helper.ReservationPaymentHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
+import lt.baraksoft.summersystem.portal.view.PaymentStepEnum;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
+import lt.baraksoft.summersystem.portal.view.ServiceView;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -17,9 +23,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.SynchronizationType;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +42,7 @@ import java.util.List;
 @Named
 @ConversationScoped
 @Stateful
-public class ReservationPaymentController implements Serializable{
+public class ReservationPaymentController implements Serializable {
     private static final long serialVersionUID = -1250770727961046876L;
 
     @PersistenceContext(unitName = "summerhousePU", type = PersistenceContextType.EXTENDED, synchronization = SynchronizationType.UNSYNCHRONIZED)
@@ -41,50 +52,110 @@ public class ReservationPaymentController implements Serializable{
     private Conversation conversation;
 
     @EJB
+    private ReservationPaymentHelper reservationPaymentHelper;
+
+    @EJB
     private ReservationViewHelper reservationViewHelper;
+
+    @EJB
+    ReservationDao reservationDao;
+
+    @EJB
+    UserDao userDao;
+
+    @EJB
+    SummerhouseDao summerhouseDao;
 
     @Inject
     private SummerhouseController summerhouseController;
 
-    private int activeIndex = 0;
-    private CURRENT_FORM currentForm = CURRENT_FORM.FIRST;
-    private Boolean isValidMonday = true;
-    private LocalDate monday;
+    @Inject
+    private UserLoginController userLoginController;
+
+    private PaymentStepEnum currentForm = PaymentStepEnum.FIRST;
     private List<LocalDate> reservedDays = new ArrayList<>();
+    private List<ReservationView> reservationsList = new ArrayList<>();
+    private SummerhouseView selectedSummerhouse;
+    private List<ServiceView> selectedServiceViews = new ArrayList<>();
+    private List<Service> selectedServices = new ArrayList<>();
+    private int activeIndex = 0;
+    private BigDecimal summerhouseReservationPrice;
+    private BigDecimal servicesReservationPrice;
+    private BigDecimal reservationPeriodInWeeks;
+    private String disabledDay;
     private Date reservationFrom;
     private Date reservationTo;
-    private List<ReservationView> reservationsList = new ArrayList<>();
-    private String disabledDay;
-    private SummerhouseView selectedSummerhouse;
+    private boolean validMonday = true;
+    private LocalDate monday;
 
-    private enum CURRENT_FORM {
-        FIRST, SECOND, THIRD, FOURTH
-    }
-
-    @PostConstruct
-    public void init() {
+    public void initAndBeginConversation() {
         selectedSummerhouse = summerhouseController.getSelectedSummerhouse();
         reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
         buildDateConstraint();
-    }
-
-    public boolean isCurrentForm(CURRENT_FORM form) {
-        return currentForm == form;
-    }
-
-    public void beginConversation(){
         if (!conversation.isTransient()) {
             conversation.end();
-            currentForm = CURRENT_FORM.FIRST;
+            currentForm = PaymentStepEnum.FIRST;
+            activeIndex = 0;
+        }
+        conversation.begin();
+        reservationFrom = getNextMonday();
+    }
+
+    public String goToSummerhouses() {
+        return "toSummer";
+    }
+
+    public boolean isCurrentForm(PaymentStepEnum currentStep) {
+        return currentForm == currentStep;
+    }
+
+    public void goToSecondStep() {
+        currentForm = PaymentStepEnum.SECOND;
+        activeIndex = 1;
+    }
+
+    public void goToThirdStep(){
+        if (conversation.isTransient()) {
+            currentForm = PaymentStepEnum.FIRST;
             activeIndex = 0;
             return;
         }
-
-        conversation.begin();
-
-        currentForm = CURRENT_FORM.SECOND;
-        activeIndex = 1;
+        selectedServices = reservationPaymentHelper.buildEntities(selectedServiceViews);
+        //createReservation();
+        calculateReservationPrice();
+        currentForm = PaymentStepEnum.THIRD;
+        activeIndex = 2;
     }
+
+    private void calculateReservationPrice() {
+        BigDecimal reservationPeriodInDays = BigDecimal.valueOf(ChronoUnit.DAYS.between(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+
+        reservationPeriodInWeeks = reservationPeriodInDays.divide(new BigDecimal(6.00), BigDecimal.ROUND_HALF_UP);
+
+        summerhouseReservationPrice = selectedSummerhouse.getPrice().multiply (reservationPeriodInWeeks);
+
+        selectedServices.stream().forEach(service -> kazkas(service));
+    }
+
+    private void kazkas(Service service){
+        BigDecimal a = service.getPrice().multiply(reservationPeriodInWeeks);
+        servicesReservationPrice.add(a);
+    }
+
+    private void createReservation() {
+        Reservation entity = new Reservation();
+        entity.setDateFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        entity.setDateTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        entity.setUser(userDao.get(userLoginController.getLoggedUser().getId()));
+        entity.setSummerhouse(summerhouseDao.get(selectedSummerhouse.getId()));
+        entity.setServiceList(selectedServices);
+        //entity.setPrice();
+
+        reservationDao.save(entity);
+    }
+
+
 
     public Date getNextMonday() {
         Calendar c = Calendar.getInstance();
@@ -92,10 +163,10 @@ public class ReservationPaymentController implements Serializable{
         c.add(Calendar.DAY_OF_MONTH, 7);
         monday = c.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        while (isValidMonday) {
+        while (validMonday) {
             reservedDays.stream().forEach(r -> findCorrectMonday(monday, r));
-            if (!isValidMonday) {
-                isValidMonday = true;
+            if (!validMonday) {
+                validMonday = true;
                 monday = monday.plusDays(7);
             } else
                 return Date.from(monday.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -105,7 +176,7 @@ public class ReservationPaymentController implements Serializable{
 
     private void findCorrectMonday(LocalDate monday, LocalDate reservedMonday) {
         if (reservedMonday.compareTo(monday) == 0) {
-            isValidMonday = false;
+            validMonday = false;
         }
     }
 
@@ -138,11 +209,6 @@ public class ReservationPaymentController implements Serializable{
             dateFrom = dateFrom.plusDays(7);
         }
     }
-
-
-
-
-
 
     public int getActiveIndex() {
         return activeIndex;
@@ -192,4 +258,51 @@ public class ReservationPaymentController implements Serializable{
         this.disabledDay = disabledDay;
     }
 
+    public List<ServiceView> getSelectedServiceViews() {
+        return selectedServiceViews;
+    }
+
+    public void setSelectedServiceViews(List<ServiceView> selectedServiceViews) {
+        this.selectedServiceViews = selectedServiceViews;
+    }
+
+    public boolean isValidMonday() {
+        return validMonday;
+    }
+
+    public void setValidMonday(boolean validMonday) {
+        this.validMonday = validMonday;
+    }
+
+    public List<Service> getSelectedServices() {
+        return selectedServices;
+    }
+
+    public void setSelectedServices(List<Service> selectedServices) {
+        this.selectedServices = selectedServices;
+    }
+
+    public BigDecimal getSummerhouseReservationPrice() {
+        return summerhouseReservationPrice;
+    }
+
+    public void setSummerhouseReservationPrice(BigDecimal summerhouseReservationPrice) {
+        this.summerhouseReservationPrice = summerhouseReservationPrice;
+    }
+
+    public BigDecimal getReservationPeriodInWeeks() {
+        return reservationPeriodInWeeks;
+    }
+
+    public void setReservationPeriodInWeeks(BigDecimal reservationPeriodInWeeks) {
+        this.reservationPeriodInWeeks = reservationPeriodInWeeks;
+    }
+
+    public BigDecimal getServicesReservationPrice() {
+        return servicesReservationPrice;
+    }
+
+    public void setServicesReservationPrice(BigDecimal servicesReservationPrice) {
+        this.servicesReservationPrice = servicesReservationPrice;
+    }
 }

@@ -8,6 +8,8 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
 
+import javax.annotation.Resource;
+import javax.ejb.AfterBegin;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -16,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
+import javax.transaction.TransactionSynchronizationRegistry;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;

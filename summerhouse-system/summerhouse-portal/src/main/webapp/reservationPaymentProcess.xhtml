@@ -10,91 +10,107 @@
 </h:head>
 
 <h:body>
+    <f:metadata>
+        <f:viewAction action="#{reservationPaymentController.initAndBeginConversation}"/>
+    </f:metadata>
     <ui:composition template="/template/common/commonLayout.xhtml">
         <ui:define name="title">Vasarnamio rezervacija</ui:define>
         <ui:define name="content">
 
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true" />
-                <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true">
-                    <p:menuitem value="Pradžia"/>
-                    <p:menuitem value="Rezervacijos laikotarpio pasirinkimas"/>
+                <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true" styleClass="breadcrumb4steps">
+                    <p:menuitem value="Rezervacijos laikotarpis"/>
                     <p:menuitem value="Papildomos paslaugos"/>
                     <p:menuitem value="Mokėjimas"/>
                     <p:menuitem value="Patvirtinimas"/>
                 </p:steps>
 
-                <p:dataTable id="singleDT" var="summerhouse" value="#{reservationPaymentController.selectedSummerhouse}">
-                    <f:facet name="header">
-                        Pasirinktas vasarnamis
-                    </f:facet>
-                    <p:column headerText="Id">
-                        <h:outputText value="#{summerhouse.id}"/>
-                    </p:column>
-                    <p:column headerText="Pavadinimas">
-                        <h:outputText value="#{summerhouse.title}"/>
-                    </p:column>
-                    <p:column headerText="Adresas">
-                        <h:outputText value="#{summerhouse.address}"/>
-                    </p:column>
-                    <p:column headerText="Kaina">
-                        <h:outputText value="#{summerhouse.price}"/>
-                    </p:column>
-                </p:dataTable>
-
-
-
-
                 <p:outputPanel header="Headeris" rendered="#{reservationPaymentController.isCurrentForm('FIRST')}">
 
-                <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationsList}">
-                    <f:facet name="header">
-                        Vasarnamio esamos rezervacijos
-                    </f:facet>
-                    <p:column headerText="Data nuo">
-                        <h:outputText value="#{reservation.dateFrom}"/>
-                    </p:column>
-                    <p:column headerText="Data iki">
-                        <h:outputText value="#{reservation.dateTo}"/>
-                    </p:column>
-                    <p:column headerText="Rezervavo">
-                        <h:outputText value="#{reservation.userFirstname} #{reservation.userLastname}"/>
-                    </p:column>
-                </p:dataTable>
+                    <h:panelGrid>
+                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.id}"/>
+                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.title}"/>
+                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.address}"/>
+                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.price}"/>
+                    </h:panelGrid>
+
+                    <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationsList}">
+                        <f:facet name="header">
+                            Vasarnamio esamos rezervacijos
+                        </f:facet>
+                        <p:column headerText="Data nuo">
+                            <h:outputText value="#{reservation.dateFrom}"/>
+                        </p:column>
+                        <p:column headerText="Data iki">
+                            <h:outputText value="#{reservation.dateTo}"/>
+                        </p:column>
+                        <p:column headerText="Rezervavo">
+                            <h:outputText value="#{reservation.userFirstname} #{reservation.userLastname}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:outputLabel for="button1" value="Rezervuoti nuo: "/>
+                    <p:calendar id="button1" value="#{reservationPaymentController.reservationFrom}" pattern="yyyy-MM-dd"
+                                readonlyInput="true" mindate="#{reservationPaymentController.nextMonday}"
+                                maxdate="#{reservationPaymentController.reservationTo}" beforeShowDay="onlyMondays">
+                        <p:ajax event="dateSelect" update=":form:button2,msgs"/>
+                    </p:calendar>
+
+                    <p:outputLabel for="button2" value="Rezervuoti iki: "/>
+                    <p:calendar id="button2" value="#{reservationPaymentController.reservationTo}" pattern="yyyy-MM-dd"
+                                readonlyInput="true" mindate="#{reservationPaymentController.reservationFrom}"
+                                beforeShowDay="onlySundays">
+                        <p:ajax event="dateSelect" update=":form:button1,msgs"/>
+                    </p:calendar>
 
                     <p:separator />
 
-                    <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{reservationPaymentController.beginConversation}"/>
+                    <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{reservationPaymentController.goToSecondStep}"/>
+                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
 
                 </p:outputPanel>
-
 
 
                 <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('SECOND')}">
 
-
-                        <p:outputLabel for="button1" value="Rezervuoti nuo: "/>
-                        <p:calendar id="button1" value="#{reservationPaymentController.reservationFrom}" pattern="yyyy-MM-dd"
-                                    readonlyInput="true" mindate="#{reservationPaymentController.nextMonday}"
-                                    maxdate="#{reservationPaymentController.reservationTo}" beforeShowDay="onlyMondays">
-                            <p:ajax event="dateSelect" update=":form:button2,msgs"/>
-                        </p:calendar>
-
-                        <p:outputLabel for="button2" value="Rezervuoti iki: "/>
-                        <p:calendar id="button2" value="#{reservationPaymentController.reservationTo}" pattern="yyyy-MM-dd"
-                                    readonlyInput="true" mindate="#{reservationPaymentController.reservationFrom}"
-                                    beforeShowDay="onlySundays">
-                            <p:ajax event="dateSelect" update=":form:button1,msgs"/>
-                        </p:calendar>
-
-                        <p:separator />
-
-
+                    <p:dataTable id="services" var="services" value="#{reservationPaymentController.selectedSummerhouse.serviceViews}" selection="#{reservationPaymentController.selectedServiceViews}" rowKey="#{services.id}">
+                        <f:facet name="header">
+                            Vasarnamio papildomos paslaugos
+                        </f:facet>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:column headerText="Aprašymas">
+                            <h:outputText value="#{services.description}"/>
+                        </p:column>
+                        <p:column headerText="Kaina">
+                            <h:outputText value="#{services.price}"/>
+                        </p:column>
+                        <p:column headerText="Pavadinimas">
+                            <h:outputText value="#{services.title}"/>
+                        </p:column>
+                    </p:dataTable>
 
                     <p:separator />
 
+                    <p:commandButton value="Tęsti" update="msgs,@form"
+                                     action="#{reservationPaymentController.goToThirdStep}"/>
+
                 </p:outputPanel>
 
+                <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('THIRD')}">
+
+                    <h:panelGrid>
+                        <p:outputLabel value="#{reservationPaymentController.summerhouseReservationPrice}"/>
+                        <p:outputLabel value="#{reservationPaymentController.servicesReservationPrice}"/>
+
+                    </h:panelGrid>
+
+                    <p:separator />
+
+                    <p:commandButton value="Tęsti" update="msgs,@form"
+                                     action="#{reservationPaymentController.goToThirdStep}"/>
+
+                </p:outputPanel>
 
 
 

@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.portal.view;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class SummerhouseView implements Serializable {
 	private LocalDate dateTo;
 	private String description;
 	private boolean archived;
-	private String price;
+	private BigDecimal price;
 	private String title;
 	private List<ServiceView> serviceViews = new ArrayList<>();
 
@@ -78,11 +79,11 @@ public class SummerhouseView implements Serializable {
 		this.archived = archived;
 	}
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
