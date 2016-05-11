@@ -63,10 +63,10 @@ public class SearchController {
 	}
 
 	public void doUpdateSummerhouseList() {
-		if(dateFrom != null){
+		if(dateFrom != null)
 			searchObject.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-		}
+		if(dateTo != null)
+			searchObject.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		list = summerhouseViewHelper.search(searchObject);
 	}
 

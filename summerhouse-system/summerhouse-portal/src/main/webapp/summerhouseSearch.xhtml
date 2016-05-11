@@ -17,38 +17,32 @@
         <f:view>
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true"/>
-
-                <p:outputLabel for="capacity" value="Ieškoti pagal:"/><br></br>
-
                 <h:panelGrid>
 
-                    <p:outputLabel for="button1" value="Laisvas nuo: "/>
+                    <p:outputLabel for="button1" value="Laisvas nuo:"/>
                     <p:calendar id="button1" value="#{searchController.dateFrom}"
                                 readonlyInput="true">
                         <p:ajax event="dateSelect"/>
                     </p:calendar>
 
-                    <p:outputLabel for="button2" value="Laisvas iki: "/>
-                    <p:calendar id="button2" pattern="yyyy-MM-dd" value="#{searchController.searchObject.dateTo}"
+                    <p:outputLabel for="button2" value="Laisvas iki:"/>
+                    <p:calendar id="button2" value="#{searchController.dateTo}"
                                 readonlyInput="true">
                         <p:ajax event="dateSelect"/>
                     </p:calendar>
 
+                    <p:outputLabel for="title" value="Vasarnamio pavadinimas:"/>
+                    <p:inputText id="title" value="#{searchController.searchObject.title}">
+                    </p:inputText>
+
+                    <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="summerhousesSearch"/>
+                    <br></br>
+
                 </h:panelGrid>
-
-                <p:outputLabel for="title" value="Vasarnamio pavadinimą "/>
-                <p:inputText id="title" value="#{searchController.searchObject.title}" placeholder="Vasarnamio pavadinimas">
-                </p:inputText> <br></br>
-
-                <p:outputLabel for="title" value="Talpą "/>
-                <p:inputText id="capacity" value="#{searchController.searchObject.capacity}" placeholder="Talpa">
-                </p:inputText> <br></br>
-
-                <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="summerhousesSearch"/>
 
                 <p:dataTable id="summerhousesSearch" var="summerhouseView" value="#{searchController.list}">
                     <f:facet name="header">
-                        Vasarnamių paieška
+                        Rasti vasarnamiai
                     </f:facet>
                     <p:column headerText="Pavadinimas" sortBy="#{summerhouseView.title}">
                         <h:outputText value="#{summerhouseView.title}"/>
@@ -58,6 +52,9 @@
                     </p:column>
                     <p:column headerText="Laisvas nuo" sortBy="#{summerhouseView.dateFrom}">
                         <h:outputText value="#{summerhouseView.dateFrom}"/>
+                    </p:column>
+                    <p:column headerText="Laisvas iki" sortBy="#{summerhouseView.dateTo}">
+                        <h:outputText value="#{summerhouseView.dateTo}"/>
                     </p:column>
 
                 </p:dataTable>
