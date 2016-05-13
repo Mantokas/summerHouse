@@ -13,4 +13,5 @@ import java.util.List;
 @Local
 public interface ServiceDao {
     List<Service> getServicesBySummerhouse(Summerhouse summerhouse);
+    Service get(Integer id);
 }

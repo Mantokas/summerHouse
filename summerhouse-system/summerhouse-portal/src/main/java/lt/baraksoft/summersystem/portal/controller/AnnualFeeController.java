@@ -127,10 +127,8 @@ public class AnnualFeeController implements Serializable {
         payment.setAmount(new BigDecimal(amount));
         payment.setExecutionDate(LocalDate.now());
         payment.setPurpose(purpose);
-        payment.setSender(loggedUser.getFirstname() + " " + loggedUser.getLastname());
-        payment.setReceiver("Sistema");
 
-        paymentDao.create(payment);
+        paymentDao.save(payment);
 
         loggedUser.getPaymentList().add(payment);
 

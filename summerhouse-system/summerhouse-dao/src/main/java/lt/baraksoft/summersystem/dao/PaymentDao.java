@@ -9,5 +9,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface PaymentDao {
-    void create(Payment payment);
+    void save (Payment entity);
 }

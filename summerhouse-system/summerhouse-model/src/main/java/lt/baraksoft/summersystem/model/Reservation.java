@@ -45,6 +45,11 @@ public class Reservation implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "price")
 	private BigDecimal price;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "number")
+	private int nr;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
@@ -57,7 +62,8 @@ public class Reservation implements IEntity<Integer> {
 	@ManyToOne(optional = false)
 	private Summerhouse summerhouse;
 
-	@ManyToMany(mappedBy = "reservationList")
+	@JoinTable(name = "reservation_services", joinColumns = { @JoinColumn(name = "reservation_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") })
+	@ManyToMany
 	private List<Service> serviceList;
 
 	@Version
@@ -146,6 +152,22 @@ public class Reservation implements IEntity<Integer> {
 		this.serviceList = serviceList;
 	}
 
+	public int getNr() {
+		return nr;
+	}
+
+	public void setNr(int nr) {
+		this.nr = nr;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -170,13 +192,5 @@ public class Reservation implements IEntity<Integer> {
 	@Override
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Reservation[ id=" + id + " ]";
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
 	}
 }

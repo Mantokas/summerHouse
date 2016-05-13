@@ -20,42 +20,23 @@ import lt.baraksoft.summersystem.portal.view.ReservationView;
 @Stateless
 public class ReservationViewHelperImpl implements ReservationViewHelper {
 
-	@Inject
-	private ReservationDao reservationDao;
-	@Inject
-	private UserDao userDao;
-	@Inject
-	private SummerhouseDao summerhouseDao;
-
-	@Override
-	public List<ReservationView> getReservationsBySummerhouse(Integer summerhouseID) {
-		List<Reservation> entities = reservationDao.getReservationsBySummerhouse(summerhouseID);
-		List<ReservationView> views = new ArrayList<>();
-		entities.stream().forEach(e -> views.add(buildView(e)));
-		return views;
-	}
-
-	private ReservationView buildView(Reservation entity) {
-		ReservationView view = new ReservationView();
-		view.setId(entity.getId());
-		view.setDateFrom(entity.getDateFrom());
-		view.setDateTo(entity.getDateTo());
-		view.setUserID(entity.getUser().getId());
-		view.setUserFirstname(entity.getUser().getFirstname());
-		view.setUserLastname(entity.getUser().getLastname());
-		return view;
-	}
-
-	@Override
-	public void save(ReservationView view) {
-		Reservation entity = view.getId() != null ? reservationDao.get(view.getId()) : new Reservation();
-		entity.setId(view.getId());
-		entity.setDateFrom(view.getDateFrom());
-		entity.setDateTo(view.getDateTo());
-		entity.setUser(userDao.get(view.getUserID()));
-		entity.setApproved(view.isApproved());
-		entity.setArchived(view.isArchived());
-		entity.setSummerhouse(summerhouseDao.get(view.getSummerhouseID()));
-		reservationDao.save(entity);
-	}
+//	@Inject
+//	private ReservationDao reservationDao;
+//	@Inject
+//	private UserDao userDao;
+//	@Inject
+//	private SummerhouseDao summerhouseDao;
+//
+//	@Override
+//	public void save(ReservationView view) {
+//		Reservation entity = view.getId() != null ? reservationDao.get(view.getId()) : new Reservation();
+//		entity.setId(view.getId());
+//		entity.setDateFrom(view.getDateFrom());
+//		entity.setDateTo(view.getDateTo());
+//		entity.setUser(userDao.get(view.getUserID()));
+//		entity.setApproved(view.isApproved());
+//		entity.setArchived(view.isArchived());
+//		entity.setSummerhouse(summerhouseDao.get(view.getSummerhouseID()));
+//		reservationDao.save(entity);
+//	}
 }

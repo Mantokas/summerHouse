@@ -64,13 +64,10 @@ public class User implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
-    @Column(name = "valid_to", nullable = true)
+    @Column(name = "valid_to")
     private LocalDate validTo;
 
-	@JoinTable(name = "user_payments", joinColumns = { @JoinColumn(name = "user_id",
-			referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "payment_id",
-			referencedColumnName = "id") })
-	@ManyToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Payment> paymentList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
