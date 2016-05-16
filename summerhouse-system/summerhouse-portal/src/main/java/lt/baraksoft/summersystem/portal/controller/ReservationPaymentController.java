@@ -70,6 +70,9 @@ public class ReservationPaymentController implements Serializable {
     private SummerhouseController summerhouseController;
 
     @Inject
+    private SearchController searchController;
+
+    @Inject
     private UserLoginController userLoginController;
 
     private PaymentStepEnum currentForm = PaymentStepEnum.FIRST;
@@ -96,7 +99,7 @@ public class ReservationPaymentController implements Serializable {
 
         conversation.begin();
 
-        reservationPaymentView.setSelectedSummerhouse(summerhouseController.getSelectedSummerhouse());
+        reservationPaymentView.setSelectedSummerhouse(searchController.getSelectedSummerhouse());
         reservationPaymentView.setReservationsList(reservationPaymentHelper.getReservationsBySummerhouse(reservationPaymentView.getSelectedSummerhouse().getId()));
         buildDateConstraint();
         loggedUser = userLoginController.getLoggedUser();
