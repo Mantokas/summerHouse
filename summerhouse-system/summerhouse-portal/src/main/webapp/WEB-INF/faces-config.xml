@@ -48,8 +48,17 @@
 			<to-view-id>/reservationPaymentProcess.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
-
 	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/summerhouseSearch.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>goToReservation</from-outcome>
+			<to-view-id>/reservationPaymentProcess.xhtml?faces-redirect=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 	<navigation-rule>
 		<from-view-id>/signin.xhtml</from-view-id>
 		<navigation-case>

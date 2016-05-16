@@ -43,12 +43,10 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 	private List<Predicate> buildPredicates(SummerhouseSearch search, CriteriaBuilder builder, Root<Summerhouse> root) {
 		List<Predicate> predicates = new ArrayList<>();
 
-		//predicates.add(builder.equal(root.get(Summerhouse_.archived), search.isArchived()));
-
-		if (search.getDateFrom() != null && !search.getDateFrom().toString().isEmpty())
+		if (search.getDateFrom() != null)
 			predicates.add(builder.greaterThanOrEqualTo(root.get(Summerhouse_.dateFrom), search.getDateFrom()));
 
-		if (search.getDateTo() != null && !search.getDateTo().toString().isEmpty())
+		if (search.getDateTo() != null)
 			predicates.add(builder.lessThanOrEqualTo(root.get(Summerhouse_.dateTo), search.getDateTo()));
 
 		if (search.getCapacity() != 0) {
