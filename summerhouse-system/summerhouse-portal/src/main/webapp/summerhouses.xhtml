@@ -14,9 +14,11 @@
 	<ui:composition template="/template/common/commonLayout.xhtml">
 
 		<ui:define name="content">
-			<f:view>
+
 				<h:form id="form"
 					rendered="#{not empty userLoginController.loggedUser}">
+
+					<p:growl styleClass="top" id="msgs" showDetail="true"  />
 					<p:dataTable id="singleDT" var="summerhouse"
 						value="#{summerhouseController.summerhousesList}"
 						selectionMode="single"
@@ -47,7 +49,8 @@
 								disabled="#{summerhouseController.disabled}" />
 							<p:commandButton id="reserveSummerhouse" process="singleDT"
 								value="Rezervuoti"
-								action="#{summerhouseController.doSelectSummerhouse}"
+								update="@form"
+								action="#{summerhouseController.goToReservation}"
 								disabled="#{summerhouseController.disabled}" />
 						</f:facet>
 					</p:dataTable>
@@ -154,7 +157,7 @@
 						</p:outputPanel>
 					</p:dialog>
 				</h:form>
-			</f:view>
+
 		</ui:define>
 	</ui:composition>
 </h:body>

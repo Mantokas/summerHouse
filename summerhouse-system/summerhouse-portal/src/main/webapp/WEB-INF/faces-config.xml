@@ -45,8 +45,8 @@
 		<from-view-id>/summerhouses.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>goToReservation</from-outcome>
-			<to-view-id>/reservationPaymentProcess.xhtml?faces-redirect=true</to-view-id>
-			<redirect />
+			<to-view-id>/reservationPaymentProcess.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 
 	</navigation-rule>
@@ -108,4 +108,15 @@
 			<to-view-id>/paymentProcess.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>toMyReservations</from-outcome>
+			<to-view-id>/myReservations.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+
 </faces-config>

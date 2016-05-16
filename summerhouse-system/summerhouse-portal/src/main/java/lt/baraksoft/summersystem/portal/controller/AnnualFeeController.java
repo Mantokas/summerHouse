@@ -35,11 +35,10 @@ import java.util.List;
 public class AnnualFeeController implements Serializable {
 
     private static final long serialVersionUID = 390311249488898840L;
+    private static final String PAGE_INDEX_REDIRECT = "index?faces-redirect=true";
 
     @PersistenceContext(unitName = "summerhousePU", type = PersistenceContextType.EXTENDED, synchronization = SynchronizationType.UNSYNCHRONIZED)
     private EntityManager em;
-
-    private static final String PAGE_INDEX_REDIRECT = "index?faces-redirect=true";
 
     @Inject
     private Conversation conversation;

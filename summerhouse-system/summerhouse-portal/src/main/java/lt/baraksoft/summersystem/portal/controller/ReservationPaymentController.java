@@ -106,6 +106,9 @@ public class ReservationPaymentController implements Serializable {
     }
 
     public String goToSummerhouses() {
+        if (!conversation.isTransient()) {
+            conversation.end();
+        }
         return "toSummer";
     }
 
@@ -113,40 +116,58 @@ public class ReservationPaymentController implements Serializable {
         return currentForm == currentStep;
     }
 
-    public void goToSecondStep() {
+    private void calculateSummerhousePrice(){
+        BigDecimal reservationPeriodInDays = BigDecimal.valueOf(ChronoUnit.DAYS.between(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        reservationPeriodInWeeks = reservationPeriodInDays.divide(new BigDecimal(7.00), BigDecimal.ROUND_HALF_UP);
+        reservationPaymentView.setSummerhouseReservationPrice(reservationPaymentView.getSelectedSummerhouse().getPrice().multiply (reservationPeriodInWeeks));
+    }
+
+    private boolean checkIsTransient(){
         if (conversation.isTransient()) {
             currentForm = PaymentStepEnum.FIRST;
             activeIndex = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public void goToSecondStep() {
+        if (checkIsTransient()){
             return;
         }
+        calculateSummerhousePrice();
 
-        currentForm = PaymentStepEnum.SECOND;
-        activeIndex = 1;
+        if (loggedUser.getPoints() - reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0){
+            createErrorMessage("Klaida", "Vasarnamio rezervacijai nepakanka pinigų");
+        }
+        else{
+            currentForm = PaymentStepEnum.SECOND;
+            activeIndex = 1;
+        }
+    }
+
+    private void createErrorMessage(String first, String second) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, first, second);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void goToThirdStep(){
-        if (conversation.isTransient()) {
-            currentForm = PaymentStepEnum.FIRST;
-            activeIndex = 0;
-            return;
-        }
+        if (checkIsTransient()) return;
         selectedServiceViews.stream().forEach(serviceView ->  selectedServices.add(serviceDao.get(serviceView.getId())));
+        selectedServices.stream().forEach(service -> reservationPaymentView.setServicesReservationPrice
+                (reservationPaymentView.getServicesReservationPrice().add(service.getPrice().
+                        multiply(reservationPeriodInWeeks))));
 
-        calculateReservationPrice();
-        createReservation();
-        currentForm = PaymentStepEnum.THIRD;
-        activeIndex = 2;
-    }
-
-    private void calculateReservationPrice() {
-        BigDecimal reservationPeriodInDays = BigDecimal.valueOf(ChronoUnit.DAYS.between(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
-
-        reservationPeriodInWeeks = reservationPeriodInDays.divide(new BigDecimal(7.00), BigDecimal.ROUND_HALF_UP);
-
-        reservationPaymentView.setSummerhouseReservationPrice(reservationPaymentView.getSelectedSummerhouse().getPrice().multiply (reservationPeriodInWeeks));
-
-        selectedServices.stream().forEach(service -> reservationPaymentView.setServicesReservationPrice(reservationPaymentView.getServicesReservationPrice().add(service.getPrice().multiply(reservationPeriodInWeeks))));
+        if (reservationPaymentView.getPointsBefore() - reservationPaymentView.getServicesReservationPrice().intValue() -
+                reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0) {
+            createErrorMessage("Klaida", "Papildomų paslaugų rezervacijai nepakanka pinigų");
+        }
+        else{
+            createReservation();
+            currentForm = PaymentStepEnum.THIRD;
+            activeIndex = 2;
+        }
     }
 
     private void createReservation() {

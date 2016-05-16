@@ -12,4 +12,8 @@ import lt.baraksoft.summersystem.portal.view.ReservationView;
 @Local
 public interface ReservationViewHelper {
 //	void save(ReservationView view);
+
+    List<ReservationView> getReservations();
+
+    void cancelReservation(Integer id);
 }

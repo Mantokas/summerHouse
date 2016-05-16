@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.portal.view;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -18,6 +19,17 @@ public class ReservationView implements Serializable {
 	private int userID;
 	private String userFirstname;
 	private String userLastname;
+    private int price;
+
+	public SummerhouseView getReservedSummerhouse() {
+		return reservedSummerhouse;
+	}
+
+	public void setReservedSummerhouse(SummerhouseView reservedSummerhouse) {
+		this.reservedSummerhouse = reservedSummerhouse;
+	}
+
+	private SummerhouseView reservedSummerhouse;
 
 	public Integer getId() {
 		return id;
@@ -90,4 +102,12 @@ public class ReservationView implements Serializable {
 	public void setUserLastname(String userLastname) {
 		this.userLastname = userLastname;
 	}
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }
