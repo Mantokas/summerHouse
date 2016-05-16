@@ -13,6 +13,7 @@
     <f:metadata>
         <f:viewAction action="#{reservationPaymentController.initAndBeginConversation}"/>
     </f:metadata>
+
     <ui:composition template="/template/common/commonLayout.xhtml">
         <ui:define name="title">Vasarnamio rezervacija</ui:define>
         <ui:define name="content">
@@ -116,9 +117,6 @@
                                      action="#{reservationPaymentController.submitTransaction}"/>
 
                 </p:outputPanel>
-
-
-
 
             </h:form>
 

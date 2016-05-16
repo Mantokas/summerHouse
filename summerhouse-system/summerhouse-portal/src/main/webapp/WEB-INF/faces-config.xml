@@ -42,7 +42,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/summerhouses.xhtml</from-view-id>
+		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>goToReservation</from-outcome>
 			<to-view-id>/reservationPaymentProcess.xhtml</to-view-id>
@@ -51,20 +51,10 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/summerhouseSearch.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>goToReservation</from-outcome>
-			<to-view-id>/reservationPaymentProcess.xhtml?faces-redirect=true</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
 		<from-view-id>/signin.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>toUserRegistration</from-outcome>
 			<to-view-id>/userRegistration.xhtml</to-view-id>
-			<redirect />
 		</navigation-case>
 	</navigation-rule>
 
@@ -88,16 +78,7 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>toSignin</from-outcome>
-			<to-view-id>/signin.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
 			<from-outcome>toSignCheck</from-outcome>
-			<if>#{userLoginController.loggedUser == null}</if>
 			<to-view-id>/signin.xhtml?faces-redirect=true</to-view-id>
 		</navigation-case>
 	</navigation-rule>
@@ -126,6 +107,5 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-
 
 </faces-config>

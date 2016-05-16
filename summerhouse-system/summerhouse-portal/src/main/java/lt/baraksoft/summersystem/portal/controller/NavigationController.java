@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.portal.controller;
 import java.io.Serializable;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -13,7 +14,19 @@ import javax.inject.Named;
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;
 
+    @Inject
+    private UserLoginController userLoginController;
+
+	private int currentTab = 1;
+
+	public String getActiveClass(int bbs){
+
+		return bbs == currentTab ? "active" : "";
+
+	}
+
 	public String goToUsersList() {
+		currentTab = 2;
 		return "toUsers";
 	}
 
@@ -21,37 +34,41 @@ public class NavigationController implements Serializable {
 		return "toUserInfo";
 	}
 
-	public String goToSummerhousesList() {
-		return "toSummer";
-	}
-
-	public String goToReservation() {
-		return "toReservation";
-	}
-
 	public String goToLoggedUserInfo() { return "toLoggedUserInfo";}
 
 	public String goToUserRegistration() {
 		return "toUserRegistration";
 	}
+
 	public String goToSummerhousesSearch() {return "toSummerhousesSearch";	}
 
-	public String goToSignin() {return "toSignin";	}
-
 	public String goToMain() {
+		currentTab = 1;
 		return "toMain";
 	}
 
 	public String checkLoggedUser() {
+        if (userLoginController.getLoggedUser() == null)
 		return "toSignCheck";
+        return "";
 	}
 
 	public String goToPayment() {
+		currentTab = 4;
 		return "toPayment";
 	}
 
 	public String goToMyReservations(){
+		currentTab = 5;
 		return "toMyReservations";
+	}
+
+	public int getCurrentTab() {
+		return currentTab;
+	}
+
+	public void setCurrentTab(int currentTab) {
+		this.currentTab = currentTab;
 	}
 
 }

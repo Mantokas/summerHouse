@@ -10,10 +10,6 @@
 <body>
 <ui:composition>
 
-    <f:metadata>
-        <f:viewAction action="#{navigationController.checkLoggedUser}"/>
-    </f:metadata>
-
     <div class="container">
         <h:form id="form12">
             <!-- Static navbar -->
@@ -31,27 +27,27 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            <li class="#{navigationController.getActiveClass(1)}" >
                                 <p:commandLink value="Pradžia" type="submit"
                                                action="#{navigationController.goToMain}" immediate="true"/>
                             </li>
-                            <li>
+                            <li class="#{navigationController.getActiveClass(2)}">
                                 <p:commandLink value="Vartotojai" type="submit"
                                                action="#{navigationController.goToUsersList}" immediate="true"/>
                             </li>
-                            <li>
-                                <p:commandLink  value="Visi vasarnamiai" type="submit"
-                                                 action="#{navigationController.goToSummerhousesList}"
-                                                 immediate="true"/>
-                            </li>
-                            <li>
+                            <li class="#{navigationController.getActiveClass(3)}">
                                 <p:commandLink  value="Vasarnamių paieška" type="submit"
                                                  action="#{navigationController.goToSummerhousesSearch}"
                                                  immediate="true"/>
                             </li >
-                            <li>
-                                <p:commandLink  value="Sumokėti metinį narystės mokestį" type="submit"
+                            <li class="#{navigationController.getActiveClass(4)}">
+                                <p:commandLink  value="Metinis narystės mokestis" type="submit"
                                                  action="#{navigationController.goToPayment}" immediate="true"/>
+                            </li>
+                            <li class="#{navigationController.getActiveClass(5)}">
+                                <p:commandLink value="Mano rezervacijos" type="submit"
+                                                 action="#{navigationController.goToMyReservations}" immediate="true"
+                                                 rendered="#{not empty userLoginController.loggedUser}"/>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -65,7 +61,7 @@
                             <li>
                                 <p:commandLink value="Atsijungti" id="logout"
                                                actionListener="#{userLoginController.logout}"
-                                               action="#{navigationController.goToSignin}"/>
+                                               action="#{navigationController.checkLoggedUser}"/>
                             </li>
 
                         </ul>

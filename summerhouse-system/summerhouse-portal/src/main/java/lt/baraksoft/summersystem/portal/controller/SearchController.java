@@ -9,7 +9,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
@@ -28,6 +30,8 @@ public class SearchController implements Serializable{
 
 	@EJB
     private SummerhouseViewHelper summerhouseViewHelper;
+
+	@Inject UserLoginController userLoginController;
 
     private List<SummerhouseView> list;
     private SummerhouseSearch searchObject;
@@ -79,12 +83,19 @@ public class SearchController implements Serializable{
 	}
 
 	public SummerhouseView getSelectedSummerhouse() {
+
 		return selectedSummerhouse;
 	}
 
 	public String doSelectSummerhouse() {
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
-		return "goToReservation";
+		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else{
+			return "goToReservation";
+		}
+		return "";
 	}
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
@@ -95,12 +106,11 @@ public class SearchController implements Serializable{
 		this.searchObject = searchObject;
 	}
 
-	public void doUpdateSummerhouseList() {
-		if(dateFrom != null)
-			searchObject.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-		if(dateTo != null)
-			searchObject.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+	public String doUpdateSummerhouseList() {
+			searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
+			searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
-	}
+		return "toSummerhousesSearchs"; // TODO: 2016-05-16 navigacija i vasarnamiu rezultatu langa (arba ne)
+    }
 
 }

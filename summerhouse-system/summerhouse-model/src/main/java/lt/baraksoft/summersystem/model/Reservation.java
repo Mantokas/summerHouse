@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "reservations")
 @NamedQueries({ @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"), @NamedQuery(name = "Reservation.findById", query = "SELECT r FROM Reservation r WHERE r.id = :id"),
 		@NamedQuery(name = "Reservation.findByDateFrom", query = "SELECT r FROM Reservation r WHERE r.dateFrom = :dateFrom"), @NamedQuery(name = "Reservation.findByDateTo", query = "SELECT r FROM Reservation r WHERE r.dateTo = :dateTo"),
-		@NamedQuery(name = "Reservation.findByIsApproved", query = "SELECT r FROM Reservation r WHERE r.approved = :isApproved"),
+
 		@NamedQuery(name = "Reservation.findByIsArchived", query = "SELECT r FROM Reservation r WHERE r.archived = :isArchived") })
 public class Reservation implements IEntity<Integer> {
 	private static final long serialVersionUID = -1807482193504644095L;
@@ -37,10 +37,6 @@ public class Reservation implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "date_to")
 	private LocalDate dateTo;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "is_approved")
-	private boolean approved;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "price")
@@ -76,11 +72,10 @@ public class Reservation implements IEntity<Integer> {
 		this.id = id;
 	}
 
-	public Reservation(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean approved, boolean archived) {
+	public Reservation(Integer id, LocalDate dateFrom, LocalDate dateTo, boolean archived) {
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.approved = approved;
 		this.archived = archived;
 	}
 
@@ -106,14 +101,6 @@ public class Reservation implements IEntity<Integer> {
 
 	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
-	}
-
-	public boolean isApproved() {
-		return approved;
-	}
-
-	public void setApproved(boolean approved) {
-		this.approved = approved;
 	}
 
 	public boolean isArchived() {

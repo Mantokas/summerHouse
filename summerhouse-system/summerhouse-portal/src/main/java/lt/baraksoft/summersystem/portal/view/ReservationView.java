@@ -14,7 +14,6 @@ public class ReservationView implements Serializable {
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
 	private boolean archived;
-	private boolean approved;
 	private int summerhouseID;
 	private int userID;
 	private String userFirstname;
@@ -53,14 +52,6 @@ public class ReservationView implements Serializable {
 
 	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
-	}
-
-	public boolean isApproved() {
-		return approved;
-	}
-
-	public void setApproved(boolean approved) {
-		this.approved = approved;
 	}
 
 	public boolean isArchived() {

@@ -75,6 +75,9 @@ public class ReservationPaymentController implements Serializable {
     @Inject
     private UserLoginController userLoginController;
 
+    @Inject
+    private NavigationController navigationController;
+
     private PaymentStepEnum currentForm = PaymentStepEnum.FIRST;
     private List<LocalDate> reservedDays = new ArrayList<>();
     private List<ServiceView> selectedServiceViews = new ArrayList<>();
@@ -90,11 +93,17 @@ public class ReservationPaymentController implements Serializable {
     private Date reservationFrom;
     private Date reservationTo;
 
-    public void initAndBeginConversation() {
+    public String initAndBeginConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
             currentForm = PaymentStepEnum.FIRST;
             activeIndex = 0;
+        }
+
+        String a = navigationController.checkLoggedUser();
+
+        if (a.equals("toSignCheck")){
+            return "toSignCheck";
         }
 
         conversation.begin();
@@ -106,13 +115,14 @@ public class ReservationPaymentController implements Serializable {
         reservationPaymentView.setPointsBefore(loggedUser.getPoints());
         loggedUserEntity = userDao.get(loggedUser.getId());
         reservationFrom = getNextMonday();
+        return "";
     }
 
     public String goToSummerhouses() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
-        return "toSummer";
+        return "toMain";
     }
 
     public boolean isCurrentForm(PaymentStepEnum currentStep) {
@@ -157,10 +167,12 @@ public class ReservationPaymentController implements Serializable {
 
     public void goToThirdStep(){
         if (checkIsTransient()) return;
-        selectedServiceViews.stream().forEach(serviceView ->  selectedServices.add(serviceDao.get(serviceView.getId())));
-        selectedServices.stream().forEach(service -> reservationPaymentView.setServicesReservationPrice
-                (reservationPaymentView.getServicesReservationPrice().add(service.getPrice().
-                        multiply(reservationPeriodInWeeks))));
+        if (!selectedServiceViews.isEmpty()){
+            selectedServiceViews.stream().forEach(serviceView ->  selectedServices.add(serviceDao.get(serviceView.getId())));
+            selectedServices.stream().forEach(service -> reservationPaymentView.setServicesReservationPrice
+                    (reservationPaymentView.getServicesReservationPrice().add(service.getPrice().
+                            multiply(reservationPeriodInWeeks))));
+        }
 
         if (reservationPaymentView.getPointsBefore() - reservationPaymentView.getServicesReservationPrice().intValue() -
                 reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0) {
@@ -187,8 +199,6 @@ public class ReservationPaymentController implements Serializable {
 
         reservationDao.save(entity);
 
-        System.out.println(entity.getId());
-
         reservationPaymentView.setPointsAfter(reservationPaymentView.getPointsBefore() -
                 reservationPaymentView.getServicesReservationPrice().intValue() -
                 reservationPaymentView.getSummerhouseReservationPrice().intValue());
@@ -198,7 +208,7 @@ public class ReservationPaymentController implements Serializable {
 
     private void createReservationPayment() {
         Payment entity = new Payment();
-        entity.setPurpose("Rezervacija nr.: " + "kazkoks");
+        entity.setPurpose("Rezervacija nr.: " + "kazkoks"); // TODO: 2016-05-16 rezervacijos nr
         entity.setExecutionDate(LocalDate.now());
         entity.setAmount(reservationPaymentView.getServicesReservationPrice().add(reservationPaymentView.getSummerhouseReservationPrice()));
         entity.setUser(loggedUserEntity);
