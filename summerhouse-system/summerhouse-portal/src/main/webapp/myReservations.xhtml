@@ -39,6 +39,13 @@
                     <p:column headerText="Kaina" sortBy="#{reservation.price}">
                         <h:outputText value="#{reservation.price}" />
                     </p:column>
+                    <p:column rendered="#{reservation.approved}" headerText="Statusas" sortBy="#{reservation.approved}">
+                        <h:outputText value="Patvirtinta" />
+                    </p:column>
+                    <p:column rendered="#{!reservation.approved}" headerText="Statusas" sortBy="#{reservation.approved}">
+                        <h:outputText value="Nepatvirtinta" />
+                    </p:column>
+
                     <p:column rendered="#{reservation.archived}" headerText="Aktyvumas" sortBy="#{reservation.archived}">
                         <h:outputText value="Negaliojanti" />
                     </p:column>
