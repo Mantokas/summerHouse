@@ -45,7 +45,7 @@ public class Reservation implements IEntity<Integer> {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "number")
-	private int nr;
+	private String nr;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "is_archived")
@@ -139,11 +139,11 @@ public class Reservation implements IEntity<Integer> {
 		this.serviceList = serviceList;
 	}
 
-	public int getNr() {
+	public String getNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
+	public void setNr(String nr) {
 		this.nr = nr;
 	}
 

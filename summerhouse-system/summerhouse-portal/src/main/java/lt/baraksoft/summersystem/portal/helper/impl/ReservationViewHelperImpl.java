@@ -57,6 +57,7 @@ public class ReservationViewHelperImpl implements ReservationViewHelper {
         view.setArchived(reservation.isArchived());
         view.setReservedSummerhouse(buildSummerhouseView(reservation.getSummerhouse()));
         view.setPrice(reservation.getPrice().intValue());
+        view.setNumber(reservation.getNr());
 
         return view;
     }

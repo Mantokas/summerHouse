@@ -19,6 +19,7 @@ public class ReservationView implements Serializable {
 	private String userFirstname;
 	private String userLastname;
     private int price;
+    private String number;
 
 	public SummerhouseView getReservedSummerhouse() {
 		return reservedSummerhouse;
@@ -100,5 +101,13 @@ public class ReservationView implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

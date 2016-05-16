@@ -21,9 +21,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,6 +91,7 @@ public class ReservationPaymentController implements Serializable {
     private int activeIndex = 0;
     private BigDecimal reservationPeriodInWeeks;
     private String disabledDay;
+    private String reservationNo;
     private boolean validMonday = true;
     private LocalDate monday;
     private ReservationPaymentView reservationPaymentView = new ReservationPaymentView();
@@ -193,6 +198,10 @@ public class ReservationPaymentController implements Serializable {
         entity.setDateFrom(reservationPaymentView.getReservationFrom());
         entity.setDateTo(reservationPaymentView.getReservationTo());
         entity.setUser(loggedUserEntity);
+
+        reservationNo = "R".concat(String.valueOf(LocalDateTime.now().toEpochSecond(ZoneOffset.MAX)));
+
+        entity.setNr(reservationNo);
         entity.setSummerhouse(summerhouseDao.get(reservationPaymentView.getSelectedSummerhouse().getId()));
         entity.setServiceList(selectedServices);
         entity.setPrice(reservationPaymentView.getServicesReservationPrice().add(reservationPaymentView.getSummerhouseReservationPrice()));
@@ -208,7 +217,7 @@ public class ReservationPaymentController implements Serializable {
 
     private void createReservationPayment() {
         Payment entity = new Payment();
-        entity.setPurpose("Rezervacija nr.: " + "kazkoks"); // TODO: 2016-05-16 rezervacijos nr
+        entity.setPurpose(reservationNo);
         entity.setExecutionDate(LocalDate.now());
         entity.setAmount(reservationPaymentView.getServicesReservationPrice().add(reservationPaymentView.getSummerhouseReservationPrice()));
         entity.setUser(loggedUserEntity);
