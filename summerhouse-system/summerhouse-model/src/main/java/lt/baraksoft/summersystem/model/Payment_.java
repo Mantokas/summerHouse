@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @StaticMetamodel(Payment.class)
 public class Payment_ {
     public static volatile SingularAttribute<Payment, Integer> id;
-    public static volatile SingularAttribute<Payment, String> sender;
-    public static volatile SingularAttribute<Payment, String> receiver;
     public static volatile SingularAttribute<Payment, BigDecimal> amount;
     public static volatile SingularAttribute<Payment, LocalDate> executionDate;
     public static volatile SingularAttribute<Payment, String> purpose;

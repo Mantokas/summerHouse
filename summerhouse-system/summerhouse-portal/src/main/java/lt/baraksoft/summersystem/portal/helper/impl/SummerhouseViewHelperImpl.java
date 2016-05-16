@@ -40,7 +40,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 	public void save(SummerhouseView view) {
 		Summerhouse entity = view.getId() != null ? summerhouseDao.get(view.getId()) : new Summerhouse();
 		entity.setAddress(view.getAddress());
-		entity.setCapacity(Integer.valueOf(view.getCapacity()));
+		entity.setCapacity(view.getCapacity());
 		entity.setDateFrom(view.getDateFrom());
 		entity.setDateTo(view.getDateTo());
 		entity.setDescription(view.getDescription());
@@ -61,7 +61,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		SummerhouseView view = new SummerhouseView();
 		view.setId(entity.getId());
 		view.setAddress(entity.getAddress());
-		view.setCapacity(String.valueOf(entity.getCapacity()));
+		view.setCapacity(entity.getCapacity());
 		view.setDateFrom(entity.getDateFrom());
 		view.setDateTo(entity.getDateTo());
 		view.setDescription(entity.getDescription());

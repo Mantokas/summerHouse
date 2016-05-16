@@ -12,12 +12,8 @@ import java.io.Serializable;
  * Created by LaurynasC on 2016-05-04.
  */
 @Stateless
-public class PaymentDaoImpl extends GenericDao<User, Integer> implements PaymentDao, Serializable {
+public class PaymentDaoImpl extends GenericDao<Payment, Integer> implements PaymentDao, Serializable {
 
     private static final long serialVersionUID = -400272313198027073L;
 
-    @Override
-    public void create(Payment payment) {
-        getEntityManager().persist(payment);
-    }
 }

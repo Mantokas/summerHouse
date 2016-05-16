@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
@@ -25,6 +27,9 @@ public class SummerhouseController implements Serializable {
 	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
 
+	@Inject
+	private UserLoginController userLoginController;
+
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
 	private Boolean disabled = true;
@@ -38,9 +43,15 @@ public class SummerhouseController implements Serializable {
 		disabled = false;
 	}
 
-	public String doSelectSummerhouse() {
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("summerhouse", selectedSummerhouse);
-		return "goToReservation";
+	public String goToReservation() {
+		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else{
+			return "goToReservation";
+		}
+		return "";
 	}
 
 	public List<SummerhouseView> getSummerhousesList() {

@@ -6,6 +6,7 @@
 package lt.baraksoft.summersystem.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -53,12 +54,12 @@ public class Service implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
+
 	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") })
 	@ManyToMany
 	private List<Summerhouse> summerhouseList;
 
-	@JoinTable(name = "reservation_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "reservation_id", referencedColumnName = "id") })
-	@ManyToMany
+	@ManyToMany(mappedBy = "serviceList")
 	private List<Reservation> reservationList;
 
 	@Version
@@ -129,6 +130,14 @@ public class Service implements IEntity<Integer> {
 		this.summerhouseList = summerhouseList;
 	}
 
+	public List<Reservation> getReservationList() {
+		return reservationList;
+	}
+
+	public void setReservationList(List<Reservation> reservationList) {
+		this.reservationList = reservationList;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -154,5 +163,4 @@ public class Service implements IEntity<Integer> {
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Service[ id=" + id + " ]";
 	}
-
 }

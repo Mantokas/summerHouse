@@ -29,13 +29,13 @@
                 <p:outputPanel header="Headeris" rendered="#{reservationPaymentController.isCurrentForm('FIRST')}">
 
                     <h:panelGrid>
-                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.id}"/>
-                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.title}"/>
-                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.address}"/>
-                        <p:outputLabel value="#{reservationPaymentController.selectedSummerhouse.price}"/>
+                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.id}"/>
+                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.title}"/>
+                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.address}"/>
+                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.price}"/>
                     </h:panelGrid>
 
-                    <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationsList}">
+                    <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationPaymentView.reservationsList}">
                         <f:facet name="header">
                             Vasarnamio esamos rezervacijos
                         </f:facet>
@@ -74,7 +74,9 @@
 
                 <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('SECOND')}">
 
-                    <p:dataTable id="services" var="services" value="#{reservationPaymentController.selectedSummerhouse.serviceViews}" selection="#{reservationPaymentController.selectedServiceViews}" rowKey="#{services.id}">
+                    <p:dataTable id="services" var="services"
+                                 value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.serviceViews}"
+                                 selection="#{reservationPaymentController.selectedServiceViews}" rowKey="#{services.id}">
                         <f:facet name="header">
                             Vasarnamio papildomos paslaugos
                         </f:facet>
@@ -100,15 +102,18 @@
                 <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('THIRD')}">
 
                     <h:panelGrid>
-                        <p:outputLabel value="#{reservationPaymentController.summerhouseReservationPrice}"/>
-                        <p:outputLabel value="#{reservationPaymentController.servicesReservationPrice}"/>
-
+                        <p:outputLabel value="Vasarnamis: #{reservationPaymentController.reservationPaymentView.selectedSummerhouse.title}"/>
+                        <p:outputLabel value="Vasarnamio kaina: #{reservationPaymentController.reservationPaymentView.summerhouseReservationPrice}€"/>
+                        <p:outputLabel value="Papildomų paslaugų kaina: #{reservationPaymentController.reservationPaymentView.servicesReservationPrice}€"/>
+                        <p:outputLabel value="Rezervacija nuo #{reservationPaymentController.reservationPaymentView.reservationFrom} iki #{reservationPaymentController.reservationPaymentView.reservationTo}"/>
+                        <p:outputLabel value="Taškai prieš: #{reservationPaymentController.reservationPaymentView.pointsBefore}"/>
+                        <p:outputLabel value="Taškai po: #{reservationPaymentController.reservationPaymentView.pointsAfter}"/>
                     </h:panelGrid>
 
                     <p:separator />
 
-                    <p:commandButton value="Tęsti" update="msgs,@form"
-                                     action="#{reservationPaymentController.goToThirdStep}"/>
+                    <p:commandButton value="Patvirtinti rezervaciją" update="msgs,@form"
+                                     action="#{reservationPaymentController.submitTransaction}"/>
 
                 </p:outputPanel>
 
@@ -119,7 +124,7 @@
 
             <h:outputScript>
                 //<![CDATA[
-                var disabledDays = #{reservationController.disabledDay};
+                var disabledDays = #{reservationPaymentController.disabledDay};
 
                 function onlyMondays(date) {
                     var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
@@ -138,7 +143,7 @@
             </h:outputScript>
             <h:outputScript>
                 //<![CDATA[
-                var disabledDays = #{reservationController.disabledDay};
+                var disabledDays = #{reservationPaymentController.disabledDay};
 
                 function onlySundays(date) {
                     var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();

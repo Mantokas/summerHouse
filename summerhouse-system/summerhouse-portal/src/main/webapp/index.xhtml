@@ -32,6 +32,10 @@
                                  action="#{navigationController.goToUserRegistration}" immediate="true"
                                  rendered="#{empty userLoginController.loggedUser}"/>
 
+                <h:commandButton value="Mano rezervacijos" type="submit"
+                                 action="#{navigationController.goToMyReservations}" immediate="true"
+                                 rendered="#{not empty userLoginController.loggedUser}"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

@@ -50,4 +50,8 @@ public class NavigationController implements Serializable {
 		return "toPayment";
 	}
 
+	public String goToMyReservations(){
+		return "toMyReservations";
+	}
+
 }

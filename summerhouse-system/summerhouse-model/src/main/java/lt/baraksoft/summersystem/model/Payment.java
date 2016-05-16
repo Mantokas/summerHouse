@@ -24,16 +24,6 @@ public class Payment implements IEntity<Integer>{
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "sender")
-    private String sender;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "receiver")
-    private String receiver;
-
-    @Basic(optional = false)
-    @NotNull
     @Digits(integer = 4, fraction = 2)
     @Column(name = "amount", precision = 4, scale = 2)
     private BigDecimal amount;
@@ -46,8 +36,8 @@ public class Payment implements IEntity<Integer>{
     @Column(name = "purpose")
     private String purpose;
 
-    @ManyToMany(mappedBy = "paymentList")
-    private List<User> userList;
+    @ManyToOne(optional = false)
+    private User user;
 
     @Version
     private Integer version;
@@ -59,10 +49,8 @@ public class Payment implements IEntity<Integer>{
         this.id = id;
     }
 
-    public Payment(Integer id, String sender, String receiver, BigDecimal amount, LocalDate executionDate) {
+    public Payment(Integer id, BigDecimal amount, LocalDate executionDate) {
         this.id = id;
-        this.sender = sender;
-        this.receiver = receiver;
         this.amount = amount;
         this.executionDate = executionDate;
     }
@@ -78,22 +66,6 @@ public class Payment implements IEntity<Integer>{
     @Override
     public Integer getVersion() {
         return version;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
     }
 
     public BigDecimal getAmount() {
@@ -112,12 +84,12 @@ public class Payment implements IEntity<Integer>{
         this.executionDate = executionDate;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsersList(List<User> userList) {
-        this.userList = userList;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getPurpose() {
