@@ -15,19 +15,19 @@
 
     <ui:define name="content">
         <f:view>
-            <h:form id="form">
+            <h1 align="center">Vasarnamių paieška</h1>
+            <h:form id="form"
+                rendered="#{not empty userLoginController.loggedUser}">
                 <p:growl id="msgs" showDetail="true"/>
                 <h:panelGrid>
 
                     <p:outputLabel for="button1" value="Laisvas nuo:"/>
-                    <p:calendar id="button1" value="#{searchController.dateFrom}"
-                                readonlyInput="true">
+                    <p:calendar id="button1" pattern="yyyy-MM-dd" value="#{searchController.dateFrom}">
                         <p:ajax event="dateSelect"/>
                     </p:calendar>
 
                     <p:outputLabel for="button2" value="Laisvas iki:"/>
-                    <p:calendar id="button2" value="#{searchController.dateTo}"
-                                readonlyInput="true">
+                    <p:calendar id="button2" pattern="yyyy-MM-dd" value="#{searchController.dateTo}">
                         <p:ajax event="dateSelect"/>
                     </p:calendar>
 
@@ -35,29 +35,82 @@
                     <p:inputText id="title" value="#{searchController.searchObject.title}">
                     </p:inputText>
 
-                    <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="summerhousesSearch"/>
+                    <br></br>
+                    <p:commandButton value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update="singleDT"/>
                     <br></br>
 
                 </h:panelGrid>
 
-                <p:dataTable id="summerhousesSearch" var="summerhouseView" value="#{searchController.list}">
+                <p:dataTable id="singleDT" var="summerhouse"
+                             value="#{searchController.list}"
+                             emptyMessage="Nieko nerasta"
+                             selectionMode="single"
+                             selection="#{searchController.selectedSummerhouse}"
+                             rowKey="#{summerhouse.id}">
+                    <p:ajax event="rowSelect"
+                            update="reviewSummerhouse, reserveSummerhouse"
+                            listener="#{searchController.onRowSelect}" />
                     <f:facet name="header">
                         Rasti vasarnamiai
                     </f:facet>
-                    <p:column headerText="Pavadinimas" sortBy="#{summerhouseView.title}">
-                        <h:outputText value="#{summerhouseView.title}"/>
+                    <p:column headerText="Pavadinimas" sortBy="#{summerhouse.title}">
+                        <h:outputText value="#{summerhouse.title}"/>
                     </p:column>
-                    <p:column headerText="Talpa" sortBy="#{summerhouseView.capacity}">
-                        <h:outputText value="#{summerhouseView.capacity}"/>
+                    <p:column headerText="Talpa" sortBy="#{summerhouse.capacity}">
+                        <h:outputText value="#{summerhouse.capacity}"/>
                     </p:column>
-                    <p:column headerText="Laisvas nuo" sortBy="#{summerhouseView.dateFrom}">
-                        <h:outputText value="#{summerhouseView.dateFrom}"/>
+                    <p:column headerText="Laisvas nuo" sortBy="#{summerhouse.dateFrom}">
+                        <h:outputText value="#{summerhouse.dateFrom}"/>
                     </p:column>
-                    <p:column headerText="Laisvas iki" sortBy="#{summerhouseView.dateTo}">
-                        <h:outputText value="#{summerhouseView.dateTo}"/>
+                    <p:column headerText="Laisvas iki" sortBy="#{summerhouse.dateTo}">
+                        <h:outputText value="#{summerhouse.dateTo}"/>
                     </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="reviewSummerhouse" process="singleDT"
+                                         update=":form:summerhousesDetail" icon="ui-icon-search"
+                                         value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
+                                         disabled="#{searchController.disabled}"/>
+                        <p:commandButton id="reserveSummerhouse" process="singleDT"
+                                         value="Rezervuoti"
+                                         action="#{searchController.doSelectSummerhouse}"
+                                         disabled="#{searchController.disabled}" />
 
+                    </f:facet>
                 </p:dataTable>
+
+                <p:dialog header="Vasarnamio informacija" widgetVar="summerhouseDialog"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="summerhousesDetail" style="text-align:center;">
+                        <p:panelGrid columns="2"
+                                     columnClasses="label,value">
+
+                            <h:outputText value="Pavadinimas:" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.title}" />
+
+                            <h:outputText value="Adresas:" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.address}" />
+
+                            <h:outputText value="Aprašymas:" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.description}" />
+
+                            <h:outputText value="Maksimalus vietų skaičius" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.capacity}" />
+
+                            <h:outputText value="Galima rezervuoti nuo" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.dateFrom}" />
+
+                            <h:outputText value="Galima rezervuoti iki" />
+                            <h:outputText
+                                    value="#{searchController.selectedSummerhouse.dateTo}" />
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
 
             </h:form>
         </f:view>

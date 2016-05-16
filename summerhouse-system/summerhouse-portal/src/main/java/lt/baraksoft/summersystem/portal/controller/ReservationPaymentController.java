@@ -70,6 +70,9 @@ public class ReservationPaymentController implements Serializable {
     private SummerhouseController summerhouseController;
 
     @Inject
+    private SearchController searchController;
+
+    @Inject
     private UserLoginController userLoginController;
 
     private PaymentStepEnum currentForm = PaymentStepEnum.FIRST;
@@ -89,7 +92,7 @@ public class ReservationPaymentController implements Serializable {
     private LocalDate monday;
 
     public void initAndBeginConversation() {
-        selectedSummerhouse = summerhouseController.getSelectedSummerhouse();
+        selectedSummerhouse = searchController.getSelectedSummerhouse();
         reservationsList = reservationViewHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
         buildDateConstraint();
         if (!conversation.isTransient()) {
