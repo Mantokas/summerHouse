@@ -99,3 +99,27 @@
 .ui-growl {
     z-index: 1050 !important;
 }
+
+.customMainPage {
+    height: 600px !important;
+    background-image: url('/resources/images/Labanoras2.jpg') !important;
+    text-align: center;
+}
+
+.customMainPageSearch {
+    display: inline-block;
+    margin-top: 20%;
+}
+
+.customMainPageSearch > span{
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.leftMargin{
+   margin-left: 15px;
+}
+
+.inputField > input{
+    width: 100px;
+}
