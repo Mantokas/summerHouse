@@ -17,7 +17,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 /**
- * Created by etere on 2016-04-25.
+ * Created by nydva lopas on 2016-04-25.
  */
 @Named
 @Stateful
@@ -39,10 +39,10 @@ public class RegistrationController implements Serializable {
 
 	public void registerUser() {
 		emailExist = userViewHelper.register(view);
-		if (!emailExist) {
-			FacesContext.getCurrentInstance().addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
-		}
 		FacesContext context = FacesContext.getCurrentInstance();
+		if (!emailExist) {
+			context.addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
+		}
 		List<FacesMessage> messagesList = context.getMessageList();
 		if (messagesList.isEmpty()) {
 			RequestContext context2 = RequestContext.getCurrentInstance();

@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.dao;
 
+import lt.baraksoft.summersystem.dao.generic.IGenericDao;
 import lt.baraksoft.summersystem.model.Service;
 import lt.baraksoft.summersystem.model.Summerhouse;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 
 @Local
-public interface ServiceDao {
+public interface ServiceDao extends IGenericDao<Service, Integer>{
+
     List<Service> getServicesBySummerhouse(Summerhouse summerhouse);
-    Service get(Integer id);
 }

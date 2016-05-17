@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import lt.baraksoft.summersystem.dao.generic.IGenericDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
 
@@ -11,13 +12,9 @@ import lt.baraksoft.summersystem.model.Summerhouse;
  * Created by LaurynasC on 2016-04-19.
  */
 @Local
-public interface SummerhouseDao {
+public interface SummerhouseDao extends IGenericDao<Summerhouse, Integer>{
 
 	List<Summerhouse> getAllSummerhouses();
-
-	void save(Summerhouse entity);
-
-	Summerhouse get(Integer id);
 
 	List<Summerhouse> search(SummerhouseSearch search);
 

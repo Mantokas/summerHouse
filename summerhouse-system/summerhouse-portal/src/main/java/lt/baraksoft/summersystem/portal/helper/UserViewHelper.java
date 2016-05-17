@@ -15,7 +15,9 @@ public interface UserViewHelper {
 
 	List<UserView> getAllUsers();
 
-	UserView validateLogin(UserView view);
+	UserView findUserByLogin(UserView view);
 
 	boolean register(UserView view);
+
+	UserView findUserByFbId(String id);
 }

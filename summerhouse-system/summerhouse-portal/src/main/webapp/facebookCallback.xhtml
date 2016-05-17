@@ -16,7 +16,6 @@
         <ui:define name="content">
 
             <f:metadata>
-                <f:viewAction action="#{userLoginController.checkIfLoggedIn}"/>
                 <f:viewAction action="#{facebookLoginController.handleCallback}"/>
             </f:metadata>
 
@@ -27,7 +26,7 @@
                 <h:form id="loginForm" class="form-signin">
                     <h2 class="form-signin-heading">Prisijunkite</h2>
                     <p:inputText  maxlength="255" class="form-control" size="20" tabindex="10" value="#{userLoginController.email}"
-                                 id="email" placeholder="El. paštas">
+                                  id="email" placeholder="El. paštas">
 
                     </p:inputText>
                     <p:password maxlength="255" size="20" tabindex="20"
@@ -42,15 +41,14 @@
                                      ajax="false"
                     />
 
-                    <h:commandLink action="#{facebookLoginController.redirectToFacebook}" >
-                        <h:graphicImage value="resources/images/login-with-facebook.png" />
-                    </h:commandLink>
+                    <h:commandLink value="Login with facebook" action="#{facebookLoginController.redirectToFacebook}" />
                     <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
 
                     <p:commandLink
-                                     value="Registruotis"
-                                     id="register"
-                                     action="#{navigationController.goToUserRegistration}"
+                            value="Registruotis"
+                            id="register"
+                            action="#{navigationController.goToUserRegistration}"
+                            ajax="false"
                     />
                 </h:form>
 

@@ -28,7 +28,7 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao, S
     }
 
     @Override
-    public User validateLogin(String email, String password) {
+    public User getUserByLogin(String email, String password) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> criteria = cb.createQuery(User.class);
 
@@ -52,6 +52,23 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao, S
         Root<User> root = criteria.from(User.class);
 
         criteria.where(cb.equal(root.get(User_.email), email));
+        criteria.select(root);
+
+        try{
+            return getEntityManager().createQuery(criteria).getSingleResult();
+        }catch (NoResultException ex){
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByFacebookId(String facebookId) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+
+        Root<User> root = criteria.from(User.class);
+
+        criteria.where(cb.equal(root.get(User_.facebookId), facebookId));
         criteria.select(root);
 
         try{

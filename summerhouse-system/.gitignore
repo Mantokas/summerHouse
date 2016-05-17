@@ -8,8 +8,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .settings/
-.classpath
-.project
 
 # Eclipse specific settings
 .classpath
@@ -23,3 +21,6 @@ buildNumber.properties
 # Netbeans settings
 nb-configuration.xml
 nbproject
+
+# Configuration files
+facebook4j.properties

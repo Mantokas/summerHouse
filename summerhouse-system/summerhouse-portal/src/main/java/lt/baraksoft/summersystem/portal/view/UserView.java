@@ -11,11 +11,21 @@ public class UserView implements Serializable {
 	private String lastName;
 	private String password;
 	private String email;
+	private String facebookId;
 	private boolean approved;
 	private boolean archived;
 	private int points;
 	private int groupNumber;
 	private LocalDate validTo;
+
+	public UserView(String firstName, String lastName, String email, String facebookId){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.facebookId = facebookId;
+	};
+
+	public UserView (){};
 
 	public Integer getId() {
 		return id;
@@ -95,5 +105,13 @@ public class UserView implements Serializable {
 
 	public void setValidTo(LocalDate validTo) {
 		this.validTo = validTo;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
 	}
 }

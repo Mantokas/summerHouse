@@ -21,7 +21,7 @@
 		<hibernate-core.version>5.1.0.Final</hibernate-core.version>
 		<hibernate-jpa-api.version>1.0.0.Final</hibernate-jpa-api.version>
 		<junit.version>4.12</junit.version>
-		<scribe.version>2.5.3</scribe.version>
+		<facebook4j.version>[2.4,)</facebook4j.version>
 	</properties>
 
 	<build>
@@ -77,11 +77,15 @@
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 			</dependency>
-			<!-- oauth -->
 			<dependency>
-				<groupId>com.github.scribejava</groupId>
-				<artifactId>scribejava-apis</artifactId>
-				<version>${scribe.version}</version>
+				<groupId>org.facebook4j</groupId>
+				<artifactId>facebook4j-core</artifactId>
+				<version>${facebook4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

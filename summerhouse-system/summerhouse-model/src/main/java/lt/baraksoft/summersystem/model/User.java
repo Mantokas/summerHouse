@@ -30,23 +30,19 @@ public class User implements IEntity<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 	private Integer id;
-	@Size(min = 3, max = 25)
+	@Size(max = 25)
 	@Column(name = "firstname")
 	private String firstname;
-	@Size(min = 4, max = 25)
+	@Size(max = 25)
 	@Column(name = "lastname")
 	private String lastname;
-	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-	// message="Invalid email")//if the field contains email address consider
-	// using this annotation to enforce field validation
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 50)
 	@Column(name = "email")
 	private String email;
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 5, max = 128)
+	@Column(name = "facebook_id")
+	private String facebookId;
 	@Column(name = "password")
 	private String password;
 	@Basic(optional = false)
@@ -190,6 +186,14 @@ public class User implements IEntity<Integer> {
 
 	public void setPaymentList(List<Payment> paymentList) {
 		this.paymentList = paymentList;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
 	}
 
 	@Override

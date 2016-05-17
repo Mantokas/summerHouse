@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.portal.helper.FacebookService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -7,8 +8,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -21,8 +25,13 @@ import java.io.Serializable;
 public class UserLoginController implements Serializable{
     private static final long serialVersionUID = -7850630443992388923L;
 
+    private static final String LOGIN_FAILED = "Blogai įvesti prisijungimo duomenys";
+
     @EJB
     UserViewHelper userViewHelper;
+
+    @Inject
+    FacebookService fbService;
 
     private UserView userView = new UserView();
     private UserView loggedUser;
@@ -36,21 +45,29 @@ public class UserLoginController implements Serializable{
 
     public void logout(){
         loggedUser = null;
+        fbService.logout();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        request.getSession().invalidate();
     }
 
-    public void validate() {
+    public void validateLogin(){
         userView.setEmail(email);
         userView.setPassword(password);
-        loggedUser = userViewHelper.validateLogin(userView);
-    }
-
-    public String checkLogin(){
+        loggedUser = userViewHelper.findUserByLogin(userView);
         if (loggedUser != null){
             errMessage = "";
+        } else {
+            errMessage = LOGIN_FAILED;
+        }
+        return;
+    }
+
+    public String checkIfLoggedIn(){
+        if (loggedUser != null){
             return "goToLoggedPage";
         }
         else {
-            errMessage = "Blogi duomenys";
             return "";
         }
     }

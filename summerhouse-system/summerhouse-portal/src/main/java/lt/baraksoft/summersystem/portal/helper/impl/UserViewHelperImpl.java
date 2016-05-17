@@ -1,15 +1,10 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.ejb.*;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.transaction.TransactionSynchronizationRegistry;
 
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
@@ -28,6 +23,7 @@ public class UserViewHelperImpl implements UserViewHelper{
 		entity.setFirstname(view.getFirstName());
 		entity.setLastname(view.getLastName());
 		entity.setEmail(view.getEmail());
+		entity.setFacebookId(view.getFacebookId());
 		entity.setApproved(view.isApproved());
 		entity.setArchived(view.isArchived());
 		entity.setPassword(view.getPassword());
@@ -45,6 +41,7 @@ public class UserViewHelperImpl implements UserViewHelper{
 		view.setFirstName(entity.getFirstname());
 		view.setLastName(entity.getLastname());
 		view.setEmail(entity.getEmail());
+		view.setFacebookId(entity.getFacebookId());
 		view.setApproved(entity.isApproved());
 		view.setArchived(entity.isArchived());
 		view.setPassword(entity.getPassword());
@@ -62,17 +59,22 @@ public class UserViewHelperImpl implements UserViewHelper{
 	}
 
 	@Override
-	public UserView validateLogin(UserView view) {
+	public UserView findUserByLogin(UserView view) {
         String email = view.getEmail();
         String password = view.getPassword();
-		User entity = userDao.validateLogin(email, password);
+		User entity = userDao.getUserByLogin(email, password);
         return entity != null ? buildView(entity) : null;
+	}
+
+	@Override
+	public UserView findUserByFbId(String facebookId) {
+		User entity = userDao.getUserByFacebookId(facebookId);
+		return entity != null ? buildView(entity) : null;
 	}
 
 	@Override
 	public boolean register(UserView view) {
 		String email = view.getEmail();
-
 		if(userDao.getUserByEmail(email) != null)
 			return false;
 		save(view);
@@ -85,6 +87,7 @@ public class UserViewHelperImpl implements UserViewHelper{
 		view.setFirstName(entity.getFirstname());
 		view.setLastName(entity.getLastname());
 		view.setEmail(entity.getEmail());
+		view.setFacebookId(entity.getFacebookId());
 		view.setApproved(entity.isApproved());
 		view.setArchived(entity.isArchived());
 		view.setPassword(entity.getPassword());
