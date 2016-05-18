@@ -3,7 +3,7 @@ package lt.baraksoft.summersystem.portal.helper.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.*;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import lt.baraksoft.summersystem.dao.UserDao;
@@ -12,7 +12,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
-public class UserViewHelperImpl implements UserViewHelper{
+public class UserViewHelperImpl implements UserViewHelper {
 
 	@Inject
 	private UserDao userDao;
@@ -29,7 +29,7 @@ public class UserViewHelperImpl implements UserViewHelper{
 		entity.setPassword(view.getPassword());
 		entity.setPoints(view.getPoints());
 		entity.setGroupNumber(view.getGroupNumber());
-        entity.setValidTo(view.getValidTo());
+		entity.setValidTo(view.getValidTo());
 		userDao.save(entity);
 	}
 
@@ -60,10 +60,10 @@ public class UserViewHelperImpl implements UserViewHelper{
 
 	@Override
 	public UserView findUserByLogin(UserView view) {
-        String email = view.getEmail();
-        String password = view.getPassword();
+		String email = view.getEmail();
+		String password = view.getPassword();
 		User entity = userDao.getUserByLogin(email, password);
-        return entity != null ? buildView(entity) : null;
+		return entity != null ? buildView(entity) : null;
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class UserViewHelperImpl implements UserViewHelper{
 	@Override
 	public boolean register(UserView view) {
 		String email = view.getEmail();
-		if(userDao.getUserByEmail(email) != null)
+		if (userDao.getUserByEmail(email) != null)
 			return false;
 		save(view);
 		return true;

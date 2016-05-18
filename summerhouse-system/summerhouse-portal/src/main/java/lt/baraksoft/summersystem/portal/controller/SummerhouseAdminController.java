@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,7 +14,7 @@ import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class SummerhouseAdminController implements Serializable {
 	private static final long serialVersionUID = 1969079359482463164L;
 
@@ -37,6 +37,28 @@ public class SummerhouseAdminController implements Serializable {
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouseViewHelper.save(summerhouse);
 		summerhousesList.add(summerhouse);
+	}
+
+	public void doShowCreateDialog() {
+		dateFrom = null;
+		dateTo = null;
+		summerhouse = new SummerhouseView();
+	}
+
+	public void doShowEditDialog() {
+		dateFrom = Date.from(selectedSummerhouse.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		dateTo = Date.from(selectedSummerhouse.getDateTo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		summerhouse = selectedSummerhouse;
+	}
+
+	public void doArchive() {
+		selectedSummerhouse.setArchived(true);
+		summerhouseViewHelper.save(selectedSummerhouse);
+	}
+
+	public void doReset() {
+		selectedSummerhouse.setArchived(false);
+		summerhouseViewHelper.save(selectedSummerhouse);
 	}
 
 	public void onSelect() {

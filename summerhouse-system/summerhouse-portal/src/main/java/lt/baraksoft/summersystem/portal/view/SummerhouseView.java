@@ -14,7 +14,7 @@ public class SummerhouseView implements Serializable {
 
 	private Integer id;
 	private String address;
-	private int capacity;
+	private Integer capacity;
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
 	private String description;
@@ -39,11 +39,11 @@ public class SummerhouseView implements Serializable {
 		this.id = id;
 	}
 
-	public int getCapacity() {
+	public Integer getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 
