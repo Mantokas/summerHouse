@@ -36,7 +36,7 @@ public class SummerhouseAdminController implements Serializable {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouseViewHelper.save(summerhouse);
-		summerhousesList.add(summerhouse);
+		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
 	public void doShowCreateDialog() {
