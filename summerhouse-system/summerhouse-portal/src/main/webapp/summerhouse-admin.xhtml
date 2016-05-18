@@ -44,20 +44,20 @@
 						<h:outputText value="#{summerhouse.archivedString}" />
 					</p:column>
 					<f:facet name="footer">
-						<p:commandButton id="create" process="singleDT"
+						<p:commandButton id="create" process="singleDT" action="#{summerhouseAdminController.doShowCreateDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()" />
-						<p:commandButton id="edit" process="singleDT"
+						<p:commandButton id="edit" process="singleDT" action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Redaguoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null}"
 							oncomplete="PF('summerhouseDialog').show()" />
-						<p:commandButton id="archive" process="singleDT"
+						<p:commandButton id="archive" process="singleDT" action="#{summerhouseAdminController.doArchive}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Archyvuoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
 							oncomplete="PF('summerhouseDialog').show()" />
-						<p:commandButton id="reset" process="singleDT"
+						<p:commandButton id="reset" process="singleDT" action="#{summerhouseAdminController.doReset}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Atstatyti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}"
