@@ -2,9 +2,12 @@ package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 
 /**
  * Created by LaurynasC on 2016-04-18.
@@ -17,7 +20,24 @@ public class NavigationController implements Serializable {
 	@Inject
 	private UserLoginController userLoginController;
 
+	@Inject
+	private ConfigurationEntryDao configurationEntryDao;
+
 	private int currentTab = 1;
+
+	@PostConstruct
+	public void init() {
+		// Jei kam reiks pasikurt CE (max naudotoju ir metinis mokestis) mock'as
+		// uzkomentintas
+		// ConfigurationEntry entry = new ConfigurationEntry();
+		// entry.setType(ConfigurationEntryEnum.MAX_USERS_SIZE);
+		// entry.setValue("100");
+		// configurationEntryDao.save(entry);
+		// entry = new ConfigurationEntry();
+		// entry.setType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE);
+		// entry.setValue("20");
+		// configurationEntryDao.save(entry);
+	}
 
 	public String getActiveClass(int bbs) {
 		return bbs == currentTab ? "active" : "";
@@ -81,6 +101,14 @@ public class NavigationController implements Serializable {
 
 	public void setCurrentTab(int currentTab) {
 		this.currentTab = currentTab;
+	}
+
+	public ConfigurationEntryDao getConfigurationEntryDao() {
+		return configurationEntryDao;
+	}
+
+	public void setConfigurationEntryDao(ConfigurationEntryDao configurationEntryDao) {
+		this.configurationEntryDao = configurationEntryDao;
 	}
 
 }

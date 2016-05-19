@@ -12,7 +12,7 @@ import lt.baraksoft.summersystem.model.Summerhouse;
  * Created by LaurynasC on 2016-04-19.
  */
 @Local
-public interface SummerhouseDao extends IGenericDao<Summerhouse, Integer>{
+public interface SummerhouseDao extends IGenericDao<Summerhouse, Integer> {
 
 	List<Summerhouse> getAllSummerhouses();
 

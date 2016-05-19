@@ -11,7 +11,7 @@ import lt.baraksoft.summersystem.model.Reservation;
  * Created by LaurynasC on 2016-04-20.
  */
 @Local
-public interface ReservationDao extends IGenericDao<Reservation, Integer>{
+public interface ReservationDao extends IGenericDao<Reservation, Integer> {
 
 	List<Reservation> getReservationsBySummerhouse(Integer summerhouseID);
 

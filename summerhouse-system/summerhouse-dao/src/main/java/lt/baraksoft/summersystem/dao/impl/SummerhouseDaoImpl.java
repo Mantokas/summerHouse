@@ -1,14 +1,13 @@
 package lt.baraksoft.summersystem.dao.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
@@ -20,7 +19,7 @@ import lt.baraksoft.summersystem.model.Summerhouse_;
  * Created by LaurynasC on 2016-04-19.
  */
 @Stateless
-public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> implements SummerhouseDao, Serializable {
+public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> implements SummerhouseDao {
 
 	@Override
 	public List<Summerhouse> getAllSummerhouses() {
@@ -41,6 +40,7 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 		criteria.where(toArray(predicates));
 		return getEntityManager().createQuery(criteria).getResultList();
 	}
+
 	private List<Predicate> buildPredicates(SummerhouseSearch search, CriteriaBuilder builder, Root<Summerhouse> root) {
 		List<Predicate> predicates = new ArrayList<>();
 

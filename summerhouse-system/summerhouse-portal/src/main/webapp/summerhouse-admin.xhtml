@@ -39,10 +39,12 @@
 					<p:column headerText="Talpa" sortBy="#{summerhouse.capacity}">
 						<h:outputText value="#{summerhouse.capacity}" />
 					</p:column>
-					<p:column headerText="Nuomuojamas nuo" sortBy="#{summerhouse.dateFrom}">
+					<p:column headerText="Nuomuojamas nuo"
+						sortBy="#{summerhouse.dateFrom}">
 						<h:outputText value="#{summerhouse.dateFrom}" />
 					</p:column>
-					<p:column headerText="Nuomuojamas iki" sortBy="#{summerhouse.dateTo}">
+					<p:column headerText="Nuomuojamas iki"
+						sortBy="#{summerhouse.dateTo}">
 						<h:outputText value="#{summerhouse.dateTo}" />
 					</p:column>
 
@@ -54,13 +56,17 @@
 						<p:commandButton id="create" process="singleDT"
 							action="#{summerhouseAdminController.doShowCreateDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
-							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()" />
+							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()">
+							<p:resetInput target=":form:summerhousesDetail" />
+						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
 							action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Redaguoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null}"
-							oncomplete="PF('summerhouseDialog').show()" />
+							oncomplete="PF('summerhouseDialog').show()">
+							<p:resetInput target=":form:summerhousesDetail" />
+						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
 							update=":form:summerhousesDetail" icon="ui-icon-search"
 							value="Archyvuoti"
@@ -101,11 +107,13 @@
 								value="#{summerhouseAdminController.summerhouse.capacity}">
 							</pe:inputNumber>
 
-							<p:outputLabel for="dateFrom" required="true" value="Vasarnamis rezervuojamas nuo:" />
+							<p:outputLabel for="dateFrom" required="true"
+								value="Vasarnamis rezervuojamas nuo:" />
 							<p:calendar id="dateFrom"
 								value="#{summerhouseAdminController.dateFrom}" />
 
-							<p:outputLabel for="dateTo" required="true" value="Vasarnamis rezervuojamas iki:" />
+							<p:outputLabel for="dateTo" required="true"
+								value="Vasarnamis rezervuojamas iki:" />
 							<p:calendar id="dateTo"
 								value="#{summerhouseAdminController.dateTo}" />
 
@@ -124,8 +132,8 @@
 
 							<p:commandButton id="save"
 								action="#{summerhouseAdminController.doSave}"
-								update=":summerhouseForm:singleDT, :form:summerhousesDetail" icon="ui-icon-search"
-								value="Issaugoti"/>
+								update=":summerhouseForm:singleDT, :form:summerhousesDetail"
+								icon="ui-icon-search" value="Issaugoti" />
 
 						</h:panelGrid>
 					</p:outputPanel>

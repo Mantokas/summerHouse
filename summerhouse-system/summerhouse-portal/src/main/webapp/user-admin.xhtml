@@ -66,18 +66,13 @@
 				widgetVar="archiveConfirmationDialog" modal="true" showEffect="fade"
 				hideEffect="fade" resizable="false">
 				<p:outputPanel id="confirmationDialog" style="text-align:center;">
-
 					<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
-
 					<p:commandButton value="Patvirtinti"
 						oncomplete="PF('archiveConfirmationDialog').hide()"
 						update=":userForm:singleDT"
 						action="#{userAdminController.doArchive}" />
-
 					<p:commandButton value="Atšaukti"
 						oncomplete="PF('archiveConfirmationDialog').hide()" />
-
-
 				</p:outputPanel>
 			</p:dialog>
 
