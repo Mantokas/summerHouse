@@ -14,15 +14,13 @@ import javax.inject.Named;
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;
 
-    @Inject
-    private UserLoginController userLoginController;
+	@Inject
+	private UserLoginController userLoginController;
 
 	private int currentTab = 1;
 
-	public String getActiveClass(int bbs){
-
+	public String getActiveClass(int bbs) {
 		return bbs == currentTab ? "active" : "";
-
 	}
 
 	public String goToUsersList() {
@@ -34,13 +32,17 @@ public class NavigationController implements Serializable {
 		return "toUserInfo";
 	}
 
-	public String goToLoggedUserInfo() { return "toLoggedUserInfo";}
+	public String goToLoggedUserInfo() {
+		return "toLoggedUserInfo";
+	}
 
 	public String goToUserRegistration() {
 		return "toUserRegistration";
 	}
 
-	public String goToSummerhousesSearch() {return "toSummerhousesSearch";	}
+	public String goToSummerhousesSearch() {
+		return "toSummerhousesSearch";
+	}
 
 	public String goToMain() {
 		currentTab = 1;
@@ -48,9 +50,9 @@ public class NavigationController implements Serializable {
 	}
 
 	public String checkLoggedUser() {
-        if (userLoginController.getLoggedUser() == null)
-		return "toSignCheck";
-        return "";
+		if (userLoginController.getLoggedUser() == null)
+			return "toSignCheck";
+		return "";
 	}
 
 	public String goToPayment() {
@@ -58,9 +60,19 @@ public class NavigationController implements Serializable {
 		return "toPayment";
 	}
 
-	public String goToMyReservations(){
+	public String goToMyReservations() {
 		currentTab = 5;
 		return "toMyReservations";
+	}
+
+	public String goToSumerhousesAdministration() {
+		currentTab = 6;
+		return "toSumerhousesAdministration";
+	}
+
+	public String goToUsersAdministration() {
+		currentTab = 7;
+		return "toUsersAdministration";
 	}
 
 	public int getCurrentTab() {

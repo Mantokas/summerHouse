@@ -10,6 +10,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+import org.primefaces.context.RequestContext;
+
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
@@ -32,11 +35,22 @@ public class SummerhouseAdminController implements Serializable {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
-	public void doCreate() {
+	public void doSave() {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+		if (!isSummerhouseValid()) {
+			return;
+		}
+
+		RequestContext.getCurrentInstance().execute("PF('summerhouseDialog').hide()");
 		summerhouseViewHelper.save(summerhouse);
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
+	}
+
+	public boolean isSummerhouseValid() {
+		return StringUtils.isNotBlank(summerhouse.getTitle()) && StringUtils.isNotBlank(summerhouse.getAddress()) && summerhouse.getPrice() != null
+				&& summerhouse.getDateFrom() != null && summerhouse.getDateTo() != null;
 	}
 
 	public void doShowCreateDialog() {

@@ -18,14 +18,15 @@ public class UserView implements Serializable {
 	private int groupNumber;
 	private LocalDate validTo;
 
-	public UserView(String firstName, String lastName, String email, String facebookId){
+	public UserView(String firstName, String lastName, String email, String facebookId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.facebookId = facebookId;
 	};
 
-	public UserView (){};
+	public UserView() {
+	};
 
 	public Integer getId() {
 		return id;
@@ -113,5 +114,13 @@ public class UserView implements Serializable {
 
 	public void setFacebookId(String facebookId) {
 		this.facebookId = facebookId;
+	}
+
+	public String getArchivedString() {
+		return archived ? "Archyvuotas" : "Nearchyvuotas";
+	}
+
+	public String getApprovedString() {
+		return approved ? "Patvirtintas" : "Nepatvirtintas";
 	}
 }

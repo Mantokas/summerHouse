@@ -49,6 +49,16 @@
                                                  action="#{navigationController.goToMyReservations}" immediate="true"
                                                  rendered="#{not empty userLoginController.loggedUser}"/>
                             </li>
+                            <li class="#{navigationController.getActiveClass(6)}">
+                                <p:commandLink value="Vasarnamių valdymas" type="submit"
+                                                 action="#{navigationController.goToSumerhousesAdministration}" immediate="true"
+                                                 rendered="#{not empty userLoginController.loggedUser}"/>
+                            </li>
+                            <li class="#{navigationController.getActiveClass(7)}">
+                                <p:commandLink value="Klubo narių valdymas" type="submit"
+                                                 action="#{navigationController.goToUsersAdministration}" immediate="true"
+                                                 rendered="#{not empty userLoginController.loggedUser}"/>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>

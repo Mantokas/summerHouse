@@ -107,5 +107,23 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>toSumerhousesAdministration</from-outcome>
+			<to-view-id>/summerhouse-admin.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>toUsersAdministration</from-outcome>
+			<to-view-id>/user-admin.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>
