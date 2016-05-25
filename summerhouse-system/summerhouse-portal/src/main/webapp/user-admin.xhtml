@@ -17,6 +17,21 @@
 		<ui:define name="title">Naudotojų administravimas</ui:define>
 		<ui:define name="content">
 
+			<p:outputLabel for="yearlyPayment"
+				value="Metinis klubo nario mokestis" />
+			<p:inputText id="yearlyPayment"
+				value="#{summerhouseAdminController.yearlyPayment}"
+				validatorMessage="Kaina gali susidėti tik iš skaičių">
+				<f:validateRegex pattern="^[0-9]*$" />
+			</p:inputText>
+
+			<p:outputLabel for="maxUsersSize" value="Maksimalus narių skaičius" />
+			<p:inputText id="maxUsersSize"
+				value="#{summerhouseAdminController.maxUsersSize}"
+				validatorMessage="Kiekis gali susidėti tik iš skaičių">
+				<f:validateRegex pattern="^[0-9]*$" />
+			</p:inputText>
+
 			<h:form id="userForm">
 				<p:dataTable id="singleDT" var="user" rowKey="#{user.id}"
 					value="#{userAdminController.usersList}" selectionMode="single"
