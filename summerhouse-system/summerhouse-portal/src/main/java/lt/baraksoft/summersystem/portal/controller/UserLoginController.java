@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -54,10 +55,9 @@ public class UserLoginController implements Serializable {
 		userView.setEmail(email);
 		userView.setPassword(password);
 		loggedUser = userViewHelper.findUserByLogin(userView);
-		if (loggedUser != null) {
-			errMessage = "";
-		} else {
-			errMessage = LOGIN_FAILED;
+		if (loggedUser == null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", LOGIN_FAILED);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		return;
 	}

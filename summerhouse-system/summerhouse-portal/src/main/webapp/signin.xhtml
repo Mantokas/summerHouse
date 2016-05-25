@@ -25,6 +25,9 @@
                 <h:graphicImage library="images" name="Labanoras2.jpg" styleClass="max"/>
 
                 <h:form id="loginForm" class="form-signin">
+
+                    <p:growl id="msgs" showDetail="true" />
+
                     <h2 class="form-signin-heading">Prisijunkite</h2>
 
                     <p:inputText  maxlength="255" class="form-control" size="20" tabindex="10" value="#{userLoginController.email}"
@@ -34,7 +37,6 @@
                     <p:password maxlength="255" size="20" tabindex="20"
                                 value="#{userLoginController.password}" styleClass="inputField" id="password"
                                 placeholder="Slaptažodis"/>
-                    <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
                     <div>
 
                      </div>
@@ -44,7 +46,7 @@
                                      actionListener="#{userLoginController.validateLogin}"
                                      id="submits"
                                      action="#{userLoginController.checkIfLoggedIn}"
-                                     ajax="false"
+                                     update="msgs"
                     />
                     <h:commandLink class="btn" action="#{facebookLoginController.redirectToFacebook}" >
                         <h:graphicImage value="resources/images/login-with-facebook.png" />

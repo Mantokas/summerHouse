@@ -126,7 +126,7 @@
             </h:form>
 			<h:form id="form3"
 				rendered="#{userLoginController.loggedUser != null and !userLoginController.loggedUser.approved}">
-
+                <p:growl id="msgs3" showDetail="true" />
 				<p:panel header="">
 					<h:panelGrid columns="3" cellpadding="5" >
 						<p:outputLabel for="email" value="Nario el. paštas:" />
@@ -135,7 +135,7 @@
 							requiredMessage="Prašome įvesti el. pašto adresą!" />
 						<p:commandButton style="margin: 10px;" styleClass="btn"  value="Prašyti rekomendacijos"
 							actionListener="#{mainController.sendApproveMessage}"
-							update="msgs" />
+							update="msgs3" />
 					</h:panelGrid>
 				</p:panel>
 			</h:form>
