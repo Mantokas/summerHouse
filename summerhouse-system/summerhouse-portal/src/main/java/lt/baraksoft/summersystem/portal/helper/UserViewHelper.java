@@ -1,10 +1,10 @@
 package lt.baraksoft.summersystem.portal.helper;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import lt.baraksoft.summersystem.portal.view.UserView;
-
-import java.util.List;
 
 @Local
 public interface UserViewHelper {
@@ -20,4 +20,6 @@ public interface UserViewHelper {
 	boolean register(UserView view);
 
 	UserView findUserByFbId(String id);
+
+	UserView getUserByEmail(String email);
 }
