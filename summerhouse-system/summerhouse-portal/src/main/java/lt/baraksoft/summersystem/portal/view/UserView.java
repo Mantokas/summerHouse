@@ -121,6 +121,6 @@ public class UserView implements Serializable {
 	}
 
 	public String getApprovedString() {
-		return approved ? "Patvirtintas" : "Nepatvirtintas";
+		return approved ? "Narys" : "Kandidatas";
 	}
 }

@@ -1,61 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Nariai</title>
+	<title>Nariai</title>
 </h:head>
 
 <f:metadata>
-    <f:viewAction action="#{navigationController.checkLoggedUser}"/>
+	<f:viewAction action="#{navigationController.checkLoggedUser}" />
 </f:metadata>
 
 <h:body>
 
-    <ui:composition template="/template/common/commonLayout.xhtml">
-    <ui:define name="content">
-    <f:view>
-        <h:form id="form">
-            <p:growl id="msgs" showDetail="true" />
-            <div class="table-responsive">
-            <p:dataTable id="userDetail" tableStyleClass="table table-striped" var="userView" value="#{userController.users}">
-                <f:facet name="header">
-                    Klubo narių anketos
-                </f:facet>
-                <p:column headerText="El. paštas" sortBy="#{userView.email}">
-                    <h:outputText value="#{userView.email}" />
-                </p:column>
-                <p:column style="text-align: center">
-                    <p:commandButton class="btn btn-success" action="#{navigationController.goToUserInfo}" icon="ui-icon-search" title="Peržiūrėti"
-                         value="Peržiūrėti" actionListener="#{userController.doSelectUser(userView)}">
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-            </div>
-        </h:form>
-    </f:view>
+	<ui:composition template="/template/common/commonLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h:form id="form">
+					<p:growl id="msgs" showDetail="true" />
+					<div class="table-responsive">
+						<p:dataTable id="singleDT" tableStyleClass="table table-striped"
+							var="userView" rowKey="#{userView.id}"
+							value="#{userController.users}" selectionMode="single"
+							selection="#{userController.selectedUser}">
+							<p:ajax event="rowSelect" update="approve" />
+							<f:facet name="header">
+                   				 Klubo narių anketos
+                			</f:facet>
+							<p:column headerText="Vardas" sortBy="#{userView.firstName}">
+								<h:outputText value="#{userView.firstName}" />
+							</p:column>
+							<p:column headerText="Pavardė" sortBy="#{userView.lastName}">
+								<h:outputText value="#{userView.lastName}" />
+							</p:column>
+							<p:column headerText="El. paštas" sortBy="#{userView.email}">
+								<h:outputText value="#{userView.email}" />
+							</p:column>
+							<p:column headerText="Statusas" sortBy="#{userView.approved}">
+								<h:outputText value="#{userView.approvedString}" />
+							</p:column>
+							<f:facet name="footer">
+								<p:commandButton id="approve" process="singleDT"
+									update=":form2:usersDetail" icon="ui-icon-check"
+									value="Patvirtinti"
+									disabled="#{userController.selectedUser == null or userController.selectedUser.approved}"
+									oncomplete="PF('approveConfirmationDialog').show()" />
+							</f:facet>
+						</p:dataTable>
+					</div>
+				</h:form>
+				
+				<h:form id="form2">
+					<p:dialog header="Patvirtinimas"
+						widgetVar="approveConfirmationDialog" modal="true"
+						showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel id="usersDetail" style="text-align:center;">
+							<h:outputText value="Ar tikrai norite patvirtinti naudotoją?" />
+							<p:commandButton value="Patvirtinti"
+								oncomplete="PF('approveConfirmationDialog').hide()"
+								update=":form:singleDT" action="#{userController.doApprove}" />
+							<p:commandButton value="Atšaukti"
+								oncomplete="PF('approveConfirmationDialog').hide()" />
+						</p:outputPanel>
+					</p:dialog>
+				</h:form>
+			</f:view>
 
-        <style type="text/css">
-            .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
-                border-style: none;
-                padding-left: 25%;
-                padding-right: 25%;
-            }
-
-            .ui-datatable table {
-                border-collapse: collapse;
-                table-layout: fixed;
-                padding-left: 25%;
-                padding-right: 25%;
-            }
-        </style>
-
-    </ui:define>
-    </ui:composition>
+		</ui:define>
+	</ui:composition>
 
 </h:body>
 </html>
