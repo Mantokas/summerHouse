@@ -43,16 +43,10 @@
 
                         </h:panelGroup>
 
-                    </h:panelGroup>
-						<p:commandButton styleClass="leftMargin" value="Ieškoti"
-							action="#{searchController.doUpdateSummerhouseList}" />
-					</h:panelGroup>
 				</h:panelGroup>
 			</h:form>
 
-                </h:form>
-
-            <h:form id="form2">
+            <h:form id="form2" rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
                 <p:dataTable id="singleDT" var="summerhouse"
                              value="#{searchController.list}"
                              emptyMessage="Nieko nerasta"
