@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.portal.helper.MailService;
+import lt.baraksoft.summersystem.portal.view.Email;
 
 /**
  * Created by LaurynasC on 2016-04-18.
@@ -23,10 +25,20 @@ public class NavigationController implements Serializable {
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
 
+	@Inject
+	private MailService mailService;
+
 	private int currentTab = 1;
 
 	@PostConstruct
 	public void init() {
+		// PVZ kaip mail'as siunciamas
+		Email email = new Email();
+		email.setMessageContent("Sveikiname sėkmingai užsiregistravus mūsų sistemoje!");
+		email.setRecipient("mantas.petkeviciuus@gmail.com");
+		email.setSubject("Summersystem registration");
+		mailService.sendMessage(email);
+
 		// Jei kam reiks pasikurt CE (max naudotoju ir metinis mokestis) mock'as
 		// uzkomentintas
 		// ConfigurationEntry entry = new ConfigurationEntry();

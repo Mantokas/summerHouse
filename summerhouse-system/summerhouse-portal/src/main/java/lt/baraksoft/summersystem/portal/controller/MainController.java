@@ -13,13 +13,7 @@ public class MainController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		// PVZ kaip mail'as siunciamas
-		// Email email = new Email();
-		// email.setMessageContent("Sveikiname sėkmingai užsiregistravus mūsų
-		// sistemoje!");
-		// email.setRecipient("mantas.petkeviciuus@gmail.com");
-		// email.setSubject("Summersystem registration");
-		// mailService.sendMessage(email);
+
 	}
 
 }
