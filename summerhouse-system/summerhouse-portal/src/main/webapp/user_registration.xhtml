@@ -67,7 +67,7 @@
 					minHeight="40">
 					<p:outputLabel value="Naudotojas sukurtas!" />
 					<p:commandButton value="Gerai" type="submit"
-						action="#{navigationController.goToMain}" ajax="false" />
+						action="#{navigationController.goToMain}" actionListener="#{registrationController.setLoggedUser}"/>
 				</p:dialog>
 
 			</h:form>

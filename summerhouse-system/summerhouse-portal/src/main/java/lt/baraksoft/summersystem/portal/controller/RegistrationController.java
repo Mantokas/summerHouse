@@ -25,6 +25,9 @@ public class RegistrationController implements Serializable {
 	@Inject
 	private UserViewHelper userViewHelper;
 
+	@Inject
+	private UserLoginController userLoginController;
+
 	private UserView view;
 	private boolean emailExist;
 	private boolean dialogVisible;
@@ -45,6 +48,10 @@ public class RegistrationController implements Serializable {
 			RequestContext context2 = RequestContext.getCurrentInstance();
 			context2.execute("PF('confirmDialog').show();");
 		}
+	}
+
+	public void setLoggedUser() {
+		userLoginController.setLoggedUser(view);
 	}
 
 	public UserView getUserView() {

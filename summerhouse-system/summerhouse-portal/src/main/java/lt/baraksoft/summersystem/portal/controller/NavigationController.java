@@ -65,7 +65,7 @@ public class NavigationController implements Serializable {
 
 	public String goToMain() {
 		currentTab = 1;
-		return "toMain";
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public String checkLoggedUser() {
