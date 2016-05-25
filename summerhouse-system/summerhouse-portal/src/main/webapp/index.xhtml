@@ -18,7 +18,9 @@
 
 			<h:form id="form" styleClass="customMainPage"
 				rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
-				<p:growl id="msgs" showDetail="true" />
+
+                <p:growl id="msgs" showDetail="true" />
+
 				<h:panelGroup styleClass="customMainPageSearch">
 					<h:panelGroup>
 						<p:outputLabel for="button1" value="Nuo:" />
@@ -48,6 +50,9 @@
 			</h:form>
 
             <h:form id="form2" rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
+
+                <p:growl id="msgs2" showDetail="true" />
+
                 <p:dataTable id="singleDT" var="summerhouse"
                              value="#{searchController.list}"
                              emptyMessage="Nieko nerasta"
@@ -121,7 +126,6 @@
             </h:form>
 			<h:form id="form3"
 				rendered="#{userLoginController.loggedUser != null and !userLoginController.loggedUser.approved}">
-				<p:growl id="growl2" showDetail="true" sticky="true" />
 
 				<p:panel header="">
 					<h:panelGrid columns="2" cellpadding="5">
@@ -131,7 +135,7 @@
 							requiredMessage="Prašome įvesti el. pašto adresą!" />
 						<p:commandButton value="Prašyti rekomendacijos"
 							actionListener="#{mainController.sendApproveMessage}"
-							update="growl2" />
+							update="msgs" />
 					</h:panelGrid>
 				</p:panel>
 			</h:form>
