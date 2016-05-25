@@ -10,6 +10,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -34,13 +35,14 @@ import java.util.Map;
 @Stateful
 public class FacebookLoginController implements Serializable{
 
+    private static final long serialVersionUID = 4730059983092239695L;
     @Inject
     private FacebookService fbService;
 
     @Inject
     private UserLoginController userLoginController;
 
-    @Inject
+    @EJB
     private UserViewHelper userViewHelper;
 
     public void redirectToFacebook() throws IOException {

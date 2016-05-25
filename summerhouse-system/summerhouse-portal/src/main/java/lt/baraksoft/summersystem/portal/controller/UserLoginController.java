@@ -43,13 +43,12 @@ public class UserLoginController implements Serializable {
 		userViewHelper.save(loggedUser);
 	}
 
-	public void logout() {
-		loggedUser = null;
-		fbService.logout();
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-		request.getSession().invalidate();
-	}
+    public void logout(){
+        loggedUser = null;
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        request.getSession().invalidate();
+    }
 
 	public void validateLogin() {
 		userView.setEmail(email);

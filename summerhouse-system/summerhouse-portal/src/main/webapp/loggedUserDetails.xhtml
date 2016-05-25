@@ -21,17 +21,30 @@
             <f:view>
                 <h:form>
 
+                    <div>
                     <h:outputLabel for="nameEdit" value="Vardas:"/>
                     <p:inplace id="nameEdit" editor="true">
                         <p:ajax event="save" listener="#{userLoginController.updateUser}"/>
                         <p:inputText value="#{userLoginController.loggedUser.firstName}" required="true" label="text"/>
                     </p:inplace>
-
+                    </div>
+                    <div>
                     <h:outputLabel for="lastNameEdit" value="Pavardė:"/>
                     <p:inplace id="lastNameEdit" editor="true">
                         <p:ajax event="save" listener="#{userLoginController.updateUser}"/>
                         <p:inputText value="#{userLoginController.loggedUser.lastName}" required="true" label="text"/>
                     </p:inplace>
+                    </div>
+
+                    <div>
+                        <h:outputLabel value="Statusas:"/> #{userLoginController.loggedUser.approvedString}
+                    </div>
+                    <div>
+                        <h:outputLabel value="Turimi taškai:"/> #{userLoginController.loggedUser.points}
+                    </div>
+                    <div>
+                        <h:outputLabel value="Turimi taškai:"/> #{userLoginController.loggedUser.}
+                    </div>
 
                 </h:form>
             </f:view>
