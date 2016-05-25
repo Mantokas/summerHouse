@@ -13,6 +13,8 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
@@ -23,15 +25,21 @@ public class SummerhouseAdminController implements Serializable {
 
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
+	@Inject
+	private ConfigurationEntryDao configurationEntryDao;
 
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
 	private SummerhouseView summerhouse = new SummerhouseView();
+	private String yearlyPayment;
+	private String maxUsersSize;
 	private Date dateFrom;
 	private Date dateTo;
 
 	@PostConstruct
 	public void init() {
+		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
+		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
@@ -116,6 +124,22 @@ public class SummerhouseAdminController implements Serializable {
 
 	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
 		this.selectedSummerhouse = selectedSummerhouse;
+	}
+
+	public String getYearlyPayment() {
+		return yearlyPayment;
+	}
+
+	public void setYearlyPayment(String yearlyPayment) {
+		this.yearlyPayment = yearlyPayment;
+	}
+
+	public String getMaxUsersSize() {
+		return maxUsersSize;
+	}
+
+	public void setMaxUsersSize(String maxUsersSize) {
+		this.maxUsersSize = maxUsersSize;
 	}
 
 }

@@ -63,10 +63,6 @@ public class NavigationController implements Serializable {
 		return "/user_registration.xhtml?faces-redirect=true";
 	}
 
-	public String goToSummerhousesSearch() {
-		return "toSummerhousesSearch";
-	}
-
 	public String goToMain() {
 		currentTab = 1;
 		return "toMain";
