@@ -65,18 +65,25 @@ public class NavigationController implements Serializable {
 
 	public String goToMain() {
 		currentTab = 1;
-		return "index.xhtml?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 	public String checkLoggedUser() {
-		if (userLoginController.getLoggedUser() == null)
-			return "toSignCheck";
+		if (userLoginController.getLoggedUser() == null || !userLoginController.getLoggedUser().isApproved())
+			return "/signin.xhtml?faces-redirect=true";
 		return "";
 	}
 
+    public String checkLoggedUserWithoutApproved() {
+        if (userLoginController.getLoggedUser() == null)
+            return "/signin.xhtml?faces-redirect=true";
+        return "";
+    }
+
+
 	public String goToPayment() {
 		currentTab = 4;
-		return "toPayment";
+		return "/paymentProcess.xhtml?faces-redirect=true";
 	}
 
 	public String goToMyReservations() {
