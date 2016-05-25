@@ -26,6 +26,7 @@
 
                 <h:form id="loginForm" class="form-signin">
                     <h2 class="form-signin-heading">Prisijunkite</h2>
+
                     <p:inputText  maxlength="255" class="form-control" size="20" tabindex="10" value="#{userLoginController.email}"
                                  id="email" placeholder="El. paštas">
 
@@ -33,20 +34,22 @@
                     <p:password maxlength="255" size="20" tabindex="20"
                                 value="#{userLoginController.password}" styleClass="inputField" id="password"
                                 placeholder="Slaptažodis"/>
+                    <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
+                    <div>
 
-                    <p:commandButton class="btn btn-lg btn-primary btn-block"
+                     </div>
+                    <h:panelGrid columns="2" cellpadding="5" >
+                    <p:commandButton class="btn btn-primary"
                                      value="Prisijungti"
                                      actionListener="#{userLoginController.validateLogin}"
                                      id="submits"
                                      action="#{userLoginController.checkIfLoggedIn}"
                                      ajax="false"
                     />
-
-                    <h:commandLink action="#{facebookLoginController.redirectToFacebook}" >
+                    <h:commandLink class="btn" action="#{facebookLoginController.redirectToFacebook}" >
                         <h:graphicImage value="resources/images/login-with-facebook.png" />
                     </h:commandLink>
-                    <p:outputLabel id="error" value="#{userLoginController.errMessage}"/>
-
+                    </h:panelGrid>
                     <div>
                     <h:commandLink
                                      value="Registruotis"
