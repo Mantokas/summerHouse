@@ -67,6 +67,12 @@ public class UserViewHelperImpl implements UserViewHelper {
 	}
 
 	@Override
+	public UserView getUserByEmail(String email) {
+		User entity = userDao.getUserByEmail(email);
+		return entity != null ? buildView(entity) : null;
+	}
+
+	@Override
 	public UserView findUserByFbId(String facebookId) {
 		User entity = userDao.getUserByFacebookId(facebookId);
 		return entity != null ? buildView(entity) : null;

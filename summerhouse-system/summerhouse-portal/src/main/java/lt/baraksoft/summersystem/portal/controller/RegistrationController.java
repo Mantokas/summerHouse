@@ -16,9 +16,6 @@ import org.primefaces.context.RequestContext;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
-/**
- * Created by nydva lopas on 2016-04-25.
- */
 @Named
 @Stateful
 @RequestScoped
