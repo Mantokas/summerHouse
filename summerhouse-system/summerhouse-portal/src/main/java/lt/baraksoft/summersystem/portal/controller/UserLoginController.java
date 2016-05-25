@@ -45,7 +45,6 @@ public class UserLoginController implements Serializable{
 
     public void logout(){
         loggedUser = null;
-        fbService.logout();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         request.getSession().invalidate();
@@ -71,6 +70,8 @@ public class UserLoginController implements Serializable{
             return "";
         }
     }
+
+
 
     public String getEmail() {
         return this.email;
