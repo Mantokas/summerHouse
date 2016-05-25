@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 import javax.annotation.Resource;
 import javax.ejb.AfterBegin;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -46,10 +47,10 @@ public class AnnualFeeController implements Serializable {
     @Inject
     private UserLoginController userLoginController;
 
-    @Inject
+    @EJB
     private PaymentDao paymentDao;
 
-    @Inject
+    @EJB
     private UserDao userDao;
 
     private int activeIndex = 0;
@@ -126,6 +127,7 @@ public class AnnualFeeController implements Serializable {
         payment.setAmount(new BigDecimal(amount));
         payment.setExecutionDate(LocalDate.now());
         payment.setPurpose(purpose);
+        payment.setUser(loggedUser);
 
         paymentDao.save(payment);
 
