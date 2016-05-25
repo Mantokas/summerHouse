@@ -1,9 +1,12 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -53,11 +56,11 @@ public class NavigationController implements Serializable {
 	}
 
 	public String goToLoggedUserInfo() {
-		return "toLoggedUserInfo";
+		return "/loggedUserDetails.xhtml?faces-redirect=true";
 	}
 
 	public String goToUserRegistration() {
-		return "toUserRegistration";
+		return "/user_registration.xhtml?faces-redirect=true";
 	}
 
 	public String goToSummerhousesSearch() {

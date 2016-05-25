@@ -108,7 +108,10 @@
 
 .customMainPageSearch {
     display: inline-block;
-    margin-top: 20%;
+    margin-top: 230px;
+    background-color: rgba(216, 255, 224, 0.45);
+    border-radius: 2rem;
+    padding: 20px;
 }
 
 .customMainPageSearch > span{
