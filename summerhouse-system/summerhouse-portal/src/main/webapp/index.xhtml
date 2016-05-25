@@ -8,7 +8,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:metadata>
-	<f:viewAction action="#{navigationController.checkLoggedUser}" />
+	<f:viewAction action="#{navigationController.checkLoggedUserWithoutApproved}" />
 </f:metadata>
 
 <h:body>
@@ -23,13 +23,14 @@
 					<h:panelGroup>
 						<p:outputLabel for="button1" value="Nuo:" />
 						<p:calendar styleClass="inputField" id="button1"
-							pattern="yyyy-MM-dd" value="#{searchController.dateFrom}">
+							pattern="yyyy-MM-dd" value="#{searchController.dateFrom}"
+									mindate="#{searchController.today}">
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 
 						<p:outputLabel for="button2" value="Iki:" />
 						<p:calendar styleClass="inputField" id="button2"
-							pattern="yyyy-MM-dd" value="#{searchController.dateTo}">
+							pattern="yyyy-MM-dd" value="#{searchController.dateTo}" mindate="#{searchController.today}">
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 

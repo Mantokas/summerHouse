@@ -1,7 +1,9 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -39,11 +41,12 @@ public class SearchController implements Serializable{
 	private Boolean disabled = true;
 	private Date dateFrom;
     private Date dateTo;
+	private Date today;
 
     @PostConstruct
     public void init() {
 		searchObject = new SummerhouseSearch();
-
+        today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
 	public void onRowSelect() {
@@ -93,7 +96,7 @@ public class SearchController implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		else{
-			return "goToReservation";
+			return "/reservationPaymentProcess.xhtml?faces-redirect=true";
 		}
 		return "";
 	}
@@ -113,4 +116,11 @@ public class SearchController implements Serializable{
 		return ""; // TODO: 2016-05-16 navigacija i vasarnamiu rezultatu langa (arba ne)
     }
 
+    public Date getToday() {
+        return today;
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
+    }
 }
