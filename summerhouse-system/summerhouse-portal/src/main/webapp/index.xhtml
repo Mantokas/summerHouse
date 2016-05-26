@@ -16,6 +16,8 @@
 
 		<ui:define name="content">
 
+            <h:outputStylesheet name="grid/grid.css" library="primefaces" />
+
 			<h:form id="form" styleClass="customMainPage"
 				rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
 
@@ -42,7 +44,7 @@
 							style="margin-left: 10px; margin-right: 20px">
 						</p:inputText>
 
-                        <p:commandButton styleClass="leftMargin" value="Ieškoti" action="#{searchController.doUpdateSummerhouseList}" update=":form2"/>
+                        <p:commandButton styleClass="leftMargin" value="Ieškoti" actionListener="#{searchController.doUpdateSummerhouseList}" update=":form2"/>
 
                         </h:panelGroup>
 
@@ -53,7 +55,26 @@
 
                 <p:growl id="msgs2" showDetail="true" />
 
-                <p:dataTable id="singleDT" var="summerhouse"
+                <div class="ui-grid ui-grid-responsive">
+                    <p:outputPanel class="ui-grid-row ui-grid-col-12" style="display:block">
+                        <p:outputPanel style="display:block" styleClass="ui-grid-col-12">
+                            <p:dataGrid columns="5" value="#{searchController.list}" var="item"
+                                        rendered="#{searchController.visibleResults}" styleClass="customGridResults">
+                                <p:panelGrid columns="1">
+                                    <h:outputText id="titles" value="#{item.title}"/>
+
+                                    <h:outputText id="capacity" value="Talpa: #{item.capacity}"/>
+                                </p:panelGrid>
+                            </p:dataGrid>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                </div>
+
+
+
+
+                <p:dataTable rendered="#{searchController.visibleResults}" id="singleDT" var="summerhouse"
                              value="#{searchController.list}"
                              emptyMessage="Nieko nerasta"
                              selectionMode="single"
@@ -124,6 +145,7 @@
                     </p:outputPanel>
                 </p:dialog>
             </h:form>
+
 			<h:form id="form3"
 				rendered="#{userLoginController.loggedUser != null and !userLoginController.loggedUser.approved}">
                 <p:growl id="msgs3" showDetail="true" />

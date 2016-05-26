@@ -42,11 +42,13 @@ public class SearchController implements Serializable{
 	private Date dateFrom;
     private Date dateTo;
 	private Date today;
+    private boolean visibleResults;
 
     @PostConstruct
     public void init() {
 		searchObject = new SummerhouseSearch();
         today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        visibleResults = false;
     }
 
 	public void onRowSelect() {
@@ -109,11 +111,11 @@ public class SearchController implements Serializable{
 		this.searchObject = searchObject;
 	}
 
-	public String doUpdateSummerhouseList() {
+	public void doUpdateSummerhouseList() {
 			searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 			searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
-		return ""; // TODO: 2016-05-16 navigacija i vasarnamiu rezultatu langa (arba ne)
+        visibleResults = !list.isEmpty();
     }
 
     public Date getToday() {
@@ -122,5 +124,13 @@ public class SearchController implements Serializable{
 
     public void setToday(Date today) {
         this.today = today;
+    }
+
+    public boolean isVisibleResults() {
+        return visibleResults;
+    }
+
+    public void setVisibleResults(boolean visibleResults) {
+        this.visibleResults = visibleResults;
     }
 }

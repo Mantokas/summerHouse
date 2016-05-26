@@ -126,3 +126,7 @@
 .inputField > input{
     width: 100px;
 }
+
+.ui-widget .ui-widget {
+    width: 100%;
+}
