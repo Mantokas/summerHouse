@@ -55,25 +55,6 @@
 
                 <p:growl id="msgs2" showDetail="true" />
 
-                <div class="ui-grid ui-grid-responsive">
-                    <p:outputPanel class="ui-grid-row ui-grid-col-12" style="display:block">
-                        <p:outputPanel style="display:block" styleClass="ui-grid-col-12">
-                            <p:dataGrid columns="5" value="#{searchController.list}" var="item"
-                                        rendered="#{searchController.visibleResults}" styleClass="customGridResults">
-                                <p:panelGrid columns="1">
-                                    <h:outputText id="titles" value="#{item.title}"/>
-
-                                    <h:outputText id="capacity" value="Talpa: #{item.capacity}"/>
-                                </p:panelGrid>
-                            </p:dataGrid>
-                        </p:outputPanel>
-                    </p:outputPanel>
-
-                </div>
-
-
-
-
                 <p:dataTable rendered="#{searchController.visibleResults}" id="singleDT" var="summerhouse"
                              value="#{searchController.list}"
                              emptyMessage="Nieko nerasta"
