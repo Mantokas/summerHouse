@@ -127,7 +127,7 @@ public class ReservationPaymentController implements Serializable {
         if (!conversation.isTransient()) {
             conversation.end();
         }
-        return "toMain";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public boolean isCurrentForm(PaymentStepEnum currentStep) {

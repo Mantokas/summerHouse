@@ -126,3 +126,15 @@
 .inputField > input{
     width: 100px;
 }
+
+.customResults{
+    text-align: center;
+    border-width: medium;
+    border-color: #00a517;
+    border-radius: 1em;
+    background-color: rgba(72, 255, 0, 0.2);
+}
+
+.customDataGrid > div > div > div{
+    padding: 10px;
+}

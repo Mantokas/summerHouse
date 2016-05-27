@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -19,6 +20,7 @@ import javax.inject.Named;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
+import org.primefaces.context.RequestContext;
 
 /**
  * Created by etere on 2016-04-27.
@@ -92,6 +94,10 @@ public class SearchController implements Serializable{
 		return selectedSummerhouse;
 	}
 
+    public void makeSelectedSummerhouse(SummerhouseView summerhouse){
+        selectedSummerhouse = summerhouse;
+    }
+
 	public String doSelectSummerhouse() {
 		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
@@ -112,10 +118,12 @@ public class SearchController implements Serializable{
 	}
 
 	public void doUpdateSummerhouseList() {
-			searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
-			searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
+		searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
+		searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
         visibleResults = !list.isEmpty();
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.scrollTo("form2:cars");
     }
 
     public Date getToday() {

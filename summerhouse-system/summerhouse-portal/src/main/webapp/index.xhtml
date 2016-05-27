@@ -46,6 +46,7 @@
 
                         <p:commandButton styleClass="leftMargin" value="Ieškoti" actionListener="#{searchController.doUpdateSummerhouseList}" update=":form2"/>
 
+
                         </h:panelGroup>
 
 				</h:panelGroup>
@@ -55,48 +56,38 @@
 
                 <p:growl id="msgs2" showDetail="true" />
 
-                <p:dataTable rendered="#{searchController.visibleResults}" id="singleDT" var="summerhouse"
-                             value="#{searchController.list}"
-                             emptyMessage="Nieko nerasta"
-                             selectionMode="single"
-                             selection="#{searchController.selectedSummerhouse}"
-                             rowKey="#{summerhouse.id}">
-                    <p:ajax event="rowSelect"
-                            update="reviewSummerhouse, reserveSummerhouse"
-                            listener="#{searchController.onRowSelect}" />
-                    <f:facet name="header">
-                        Rasti vasarnamiai
-                    </f:facet>
-                    <p:column headerText="Pavadinimas" sortBy="#{summerhouse.title}">
-                        <h:outputText value="#{summerhouse.title}"/>
-                    </p:column>
-                    <p:column headerText="Talpa" sortBy="#{summerhouse.capacity}">
-                        <h:outputText value="#{summerhouse.capacity}"/>
-                    </p:column>
-                    <p:column headerText="Laisvas nuo" sortBy="#{summerhouse.dateFrom}">
-                        <h:outputText value="#{summerhouse.dateFrom}"/>
-                    </p:column>
-                    <p:column headerText="Laisvas iki" sortBy="#{summerhouse.dateTo}">
-                        <h:outputText value="#{summerhouse.dateTo}"/>
-                    </p:column>
-                    <f:facet name="footer">
-                        <p:commandButton id="reviewSummerhouse" process="singleDT"
-                                         update=":form2:summerhousesDetail" icon="ui-icon-search"
-                                         value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
-                                         disabled="#{searchController.disabled}"/>
-                        <p:commandButton id="reserveSummerhouse" process="singleDT"
-                                         value="Rezervuoti" update="@form"
-                                         action="#{searchController.doSelectSummerhouse}"
-                                         disabled="#{searchController.disabled}" />
+                <p:dataGrid var="summerhouse" value="#{searchController.list}" columns="4" layout="grid"
+                            rows="12" paginator="true" id="cars" paginatorPosition="bottom"
+                            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                            styleClass="customDataGrid">
 
-                    </f:facet>
-                </p:dataTable>
+
+                    <p:panel header="#{summerhouse.title}" styleClass="customResults">
+                        <h:panelGrid columns="1" style="width:100%">
+
+                            <p:graphicImage library="images" name="summerhouse.gif" styleClass="img-responsive"/>
+
+                            <p:commandButton id="reviewSummerhouse" process="cars"
+                                             update=":form2:summerhousesDetail" icon="ui-icon-search"
+                                             value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
+                                             actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}"
+                                             />
+                            <p:commandButton id="reserveSummerhouse" process="cars"
+                                             value="Rezervuoti" update="@form"
+                                             action="#{searchController.doSelectSummerhouse}"
+                                             actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}"
+
+                            />
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                </p:dataGrid>
 
                 <p:dialog header="Vasarnamio informacija" widgetVar="summerhouseDialog"
                           modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="summerhousesDetail" style="text-align:center;">
-                        <p:panelGrid columns="2"
-                                     columnClasses="label,value">
+                        <p:panelGrid columns="2">
 
                             <h:outputText value="Pavadinimas:" />
                             <h:outputText
