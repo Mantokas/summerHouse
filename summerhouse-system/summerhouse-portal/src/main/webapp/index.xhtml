@@ -72,8 +72,8 @@
 					<p:panel header="#{summerhouse.title}" styleClass="customResults">
 						<h:panelGrid columns="1" style="width:100%">
 
-<!-- 							<p:graphicImage styleClass="img-responsive" value="#{searchController.getStreamedImage(summerhouse)}"/> -->
-
+							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
+							
 							<p:commandButton id="reviewSummerhouse" process="cars"
 								update=":form2:summerhousesDetail" icon="ui-icon-search"
 								value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
@@ -117,10 +117,6 @@
 							<h:outputText value="Galima rezervuoti iki" />
 							<h:outputText
 								value="#{searchController.selectedSummerhouse.dateTo}" />
-
-							<h:inputFile value="#{searchController.image}">
-								<f:ajax listener="#{searchController.handleFileUpload}" render="@form" />
-							</h:inputFile>
 
 						</p:panelGrid>
 					</p:outputPanel>
