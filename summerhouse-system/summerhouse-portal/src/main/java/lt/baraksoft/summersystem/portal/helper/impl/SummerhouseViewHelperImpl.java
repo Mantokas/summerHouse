@@ -1,12 +1,15 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import org.apache.commons.io.IOUtils;
+import org.primefaces.model.DefaultStreamedContent;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
@@ -47,6 +50,11 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		entity.setArchived(view.isArchived());
 		entity.setPrice(view.getPrice());
 		entity.setTitle(view.getTitle());
+		try {
+			entity.setImage(IOUtils.toByteArray(view.getImage().getStream()));
+		} catch (IOException e) {
+			throw new IllegalStateException("failed to convert image to byte array!");
+		}
 		summerhouseDao.save(entity);
 	}
 
@@ -69,6 +77,9 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		view.setPrice(entity.getPrice());
 		view.setTitle(entity.getTitle());
 		view.setServiceViews(serviceViewHelper.buildViews(entity.getServiceList()));
+		if (entity.getImage() != null) {
+			view.setImage(new DefaultStreamedContent(new ByteArrayInputStream(entity.getImage()), "image/jpeg"));
+		}
 		return view;
 	}
 

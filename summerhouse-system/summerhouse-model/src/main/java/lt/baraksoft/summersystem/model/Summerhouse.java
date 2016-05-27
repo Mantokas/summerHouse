@@ -8,6 +8,7 @@ package lt.baraksoft.summersystem.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,11 +34,16 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "summerhouses")
-@NamedQueries({ @NamedQuery(name = "Summerhouse.findAll", query = "SELECT s FROM Summerhouse s"), @NamedQuery(name = "Summerhouse.findById", query = "SELECT s FROM Summerhouse s WHERE s.id = :id"),
-		@NamedQuery(name = "Summerhouse.findByTitle", query = "SELECT s FROM Summerhouse s WHERE s.title = :title"), @NamedQuery(name = "Summerhouse.findByAddress", query = "SELECT s FROM Summerhouse s WHERE s.address = :address"),
-		@NamedQuery(name = "Summerhouse.findByPrice", query = "SELECT s FROM Summerhouse s WHERE s.price = :price"), @NamedQuery(name = "Summerhouse.findByDescription", query = "SELECT s FROM Summerhouse s WHERE s.description = :description"),
-		@NamedQuery(name = "Summerhouse.findByCapacity", query = "SELECT s FROM Summerhouse s WHERE s.capacity = :capacity"), @NamedQuery(name = "Summerhouse.findByDateFrom", query = "SELECT s FROM Summerhouse s WHERE s.dateFrom = :dateFrom"),
-		@NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"), @NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.archived = :isArchived") })
+@NamedQueries({ @NamedQuery(name = "Summerhouse.findAll", query = "SELECT s FROM Summerhouse s"),
+		@NamedQuery(name = "Summerhouse.findById", query = "SELECT s FROM Summerhouse s WHERE s.id = :id"),
+		@NamedQuery(name = "Summerhouse.findByTitle", query = "SELECT s FROM Summerhouse s WHERE s.title = :title"),
+		@NamedQuery(name = "Summerhouse.findByAddress", query = "SELECT s FROM Summerhouse s WHERE s.address = :address"),
+		@NamedQuery(name = "Summerhouse.findByPrice", query = "SELECT s FROM Summerhouse s WHERE s.price = :price"),
+		@NamedQuery(name = "Summerhouse.findByDescription", query = "SELECT s FROM Summerhouse s WHERE s.description = :description"),
+		@NamedQuery(name = "Summerhouse.findByCapacity", query = "SELECT s FROM Summerhouse s WHERE s.capacity = :capacity"),
+		@NamedQuery(name = "Summerhouse.findByDateFrom", query = "SELECT s FROM Summerhouse s WHERE s.dateFrom = :dateFrom"),
+		@NamedQuery(name = "Summerhouse.findByDateTo", query = "SELECT s FROM Summerhouse s WHERE s.dateTo = :dateTo"),
+		@NamedQuery(name = "Summerhouse.findByIsArchived", query = "SELECT s FROM Summerhouse s WHERE s.archived = :isArchived") })
 public class Summerhouse implements IEntity<Integer> {
 	private static final long serialVersionUID = -3157689849405825264L;
 	@Id
@@ -72,7 +79,11 @@ public class Summerhouse implements IEntity<Integer> {
 	private List<Service> serviceList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")
-	private List<Reservation> reservationList;
+	private Set<Reservation> reservationList;
+
+	@Lob
+	@Column(length = 100000)
+	private byte[] image;
 
 	@Version
 	private Integer version;
@@ -175,11 +186,11 @@ public class Summerhouse implements IEntity<Integer> {
 		this.serviceList = serviceList;
 	}
 
-	public List<Reservation> getReservationList() {
+	public Set<Reservation> getReservationList() {
 		return reservationList;
 	}
 
-	public void setReservationList(List<Reservation> reservationList) {
+	public void setReservationList(Set<Reservation> reservationList) {
 		this.reservationList = reservationList;
 	}
 
@@ -207,6 +218,14 @@ public class Summerhouse implements IEntity<Integer> {
 	@Override
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Summerhouse[ id=" + id + " ]";
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 }

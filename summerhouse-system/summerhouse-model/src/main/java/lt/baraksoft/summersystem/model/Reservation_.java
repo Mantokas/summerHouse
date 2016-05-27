@@ -13,9 +13,9 @@ public class Reservation_ {
 	public static volatile SingularAttribute<Reservation, Integer> id;
 	public static volatile SingularAttribute<Reservation, LocalDate> dateFrom;
 	public static volatile SingularAttribute<Reservation, LocalDate> dateTo;
-	public static volatile SingularAttribute<Reservation, Boolean> isApproved;
-	public static volatile SingularAttribute<Reservation, Boolean> isArchived;
-	public static volatile SingularAttribute<Reservation, User> userId;
+	public static volatile SingularAttribute<Reservation, Boolean> approved;
+	public static volatile SingularAttribute<Reservation, Boolean> archived;
+	public static volatile SingularAttribute<Reservation, User> user;
 	public static volatile SingularAttribute<Reservation, Summerhouse> summerhouse;
 	public static volatile SetAttribute<Reservation, Service> serviceList;
 }

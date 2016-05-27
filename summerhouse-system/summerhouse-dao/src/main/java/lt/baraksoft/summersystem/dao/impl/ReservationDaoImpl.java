@@ -23,7 +23,17 @@ public class ReservationDaoImpl extends GenericDao<Reservation, Integer> impleme
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Reservation> criteria = builder.createQuery(Reservation.class);
 		Root<Reservation> root = criteria.from(Reservation.class);
-		criteria.where(builder.equal(root.get(Reservation_.summerhouse), summerhouseID));
+		criteria.where(builder.and(builder.equal(root.get(Reservation_.summerhouse), summerhouseID), builder.isFalse(root.get(Reservation_.archived))));
+		criteria.select(root);
+		return getEntityManager().createQuery(criteria).getResultList();
+	}
+
+	@Override
+	public List<Reservation> getReservationsByUserID(Integer userID) {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Reservation> criteria = builder.createQuery(Reservation.class);
+		Root<Reservation> root = criteria.from(Reservation.class);
+		criteria.where(builder.and(builder.equal(root.get(Reservation_.user), userID), builder.isFalse(root.get(Reservation_.archived))));
 		criteria.select(root);
 		return getEntityManager().createQuery(criteria).getResultList();
 	}

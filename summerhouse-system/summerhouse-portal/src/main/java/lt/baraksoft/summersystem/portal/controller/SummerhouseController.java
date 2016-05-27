@@ -44,11 +44,10 @@ public class SummerhouseController implements Serializable {
 	}
 
 	public String goToReservation() {
-		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
+		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else{
+		} else {
 			return "goToReservation";
 		}
 		return "";
@@ -77,4 +76,5 @@ public class SummerhouseController implements Serializable {
 	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
 	}
+
 }

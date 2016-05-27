@@ -8,7 +8,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:metadata>
-	<f:viewAction action="#{navigationController.checkLoggedUserWithoutApproved}" />
+	<f:viewAction
+		action="#{navigationController.checkLoggedUserWithoutApproved}" />
 </f:metadata>
 
 <h:body>
@@ -16,12 +17,12 @@
 
 		<ui:define name="content">
 
-            <h:outputStylesheet name="grid/grid.css" library="primefaces" />
+			<h:outputStylesheet name="grid/grid.css" library="primefaces" />
 
 			<h:form id="form" styleClass="customMainPage"
 				rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
 
-                <p:growl id="msgs" showDetail="true" />
+				<p:growl id="msgs" showDetail="true" />
 
 				<h:panelGroup styleClass="customMainPageSearch">
 					<h:panelGroup>
@@ -34,13 +35,14 @@
 						<p:outputLabel for="button1" value="Nuo:" />
 						<p:calendar styleClass="inputField" id="button1"
 							pattern="yyyy-MM-dd" value="#{searchController.dateFrom}"
-									mindate="#{searchController.today}">
+							mindate="#{searchController.today}">
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 
 						<p:outputLabel for="button2" value="Iki:" />
 						<p:calendar styleClass="inputField" id="button2"
-							pattern="yyyy-MM-dd" value="#{searchController.dateTo}" mindate="#{searchController.today}">
+							pattern="yyyy-MM-dd" value="#{searchController.dateTo}"
+							mindate="#{searchController.today}">
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 
@@ -50,96 +52,98 @@
 							style="margin-left: 10px; margin-right: 20px">
 						</p:inputText>
 
-                        <p:commandButton icon="ui-icon-search" styleClass="btn btn-lg btn-toolbar leftMargin" value="Ieškoti" actionListener="#{searchController.doUpdateSummerhouseList}" update=":form2"/>
+						<p:commandButton styleClass="leftMargin" value="Ieškoti"
+							actionListener="#{searchController.doUpdateSummerhouseList}"
+							update=":form2" />
 
 
-                        </h:panelGroup>
+					</h:panelGroup>
 
 				</h:panelGroup>
 			</h:form>
 
-            <h:form id="form2" rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}">
+			<h:form id="form2"
+				rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
+				enctype="multipart/form-data">
 
-                <p:growl id="msgs2" showDetail="true" />
+				<p:growl id="msgs2" showDetail="true" />
 
-                <p:dataGrid rendered="#{searchController.visibleResults}" var="summerhouse" value="#{searchController.list}" columns="4" layout="grid"
-                            rows="12" paginator="true" id="cars" paginatorPosition="bottom"
-                            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                            styleClass="customDataGrid"
-                            emptyMessage="Vasarnamių nerasta">
-
-
-                    <p:panel header="#{summerhouse.title}" styleClass="customResults">
-                        <h:panelGrid columns="1" >
-
-                            <p:graphicImage library="images" name="summerhouse.gif" styleClass="img-responsive"/>
+				<p:dataGrid var="summerhouse" value="#{searchController.list}"
+					columns="4" layout="grid" rows="12" paginator="true" id="cars"
+					paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					styleClass="customDataGrid">
 
 
+					<p:panel header="#{summerhouse.title}" styleClass="customResults">
+						<h:panelGrid columns="1" style="width:100%">
 
-                                <p:commandButton id="reviewSummerhouse" process="cars"
-                                                 update=":formDialog:summerhousesDetail" icon="ui-icon-search"
-                                                 value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
-                                                 actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}"
-                                />
-                                <p:commandButton id="reserveSummerhouse" process="cars"
-                                                 value="Rezervuoti" update="@form"
-                                                 action="#{searchController.doSelectSummerhouse}"
-                                                 actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}"
+<!-- 							<p:graphicImage styleClass="img-responsive" value="#{searchController.getStreamedImage(summerhouse)}"/> -->
 
-                                />
+							<p:commandButton id="reviewSummerhouse" process="cars"
+								update=":form2:summerhousesDetail" icon="ui-icon-search"
+								value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
+								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
+							<p:commandButton id="reserveSummerhouse" process="cars"
+								value="Rezervuoti" update="@form"
+								action="#{searchController.doSelectSummerhouse}"
+								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 
+						</h:panelGrid>
+					</p:panel>
 
-                        </h:panelGrid>
-                    </p:panel>
+				</p:dataGrid>
 
-                </p:dataGrid>
-            </h:form>
+				<p:dialog header="Vasarnamio informacija"
+					widgetVar="summerhouseDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="summerhousesDetail" style="text-align:center;">
+						<p:panelGrid columns="2">
 
-            <p:dialog header="Vasarnamio informacija" widgetVar="summerhouseDialog"
-                      modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <h:form id="formDialog">
-                <p:outputPanel id="summerhousesDetail" style="text-align:left;">
-                    <h:panelGrid columns="2" id="grid" >
+							<h:outputText value="Pavadinimas:" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.title}" />
 
-                        <p:outputLabel style="text-align:center;" value="Pavadinimas:" />
-                        <h:outputText  value="#{searchController.selectedSummerhouse.title}" />
+							<h:outputText value="Adresas:" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.address}" />
 
-                        <p:outputLabel  value="Adresas: " />
-                        <h:outputText
-                                value="#{searchController.selectedSummerhouse.address}" />
+							<h:outputText value="Aprašymas:" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.description}" />
 
-                        <p:outputLabel  value="Aprašymas: " />
-                        <h:outputText
-                                value="#{searchController.selectedSummerhouse.description}" />
+							<h:outputText value="Maksimalus vietų skaičius" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.capacity}" />
 
-                        <p:outputLabel  value="Vietų skaičius: " />
-                        <h:outputText
-                                value="#{searchController.selectedSummerhouse.capacity}" />
+							<h:outputText value="Galima rezervuoti nuo" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.dateFrom}" />
 
-                        <p:outputLabel  value="Galima rezervuoti nuo: " />
-                        <h:outputText
-                                value="#{searchController.selectedSummerhouse.dateFrom}" />
+							<h:outputText value="Galima rezervuoti iki" />
+							<h:outputText
+								value="#{searchController.selectedSummerhouse.dateTo}" />
 
-                        <p:outputLabel  value="Galima rezervuoti iki: " />
-                        <h:outputText
-                                value="#{searchController.selectedSummerhouse.dateTo}" />
+							<h:inputFile value="#{searchController.image}">
+								<f:ajax listener="#{searchController.handleFileUpload}" render="@form" />
+							</h:inputFile>
 
-                    </h:panelGrid>
-                </p:outputPanel>
-                </h:form>
-            </p:dialog>
-
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
 
 			<h:form id="form3"
 				rendered="#{userLoginController.loggedUser != null and !userLoginController.loggedUser.approved}">
-                <p:growl id="msgs3" showDetail="true" />
+				<p:growl id="msgs3" showDetail="true" />
 				<p:panel header="">
-					<h:panelGrid columns="3" cellpadding="5" >
+					<h:panelGrid columns="3" cellpadding="5">
 						<p:outputLabel for="email" value="Nario el. paštas:" />
 						<p:inputText id="email"
 							value="#{mainController.recommendationEmail}" required="true"
 							requiredMessage="Prašome įvesti el. pašto adresą!" />
-						<p:commandButton style="margin: 10px;" styleClass="btn"  value="Prašyti rekomendacijos"
+						<p:commandButton style="margin: 10px;" styleClass="btn"
+							value="Prašyti rekomendacijos"
 							actionListener="#{mainController.sendApproveMessage}"
 							update="msgs3" />
 					</h:panelGrid>

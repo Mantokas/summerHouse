@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.primefaces.model.StreamedContent;
+
 /**
  * Created by LaurynasC on 2016-04-19.
  */
@@ -22,6 +24,7 @@ public class SummerhouseView implements Serializable {
 	private BigDecimal price;
 	private String title;
 	private List<ServiceView> serviceViews = new ArrayList<>();
+	private StreamedContent image;
 
 	public String getAddress() {
 		return address;
@@ -105,5 +108,13 @@ public class SummerhouseView implements Serializable {
 
 	public String getArchivedString() {
 		return archived ? "Archyvuotas" : "Nearchyvuotas";
+	}
+
+	public StreamedContent getImage() {
+		return image;
+	}
+
+	public void setImage(StreamedContent image) {
+		this.image = image;
 	}
 }
