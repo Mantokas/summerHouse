@@ -62,13 +62,11 @@ public class UserLoginController implements Serializable {
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.execute("PF('cancelReservationDialog').show();");
 		}
-
 	}
 
 	public void cancelReservation(){
 		reservationViewHelper.cancelReservation(selectedReservation.getId());
 		myReservations = reservationViewHelper.getReservations();
-
 	}
 
 	public void updateUser() {

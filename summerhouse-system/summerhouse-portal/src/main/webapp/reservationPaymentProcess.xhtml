@@ -12,6 +12,7 @@
 <h:body>
     <f:metadata>
         <f:viewAction action="#{reservationPaymentController.initAndBeginConversation}"/>
+        <f:viewAction action="#{navigationController.checkLoggedUser}"/>
     </f:metadata>
 
     <ui:composition template="/template/common/commonLayout.xhtml">
@@ -19,6 +20,7 @@
         <ui:define name="content">
 
             <h:form id="form">
+
                 <p:growl id="msgs" showDetail="true" />
                 <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true" styleClass="breadcrumb4steps">
                     <p:menuitem value="Rezervacijos laikotarpis"/>
