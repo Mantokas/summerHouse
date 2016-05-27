@@ -11,7 +11,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
@@ -34,7 +33,6 @@ public class SummerhouseController implements Serializable {
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
 	private Boolean disabled = true;
-	private Part image;
 
 	@PostConstruct
 	public void init() {
@@ -79,11 +77,4 @@ public class SummerhouseController implements Serializable {
 		this.disabled = disabled;
 	}
 
-	public Part getImage() {
-		return image;
-	}
-
-	public void setImage(Part image) {
-		this.image = image;
-	}
 }

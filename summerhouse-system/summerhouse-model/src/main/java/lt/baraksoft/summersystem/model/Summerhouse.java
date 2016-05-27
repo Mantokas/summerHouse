@@ -8,6 +8,7 @@ package lt.baraksoft.summersystem.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -78,7 +79,7 @@ public class Summerhouse implements IEntity<Integer> {
 	private List<Service> serviceList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")
-	private List<Reservation> reservationList;
+	private Set<Reservation> reservationList;
 
 	@Lob
 	@Column(length = 100000)
@@ -185,11 +186,11 @@ public class Summerhouse implements IEntity<Integer> {
 		this.serviceList = serviceList;
 	}
 
-	public List<Reservation> getReservationList() {
+	public Set<Reservation> getReservationList() {
 		return reservationList;
 	}
 
-	public void setReservationList(List<Reservation> reservationList) {
+	public void setReservationList(Set<Reservation> reservationList) {
 		this.reservationList = reservationList;
 	}
 
