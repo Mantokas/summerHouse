@@ -15,4 +15,6 @@ public interface ReservationDao extends IGenericDao<Reservation, Integer> {
 
 	List<Reservation> getReservationsBySummerhouse(Integer summerhouseID);
 
+	List<Reservation> getReservationsByUserID(Integer userID);
+
 }

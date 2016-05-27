@@ -1,7 +1,9 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -13,8 +15,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import lt.baraksoft.summersystem.portal.helper.FacebookService;
+import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.UserView;
+import org.primefaces.context.RequestContext;
 
 /**
  * Created by LaurynasC on 2016-04-24.
@@ -34,11 +39,37 @@ public class UserLoginController implements Serializable {
 	@Inject
 	private FacebookService fbService;
 
+	@EJB
+	private ReservationViewHelper reservationViewHelper;
+
 	private UserView userView = new UserView();
+	private List<ReservationView> myReservations;
+	private ReservationView selectedReservation;
 	private UserView loggedUser;
 	private String email;
 	private String password;
-	private String errMessage;
+
+    public void collectMyReservations(){
+        myReservations = reservationViewHelper.getReservations();
+    }
+
+	public void checkReservation(){
+		if (selectedReservation.isArchived()){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rezervacija yra negaliojanti!", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else{
+			RequestContext context = RequestContext.getCurrentInstance();
+			context.execute("PF('cancelReservationDialog').show();");
+		}
+
+	}
+
+	public void cancelReservation(){
+		reservationViewHelper.cancelReservation(selectedReservation.getId());
+		myReservations = reservationViewHelper.getReservations();
+
+	}
 
 	public void updateUser() {
 		userViewHelper.save(loggedUser);
@@ -94,16 +125,28 @@ public class UserLoginController implements Serializable {
 		this.userView = userView;
 	}
 
-	public String getErrMessage() {
-		return errMessage;
-	}
-
 	public void setLoggedUser(UserView loggedUser) {
 		this.loggedUser = loggedUser;
 	}
 
 	public UserView getLoggedUser() {
 		return loggedUser;
+	}
+
+	public List<ReservationView> getMyReservations() {
+		return myReservations;
+	}
+
+	public void setMyReservations(List<ReservationView> myReservations) {
+		this.myReservations = myReservations;
+	}
+
+	public ReservationView getSelectedReservation() {
+		return selectedReservation;
+	}
+
+	public void setSelectedReservation(ReservationView selectedReservation) {
+		this.selectedReservation = selectedReservation;
 	}
 
 }

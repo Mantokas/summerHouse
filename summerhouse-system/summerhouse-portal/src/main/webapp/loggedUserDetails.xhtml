@@ -13,14 +13,15 @@
 
 <f:metadata>
     <f:viewAction action="#{navigationController.checkLoggedUserWithoutApproved}"/>
+    <f:viewAction action="#{userLoginController.collectMyReservations}"/>
 </f:metadata>
 
 <h:body>
     <ui:composition template="/template/common/commonLayout.xhtml">
         <ui:define name="content">
             <f:view>
-                <h:form>
 
+                <h:form>
                     <div>
                     <h:outputLabel for="nameEdit" value="Vardas:"/>
                     <p:inplace id="nameEdit" editor="true">
@@ -42,6 +43,60 @@
                     <div>
                         <h:outputLabel value="Turimi taškai:"/> #{userLoginController.loggedUser.points}
                     </div>
+
+                </h:form>
+
+                <h:form id="form"
+                        rendered="#{not empty userLoginController.loggedUser}">
+
+                    <p:growl styleClass="top" id="msgs" showDetail="true"  />
+
+                    <p:dataTable id="singleDT" var="reservation"
+                                 value="#{userLoginController.myReservations}"
+                                 selectionMode="single"
+                                 selection="#{userLoginController.selectedReservation}"
+                                 rowKey="#{reservation.id}">
+                        <f:facet name="header">
+                            Rezervacijos
+                        </f:facet>
+                        <p:column headerText="Rezervacijos nr." sortBy="#{reservation.number}">
+                            <h:outputText value="#{reservation.number}" />
+                        </p:column>
+                        <p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}">
+                            <h:outputText value="#{reservation.dateFrom}" />
+                        </p:column>
+                        <p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
+                            <h:outputText value="#{reservation.dateTo}" />
+                        </p:column>
+                        <p:column headerText="Vasarnamis" sortBy="#{reservation.reservedSummerhouse.title}">
+                            <h:outputText value="#{reservation.reservedSummerhouse.title}" />
+                        </p:column>
+                        <p:column headerText="Kaina" sortBy="#{reservation.price}">
+                            <h:outputText value="#{reservation.price}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" update="@form"
+                                             action="#{userLoginController.checkReservation}"
+                            />
+                        </f:facet>
+                    </p:dataTable>
+
+                    <p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="summerhousesDetail2" style="text-align:center;">
+                            <p:panelGrid columns="1">
+
+                                <h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
+
+                                <p:commandButton value="Patvirtinti" oncomplete="PF('cancelReservationDialog').hide()"
+                                                 update="@form,msgs" action="#{userLoginController.cancelReservation}"/>
+
+                                <p:commandButton value="Grįžti" oncomplete="PF('cancelReservationDialog').hide()"/>
+
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
 
                 </h:form>
             </f:view>

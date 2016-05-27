@@ -34,8 +34,7 @@ public class ReservationViewHelperImpl implements ReservationViewHelper {
 
     @Override
     public List<ReservationView> getReservations() {
-        User entity = userDao.get(userLoginController.getLoggedUser().getId());
-        List<Reservation> entities = entity.getReservationList();
+        List<Reservation> entities = reservationDao.getReservationsByUserID(userLoginController.getLoggedUser().getId());
         List<ReservationView> reservations = new ArrayList<>();
         entities.stream().forEach(reservation -> reservations.add(buildReservationView(reservation)));
 
