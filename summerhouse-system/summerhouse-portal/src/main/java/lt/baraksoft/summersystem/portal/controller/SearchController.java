@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +13,19 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
-import org.primefaces.context.RequestContext;
 
 /**
  * Created by etere on 2016-04-27.
@@ -28,30 +33,42 @@ import org.primefaces.context.RequestContext;
 @Named
 @SessionScoped
 @Stateful
-public class SearchController implements Serializable{
+public class SearchController implements Serializable {
 
 	private static final long serialVersionUID = 7491298817566550329L;
 
 	@EJB
-    private SummerhouseViewHelper summerhouseViewHelper;
+	private SummerhouseViewHelper summerhouseViewHelper;
 
-	@Inject UserLoginController userLoginController;
+	@Inject
+	UserLoginController userLoginController;
 
-    private List<SummerhouseView> list;
-    private SummerhouseSearch searchObject;
+	private List<SummerhouseView> list;
+	private SummerhouseSearch searchObject;
 	private SummerhouseView selectedSummerhouse;
 	private Boolean disabled = true;
 	private Date dateFrom;
-    private Date dateTo;
+	private Date dateTo;
 	private Date today;
-    private boolean visibleResults;
+	private boolean visibleResults;
+	private Part image;
 
-    @PostConstruct
-    public void init() {
+	@PostConstruct
+	public void init() {
 		searchObject = new SummerhouseSearch();
-        today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        visibleResults = false;
-    }
+		today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		visibleResults = false;
+	}
+
+	public void handleFileUpload(AjaxBehaviorEvent event) {
+		try {
+			selectedSummerhouse.setImage(new DefaultStreamedContent(image.getInputStream(), "image/jpeg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		summerhouseViewHelper.save(selectedSummerhouse);
+	}
 
 	public void onRowSelect() {
 		disabled = false;
@@ -94,16 +111,15 @@ public class SearchController implements Serializable{
 		return selectedSummerhouse;
 	}
 
-    public void makeSelectedSummerhouse(SummerhouseView summerhouse){
-        selectedSummerhouse = summerhouse;
-    }
+	public void makeSelectedSummerhouse(SummerhouseView summerhouse) {
+		selectedSummerhouse = summerhouse;
+	}
 
 	public String doSelectSummerhouse() {
-		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
+		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else{
+		} else {
 			return "/reservationPaymentProcess.xhtml?faces-redirect=true";
 		}
 		return "";
@@ -121,24 +137,42 @@ public class SearchController implements Serializable{
 		searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
-        visibleResults = !list.isEmpty();
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.scrollTo("form2:cars");
-    }
+		visibleResults = !list.isEmpty();
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.scrollTo("form2:cars");
+	}
 
-    public Date getToday() {
-        return today;
-    }
+	public StreamedContent getStreamedImage(SummerhouseView view) {
+		FacesContext context = FacesContext.getCurrentInstance();
 
-    public void setToday(Date today) {
-        this.today = today;
-    }
+		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
+		} else {
+			return view.getImage();
+		}
+	}
 
-    public boolean isVisibleResults() {
-        return visibleResults;
-    }
+	public Date getToday() {
+		return today;
+	}
 
-    public void setVisibleResults(boolean visibleResults) {
-        this.visibleResults = visibleResults;
-    }
+	public void setToday(Date today) {
+		this.today = today;
+	}
+
+	public boolean isVisibleResults() {
+		return visibleResults;
+	}
+
+	public void setVisibleResults(boolean visibleResults) {
+		this.visibleResults = visibleResults;
+	}
+
+	public Part getImage() {
+		return image;
+	}
+
+	public void setImage(Part image) {
+		this.image = image;
+	}
 }
