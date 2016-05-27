@@ -154,6 +154,7 @@ public class ReservationPaymentController implements Serializable {
         if (checkIsTransient()){
             return;
         }
+
         calculateSummerhousePrice();
 
         if (loggedUser.getPoints() - reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0){

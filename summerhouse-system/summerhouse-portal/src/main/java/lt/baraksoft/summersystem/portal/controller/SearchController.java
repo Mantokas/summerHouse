@@ -118,6 +118,7 @@ public class SearchController implements Serializable{
 	}
 
 	public void doUpdateSummerhouseList() {
+
 		searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
