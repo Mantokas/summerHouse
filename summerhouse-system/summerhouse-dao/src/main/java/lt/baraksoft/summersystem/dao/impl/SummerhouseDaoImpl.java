@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
+import javax.persistence.criteria.*;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
@@ -50,18 +46,23 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 		predicates.add(builder.equal(root.get(Summerhouse_.archived), search.isArchived()));
 
 		if (search.getDateFrom() != null) {
+			predicates.add(builder.lessThanOrEqualTo(root.get(Summerhouse_.dateFrom), search.getDateFrom()));
+		}
+
+		if (search.getDateTo() != null) {
+			predicates.add(builder.greaterThanOrEqualTo(root.get(Summerhouse_.dateTo), search.getDateTo()));
+		}
+
+		if (search.getDateFrom() != null && search.getDateTo() != null){
 			Subquery<Integer> subquery = criteria.subquery(Integer.class);
 			Root<Reservation> subroot = subquery.from(Reservation.class);
 
-			subquery.where(builder.and(builder.greaterThanOrEqualTo(subroot.get(Reservation_.dateFrom), search.getDateFrom()),
-					builder.lessThanOrEqualTo(subroot.get(Reservation_.dateTo), search.getDateTo())));
+			subquery.where(builder.and(builder.greaterThanOrEqualTo(subroot.get(Reservation_.dateTo), search.getDateFrom()),
+					builder.lessThanOrEqualTo(subroot.get(Reservation_.dateFrom), search.getDateTo())));
 			subquery.select(subroot.get(Reservation_.id));
 
-			predicates.add(builder.not(root.join(Summerhouse_.reservationList).get(Reservation_.id).in(subquery)));
+			predicates.add(builder.or(builder.isNull(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id)), builder.not(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id).in(subquery))));
 		}
-
-		if (search.getDateTo() != null)
-			predicates.add(builder.greaterThanOrEqualTo(root.get(Summerhouse_.dateTo), search.getDateTo()));
 
 		if (search.getCapacity() != 0) {
 			predicates.add(builder.equal(root.get(Summerhouse_.capacity), search.getCapacity()));
