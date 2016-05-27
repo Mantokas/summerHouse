@@ -43,6 +43,7 @@ public class SearchController implements Serializable {
 	@Inject
 	UserLoginController userLoginController;
 
+
 	private List<SummerhouseView> list;
 	private SummerhouseSearch searchObject;
 	private SummerhouseView selectedSummerhouse;
