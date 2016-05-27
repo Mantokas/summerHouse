@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
@@ -33,6 +34,7 @@ public class SummerhouseController implements Serializable {
 	private List<SummerhouseView> summerhousesList;
 	private SummerhouseView selectedSummerhouse;
 	private Boolean disabled = true;
+	private Part image;
 
 	@PostConstruct
 	public void init() {
@@ -44,11 +46,10 @@ public class SummerhouseController implements Serializable {
 	}
 
 	public String goToReservation() {
-		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()){
+		if (selectedSummerhouse.getPrice().intValue() > userLoginController.getLoggedUser().getPoints()) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepakanka pinigų rezervacijai");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else{
+		} else {
 			return "goToReservation";
 		}
 		return "";
@@ -76,5 +77,13 @@ public class SummerhouseController implements Serializable {
 
 	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
+	}
+
+	public Part getImage() {
+		return image;
+	}
+
+	public void setImage(Part image) {
+		this.image = image;
 	}
 }

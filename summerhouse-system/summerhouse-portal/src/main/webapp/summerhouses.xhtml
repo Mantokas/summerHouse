@@ -95,7 +95,7 @@
 				</h:form>
 
 
-				<h:form id="unloggedUser"
+				<h:form id="unloggedUser" enctype="multipart/form-data"
 					rendered="#{userLoginController.loggedUser == null}">
 					<p:dataTable id="unloggedDT" var="summerhouse2"
 						value="#{summerhouseController.summerhousesList}"
@@ -156,6 +156,8 @@
 								<h:outputText value="Galima rezervuoti iki" />
 								<h:outputText
 									value="#{summerhouseController.selectedSummerhouse.dateTo}" />
+									
+								<h:inputFile value="#{summerhouseController.image}"/>	
 
 							</p:panelGrid>
 						</p:outputPanel>
