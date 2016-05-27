@@ -7,6 +7,7 @@ import lt.baraksoft.summersystem.model.Service;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.helper.ReservationPaymentHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
+import lt.baraksoft.summersystem.portal.interceptor.Log;
 import lt.baraksoft.summersystem.portal.view.*;
 
 import javax.ejb.EJB;
@@ -229,6 +230,7 @@ public class ReservationPaymentController implements Serializable {
         paymentDao.save(entity);
     }
 
+    @Log
     public String submitTransaction() {
         if (conversation.isTransient()) {
             currentForm = PaymentStepEnum.FIRST;

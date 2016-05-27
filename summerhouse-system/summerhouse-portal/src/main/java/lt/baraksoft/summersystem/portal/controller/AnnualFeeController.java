@@ -4,6 +4,7 @@ import lt.baraksoft.summersystem.dao.PaymentDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.interceptor.Log;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 import javax.annotation.PostConstruct;
@@ -142,6 +143,7 @@ public class AnnualFeeController implements Serializable {
         activeIndex = 2;
     }
 
+    @Log
     public String ok() {
         if (conversation.isTransient()) {
             currentForm = CURRENT_FORM.PAYMENT_TYPE;
