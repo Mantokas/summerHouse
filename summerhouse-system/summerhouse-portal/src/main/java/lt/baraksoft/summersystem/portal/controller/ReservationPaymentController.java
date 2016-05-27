@@ -111,15 +111,18 @@ public class ReservationPaymentController implements Serializable {
             return "toSignCheck";
         }
 
-        conversation.begin();
+        if (conversation.isTransient()) {
+            conversation.begin();
 
-        reservationPaymentView.setSelectedSummerhouse(searchController.getSelectedSummerhouse());
-        reservationPaymentView.setReservationsList(reservationPaymentHelper.getReservationsBySummerhouse(reservationPaymentView.getSelectedSummerhouse().getId()));
-        buildDateConstraint();
-        loggedUser = userLoginController.getLoggedUser();
-        reservationPaymentView.setPointsBefore(loggedUser.getPoints());
-        loggedUserEntity = userDao.get(loggedUser.getId());
-        reservationFrom = getNextMonday();
+            reservationPaymentView.setSelectedSummerhouse(searchController.getSelectedSummerhouse());
+            reservationPaymentView.setReservationsList(reservationPaymentHelper.getReservationsBySummerhouse(reservationPaymentView.getSelectedSummerhouse().getId()));
+            buildDateConstraint();
+            loggedUser = userLoginController.getLoggedUser();
+            reservationPaymentView.setPointsBefore(loggedUser.getPoints());
+            loggedUserEntity = userDao.get(loggedUser.getId());
+            reservationFrom = getNextMonday();
+        }
+
         return "";
     }
 
