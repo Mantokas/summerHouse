@@ -68,11 +68,12 @@
 
 				<p:growl id="msgs2" showDetail="true" />
 
-				<p:dataGrid var="summerhouse" value="#{searchController.list}"
+				<p:dataGrid rendered="#{searchController.visibleResults}" var="summerhouse" value="#{searchController.list}"
 					columns="4" layout="grid" rows="12" paginator="true" id="cars"
 					paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-					styleClass="customDataGrid">
+					styleClass="customDataGrid"
+					emptyMessage="Nerasta vasarnamių">
 
 
 					<p:panel header="#{summerhouse.title}" styleClass="customResults">

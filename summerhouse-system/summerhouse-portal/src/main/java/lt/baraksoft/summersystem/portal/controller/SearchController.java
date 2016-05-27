@@ -137,7 +137,7 @@ public class SearchController implements Serializable {
 		searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
 		list = summerhouseViewHelper.search(searchObject);
-		visibleResults = !list.isEmpty();
+		visibleResults = true;
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.scrollTo("form2:cars");
 	}
