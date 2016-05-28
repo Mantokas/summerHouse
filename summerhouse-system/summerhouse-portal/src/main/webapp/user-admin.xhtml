@@ -21,17 +21,33 @@
 				<p:outputLabel for="yearlyPayment"
 					value="Metinis klubo nario mokestis" />
 				<p:inputText id="yearlyPayment"
-					value="#{summerhouseAdminController.yearlyPayment}"
+					value="#{userAdminController.yearlyPayment}"
 					validatorMessage="Kaina gali susidėti tik iš skaičių">
 					<f:validateRegex pattern="^[0-9]*$" />
 				</p:inputText>
 
 				<p:outputLabel for="maxUsersSize" value="Maksimalus narių skaičius" />
 				<p:inputText id="maxUsersSize"
-					value="#{summerhouseAdminController.maxUsersSize}"
+					value="#{userAdminController.maxUsersSize}"
 					validatorMessage="Kiekis gali susidėti tik iš skaičių">
 					<f:validateRegex pattern="^[0-9]*$" />
 				</p:inputText>
+
+				<h:outputText value="Skype laukas" />
+				<p:selectBooleanCheckbox
+					value="#{userAdminController.skypeFieldVisible}" />
+
+				<h:outputText value="Telefono numerio laukas" />
+				<p:selectBooleanCheckbox
+					value="#{userAdminController.telephoneFieldVisible}" />
+
+				<h:outputText value="Aprašymo laukas" />
+				<p:selectBooleanCheckbox
+					value="#{userAdminController.descriptionFieldVisible}" />
+
+				<p:commandButton id="saveConfigs"
+					icon="ui-icon-save"
+					value="Išsaugoti nustatymus" action="#{userAdminController.doSaveConfigs}" />
 			</h:form>
 
 			<h:form id="userForm">

@@ -13,6 +13,9 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntry;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -24,14 +27,27 @@ public class UserAdminController implements Serializable {
 	@Inject
 	private UserViewHelper userViewHelper;
 
+	@Inject
+	private ConfigurationEntryDao configurationEntryDao;
+
 	private List<UserView> usersList;
 	private UserView selectedUser;
+	private String yearlyPayment;
+	private String maxUsersSize;
 	private UserView user = new UserView();
 	private String points = "";
+	private boolean skypeFieldVisible;
+	private boolean telephoneFieldVisible;
+	private boolean descriptionFieldVisible;
 
 	@PostConstruct
 	public void init() {
 		usersList = userViewHelper.getAllUsers();
+		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
+		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
+		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
+		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
+		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
 	}
 
 	public void doArchive() {
@@ -42,6 +58,28 @@ public class UserAdminController implements Serializable {
 	public void doReset() {
 		selectedUser.setArchived(false);
 		userViewHelper.save(selectedUser);
+	}
+
+	public void doSaveConfigs() {
+		ConfigurationEntry entry = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE);
+		entry.setValue(yearlyPayment);
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE);
+		entry.setValue(maxUsersSize);
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD);
+		entry.setValue(String.valueOf(skypeFieldVisible));
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD);
+		entry.setValue(String.valueOf(telephoneFieldVisible));
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD);
+		entry.setValue(String.valueOf(descriptionFieldVisible));
+		configurationEntryDao.update(entry);
 	}
 
 	public void doAddPoints() {
@@ -103,6 +141,54 @@ public class UserAdminController implements Serializable {
 
 	public void setPoints(String points) {
 		this.points = points;
+	}
+
+	public String getYearlyPayment() {
+		return yearlyPayment;
+	}
+
+	public void setYearlyPayment(String yearlyPayment) {
+		this.yearlyPayment = yearlyPayment;
+	}
+
+	public String getMaxUsersSize() {
+		return maxUsersSize;
+	}
+
+	public void setMaxUsersSize(String maxUsersSize) {
+		this.maxUsersSize = maxUsersSize;
+	}
+
+	public ConfigurationEntryDao getConfigurationEntryDao() {
+		return configurationEntryDao;
+	}
+
+	public void setConfigurationEntryDao(ConfigurationEntryDao configurationEntryDao) {
+		this.configurationEntryDao = configurationEntryDao;
+	}
+
+	public boolean isSkypeFieldVisible() {
+		return skypeFieldVisible;
+	}
+
+	public void setSkypeFieldVisible(boolean skypeFieldVisible) {
+		this.skypeFieldVisible = skypeFieldVisible;
+	}
+
+	public boolean isTelephoneFieldVisible() {
+		return telephoneFieldVisible;
+	}
+
+	public void setTelephoneFieldVisible(boolean telephoneFieldVisible) {
+		this.telephoneFieldVisible = telephoneFieldVisible;
+	}
+
+	public boolean isDescriptionFieldVisible() {
+		return descriptionFieldVisible;
+	}
+
+	public void setDescriptionFieldVisible(boolean descriptionFieldVisible) {
+		this.descriptionFieldVisible = descriptionFieldVisible;
 	}
 
 }
