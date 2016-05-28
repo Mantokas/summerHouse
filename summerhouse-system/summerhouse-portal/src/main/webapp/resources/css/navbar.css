@@ -6,3 +6,20 @@ body {
 .navbar {
   margin-bottom: 20px;
 }
+
+@media (min-width: 1250px) {
+  .navbar-nav > li > span {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .navbar-nav > li > span {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+  }
+  .nav > li > span {
+    position: relative;
+    display: block;
+    padding: 15px 15px;
+  }
+}
