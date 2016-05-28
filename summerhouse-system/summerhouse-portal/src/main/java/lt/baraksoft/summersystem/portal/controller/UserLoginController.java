@@ -68,7 +68,7 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void cancelReservation() {
-		reservationViewHelper.cancelReservation(selectedReservation.getId());
+		reservationViewHelper.cancelReservation(selectedReservation);
 		myReservations = reservationViewHelper.getReservations();
 	}
 

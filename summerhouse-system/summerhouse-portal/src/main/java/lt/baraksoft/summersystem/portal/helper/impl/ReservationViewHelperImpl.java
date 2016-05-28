@@ -14,6 +14,7 @@ import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.controller.UserLoginController;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 
@@ -32,6 +33,9 @@ public class ReservationViewHelperImpl implements ReservationViewHelper {
     @Inject
     private UserLoginController userLoginController;
 
+    @Inject
+    private UserViewHelper userViewHelper;
+
     @Override
     public List<ReservationView> getReservations() {
         List<Reservation> entities = reservationDao.getReservationsByUserID(userLoginController.getLoggedUser().getId());
@@ -42,10 +46,17 @@ public class ReservationViewHelperImpl implements ReservationViewHelper {
     }
 
     @Override
-    public void cancelReservation(Integer id) {
-        Reservation reservation = reservationDao.get(id);
+    public void cancelReservation(ReservationView reservationView) {
+        Reservation reservation = reservationDao.get(reservationView.getId());
         reservation.setArchived(true);
+
+        User user = userDao.get(userLoginController.getLoggedUser().getId());
+        user.setPoints(user.getPoints() + reservationView.getPrice());
+
         reservationDao.save(reservation);
+        userDao.save(user);
+
+        userLoginController.setLoggedUser(userViewHelper.getUser(user.getId()));
     }
 
     private ReservationView buildReservationView(Reservation reservation) {
