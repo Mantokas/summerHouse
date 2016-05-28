@@ -100,7 +100,7 @@ public class UserLoginController implements Serializable {
 			if (image != null && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
 				loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
 			} else if (image != null) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, RESERVATION_CANCEL_SUCCESSFUL, IMAGE_TOO_LARGE);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, IMAGE_TOO_LARGE);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return;
 			}
