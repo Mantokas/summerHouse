@@ -83,14 +83,12 @@
 
 			<p:dialog header="Vasarnamio kurimas" widgetVar="summerhouseDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false" position="center" draggable="false">
-				<h:form id="form" enctype="multipart/form-data" >
+				<h:form id="form" enctype="multipart/form-data" styleClass="panel panel-default">
 					<p:outputPanel id="summerhousesDetail" style="text-align:center;">
 						<h:graphicImage
 								value="#{summerhouseAdminController.summerhouse.encodedImage}"
 								styleClass="user-view-img" />
 						<h:panelGrid columns="2" id="grid" cellpadding="5">
-
-
 							<p:outputLabel for="title" value="Pavadinimas" />
 							<p:inputText id="title"
 								value="#{summerhouseAdminController.summerhouse.title}"
