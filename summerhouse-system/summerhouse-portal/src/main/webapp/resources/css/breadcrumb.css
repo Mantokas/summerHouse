@@ -108,7 +108,7 @@
 
 .customMainPageSearch {
     display: inline-block;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     border-radius: 2em;
     background-color: rgba(202, 255, 183, 0.45);
     margin-top: 240px;
