@@ -83,6 +83,13 @@ public class AnnualFeeController implements Serializable {
         amount = yearLength * 20;
     }
 
+    public String goToSummerhouses() {
+        if (!conversation.isTransient()) {
+            conversation.end();
+        }
+        return PAGE_INDEX_REDIRECT;
+    }
+
     public void checkPaymentAmount() {
         if (!conversation.isTransient()) {
             conversation.end();
@@ -166,13 +173,6 @@ public class AnnualFeeController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return PAGE_INDEX_REDIRECT;
         }
-    }
-
-    public String cancel() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-        return PAGE_INDEX_REDIRECT;
     }
 
     public List<String> getClubPayTypes() {

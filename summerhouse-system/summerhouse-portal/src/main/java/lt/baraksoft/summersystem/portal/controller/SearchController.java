@@ -40,7 +40,6 @@ public class SearchController implements Serializable {
 	private List<SummerhouseView> list;
 	private SummerhouseSearch searchObject;
 	private SummerhouseView selectedSummerhouse;
-	private Boolean disabled = true;
 	private Date dateFrom;
 	private Date dateTo;
 	private Date today;
@@ -51,47 +50,6 @@ public class SearchController implements Serializable {
 		searchObject = new SummerhouseSearch();
 		today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		visibleResults = false;
-	}
-
-	public void onRowSelect() {
-		disabled = false;
-	}
-
-	public Date getDateFrom() {
-		return dateFrom;
-	}
-
-	public void setDateFrom(Date dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-
-	public Date getDateTo() {
-		return dateTo;
-	}
-
-	public void setDateTo(Date dateTo) {
-		this.dateTo = dateTo;
-	}
-
-	public Boolean getDisabled() {
-		return disabled;
-	}
-
-	public void setDisabled(Boolean disabled) {
-		this.disabled = disabled;
-	}
-
-	public List<SummerhouseView> getList() {
-		return list;
-	}
-
-	public SummerhouseSearch getSearchObject() {
-		return searchObject;
-	}
-
-	public SummerhouseView getSelectedSummerhouse() {
-
-		return selectedSummerhouse;
 	}
 
 	public void makeSelectedSummerhouse(SummerhouseView summerhouse) {
@@ -108,21 +66,28 @@ public class SearchController implements Serializable {
 		return "";
 	}
 
-	public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
-		this.selectedSummerhouse = selectedSummerhouse;
-	}
-
-	public void setSearchObject(SummerhouseSearch searchObject) {
-		this.searchObject = searchObject;
-	}
+    private void createErrorMessage(String first, String second) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, first, second);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
 	public void doUpdateSummerhouseList() {
-		searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
-		searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
-		list = summerhouseViewHelper.search(searchObject);
-		visibleResults = !list.isEmpty();
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.scrollTo("form2:cars");
+        if (dateFrom == null || dateTo == null){
+            createErrorMessage("Klaida", "Nepasirinkote datos");
+            list = null;
+        }
+		else if (dateFrom.after(dateTo)){
+            createErrorMessage("Klaida", "Pasirinktas neteisingas laikotarpis");
+            list = null;
+        }
+        else{
+            searchObject.setDateFrom(dateFrom != null ? dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
+            searchObject.setDateTo(dateTo != null ? dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null);
+            list = summerhouseViewHelper.search(searchObject);
+            visibleResults = !list.isEmpty();
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.scrollTo("form2:cars");
+        }
 	}
 
 	public Date getToday() {
@@ -140,5 +105,42 @@ public class SearchController implements Serializable {
 	public void setVisibleResults(boolean visibleResults) {
 		this.visibleResults = visibleResults;
 	}
+
+    public void setSelectedSummerhouse(SummerhouseView selectedSummerhouse) {
+        this.selectedSummerhouse = selectedSummerhouse;
+    }
+
+    public void setSearchObject(SummerhouseSearch searchObject) {
+        this.searchObject = searchObject;
+    }
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    public List<SummerhouseView> getList() {
+        return list;
+    }
+
+    public SummerhouseSearch getSearchObject() {
+        return searchObject;
+    }
+
+    public SummerhouseView getSelectedSummerhouse() {
+
+        return selectedSummerhouse;
+    }
 
 }
