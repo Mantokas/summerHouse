@@ -45,6 +45,7 @@ public class UserLoginController implements Serializable {
 	private static final String RESERVATION_IS_ARCHIVED_ERROR2 = "";
 	private static final String RESERVATION_CANCEL_SUCCESSFUL = "Rezervacija sėkmingai atšaukta";
 	private static final String RESERVATION_CANCEL_SUCCESSFUL2 = "";
+	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 	private static final String ERROR_MESSAGE = "Klaida";
 
 	@EJB
@@ -95,8 +96,12 @@ public class UserLoginController implements Serializable {
 
 	public void updateUser() {
 		try {
-			if (image != null) {
+			if (image != null && image.getSize() < 10000000) {
 				loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
+			} else if (image != null) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, RESERVATION_CANCEL_SUCCESSFUL, IMAGE_TOO_LARGE);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return;
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Failed to convert image to byte array!");

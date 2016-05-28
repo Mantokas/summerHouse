@@ -82,7 +82,7 @@ public class Summerhouse implements IEntity<Integer> {
 	private Set<Reservation> reservationList;
 
 	@Lob
-	@Column(length = 100000)
+	@Column(length = 10000000)
 	private byte[] image;
 
 	@Version

@@ -80,10 +80,10 @@ public class User implements IEntity<Integer> {
 	private LocalDate validTo;
 	@Column(name = "skype_name")
 	private String skypeName;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "phone_number")
-    private String phoneNumber;
+	@Column(name = "description")
+	private String description;
+	@Column(name = "phone_number")
+	private String phoneNumber;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Payment> paymentList;
@@ -95,7 +95,7 @@ public class User implements IEntity<Integer> {
 	private Integer version;
 
 	@Lob
-	@Column(length = 100000)
+	@Column(length = 10000000)
 	private byte[] image;
 
 	public User() {
@@ -230,29 +230,29 @@ public class User implements IEntity<Integer> {
 		this.image = image;
 	}
 
-    public String getSkypeName() {
-        return skypeName;
-    }
+	public String getSkypeName() {
+		return skypeName;
+	}
 
-    public void setSkypeName(String skypeName) {
-        this.skypeName = skypeName;
-    }
+	public void setSkypeName(String skypeName) {
+		this.skypeName = skypeName;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	@Override
 	public int hashCode() {
