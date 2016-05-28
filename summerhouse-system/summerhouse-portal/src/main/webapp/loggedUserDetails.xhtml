@@ -32,12 +32,12 @@
 				<h:form enctype="multipart/form-data" id="form1" >
 					<h2 align="center">Vartotojo profilis</h2>
 					<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-					<div></div>
+                     <div></div>
 						<h:graphicImage
 							value="#{userLoginController.loggedUser.encodedImage}"
 							styleClass="user-view-img" />
-						<h:outputLabel value="Vardas:" />
 
+						<h:outputLabel value="Vardas:" />
 						<p:inputText value="#{userLoginController.loggedUser.firstName}"
 									 required="true"
 									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
@@ -85,17 +85,18 @@
 						             disabled="true"/>
 					</h:panelGrid>
 
-					<div id="edit" align="center" style="display: block">
-						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'j_idt39:name');"/>
-					</div>
-					<div id="saveChanges" align="center" style="display: none">
-						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();"/>
+					<div id="addPhoto" align="center" style="display: none">
+						<p:fileUpload id="image" label="Pridėti nuotrauką"
+									  value="#{userLoginController.image}" mode="simple"
+									  skinSimple="true" styleClass="btn" />
 					</div>
 
-					<div align="center">
-						<p:fileUpload id="image" label="Pridėti nuotrauką"
-							value="#{userLoginController.image}" mode="simple"
-							skinSimple="true" styleClass="btn" />
+					<div id="saveChanges" align="center" style="display: none">
+						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();" ajax="false"/>
+					</div>
+
+					<div id="edit" align="center" style="display: block">
+						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); "/>
 					</div>
 
 					<p:confirmDialog header="Patvirtinimas"
@@ -171,10 +172,10 @@
 				<h:outputScript>
 					//<![CDATA[
 
-                function changeButtonsState(id, id2, id3, id4) {
+                function changeButtonsState(id, id2, id3) {
+					document.getElementById(id3).style.display = 'block'
 					document.getElementById(id).style.display = 'block'
 					document.getElementById(id2).style.display = 'none'
-					document.getElementById(id3).removeAttribute(disabled)
                 };
 
                 //]]>
