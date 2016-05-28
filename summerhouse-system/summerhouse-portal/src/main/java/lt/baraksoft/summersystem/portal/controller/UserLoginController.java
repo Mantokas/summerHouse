@@ -68,6 +68,7 @@ public class UserLoginController implements Serializable {
 	private String email;
 	private String password;
 	private UploadedFile image;
+	private boolean editable;
 
 	public void collectMyReservations() {
 		myReservations = reservationViewHelper.getReservations();
@@ -107,6 +108,7 @@ public class UserLoginController implements Serializable {
 		} catch (IOException e) {
 			throw new IllegalStateException("Failed to convert image to byte array!");
 		}
+		editable = false;
 		userViewHelper.save(loggedUser);
 	}
 
@@ -134,6 +136,10 @@ public class UserLoginController implements Serializable {
 		} else {
 			return "";
 		}
+	}
+
+	public void doEdit() {
+		editable = true;
 	}
 
 	public String getEmail() {
@@ -190,6 +196,14 @@ public class UserLoginController implements Serializable {
 
 	public void setImage(UploadedFile image) {
 		this.image = image;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 
 }

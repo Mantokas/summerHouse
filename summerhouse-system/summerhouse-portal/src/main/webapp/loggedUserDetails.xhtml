@@ -31,7 +31,7 @@
 
 				<h:form enctype="multipart/form-data" id="form1" >
 					<h2 align="center">Vartotojo profilis</h2>
-					<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5">
                      <div></div>
 						<h:graphicImage
 							value="#{userLoginController.loggedUser.encodedImage}"
@@ -43,7 +43,7 @@
 									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
-									 disabled="true">
+									 disabled="#{!userLoginController.editable}">
 							<f:validateRegex pattern="[a-zA-ZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
@@ -96,7 +96,7 @@
 					</div>
 
 					<div id="edit" align="center" style="display: block">
-						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); "/>
+						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
 					</div>
 
 					<p:confirmDialog header="Patvirtinimas"
@@ -115,7 +115,7 @@
 				</h:form>
 
 				<h:form id="form2"
-						rendered="#{not empty userLoginController.loggedUser}">
+						rendered="#{userLoginController.loggedUser != null}">
 
 					<p:growl styleClass="top" id="msgs" showDetail="true" />
 
