@@ -94,7 +94,6 @@
 						</p:outputPanel>
 					</p:dialog>
 
-
 				</h:form>
 
 				<h:form id="form2"
@@ -119,7 +118,7 @@
 							<h:outputText value="#{reservation.dateFrom}" />
 						</p:column>
 						<p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
-							<h:outputText value="#{reservation.dateTo}" />
+							<h:outputText value="#{reservation.dateTo}"/>
 						</p:column>
 						<p:column headerText="Vasarnamis"
 							sortBy="#{reservation.reservedSummerhouse.title}">
@@ -143,7 +142,7 @@
 								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
 
 								<p:commandButton value="Patvirtinti" oncomplete="PF('cancelReservationDialog').hide()"
-												 update="@form,msgs" action="#{userLoginController.cancelReservation}"/>
+												 update="@form,msgs,form1" action="#{userLoginController.cancelReservation}"/>
 
 								<p:commandButton value="Grįžti" oncomplete="PF('cancelReservationDialog').hide()"/>
 

@@ -16,7 +16,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
-import lt.baraksoft.summersystem.model.ConfigurationEntry;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;

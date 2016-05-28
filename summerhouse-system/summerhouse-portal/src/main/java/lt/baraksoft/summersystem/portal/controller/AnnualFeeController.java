@@ -1,7 +1,10 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.dao.PaymentDao;
 import lt.baraksoft.summersystem.dao.UserDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntry;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
@@ -58,6 +61,9 @@ public class AnnualFeeController implements Serializable {
     @EJB
     private UserDao userDao;
 
+    @EJB
+    private ConfigurationEntryDao configurationEntryDao;
+
     private int activeIndex = 0;
     private String selectedPaymentValue;
     private List<String> clubPayTypes = new ArrayList<>();
@@ -84,7 +90,7 @@ public class AnnualFeeController implements Serializable {
 
     public void calculateSum(){
         yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
-        amount = yearLength * 20;
+        amount = yearLength * Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue());
     }
 
     public String goToSummerhouses() {
@@ -109,7 +115,7 @@ public class AnnualFeeController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
-            amount = yearLength * 20;
+            amount = yearLength * Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue());
 
             UserView loggedUserView = userLoginController.getLoggedUser();
 
