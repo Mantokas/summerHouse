@@ -43,7 +43,9 @@ public class SummerhouseAdminController implements Serializable {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		try {
-			summerhouse.setImage(IOUtils.toByteArray(image.getInputstream()));
+			if (image != null) {
+				summerhouse.setImage(IOUtils.toByteArray(image.getInputstream()));
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Failed to convert image to byte array!");
 		}
