@@ -51,7 +51,7 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
+                            <li class="#{navigationController.getActiveClass(3)}">
                                 <p:commandLink rendered="#{not empty userLoginController.loggedUser}"
                                                id="loggedUser"
                                                value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
@@ -91,7 +91,7 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
+                            <li class="#{navigationController.getActiveClass(3)}">
                                 <p:commandLink rendered="#{userLoginController.loggedUser != null }"
                                                id="loggedUser"
                                                value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
