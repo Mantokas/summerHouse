@@ -88,11 +88,7 @@ public class SearchController implements Serializable {
     }
 
 	public void doUpdateSummerhouseList() {
-        if (dateFrom == null || dateTo == null){
-            createErrorMessage("Klaida", "Nepasirinkote datos");
-            list = null;
-        }
-		else if (dateFrom.after(dateTo)){
+		if (dateFrom != null && dateTo != null && dateFrom.after(dateTo)){
             createErrorMessage("Klaida", "Pasirinktas neteisingas laikotarpis");
             list = null;
         }
