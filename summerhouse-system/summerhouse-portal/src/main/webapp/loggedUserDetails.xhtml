@@ -21,7 +21,10 @@
 		<ui:define name="content">
 			<f:view>
 
-				<h:form>
+				<h:form enctype="multipart/form-data">
+					<h:graphicImage
+						value="#{userLoginController.loggedUser.encodedImage}"
+						styleClass="img-responsive" />
 					<div>
 						<h:outputLabel for="nameEdit" value="Vardas:" />
 						<p:inplace id="nameEdit" editor="true">
@@ -50,10 +53,12 @@
 					<div>
 						<p:fileUpload id="image" label="Nuotrauka"
 							value="#{userLoginController.image}" mode="simple"
-							skinSimple="true" />
+							skinSimple="true" styleClass="btn" />
 
-						<p:commandButton id="save" value="Issaugoti" ajax="false"
-							actionListener="#{userLoginController.doSave}" update="" />
+						<p:commandButton id="save" value="Issaugoti nuotrauka"
+							ajax="false" actionListener="#{userLoginController.uploadImage}"
+							update="" />
+						
 					</div>
 
 				</h:form>
