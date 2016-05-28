@@ -15,5 +15,5 @@ public interface ReservationViewHelper {
 
     List<ReservationView> getReservations();
 
-    void cancelReservation(Integer id);
+    void cancelReservation(ReservationView reservation);
 }
