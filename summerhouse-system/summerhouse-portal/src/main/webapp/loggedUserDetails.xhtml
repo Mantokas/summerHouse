@@ -78,18 +78,13 @@
 					<div align="center">
 						<p:commandButton value="Išsaugoti pakeitimus"
 							actionListener="#{userLoginController.updateUser}"
-							onsuccess="PF('infoUpdateConfirmDialog').show();" />
+							onsuccess="PF('infoUpdateConfirmDialog').show();" ajax="false"/>
 					</div>
 
 					<div align="center">
 						<p:fileUpload id="image" label="Pridėti nuotrauką"
 							value="#{userLoginController.image}" mode="simple"
 							skinSimple="true" styleClass="btn" />
-
-						<p:commandButton id="save" value="Išsaugoti nuotrauką"
-							ajax="false" actionListener="#{userLoginController.uploadImage}"
-							update="" />
-
 					</div>
 
 					<p:confirmDialog header="Patvirtinimas"

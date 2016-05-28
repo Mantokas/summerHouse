@@ -95,6 +95,11 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void updateUser() {
+		try {
+			loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to convert image to byte array!");
+		}
 		userViewHelper.save(loggedUser);
 	}
 
@@ -103,15 +108,6 @@ public class UserLoginController implements Serializable {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
 		request.getSession().invalidate();
-	}
-
-	public void uploadImage() {
-		try {
-			loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
-		} catch (IOException e) {
-			throw new IllegalStateException("Failed to convert image to byte array!");
-		}
-		userViewHelper.save(loggedUser);
 	}
 
 	public void validateLogin() {

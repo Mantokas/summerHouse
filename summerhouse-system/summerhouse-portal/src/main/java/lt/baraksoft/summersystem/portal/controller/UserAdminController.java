@@ -5,8 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.commons.lang3.StringUtils;
+import org.primefaces.context.RequestContext;
 
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
@@ -22,6 +27,7 @@ public class UserAdminController implements Serializable {
 	private List<UserView> usersList;
 	private UserView selectedUser;
 	private UserView user = new UserView();
+	private String points = "";
 
 	@PostConstruct
 	public void init() {
@@ -36,6 +42,27 @@ public class UserAdminController implements Serializable {
 	public void doReset() {
 		selectedUser.setArchived(false);
 		userViewHelper.save(selectedUser);
+	}
+
+	public void doAddPoints() {
+		if (StringUtils.isBlank(points)) {
+			RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
+			return;
+		}
+
+		Integer pts = null;
+		try {
+			pts = Integer.valueOf(points);
+		} catch (NumberFormatException ex) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Taškai gali susidėti tik iš skaičių!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return;
+		}
+
+		selectedUser.setPoints(selectedUser.getPoints() + pts);
+		userViewHelper.save(selectedUser);
+		points = "";
+		RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
 	}
 
 	public UserViewHelper getUserViewHelper() {
@@ -68,6 +95,14 @@ public class UserAdminController implements Serializable {
 
 	public void setUser(UserView user) {
 		this.user = user;
+	}
+
+	public String getPoints() {
+		return points;
+	}
+
+	public void setPoints(String points) {
+		this.points = points;
 	}
 
 }

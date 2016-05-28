@@ -17,26 +17,28 @@
 		<ui:define name="title">Naudotojų administravimas</ui:define>
 		<ui:define name="content">
 
-			<p:outputLabel for="yearlyPayment"
-				value="Metinis klubo nario mokestis" />
-			<p:inputText id="yearlyPayment"
-				value="#{summerhouseAdminController.yearlyPayment}"
-				validatorMessage="Kaina gali susidėti tik iš skaičių">
-				<f:validateRegex pattern="^[0-9]*$" />
-			</p:inputText>
+			<h:form id="configs">
+				<p:outputLabel for="yearlyPayment"
+					value="Metinis klubo nario mokestis" />
+				<p:inputText id="yearlyPayment"
+					value="#{summerhouseAdminController.yearlyPayment}"
+					validatorMessage="Kaina gali susidėti tik iš skaičių">
+					<f:validateRegex pattern="^[0-9]*$" />
+				</p:inputText>
 
-			<p:outputLabel for="maxUsersSize" value="Maksimalus narių skaičius" />
-			<p:inputText id="maxUsersSize"
-				value="#{summerhouseAdminController.maxUsersSize}"
-				validatorMessage="Kiekis gali susidėti tik iš skaičių">
-				<f:validateRegex pattern="^[0-9]*$" />
-			</p:inputText>
+				<p:outputLabel for="maxUsersSize" value="Maksimalus narių skaičius" />
+				<p:inputText id="maxUsersSize"
+					value="#{summerhouseAdminController.maxUsersSize}"
+					validatorMessage="Kiekis gali susidėti tik iš skaičių">
+					<f:validateRegex pattern="^[0-9]*$" />
+				</p:inputText>
+			</h:form>
 
 			<h:form id="userForm">
 				<p:dataTable id="singleDT" var="user" rowKey="#{user.id}"
 					value="#{userAdminController.usersList}" selectionMode="single"
 					selection="#{userAdminController.selectedUser}">
-					<p:ajax event="rowSelect" update="archive, reset" />
+					<p:ajax event="rowSelect" update="archive, reset, addPoints" />
 					<f:facet name="header">
                             Naudotojai
                         </f:facet>
@@ -64,32 +66,52 @@
 
 					<f:facet name="footer">
 						<p:commandButton id="archive" process="singleDT"
-							update=":userForm:singleDT" icon="ui-icon-delete"
+							update=":userForm:singleDT" icon="ui-icon-folder-collapsed"
 							value="Archyvuoti"
 							disabled="#{userAdminController.selectedUser == null or userAdminController.selectedUser.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
 							action="#{userAdminController.doReset}"
-							update=":userForm:singleDT" icon="ui-icon-search"
+							update=":userForm:singleDT" icon="ui-icon-arrowrefresh-1-e"
 							value="Atstatyti"
 							disabled="#{userAdminController.selectedUser == null or !userAdminController.selectedUser.archived}" />
+						<p:commandButton id="addPoints" process="singleDT"
+							update=":userForm:singleDT" icon="ui-icon-plus"
+							value="Pridėti tašų"
+							disabled="#{userAdminController.selectedUser == null}"
+							oncomplete="PF('pointsDialog').show()" />
 					</f:facet>
 				</p:dataTable>
 			</h:form>
 
-			<p:dialog header="Patvirtinimas"
-				widgetVar="archiveConfirmationDialog" modal="true" showEffect="fade"
-				hideEffect="fade" resizable="false">
-				<p:outputPanel id="confirmationDialog" style="text-align:center;">
-					<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
-					<p:commandButton value="Patvirtinti"
-						oncomplete="PF('archiveConfirmationDialog').hide()"
-						update=":userForm:singleDT"
-						action="#{userAdminController.doArchive}" />
-					<p:commandButton value="Atšaukti"
-						oncomplete="PF('archiveConfirmationDialog').hide()" />
-				</p:outputPanel>
-			</p:dialog>
+			<h:form id="dialogsForm">
+				<p:growl id="msg" showDetail="true" />
+				<p:dialog header="Patvirtinimas"
+					widgetVar="archiveConfirmationDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="confirmationDialog" style="text-align:center;">
+						<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
+						<p:commandButton value="Patvirtinti"
+							oncomplete="PF('archiveConfirmationDialog').hide()"
+							update=":userForm:singleDT"
+							action="#{userAdminController.doArchive}" />
+						<p:commandButton value="Atšaukti"
+							oncomplete="PF('archiveConfirmationDialog').hide()" />
+					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog header="Taškai" widgetVar="pointsDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="pointsToAddDialog" style="text-align:center;">
+						<h:outputText value="Įveskite pridedamą taškų kiekį" />
+						<p:inputText id="pointsToAdd"
+							value="#{userAdminController.points}" />
+						<p:commandButton value="Pridėti"
+							update=":userForm:singleDT,:dialogsForm:pointsToAddDialog,msg"
+							action="#{userAdminController.doAddPoints}" />
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
 
 		</ui:define>
 	</ui:composition>
