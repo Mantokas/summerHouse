@@ -1,9 +1,9 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -14,12 +14,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.UploadedFile;
+
 import lt.baraksoft.summersystem.portal.helper.FacebookService;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.UserView;
-import org.primefaces.context.RequestContext;
 
 /**
  * Created by LaurynasC on 2016-04-24.
@@ -48,23 +51,23 @@ public class UserLoginController implements Serializable {
 	private UserView loggedUser;
 	private String email;
 	private String password;
+	private UploadedFile image;
 
-    public void collectMyReservations(){
-        myReservations = reservationViewHelper.getReservations();
-    }
+	public void collectMyReservations() {
+		myReservations = reservationViewHelper.getReservations();
+	}
 
-	public void checkReservation(){
-		if (selectedReservation.isArchived()){
+	public void checkReservation() {
+		if (selectedReservation.isArchived()) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rezervacija yra negaliojanti!", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else{
+		} else {
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.execute("PF('cancelReservationDialog').show();");
 		}
 	}
 
-	public void cancelReservation(){
+	public void cancelReservation() {
 		reservationViewHelper.cancelReservation(selectedReservation.getId());
 		myReservations = reservationViewHelper.getReservations();
 	}
@@ -73,12 +76,21 @@ public class UserLoginController implements Serializable {
 		userViewHelper.save(loggedUser);
 	}
 
-    public void logout(){
-        loggedUser = null;
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-        request.getSession().invalidate();
-    }
+	public void logout() {
+		loggedUser = null;
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+		request.getSession().invalidate();
+	}
+
+	public void uploadImage() {
+		try {
+			loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to convert image to byte array!");
+		}
+		userViewHelper.save(loggedUser);
+	}
 
 	public void validateLogin() {
 		userView.setEmail(email);
@@ -145,6 +157,14 @@ public class UserLoginController implements Serializable {
 
 	public void setSelectedReservation(ReservationView selectedReservation) {
 		this.selectedReservation = selectedReservation;
+	}
+
+	public UploadedFile getImage() {
+		return image;
+	}
+
+	public void setImage(UploadedFile image) {
+		this.image = image;
 	}
 
 }
