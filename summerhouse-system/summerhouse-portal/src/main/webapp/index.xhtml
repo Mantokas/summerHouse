@@ -29,7 +29,6 @@
                         <div>
                             <h2>
                                 <p:outputLabel value="Vasarnamių paieška"/>
-
                             </h2>
                         </div>
 						<p:outputLabel for="button1" value="Nuo:" />
@@ -52,8 +51,8 @@
 							style="margin-left: 10px; margin-right: 20px">
 						</p:inputText>
 
-						<p:commandButton styleClass="leftMargin" value="Ieškoti"
-							actionListener="#{searchController.doUpdateSummerhouseList}"
+						<h:commandButton styleClass="leftMargin" value="Ieškoti"
+							action="#{searchController.doUpdateSummerhouseList}"
 							update=":form2" />
 
 					</h:panelGroup>
@@ -98,8 +97,8 @@
 					widgetVar="summerhouseDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
 					<p:outputPanel id="summerhousesDetail" style="text-align:center;">
-						<p:panelGrid columns="2">
 
+						<p:panelGrid columns="2">
 							<h:outputText value="Pavadinimas:" />
 							<h:outputText
 								value="#{searchController.selectedSummerhouse.title}" />
@@ -123,8 +122,27 @@
 							<h:outputText value="Galima rezervuoti iki" />
 							<h:outputText
 								value="#{searchController.selectedSummerhouse.dateTo}" />
-
 						</p:panelGrid>
+
+                        <p:dataGrid var="reservation" value="#{searchController.reservations}" columns="1" layout="grid"
+                                    id="reservationList" rowIndexVar="row">
+
+                            <f:facet name="header">
+                                Rezervacijos
+                            </f:facet>
+
+                            <p:panel style="text-align:center">
+                                <h:panelGrid columns="3" style="width:100%">
+
+                                    <h:outputText value="#{reservation.dateFrom}"/>
+                                    <h:outputText value="#{reservation.dateTo}" />
+                                    <h:outputText value="#{reservation.userFirstname} #{reservation.userLastname}" />
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </p:dataGrid>
+
 					</p:outputPanel>
 				</p:dialog>
 			</h:form>

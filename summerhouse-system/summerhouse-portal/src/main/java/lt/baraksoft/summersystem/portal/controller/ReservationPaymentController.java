@@ -5,6 +5,7 @@ import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.Reservation;
 import lt.baraksoft.summersystem.model.Service;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationPaymentHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.interceptor.Log;
@@ -271,6 +272,7 @@ public class ReservationPaymentController implements Serializable {
             em.joinTransaction();
             em.flush();
             conversation.end();
+
             return PAGE_INDEX_REDIRECT;
         } catch (OptimisticLockException ole) {
             em.clear();

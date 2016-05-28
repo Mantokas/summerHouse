@@ -4,6 +4,7 @@ import lt.baraksoft.summersystem.dao.PaymentDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.Payment;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
 import lt.baraksoft.summersystem.portal.interceptor.Log;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -47,6 +48,9 @@ public class AnnualFeeController implements Serializable {
 
     @Inject
     private UserLoginController userLoginController;
+
+    @EJB
+    private PaymentViewHelper paymentViewHelper;
 
     @EJB
     private PaymentDao paymentDao;
@@ -158,6 +162,8 @@ public class AnnualFeeController implements Serializable {
             return PAGE_INDEX_REDIRECT;
         }
         try {
+            userLoginController.setLoggedUser(paymentViewHelper.buildView(loggedUser));
+
             em.joinTransaction();
             em.flush();
             conversation.end();
