@@ -43,6 +43,8 @@ public class UserLoginController implements Serializable {
     private static final String RESERVATION_CANCEL_ERROR_MESSAGE3 = " dienos";
     private static final String RESERVATION_IS_ARCHIVED_ERROR = "Rezervacija yra negaliojanti!";
     private static final String RESERVATION_IS_ARCHIVED_ERROR2 = "";
+    private static final String RESERVATION_CANCEL_SUCCESSFUL = "Rezervacija sėkmingai atšaukta";
+    private static final String RESERVATION_CANCEL_SUCCESSFUL2 = "";
     private static final String ERROR_MESSAGE = "Klaida";
 
 	@EJB
@@ -88,6 +90,8 @@ public class UserLoginController implements Serializable {
 	public void cancelReservation() {
 		reservationViewHelper.cancelReservation(selectedReservation);
 		myReservations = reservationViewHelper.getReservations();
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, RESERVATION_CANCEL_SUCCESSFUL, RESERVATION_CANCEL_SUCCESSFUL2);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void updateUser() {

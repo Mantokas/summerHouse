@@ -19,7 +19,7 @@
         <ui:define name="content">
 
                 <h:form>
-                    <p:growl styleClass="top" id="msgs" showDetail="true"  />
+                    <p:growl id="msgs" showDetail="true"  />
                     <p:steps activeIndex="#{annualFeeController.activeIndex}" styleClass="breadcrumbas" readonly="true">
                         <p:menuitem value="Mokėjimo tipas"/>
                         <p:menuitem value="Mokėjimo ypatybės"/>
@@ -104,7 +104,7 @@
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('CONFIRMATION')}">
                         <h1>Patvirtinimas</h1>
                         <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
-                        <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" ajax="false"/>
+                        <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" update="msgs,@form"/>
                         <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
                     </p:outputPanel>
 

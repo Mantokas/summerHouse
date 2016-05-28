@@ -21,6 +21,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -169,10 +170,15 @@ public class AnnualFeeController implements Serializable {
         }
         try {
             userLoginController.setLoggedUser(paymentViewHelper.buildView(loggedUser));
-
             em.joinTransaction();
             em.flush();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            flash.setRedirect(true);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Metinis mokestis sumokėtas!", "Dabar narystė galioja iki " + loggedUser.getValidTo()));
             conversation.end();
+
             return PAGE_INDEX_REDIRECT;
         } catch (OptimisticLockException ole) {
             em.clear();
