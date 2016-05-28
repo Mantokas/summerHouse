@@ -42,7 +42,8 @@
 									 required="true"
 									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
 									 label="text"
-									 title="Redaguoti">
+									 title="Redaguoti"
+									 disabled="true">
 							<f:validateRegex pattern="[a-zA-ZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
@@ -52,33 +53,43 @@
 									 required="true"
 									 validatorMessage="Pavardė gali susidėti tik iš raidžių!"
 									 label="text"
-									 title="Redaguoti">
+									 title="Redaguoti"
+									 disabled="true">
 							<f:validateRegex pattern="[a-zA-ZA-ZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
 						<h:outputLabel value="El. paštas:"/>
-						<p:inputText readonly="true" value="#{userLoginController.loggedUser.email}"/>
+						<p:inputText readonly="true"
+									 disabled="true"
+									 value="#{userLoginController.loggedUser.email}"/>
 
 						<h:outputLabel value="Statusas:"/>
-						<p:inputText readonly="true"  value="#{userLoginController.loggedUser.approvedString}"/>
+						<p:inputText readonly="true"
+									 value="#{userLoginController.loggedUser.approvedString}"
+									 disabled="true"/>
 
 						<h:outputLabel value="Turimi taškai:"
 							rendered="#{userLoginController.loggedUser.approved}" />
 						<p:inputText readonly="true"
-							value="#{userLoginController.loggedUser.points}"
-							rendered="#{userLoginController.loggedUser.approved}" />
+									 value="#{userLoginController.loggedUser.points}"
+							         rendered="#{userLoginController.loggedUser.approved}"
+									 disabled="true"/>
 
 						<h:outputLabel value="Priklauso grupei:" />
 						<p:inputText readonly="true"
-							value="#{userLoginController.loggedUser.groupNumber}" />
+							         value="#{userLoginController.loggedUser.groupNumber}"
+									 disabled="true"/>
 						<h:outputLabel value="Narystė galioja iki:" />
 						<p:inputText readonly="true"
-									 value="#{userLoginController.loggedUser.validTo}" />
+									 value="#{userLoginController.loggedUser.validTo}"
+						             disabled="true"/>
 					</h:panelGrid>
-					<div align="center">
-						<p:commandButton value="Išsaugoti pakeitimus"
-							actionListener="#{userLoginController.updateUser}"
-							onsuccess="PF('infoUpdateConfirmDialog').show();" ajax="false"/>
+
+					<div id="edit" align="center" style="display: block">
+						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'j_idt39:name');"/>
+					</div>
+					<div id="saveChanges" align="center" style="display: none">
+						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();"/>
 					</div>
 
 					<div align="center">
@@ -157,6 +168,17 @@
 					</p:dialog>
 
 				</h:form>
+				<h:outputScript>
+					//<![CDATA[
+
+                function changeButtonsState(id, id2, id3, id4) {
+					document.getElementById(id).style.display = 'block'
+					document.getElementById(id2).style.display = 'none'
+					document.getElementById(id3).removeAttribute(disabled)
+                };
+
+                //]]>
+				</h:outputScript>
 			</f:view>
 		</ui:define>
 	</ui:composition>
