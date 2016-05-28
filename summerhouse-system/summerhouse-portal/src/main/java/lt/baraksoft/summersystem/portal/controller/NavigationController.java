@@ -29,6 +29,9 @@ public class NavigationController implements Serializable {
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
 
+	@Inject
+	private ReservationPaymentController reservationPaymentController;
+
 	private int currentTab = 1;
 
 	@PostConstruct

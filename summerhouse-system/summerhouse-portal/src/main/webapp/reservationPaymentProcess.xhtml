@@ -12,7 +12,7 @@
 <h:body>
     <f:metadata>
         <f:viewAction action="#{reservationPaymentController.initAndBeginConversation}"/>
-        <f:viewAction action="#{navigationController.checkLoggedUser}"/>
+
     </f:metadata>
 
     <ui:composition template="/template/common/commonLayout.xhtml">
@@ -25,7 +25,6 @@
                 <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true" styleClass="breadcrumb3steps">
                     <p:menuitem value="Rezervacijos laikotarpis"/>
                     <p:menuitem value="Papildomos paslaugos"/>
-                    <p:menuitem value="Mokėjimas"/>
                     <p:menuitem value="Patvirtinimas"/>
                 </p:steps>
 
@@ -99,6 +98,7 @@
 
                     <p:commandButton value="Tęsti" update="msgs,@form"
                                      action="#{reservationPaymentController.goToThirdStep}"/>
+                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
 
                 </p:outputPanel>
 
@@ -117,6 +117,7 @@
 
                     <p:commandButton value="Patvirtinti rezervaciją" update="msgs,@form"
                                      action="#{reservationPaymentController.submitTransaction}"/>
+                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
 
                 </p:outputPanel>
 
