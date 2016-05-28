@@ -53,7 +53,7 @@ public class NavigationController implements Serializable {
 	}
 
 	public Boolean checkActiveClass(){
-		return currentTab == 4 || currentTab == 9 ? true : false;
+		return currentTab == 4 || currentTab == 9;
 	}
 
 	public String goToUsersList() {
