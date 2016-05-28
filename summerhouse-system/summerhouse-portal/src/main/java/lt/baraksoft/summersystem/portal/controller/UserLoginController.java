@@ -2,6 +2,7 @@ package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,6 +15,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntry;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
@@ -35,12 +39,21 @@ public class UserLoginController implements Serializable {
 	private static final long serialVersionUID = -7850630443992388923L;
 
 	private static final String LOGIN_FAILED = "Blogai įvesti prisijungimo duomenys";
+    private static final String RESERVATION_CANCEL_ERROR_MESSAGE = "Rezervacija nebegali būti atšaukta";
+    private static final String RESERVATION_CANCEL_ERROR_MESSAGE2 = "Iki pradžios liko mažiau nei ";
+    private static final String RESERVATION_CANCEL_ERROR_MESSAGE3 = " dienos";
+    private static final String RESERVATION_IS_ARCHIVED_ERROR = "Rezervacija yra negaliojanti!";
+    private static final String RESERVATION_IS_ARCHIVED_ERROR2 = "";
+    private static final String ERROR_MESSAGE = "Klaida";
 
 	@EJB
 	private UserViewHelper userViewHelper;
 
 	@Inject
 	private FacebookService fbService;
+
+    @Inject
+    private ConfigurationEntryDao configurationEntryDao;
 
 	@EJB
 	private ReservationViewHelper reservationViewHelper;
@@ -58,8 +71,14 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void checkReservation() {
-		if (selectedReservation.isArchived()) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rezervacija yra negaliojanti!", "");
+        int days = Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.DAYS_CANCEL_RESERVATION).getValue());
+        if(selectedReservation.getDateFrom().isBefore(LocalDate.now().plusDays(days))){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, RESERVATION_CANCEL_ERROR_MESSAGE,
+                    RESERVATION_CANCEL_ERROR_MESSAGE2 + days + RESERVATION_CANCEL_ERROR_MESSAGE3);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+		else if (selectedReservation.isArchived()) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, RESERVATION_IS_ARCHIVED_ERROR, RESERVATION_IS_ARCHIVED_ERROR2);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			RequestContext context = RequestContext.getCurrentInstance();
@@ -97,7 +116,7 @@ public class UserLoginController implements Serializable {
 		userView.setPassword(password);
 		loggedUser = userViewHelper.findUserByLogin(userView);
 		if (loggedUser == null) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", LOGIN_FAILED);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, LOGIN_FAILED);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		return;
