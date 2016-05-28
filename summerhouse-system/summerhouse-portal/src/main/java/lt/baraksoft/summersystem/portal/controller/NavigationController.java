@@ -13,12 +13,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.portal.helper.MailService;
 
 /**
  * Created by LaurynasC on 2016-04-18.
  */
-@Stateful
-@SessionScoped
+@Stateless
 @Named
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;

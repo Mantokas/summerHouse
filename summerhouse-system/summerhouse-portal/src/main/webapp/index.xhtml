@@ -130,10 +130,9 @@
 				</p:dialog>
 			</h:form>
 
-			<h:form id="form3"
+			<h:form id="form3" styleClass="panel panel-default"
 				rendered="#{userLoginController.loggedUser != null and !userLoginController.loggedUser.approved}">
 				<p:growl id="msgs3" showDetail="true" />
-				<p:panel header="">
 					<h:panelGrid columns="3" cellpadding="5">
 						<p:outputLabel for="email" value="Nario el. paštas:" />
 						<p:inputText id="email"
@@ -144,7 +143,6 @@
 							actionListener="#{mainController.sendApproveMessage}"
 							update="msgs3" />
 					</h:panelGrid>
-				</p:panel>
 			</h:form>
 
 		</ui:define>

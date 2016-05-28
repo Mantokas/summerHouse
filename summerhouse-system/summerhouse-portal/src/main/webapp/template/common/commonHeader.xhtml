@@ -28,31 +28,31 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="#{navigationController.getActiveClass(1)}" >
-                                <p:commandLink value="Pradžia" type="submit" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink value="Pradžia" type="submit"
                                                action="#{navigationController.goToMain}" immediate="true"/>
                             </li>
                             <li class="#{navigationController.getActiveClass(2)}">
-                                <p:commandLink value="Vartotojai" type="submit" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink value="Vartotojai" type="submit"
                                                action="#{navigationController.goToUsersList}" immediate="true"/>
                             </li>
                             <li class="#{navigationController.getActiveClass(4)}">
-                                <p:commandLink  value="Metinis narystės mokestis" type="submit" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink  value="Metinis narystės mokestis" type="submit"
                                                  action="#{navigationController.goToPayment}" immediate="true"/>
                             </li>
                             <li class="#{navigationController.getActiveClass(6)}">
-                                <p:commandLink value="Vasarnamių valdymas" type="submit" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink value="Vasarnamių valdymas" type="submit"
                                                  action="#{navigationController.goToSumerhousesAdministration}" immediate="true"
                                                  rendered="#{not empty userLoginController.loggedUser}"/>
                             </li>
                             <li class="#{navigationController.getActiveClass(7)}">
-                                <p:commandLink value="Klubo narių valdymas" type="submit" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink value="Klubo narių valdymas" type="submit"
                                                  action="#{navigationController.goToUsersAdministration}" immediate="true"
                                                  rendered="#{not empty userLoginController.loggedUser}"/>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <p:commandLink rendered="#{not empty userLoginController.loggedUser}" disabled="#{navigationController.checkActiveClass()}"
+                                <p:commandLink rendered="#{not empty userLoginController.loggedUser}"
                                                id="loggedUser"
                                                value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
                                                action="#{navigationController.goToLoggedUserInfo}"/>

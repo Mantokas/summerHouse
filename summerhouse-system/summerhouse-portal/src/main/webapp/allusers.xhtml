@@ -17,8 +17,23 @@
 
 	<ui:composition template="/template/common/commonLayout.xhtml">
 		<ui:define name="content">
+
+			<h:form id="formInvite" styleClass="panel panel-default">
+				<p:growl id="msgs3" showDetail="true" />
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:" />
+						<p:inputText id="email"
+									 value="#{userController.invitationEmail}" required="true"
+									 requiredMessage="Prašome įvesti el. pašto adresą!" />
+						<p:commandButton style="margin: 10px;" styleClass="btn"
+										 value="Siųsti pakvietimą"
+										 actionListener="#{userController.sendInvitationMessage}"
+										 update="msgs3" />
+					</h:panelGrid>
+			</h:form>
+
 			<f:view>
-				<h:form id="form">
+				<h:form id="form" styleClass="panel panel-default">
 					<p:growl id="msgs" showDetail="true" />
 					<div class="table-responsive">
 						<p:dataTable id="singleDT" tableStyleClass="table table-striped"
