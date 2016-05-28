@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +17,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class UserController implements Serializable {
 	private static final long serialVersionUID = -4973058412300951890L;
 
-	@Inject
+	@EJB
 	private UserViewHelper userViewHelper;
 
 	private UserView selectedUser;

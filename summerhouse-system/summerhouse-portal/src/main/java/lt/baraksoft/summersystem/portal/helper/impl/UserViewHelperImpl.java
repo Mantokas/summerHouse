@@ -104,6 +104,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setGroupNumber(entity.getGroupNumber());
 		view.setImage(entity.getImage());
 		view.setValidTo(entity.getValidTo());
+		view.setImage(entity.getImage());
 		return view;
 	}
 }

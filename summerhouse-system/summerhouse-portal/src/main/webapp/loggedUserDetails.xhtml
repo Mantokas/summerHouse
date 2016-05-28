@@ -20,88 +20,64 @@
 	<ui:composition template="/template/common/commonLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1 align="center">Vartotojo profilis</h1>
-				<h:form>
 
-					<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-
-						<h:outputLabel value="Vardas:"/>
-
-						<p:inputText value="#{userLoginController.loggedUser.firstName}"
-									 required="true"
-									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
-									 label="text"
-									 title="Redaguoti">
-							<f:validateRegex pattern="[a-zA-Z]+" />
-						</p:inputText>
-
-						<h:outputLabel value="Pavardė:"/>
-
-						<p:inputText value="#{userLoginController.loggedUser.lastName}"
-									 required="true"
-									 validatorMessage="Pavardė gali susidėti tik iš raidžių!"
-									 label="text"
-									 title="Redaguoti">
-							<f:validateRegex pattern="[a-zA-Z]+" />
-						</p:inputText>
-
-						<h:outputLabel value="El. paštas:"/>
-						<p:inputText readonly="true" value="#{userLoginController.loggedUser.email}"/>
-
-						<h:outputLabel value="Statusas:"/>
-						<p:inputText readonly="true"  value="#{userLoginController.loggedUser.approvedString}"/>
-
-						<h:outputLabel value="Turimi taškai:" rendered="#{userLoginController.loggedUser.approved}"/>
-						<p:inputText readonly="true"  value="#{userLoginController.loggedUser.points}" rendered="#{userLoginController.loggedUser.approved}"/>
-
-						<h:outputLabel value="Priklauso grupei:"/>
-						<p:inputText readonly="true" value="#{userLoginController.loggedUser.groupNumber}"/>
-					</h:panelGrid>
-					<div align="center">
-						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();"/>
+				<h:form enctype="multipart/form-data">
+					<h:graphicImage
+						value="#{userLoginController.loggedUser.encodedImage}"
+						styleClass="user-view-img" />
+					<div>
+						<h:outputLabel for="nameEdit" value="Vardas:" />
+						<p:inplace id="nameEdit" editor="true">
+							<p:ajax event="save" listener="#{userLoginController.updateUser}" />
+							<p:inputText value="#{userLoginController.loggedUser.firstName}"
+								required="true" label="text" />
+						</p:inplace>
+					</div>
+					<div>
+						<h:outputLabel for="lastNameEdit" value="Pavardė:" />
+						<p:inplace id="lastNameEdit" editor="true">
+							<p:ajax event="save" listener="#{userLoginController.updateUser}" />
+							<p:inputText value="#{userLoginController.loggedUser.lastName}"
+								required="true" label="text" />
+						</p:inplace>
 					</div>
 
-					<div align="center">
-						<p:fileUpload id="image" label="Pridėti nuotrauką"
-									  value="#{userLoginController.image}" mode="simple"
-									  skinSimple="true" styleClass="btn" />
-
-						<p:commandButton id="save" value="Išsaugoti nuotrauką"
-										 ajax="false" actionListener="#{userLoginController.uploadImage}"
-										 update="" />
-
+					<div>
+						<h:outputLabel value="Statusas:" />
+						#{userLoginController.loggedUser.approvedString}
 					</div>
+					<div>
+						<h:outputLabel value="Turimi taškai:" />
+						#{userLoginController.loggedUser.points}
+					</div>
+					<div>
+						<p:fileUpload id="image" label="Nuotrauka"
+							value="#{userLoginController.image}" mode="simple"
+							skinSimple="true" styleClass="btn" />
 
-					<p:dialog header="Patvirtinimas" widgetVar="infoUpdateConfirmDialog"
-							  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-						<p:outputPanel style="text-align:center;">
-							<p:panelGrid>
-
-								<h:outputText value="Informacija atnaujinta!"/><br/>
-								<p:commandButton value="Grįžti" oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
-
-							</p:panelGrid>
-						</p:outputPanel>
-					</p:dialog>
-
+						<p:commandButton id="save" value="Issaugoti nuotrauka"
+							ajax="false" actionListener="#{userLoginController.uploadImage}"
+							update="" />
+						
+					</div>
 
 				</h:form>
 
 				<h:form id="form"
-						rendered="#{not empty userLoginController.loggedUser}">
+					rendered="#{userLoginController.loggedUser != null}">
 
-					<p:growl styleClass="top" id="msgs" showDetail="true"  />
+					<p:growl styleClass="top" id="msgs" showDetail="true" />
 
 					<p:dataTable id="singleDT" var="reservation"
-								 value="#{userLoginController.myReservations}"
-								 selectionMode="single"
-								 selection="#{userLoginController.selectedReservation}"
-								 rowKey="#{reservation.id}"
-								 rendered="#{userLoginController.loggedUser.approved}">
+						value="#{userLoginController.myReservations}"
+						selectionMode="single"
+						selection="#{userLoginController.selectedReservation}"
+						rowKey="#{reservation.id}">
 						<f:facet name="header">
-							Rezervacijos
-						</f:facet>
-						<p:column headerText="Rezervacijos nr." sortBy="#{reservation.number}">
+                            Rezervacijos
+                        </f:facet>
+						<p:column headerText="Rezervacijos nr."
+							sortBy="#{reservation.number}">
 							<h:outputText value="#{reservation.number}" />
 						</p:column>
 						<p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}">
@@ -110,30 +86,36 @@
 						<p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
 							<h:outputText value="#{reservation.dateTo}" />
 						</p:column>
-						<p:column headerText="Vasarnamis" sortBy="#{reservation.reservedSummerhouse.title}">
-							<h:outputText value="#{reservation.reservedSummerhouse.title}" />
+						<p:column headerText="Vasarnamis"
+							sortBy="#{reservation.reservedSummerhouse.title}">
+							<h:outputText value="#{reservation.reservedSummerhouse.title}"/>
 						</p:column>
 						<p:column headerText="Kaina" sortBy="#{reservation.price}">
 							<h:outputText value="#{reservation.price}" />
 						</p:column>
 
 						<f:facet name="footer">
-							<p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" update="@form"
-											 action="#{userLoginController.checkReservation}"/>
+							<p:commandButton id="cancelReservation"
+								value="Atšaukti rezervaciją" update="@form"
+								action="#{userLoginController.checkReservation}" />
 						</f:facet>
 					</p:dataTable>
 
-					<p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
-							  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:dialog header="Patvirtinimas"
+						widgetVar="cancelReservationDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
 						<p:outputPanel id="summerhousesDetail2" style="text-align:center;">
 							<p:panelGrid columns="1">
 
-								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
+								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?" />
 
-								<p:commandButton value="Patvirtinti" oncomplete="PF('cancelReservationDialog').hide()"
-												 update="@form,msgs" action="#{userLoginController.cancelReservation}"/>
+								<p:commandButton value="Patvirtinti"
+									oncomplete="PF('cancelReservationDialog').hide()"
+									update="@form,msgs"
+									action="#{userLoginController.cancelReservation}" />
 
-								<p:commandButton value="Grįžti" oncomplete="PF('cancelReservationDialog').hide()"/>
+								<p:commandButton value="Grįžti"
+									oncomplete="PF('cancelReservationDialog').hide()" />
 
 							</p:panelGrid>
 						</p:outputPanel>
