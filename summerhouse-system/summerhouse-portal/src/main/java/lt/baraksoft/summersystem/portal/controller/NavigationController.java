@@ -71,10 +71,7 @@ public class NavigationController implements Serializable {
 		return "/loggedUserDetails.xhtml?faces-redirect=true";
 	}
 
-	public String goToUserRegistration() {
-
-		return "/user_registration.xhtml?faces-redirect=true";
-	}
+	public String goToUserRegistration() {return "/user_registration.xhtml?faces-redirect=true";}
 
 	public String goToMain() {
 		currentTab = 1;
@@ -95,7 +92,6 @@ public class NavigationController implements Serializable {
 
 
 	public String goToPayment() {
-		currentTab = 4;
 		return "/paymentProcess.xhtml?faces-redirect=true";
 	}
 

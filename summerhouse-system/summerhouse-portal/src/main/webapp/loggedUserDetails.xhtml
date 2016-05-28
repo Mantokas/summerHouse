@@ -20,9 +20,17 @@
 	<ui:composition template="/template/common/commonLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1 align="center">Vartotojo profilis</h1>
-				<h:form enctype="multipart/form-data" id="form1">
 
+				<h:form style="padding-left: 10px; margin-bottom: 20px;">
+					<p:commandButton styleClass="btn btn-lg btn-success"
+									 value="Sumokėti metinį narystės mokestį" type="submit"
+									 action="#{navigationController.goToPayment}" immediate="true"/>
+
+				</h:form>
+
+
+				<h:form enctype="multipart/form-data" id="form1" >
+					<h2 align="center">Vartotojo profilis</h2>
 					<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 					<div></div>
 						<h:graphicImage
@@ -63,6 +71,9 @@
 						<h:outputLabel value="Priklauso grupei:" />
 						<p:inputText readonly="true"
 							value="#{userLoginController.loggedUser.groupNumber}" />
+						<h:outputLabel value="Narystė galioja iki:" />
+						<p:inputText readonly="true"
+									 value="#{userLoginController.loggedUser.validTo}" />
 					</h:panelGrid>
 					<div align="center">
 						<p:commandButton value="Išsaugoti pakeitimus"
