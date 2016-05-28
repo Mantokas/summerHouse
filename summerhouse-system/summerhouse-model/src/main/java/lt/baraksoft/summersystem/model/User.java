@@ -8,9 +8,20 @@ package lt.baraksoft.summersystem.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 /**
@@ -19,16 +30,21 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"), @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"), @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
-		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.approved = :isApproved"), @NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
-		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"), @NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.archived = :isArchived") })
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+		@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
+		@NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
+		@NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+		@NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+		@NamedQuery(name = "User.findByIsApproved", query = "SELECT u FROM User u WHERE u.approved = :isApproved"),
+		@NamedQuery(name = "User.findByPoints", query = "SELECT u FROM User u WHERE u.points = :points"),
+		@NamedQuery(name = "User.findByGroupNumber", query = "SELECT u FROM User u WHERE u.groupNumber = :groupNumber"),
+		@NamedQuery(name = "User.findByIsArchived", query = "SELECT u FROM User u WHERE u.archived = :isArchived") })
 public class User implements IEntity<Integer> {
 	private static final long serialVersionUID = -887896587150521740L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+	@Column(name = "id")
 	private Integer id;
 	@Size(max = 25)
 	@Column(name = "firstname")
@@ -60,8 +76,8 @@ public class User implements IEntity<Integer> {
 	@NotNull
 	@Column(name = "is_archived")
 	private boolean archived;
-    @Column(name = "valid_to")
-    private LocalDate validTo;
+	@Column(name = "valid_to")
+	private LocalDate validTo;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Payment> paymentList;
@@ -71,6 +87,10 @@ public class User implements IEntity<Integer> {
 
 	@Version
 	private Integer version;
+
+	@Lob
+	@Column(length = 100000)
+	private byte[] image;
 
 	public User() {
 	}
@@ -164,13 +184,13 @@ public class User implements IEntity<Integer> {
 		this.archived = archived;
 	}
 
-    public LocalDate getValidTo() {
-        return validTo;
-    }
+	public LocalDate getValidTo() {
+		return validTo;
+	}
 
-    public void setValidTo(LocalDate validTo) {
-        this.validTo = validTo;
-    }
+	public void setValidTo(LocalDate validTo) {
+		this.validTo = validTo;
+	}
 
 	public List<Reservation> getReservationList() {
 		return reservationList;
@@ -194,6 +214,14 @@ public class User implements IEntity<Integer> {
 
 	public void setFacebookId(String facebookId) {
 		this.facebookId = facebookId;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	@Override
@@ -221,6 +249,5 @@ public class User implements IEntity<Integer> {
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.User[ id=" + id + " ]";
 	}
-
 
 }

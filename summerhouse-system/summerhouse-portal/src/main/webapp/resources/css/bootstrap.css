@@ -1129,6 +1129,12 @@ img {
   max-width: 100%;
   height: auto;
 }
+.user-view-img {
+  display: block;
+  max-width: 500px;
+  max-height: 400px;
+  height: auto;	
+}
 .img-rounded {
   border-radius: 6px;
 }

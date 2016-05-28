@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
@@ -53,7 +58,7 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 			predicates.add(builder.greaterThanOrEqualTo(root.get(Summerhouse_.dateTo), search.getDateTo()));
 		}
 
-		if (search.getDateFrom() != null && search.getDateTo() != null){
+		if (search.getDateFrom() != null && search.getDateTo() != null) {
 			Subquery<Integer> subquery = criteria.subquery(Integer.class);
 			Root<Reservation> subroot = subquery.from(Reservation.class);
 
@@ -61,15 +66,16 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 					builder.lessThanOrEqualTo(subroot.get(Reservation_.dateFrom), search.getDateTo())));
 			subquery.select(subroot.get(Reservation_.id));
 
-			predicates.add(builder.or(builder.isNull(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id)), builder.not(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id).in(subquery))));
+			predicates.add(builder.or(builder.isNull(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id)),
+					builder.not(root.join(Summerhouse_.reservationList, JoinType.LEFT).get(Reservation_.id).in(subquery))));
 		}
 
-		if (search.getCapacity() != 0) {
+		if (search.getCapacity() != null) {
 			predicates.add(builder.equal(root.get(Summerhouse_.capacity), search.getCapacity()));
 		}
 
 		if (search.getTitle() != null && !search.getTitle().isEmpty()) {
-			predicates.add(builder.equal(root.get(Summerhouse_.title), search.getTitle()));
+			predicates.add(builder.like(root.get(Summerhouse_.title), search.getTitle()));
 		}
 
 		return predicates;

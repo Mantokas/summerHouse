@@ -30,6 +30,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setPoints(view.getPoints());
 		entity.setGroupNumber(view.getGroupNumber());
 		entity.setValidTo(view.getValidTo());
+		entity.setImage(view.getImage());
 		userDao.save(entity);
 	}
 
@@ -48,6 +49,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPoints(entity.getPoints());
 		view.setGroupNumber(entity.getGroupNumber());
 		view.setValidTo(entity.getValidTo());
+		view.setImage(entity.getImage());
 		return view;
 	}
 
@@ -100,6 +102,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
 		view.setGroupNumber(entity.getGroupNumber());
+		view.setImage(entity.getImage());
 		view.setValidTo(entity.getValidTo());
 		return view;
 	}

@@ -2,105 +2,128 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Anketa</title>
+	<title>Anketa</title>
 </h:head>
 
 <f:metadata>
-    <f:viewAction action="#{navigationController.checkLoggedUserWithoutApproved}"/>
-    <f:viewAction action="#{userLoginController.collectMyReservations}"/>
+	<f:viewAction
+		action="#{navigationController.checkLoggedUserWithoutApproved}" />
+	<f:viewAction action="#{userLoginController.collectMyReservations}" />
 </f:metadata>
 
 <h:body>
-    <ui:composition template="/template/common/commonLayout.xhtml">
-        <ui:define name="content">
-            <f:view>
+	<ui:composition template="/template/common/commonLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
 
-                <h:form>
-                    <div>
-                    <h:outputLabel for="nameEdit" value="Vardas:"/>
-                    <p:inplace id="nameEdit" editor="true">
-                        <p:ajax event="save" listener="#{userLoginController.updateUser}"/>
-                        <p:inputText value="#{userLoginController.loggedUser.firstName}" required="true" label="text"/>
-                    </p:inplace>
-                    </div>
-                    <div>
-                    <h:outputLabel for="lastNameEdit" value="Pavardė:"/>
-                    <p:inplace id="lastNameEdit" editor="true">
-                        <p:ajax event="save" listener="#{userLoginController.updateUser}"/>
-                        <p:inputText value="#{userLoginController.loggedUser.lastName}" required="true" label="text"/>
-                    </p:inplace>
-                    </div>
+				<h:form enctype="multipart/form-data">
+					<h:graphicImage
+						value="#{userLoginController.loggedUser.encodedImage}"
+						styleClass="user-view-img" />
+					<div>
+						<h:outputLabel for="nameEdit" value="Vardas:" />
+						<p:inplace id="nameEdit" editor="true">
+							<p:ajax event="save" listener="#{userLoginController.updateUser}" />
+							<p:inputText value="#{userLoginController.loggedUser.firstName}"
+								required="true" label="text" />
+						</p:inplace>
+					</div>
+					<div>
+						<h:outputLabel for="lastNameEdit" value="Pavardė:" />
+						<p:inplace id="lastNameEdit" editor="true">
+							<p:ajax event="save" listener="#{userLoginController.updateUser}" />
+							<p:inputText value="#{userLoginController.loggedUser.lastName}"
+								required="true" label="text" />
+						</p:inplace>
+					</div>
 
-                    <div>
-                        <h:outputLabel value="Statusas:"/> #{userLoginController.loggedUser.approvedString}
-                    </div>
-                    <div>
-                        <h:outputLabel value="Turimi taškai:"/> #{userLoginController.loggedUser.points}
-                    </div>
+					<div>
+						<h:outputLabel value="Statusas:" />
+						#{userLoginController.loggedUser.approvedString}
+					</div>
+					<div>
+						<h:outputLabel value="Turimi taškai:" />
+						#{userLoginController.loggedUser.points}
+					</div>
+					<div>
+						<p:fileUpload id="image" label="Nuotrauka"
+							value="#{userLoginController.image}" mode="simple"
+							skinSimple="true" styleClass="btn" />
 
-                </h:form>
+						<p:commandButton id="save" value="Issaugoti nuotrauka"
+							ajax="false" actionListener="#{userLoginController.uploadImage}"
+							update="" />
+						
+					</div>
 
-                <h:form id="form"
-                        rendered="#{not empty userLoginController.loggedUser}">
+				</h:form>
 
-                    <p:growl styleClass="top" id="msgs" showDetail="true"  />
+				<h:form id="form"
+					rendered="#{userLoginController.loggedUser != null}">
 
-                    <p:dataTable id="singleDT" var="reservation"
-                                 value="#{userLoginController.myReservations}"
-                                 selectionMode="single"
-                                 selection="#{userLoginController.selectedReservation}"
-                                 rowKey="#{reservation.id}">
-                        <f:facet name="header">
+					<p:growl styleClass="top" id="msgs" showDetail="true" />
+
+					<p:dataTable id="singleDT" var="reservation"
+						value="#{userLoginController.myReservations}"
+						selectionMode="single"
+						selection="#{userLoginController.selectedReservation}"
+						rowKey="#{reservation.id}">
+						<f:facet name="header">
                             Rezervacijos
                         </f:facet>
-                        <p:column headerText="Rezervacijos nr." sortBy="#{reservation.number}">
-                            <h:outputText value="#{reservation.number}" />
-                        </p:column>
-                        <p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}">
-                            <h:outputText value="#{reservation.dateFrom}" />
-                        </p:column>
-                        <p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
-                            <h:outputText value="#{reservation.dateTo}" />
-                        </p:column>
-                        <p:column headerText="Vasarnamis" sortBy="#{reservation.reservedSummerhouse.title}">
-                            <h:outputText value="#{reservation.reservedSummerhouse.title}" />
-                        </p:column>
-                        <p:column headerText="Kaina" sortBy="#{reservation.price}">
-                            <h:outputText value="#{reservation.price}" />
-                        </p:column>
+						<p:column headerText="Rezervacijos nr."
+							sortBy="#{reservation.number}">
+							<h:outputText value="#{reservation.number}" />
+						</p:column>
+						<p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}">
+							<h:outputText value="#{reservation.dateFrom}" />
+						</p:column>
+						<p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
+							<h:outputText value="#{reservation.dateTo}" />
+						</p:column>
+						<p:column headerText="Vasarnamis"
+							sortBy="#{reservation.reservedSummerhouse.title}">
+							<h:outputText value="#{reservation.reservedSummerhouse.title}" />
+						</p:column>
+						<p:column headerText="Kaina" sortBy="#{reservation.price}">
+							<h:outputText value="#{reservation.price}" />
+						</p:column>
 
-                        <f:facet name="footer">
-                            <p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" update="@form"
-                                             action="#{userLoginController.checkReservation}"
-                            />
-                        </f:facet>
-                    </p:dataTable>
+						<f:facet name="footer">
+							<p:commandButton id="cancelReservation"
+								value="Atšaukti rezervaciją" update="@form"
+								action="#{userLoginController.checkReservation}" />
+						</f:facet>
+					</p:dataTable>
 
-                    <p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
-                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                        <p:outputPanel id="summerhousesDetail2" style="text-align:center;">
-                            <p:panelGrid columns="1">
+					<p:dialog header="Patvirtinimas"
+						widgetVar="cancelReservationDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<p:outputPanel id="summerhousesDetail2" style="text-align:center;">
+							<p:panelGrid columns="1">
 
-                                <h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
+								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?" />
 
-                                <p:commandButton value="Patvirtinti" oncomplete="PF('cancelReservationDialog').hide()"
-                                                 update="@form,msgs" action="#{userLoginController.cancelReservation}"/>
+								<p:commandButton value="Patvirtinti"
+									oncomplete="PF('cancelReservationDialog').hide()"
+									update="@form,msgs"
+									action="#{userLoginController.cancelReservation}" />
 
-                                <p:commandButton value="Grįžti" oncomplete="PF('cancelReservationDialog').hide()"/>
+								<p:commandButton value="Grįžti"
+									oncomplete="PF('cancelReservationDialog').hide()" />
 
-                            </p:panelGrid>
-                        </p:outputPanel>
-                    </p:dialog>
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
 
-                </h:form>
-            </f:view>
-        </ui:define>
-    </ui:composition>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

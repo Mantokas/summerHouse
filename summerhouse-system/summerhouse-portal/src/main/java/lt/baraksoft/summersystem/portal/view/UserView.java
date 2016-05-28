@@ -2,6 +2,7 @@ package lt.baraksoft.summersystem.portal.view;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Base64;
 
 public class UserView implements Serializable {
 	private static final long serialVersionUID = 2954419213235282035L;
@@ -17,6 +18,7 @@ public class UserView implements Serializable {
 	private int points;
 	private int groupNumber;
 	private LocalDate validTo;
+	private byte[] image;
 
 	public UserView(String firstName, String lastName, String email, String facebookId) {
 		this.firstName = firstName;
@@ -122,5 +124,17 @@ public class UserView implements Serializable {
 
 	public String getApprovedString() {
 		return approved ? "Narys" : "Kandidatas";
+	}
+
+	public String getEncodedImage() {
+		return image != null ? "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(image) : null;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 }
