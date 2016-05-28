@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -15,7 +17,8 @@ import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 /**
  * Created by LaurynasC on 2016-04-18.
  */
-@Stateless
+@Stateful
+@SessionScoped
 @Named
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;
@@ -45,8 +48,12 @@ public class NavigationController implements Serializable {
 		// configurationEntryDao.save(entry);
 	}
 
-	public String getActiveClass(int bbs) {
-		return bbs == currentTab ? "active" : "";
+	public String getActiveClass(int tab) {
+		return tab == currentTab ? "active" : "";
+	}
+
+	public Boolean checkActiveClass(){
+		return currentTab == 4 || currentTab == 9 ? true : false;
 	}
 
 	public String goToUsersList() {

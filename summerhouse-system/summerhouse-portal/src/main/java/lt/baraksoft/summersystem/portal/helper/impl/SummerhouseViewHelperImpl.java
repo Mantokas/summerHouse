@@ -1,20 +1,17 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import lt.baraksoft.summersystem.dao.SummerhouseDao;
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.model.Summerhouse;
 import lt.baraksoft.summersystem.portal.helper.ServiceViewHelper;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
 import lt.baraksoft.summersystem.portal.view.SummerhouseView;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.model.DefaultStreamedContent;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by LaurynasC on 2016-04-19.
@@ -48,11 +45,8 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		entity.setArchived(view.isArchived());
 		entity.setPrice(view.getPrice());
 		entity.setTitle(view.getTitle());
-		try {
-			entity.setImage(IOUtils.toByteArray(view.getImage().getStream()));
-		} catch (IOException e) {
-			throw new IllegalStateException("failed to convert image to byte array!");
-		}
+		entity.setImage(view.getImage());
+
 		summerhouseDao.save(entity);
 	}
 
@@ -75,9 +69,7 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		view.setPrice(entity.getPrice());
 		view.setTitle(entity.getTitle());
 		view.setServiceViews(serviceViewHelper.buildViews(entity.getServiceList()));
-		if (entity.getImage() != null) {
-			view.setImage(new DefaultStreamedContent(new ByteArrayInputStream(entity.getImage()), "image/jpeg"));
-		}
+		view.setImage(entity.getImage());
 		return view;
 	}
 

@@ -1,5 +1,6 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.ZoneId;
 import java.util.Date;
@@ -7,9 +8,12 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
@@ -35,12 +39,22 @@ public class SummerhouseAdminController implements Serializable {
 	private String maxUsersSize;
 	private Date dateFrom;
 	private Date dateTo;
+	private Part image;
 
 	@PostConstruct
 	public void init() {
 		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
 		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
+	}
+
+	public void handleFileUpload(AjaxBehaviorEvent event) {
+		System.out.println("******************DYDIS: " + image.getSize());
+		try {
+			summerhouse.setImage(IOUtils.toByteArray(image.getInputStream()));
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to convert image to byte array!");
+		}
 	}
 
 	public void doSave() {
@@ -142,4 +156,11 @@ public class SummerhouseAdminController implements Serializable {
 		this.maxUsersSize = maxUsersSize;
 	}
 
+	public Part getImage() {
+		return image;
+	}
+
+	public void setImage(Part image) {
+		this.image = image;
+	}
 }

@@ -1,6 +1,5 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -13,15 +12,10 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import lt.baraksoft.summersystem.dao.model.SummerhouseSearch;
 import lt.baraksoft.summersystem.portal.helper.SummerhouseViewHelper;
@@ -51,23 +45,12 @@ public class SearchController implements Serializable {
 	private Date dateTo;
 	private Date today;
 	private boolean visibleResults;
-	private Part image;
 
 	@PostConstruct
 	public void init() {
 		searchObject = new SummerhouseSearch();
 		today = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		visibleResults = false;
-	}
-
-	public void handleFileUpload(AjaxBehaviorEvent event) {
-		try {
-			selectedSummerhouse.setImage(new DefaultStreamedContent(image.getInputStream(), "image/jpeg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		summerhouseViewHelper.save(selectedSummerhouse);
 	}
 
 	public void onRowSelect() {
@@ -142,16 +125,6 @@ public class SearchController implements Serializable {
 		context.scrollTo("form2:cars");
 	}
 
-	public StreamedContent getStreamedImage(SummerhouseView view) {
-		FacesContext context = FacesContext.getCurrentInstance();
-
-		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-			return new DefaultStreamedContent();
-		} else {
-			return view.getImage();
-		}
-	}
-
 	public Date getToday() {
 		return today;
 	}
@@ -168,11 +141,4 @@ public class SearchController implements Serializable {
 		this.visibleResults = visibleResults;
 	}
 
-	public Part getImage() {
-		return image;
-	}
-
-	public void setImage(Part image) {
-		this.image = image;
-	}
 }

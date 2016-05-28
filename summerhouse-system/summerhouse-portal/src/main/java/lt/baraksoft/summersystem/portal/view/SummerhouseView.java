@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-
-import org.primefaces.model.StreamedContent;
 
 /**
  * Created by LaurynasC on 2016-04-19.
@@ -24,7 +23,7 @@ public class SummerhouseView implements Serializable {
 	private BigDecimal price;
 	private String title;
 	private List<ServiceView> serviceViews = new ArrayList<>();
-	private StreamedContent image;
+	private byte[] image;
 
 	public String getAddress() {
 		return address;
@@ -110,11 +109,15 @@ public class SummerhouseView implements Serializable {
 		return archived ? "Archyvuotas" : "Nearchyvuotas";
 	}
 
-	public StreamedContent getImage() {
+	public String getEncodedImage() {
+		return image != null ? "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(image) : null;
+	}
+
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(StreamedContent image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 }
