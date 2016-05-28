@@ -47,6 +47,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
 		view.setGroupNumber(entity.getGroupNumber());
+		view.setValidTo(entity.getValidTo());
 		return view;
 	}
 
@@ -99,6 +100,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setPassword(entity.getPassword());
 		view.setPoints(entity.getPoints());
 		view.setGroupNumber(entity.getGroupNumber());
+		view.setValidTo(entity.getValidTo());
 		return view;
 	}
 }

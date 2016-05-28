@@ -17,8 +17,7 @@ import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 /**
  * Created by LaurynasC on 2016-04-18.
  */
-@Stateful
-@SessionScoped
+@Stateless
 @Named
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 2582693109850487119L;
