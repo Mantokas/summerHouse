@@ -9,6 +9,7 @@ import lt.baraksoft.summersystem.portal.helper.ReservationPaymentHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.view.*;
 
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
@@ -97,6 +98,7 @@ public class ReservationPaymentController implements Serializable {
     private ReservationPaymentView reservationPaymentView = new ReservationPaymentView();
     private Date reservationFrom;
     private Date reservationTo;
+    private boolean dateIncorrect;
 
     public String initAndBeginConversation() {
         if (!conversation.isTransient()) {
@@ -111,7 +113,7 @@ public class ReservationPaymentController implements Serializable {
             return "toSignCheck";
         }
 
-        if (conversation.isTransient()) {
+        if (!FacesContext.getCurrentInstance().isPostback() && conversation.isTransient()) {
             conversation.begin();
 
             reservationPaymentView.setSelectedSummerhouse(searchController.getSelectedSummerhouse());
@@ -157,15 +159,38 @@ public class ReservationPaymentController implements Serializable {
         if (checkIsTransient()){
             return;
         }
+        dateIncorrect = false;
 
-        calculateSummerhousePrice();
+        try{
+            reservationPaymentView.setReservationFrom(reservationFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            reservationPaymentView.setReservationTo(reservationTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }catch (Exception ex){
+            dateIncorrect = true;
+        }
 
-        if (loggedUser.getPoints() - reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0){
-            createErrorMessage("Klaida", "Vasarnamio rezervacijai nepakanka pinigų");
+        reservationPaymentView.getReservationsList().stream().forEach(this::checkReservations);
+
+        if (dateIncorrect){
+            createErrorMessage("Neteisingas laikotarpis!", "");
         }
         else{
-            currentForm = PaymentStepEnum.SECOND;
-            activeIndex = 1;
+            calculateSummerhousePrice();
+
+            if (loggedUser.getPoints() - reservationPaymentView.getSummerhouseReservationPrice().intValue() < 0){
+                createErrorMessage("Klaida", "Vasarnamio rezervacijai nepakanka pinigų");
+            }
+            else{
+                currentForm = PaymentStepEnum.SECOND;
+                activeIndex = 1;
+            }
+        }
+    }
+
+    private void checkReservations(ReservationView reservationView) {
+        if (reservationPaymentView.getReservationFrom().isAfter(reservationPaymentView.getReservationTo()) ||
+                (reservationPaymentView.getReservationFrom().isBefore(reservationView.getDateTo()) && reservationPaymentView.getReservationTo().isAfter(reservationView.getDateFrom()))
+                 ){
+            dateIncorrect = true;
         }
     }
 
@@ -175,7 +200,9 @@ public class ReservationPaymentController implements Serializable {
     }
 
     public void goToThirdStep(){
-        if (checkIsTransient()) return;
+        if (checkIsTransient()){
+            return;
+        }
         if (!selectedServiceViews.isEmpty()){
             selectedServiceViews.stream().forEach(serviceView ->  selectedServices.add(serviceDao.get(serviceView.getId())));
             selectedServices.stream().forEach(service -> reservationPaymentView.setServicesReservationPrice
@@ -387,5 +414,13 @@ public class ReservationPaymentController implements Serializable {
 
     public void setLoggedUser(UserView loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public boolean isDateIncorrect() {
+        return dateIncorrect;
+    }
+
+    public void setDateIncorrect(boolean dateIncorrect) {
+        this.dateIncorrect = dateIncorrect;
     }
 }
