@@ -44,11 +44,10 @@
 
                         <h:panelGrid columns="1" cellpadding="5">
                         <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="customButton"/>
+                            <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}"/>
                         </h:panelGrid>
 
-
                     </p:outputPanel>
-
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('PAYMENT_PROPERTIES')}">
                         <h1>Mokėjimo informacija</h1>
@@ -99,16 +98,14 @@
                         <p:separator />
 
                         <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
+                        <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}"/>
                     </p:outputPanel>
-
-
-
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('CONFIRMATION')}">
                         <h1>Patvirtinimas</h1>
                         <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
                         <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" ajax="false"/>
-                        <p:commandButton value="Atšaukti" action="#{annualFeeController.cancel}" ajax="false"/>
+                        <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
                     </p:outputPanel>
 
                 </h:form>
