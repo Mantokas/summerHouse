@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,6 +25,9 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 @SessionScoped
 public class SummerhouseAdminController implements Serializable {
 	private static final long serialVersionUID = 1969079359482463164L;
+
+	private static final Long MAX_IMAGE_SIZE = 8000000L;
+	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 
 	@Inject
 	private SummerhouseViewHelper summerhouseViewHelper;
@@ -43,8 +48,12 @@ public class SummerhouseAdminController implements Serializable {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		try {
-			if (image != null) {
+			if (image != null && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
 				summerhouse.setImage(IOUtils.toByteArray(image.getInputstream()));
+			} else if (image != null) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Klaida!", IMAGE_TOO_LARGE);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return;
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Failed to convert image to byte array!");

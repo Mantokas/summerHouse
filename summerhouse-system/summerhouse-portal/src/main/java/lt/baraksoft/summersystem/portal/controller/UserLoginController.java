@@ -47,6 +47,7 @@ public class UserLoginController implements Serializable {
 	private static final String RESERVATION_CANCEL_SUCCESSFUL2 = "";
 	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 	private static final String ERROR_MESSAGE = "Klaida";
+	private static final Long MAX_IMAGE_SIZE = 8000000L;
 
 	@EJB
 	private UserViewHelper userViewHelper;
@@ -96,7 +97,7 @@ public class UserLoginController implements Serializable {
 
 	public void updateUser() {
 		try {
-			if (image != null && image.getSize() < 10000000) {
+			if (image != null && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
 				loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
 			} else if (image != null) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, RESERVATION_CANCEL_SUCCESSFUL, IMAGE_TOO_LARGE);
