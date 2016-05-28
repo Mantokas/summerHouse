@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -69,6 +70,20 @@ public class UserLoginController implements Serializable {
 	private String password;
 	private UploadedFile image;
 	private boolean editable;
+    private boolean skypeNameEnabled;
+    private boolean descriptionEnabled;
+    private boolean phoneNumberEnabled;
+
+    @PostConstruct
+    public void init(){
+        skypeNameEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
+        descriptionEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
+        phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
+    }
+
+    public void updateLoggedUser(){
+        loggedUser = userViewHelper.getUser(loggedUser.getId());
+    }
 
 	public void collectMyReservations() {
 		myReservations = reservationViewHelper.getReservations();
@@ -206,4 +221,27 @@ public class UserLoginController implements Serializable {
 		this.editable = editable;
 	}
 
+    public boolean isSkypeNameEnabled() {
+        return skypeNameEnabled;
+    }
+
+    public void setSkypeNameEnabled(boolean skypeNameEnabled) {
+        this.skypeNameEnabled = skypeNameEnabled;
+    }
+
+    public boolean isDescriptionEnabled() {
+        return descriptionEnabled;
+    }
+
+    public void setDescriptionEnabled(boolean descriptionEnabled) {
+        this.descriptionEnabled = descriptionEnabled;
+    }
+
+    public boolean isPhoneNumberEnabled() {
+        return phoneNumberEnabled;
+    }
+
+    public void setPhoneNumberEnabled(boolean phoneNumberEnabled) {
+        this.phoneNumberEnabled = phoneNumberEnabled;
+    }
 }
