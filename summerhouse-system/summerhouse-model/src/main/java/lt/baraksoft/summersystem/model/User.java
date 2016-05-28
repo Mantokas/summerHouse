@@ -78,6 +78,12 @@ public class User implements IEntity<Integer> {
 	private boolean archived;
 	@Column(name = "valid_to")
 	private LocalDate validTo;
+	@Column(name = "skype_name")
+	private String skypeName;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Payment> paymentList;
@@ -224,6 +230,30 @@ public class User implements IEntity<Integer> {
 		this.image = image;
 	}
 
+    public String getSkypeName() {
+        return skypeName;
+    }
+
+    public void setSkypeName(String skypeName) {
+        this.skypeName = skypeName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -249,5 +279,4 @@ public class User implements IEntity<Integer> {
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.User[ id=" + id + " ]";
 	}
-
 }

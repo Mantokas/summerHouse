@@ -26,7 +26,9 @@ public class PaymentViewHelperImpl implements PaymentViewHelper {
         userView.setPoints(user.getPoints());
         userView.setFacebookId(user.getFacebookId());
         userView.setGroupNumber(user.getGroupNumber());
-
+        userView.setSkypeName(user.getSkypeName());
+        userView.setDescription(user.getDescription());
+        userView.setPhoneNumber(user.getPhoneNumber());
         return userView;
     }
 }

@@ -19,6 +19,9 @@ public class UserView implements Serializable {
 	private int groupNumber;
 	private LocalDate validTo;
 	private byte[] image;
+	private String skypeName;
+	private String description;
+    private String phoneNumber;
 
 	public UserView(String firstName, String lastName, String email, String facebookId) {
 		this.firstName = firstName;
@@ -137,4 +140,28 @@ public class UserView implements Serializable {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
+
+	public String getSkypeName() {
+		return skypeName;
+	}
+
+	public void setSkypeName(String skypeName) {
+		this.skypeName = skypeName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

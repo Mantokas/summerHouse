@@ -31,6 +31,9 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setGroupNumber(view.getGroupNumber());
 		entity.setValidTo(view.getValidTo());
 		entity.setImage(view.getImage());
+        entity.setSkypeName(view.getSkypeName());
+        entity.setDescription(view.getDescription());
+        entity.setPhoneNumber(view.getPhoneNumber());
 		userDao.save(entity);
 	}
 
@@ -50,6 +53,9 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setGroupNumber(entity.getGroupNumber());
 		view.setValidTo(entity.getValidTo());
 		view.setImage(entity.getImage());
+        view.setSkypeName(entity.getSkypeName());
+        view.setDescription(entity.getDescription());
+        view.setPhoneNumber(entity.getPhoneNumber());
 		return view;
 	}
 
@@ -105,6 +111,9 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setImage(entity.getImage());
 		view.setValidTo(entity.getValidTo());
 		view.setImage(entity.getImage());
+        view.setSkypeName(entity.getSkypeName());
+        view.setDescription(entity.getDescription());
+        view.setPhoneNumber(entity.getPhoneNumber());
 		return view;
 	}
 }
