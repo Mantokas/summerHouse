@@ -194,6 +194,14 @@ public class Summerhouse implements IEntity<Integer> {
 		this.reservationList = reservationList;
 	}
 
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -218,14 +226,6 @@ public class Summerhouse implements IEntity<Integer> {
 	@Override
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Summerhouse[ id=" + id + " ]";
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
 	}
 
 }

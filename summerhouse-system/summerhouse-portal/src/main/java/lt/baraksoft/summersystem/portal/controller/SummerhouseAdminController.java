@@ -8,14 +8,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.UploadedFile;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
@@ -39,7 +38,7 @@ public class SummerhouseAdminController implements Serializable {
 	private String maxUsersSize;
 	private Date dateFrom;
 	private Date dateTo;
-	private Part image;
+	private UploadedFile image;
 
 	@PostConstruct
 	public void init() {
@@ -48,18 +47,14 @@ public class SummerhouseAdminController implements Serializable {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
-	public void handleFileUpload(AjaxBehaviorEvent event) {
-		System.out.println("******************DYDIS: " + image.getSize());
-		try {
-			summerhouse.setImage(IOUtils.toByteArray(image.getInputStream()));
-		} catch (IOException e) {
-			throw new IllegalStateException("Failed to convert image to byte array!");
-		}
-	}
-
 	public void doSave() {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		try {
+			summerhouse.setImage(IOUtils.toByteArray(image.getInputstream()));
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to convert image to byte array!");
+		}
 
 		if (!isSummerhouseValid()) {
 			return;
@@ -156,11 +151,11 @@ public class SummerhouseAdminController implements Serializable {
 		this.maxUsersSize = maxUsersSize;
 	}
 
-	public Part getImage() {
+	public UploadedFile getImage() {
 		return image;
 	}
 
-	public void setImage(Part image) {
+	public void setImage(UploadedFile image) {
 		this.image = image;
 	}
 }
