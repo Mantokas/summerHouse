@@ -57,7 +57,7 @@
 										 styleClass="btn btn-success"
 							action="#{summerhouseAdminController.doShowCreateDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-plus"
-							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()">
+							value="Sukurti naują" oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
@@ -83,8 +83,8 @@
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}" />
 						<p:commandButton id="addService"
 							action="/services-admin.xhtml?faces-redirect=true"
-							update=":summerhouseForm:singleDT" icon="ui-icon-plus"
-							value="Valdyti vasarnamio pąslaugas"
+							update=":summerhouseForm:singleDT" icon="ui-icon-gear"
+							value="Valdyti vasarnamio paslaugas"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null}" />
 					</f:facet>
 				</p:dataTable>

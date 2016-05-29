@@ -22,7 +22,7 @@
 				<p:dataTable id="singleDT" var="service"
 					rowKey="#{service.id}"
 					value="#{serviceAdminController.servicesList}"
-					selectionMode="single"
+					selectionMode="single" emptyMessage="Įrašų nerasta"
 					selection="#{serviceAdminController.selectedService}">
 					<p:ajax event="rowSelect" update="edit, archive, reset" />
 					<f:facet name="header">
@@ -35,26 +35,26 @@
 					<f:facet name="footer">
 						<p:commandButton id="create"
 							action="#{serviceAdminController.doShowCreateDialog}"
-							update=":form:servicesDetail" icon="ui-icon-search"
-							value="Sukurti nauja" oncomplete="PF('serviceDialog').show()">
+							update=":form:servicesDetail" icon="ui-icon-plus"
+							value="Sukurti naują" oncomplete="PF('serviceDialog').show()">
 							<p:resetInput target=":form:servicesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit"
 							action="#{serviceAdminController.doShowEditDialog}"
-							update=":form:servicesDetail" icon="ui-icon-search"
+							update=":form:servicesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
 							disabled="#{serviceAdminController.selectedService == null}"
 							oncomplete="PF('serviceDialog').show()">
 							<p:resetInput target=":form:servicesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
-							update=":form:servicesDetail" icon="ui-icon-search"
+							update=":form:servicesDetail" icon="ui-icon-trash"
 							value="Archyvuoti"
 							disabled="#{serviceAdminController.selectedService == null or serviceAdminController.selectedService.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
 							action="#{serviceAdminController.doReset}"
-							update=":serviceForm:singleDT" icon="ui-icon-search"
+							update=":serviceForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"
 							disabled="#{serviceAdminController.selectedService == null or !serviceAdminController.selectedService.archived}" />
 					</f:facet>
