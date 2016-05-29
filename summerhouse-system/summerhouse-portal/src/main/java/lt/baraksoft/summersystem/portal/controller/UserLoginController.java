@@ -16,13 +16,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import lt.baraksoft.summersystem.portal.helper.AuthorizationService;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
+import lt.baraksoft.summersystem.portal.helper.AuthorizationService;
 import lt.baraksoft.summersystem.portal.helper.FacebookService;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
@@ -65,8 +65,8 @@ public class UserLoginController implements Serializable {
 	@EJB
 	private ReservationViewHelper reservationViewHelper;
 
-    @EJB
-    private AuthorizationService authorizationService;
+	@EJB
+	private AuthorizationService authorizationService;
 
 	private UserView userView = new UserView();
 	private List<ReservationView> myReservations;
@@ -79,7 +79,7 @@ public class UserLoginController implements Serializable {
 	private boolean skypeNameEnabled;
 	private boolean descriptionEnabled;
 	private boolean phoneNumberEnabled;
-    private boolean admin;
+	private boolean admin;
 
 	@PostConstruct
 	public void updateDisabledFields() {
@@ -88,12 +88,12 @@ public class UserLoginController implements Serializable {
 		phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 	}
 
-    public void checkUserRole() {
-        if (loggedUser == null){
-            admin = false;
-        }
-        else admin = authorizationService.isAdmin();
-    }
+	public void checkUserRole() {
+		if (loggedUser == null) {
+			admin = false;
+		} else
+			admin = authorizationService.isAdmin();
+	}
 
 	public void updateLoggedUser() {
 		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
@@ -104,6 +104,9 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void checkReservation() {
+		if (selectedReservation == null) {
+			return;
+		}
 		int days = Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.DAYS_CANCEL_RESERVATION).getValue());
 		if (selectedReservation.getDateFrom().isBefore(LocalDate.now().plusDays(days))) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, RESERVATION_CANCEL_ERROR_MESSAGE,
@@ -266,11 +269,11 @@ public class UserLoginController implements Serializable {
 		this.phoneNumberEnabled = phoneNumberEnabled;
 	}
 
-    public boolean isAdmin() {
-        return admin;
-    }
+	public boolean isAdmin() {
+		return admin;
+	}
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 }
