@@ -16,5 +16,5 @@ public class Payment_ {
     public static volatile SingularAttribute<Payment, BigDecimal> amount;
     public static volatile SingularAttribute<Payment, LocalDate> executionDate;
     public static volatile SingularAttribute<Payment, String> purpose;
-    public static volatile SetAttribute<Payment, User> userList;
+    public static volatile SingularAttribute<Payment, User> user;
 }

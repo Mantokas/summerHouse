@@ -50,7 +50,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/signin.xhtml</from-view-id>
+		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>goToLoggedPage</from-outcome>
 			<to-view-id>/index.xhtml?faces-redirect=true</to-view-id>

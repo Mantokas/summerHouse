@@ -1,5 +1,7 @@
 package lt.baraksoft.summersystem.portal.view;
 
+import lt.baraksoft.summersystem.model.User;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,8 +17,8 @@ public class PaymentView implements Serializable{
     private BigDecimal amount;
     private LocalDate executionDate;
     private String purpose;
-    private String receiver;
     private String sender;
+    private User payer;
 
     public int getId() {
         return id;
@@ -50,19 +52,19 @@ public class PaymentView implements Serializable{
         this.purpose = purpose;
     }
 
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
     public String getSender() {
         return sender;
     }
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public User getPayer() {
+        return payer;
+    }
+
+    public void setPayer(User payer) {
+        this.payer = payer;
     }
 }

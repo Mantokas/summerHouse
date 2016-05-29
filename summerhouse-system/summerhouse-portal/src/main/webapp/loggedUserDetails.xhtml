@@ -16,6 +16,8 @@
 	<f:viewAction
             action="#{userLoginController.collectMyReservations}" />
     <f:viewAction
+            action="#{userLoginController.collectMyPayments}" />
+    <f:viewAction
             action="#{userLoginController.updateLoggedUser}" />
 	<f:viewAction
 			action="#{userLoginController.updateDisabledFields}" />
@@ -155,21 +157,21 @@
 						<f:facet name="header">
 							Rezervacijos
 						</f:facet>
-						<p:column headerText="Rezervacijos nr."
+						<p:column headerText="Rezervacijos nr." priority="5"
 							sortBy="#{reservation.number}">
-							<h:outputText value="#{reservation.number}" />
+							<h:outputText value="#{reservation.number}"/>
 						</p:column>
-						<p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}">
+						<p:column headerText="Data nuo" sortBy="#{reservation.dateFrom}" priority="1">
 							<h:outputText value="#{reservation.dateFrom}" />
 						</p:column>
-						<p:column headerText="Data iki" sortBy="#{reservation.dateTo}">
+						<p:column headerText="Data iki" sortBy="#{reservation.dateTo}" priority="2">
 							<h:outputText value="#{reservation.dateTo}"/>
 						</p:column>
-						<p:column headerText="Vasarnamis"
+						<p:column headerText="Vasarnamis" priority="3"
 							sortBy="#{reservation.reservedSummerhouse.title}">
 							<h:outputText value="#{reservation.reservedSummerhouse.title}" />
 						</p:column>
-						<p:column headerText="Kaina" sortBy="#{reservation.price}">
+						<p:column headerText="Kaina" sortBy="#{reservation.price}" priority="4">
 							<h:outputText value="#{reservation.price}" />
 						</p:column>
 
@@ -178,6 +180,23 @@
 											 action="#{userLoginController.checkReservation}"/>
 						</f:facet>
 					</p:dataTable>
+
+                    <p:dataTable var="payment" value="#{userLoginController.myPayments}">
+                        <f:facet name="header">
+                            Mokėjimai
+                        </f:facet>
+                        <p:column headerText="Suma">
+                            <h:outputText value="#{payment.amount}" />
+                        </p:column>
+
+                        <p:column headerText="Įvykdymo data" priority="3">
+                            <h:outputText value="#{payment.executionDate}" />
+                        </p:column>
+
+                        <p:column headerText="Paskirtis" priority="2">
+                            <h:outputText value="#{payment.purpose}" />
+                        </p:column>
+                    </p:dataTable>
 
 					<p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
 							  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
