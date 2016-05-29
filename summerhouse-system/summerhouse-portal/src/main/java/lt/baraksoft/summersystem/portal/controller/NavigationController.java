@@ -58,12 +58,7 @@ public class NavigationController implements Serializable {
 
 	public String goToUsersList() {
 		currentTab = 2;
-		return "toUsers";
-	}
-
-	public String goToUserInfo() {
-
-		return "toUserInfo";
+		return "/allusers.xhtml?faces-redirect=true";
 	}
 
 	public String goToLoggedUserInfo() {
@@ -71,7 +66,9 @@ public class NavigationController implements Serializable {
 		return "/loggedUserDetails.xhtml?faces-redirect=true";
 	}
 
-	public String goToUserRegistration() {return "/user_registration.xhtml?faces-redirect=true";}
+	public String goToUserRegistration() {
+		return "/user_registration.xhtml?faces-redirect=true";
+	}
 
 	public String goToMain() {
 		currentTab = 1;
@@ -81,7 +78,8 @@ public class NavigationController implements Serializable {
 	public String checkLoggedUser() {
 		if (userLoginController.getLoggedUser() == null || !userLoginController.getLoggedUser().isApproved()){
 			currentTab = 1;
-			return "/signin.xhtml?faces-redirect=true";}
+			return "/signin.xhtml?faces-redirect=true";
+		}
 		return "";
 	}
 
@@ -92,19 +90,18 @@ public class NavigationController implements Serializable {
         return "";
     }
 
-
 	public String goToPayment() {
 		return "/paymentProcess.xhtml?faces-redirect=true";
 	}
 
 	public String goToSumerhousesAdministration() {
 		currentTab = 6;
-		return "toSumerhousesAdministration";
+		return "/summerhouse-admin.xhtml?faces-redirect=true";
 	}
 
 	public String goToUsersAdministration() {
 		currentTab = 7;
-		return "toUsersAdministration";
+		return "/user-admin.xhtml?faces-redirect=true";
 	}
 
 	public int getCurrentTab() {

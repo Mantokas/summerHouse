@@ -21,7 +21,7 @@ public class MainController implements Serializable {
 	private static final long serialVersionUID = -3124976676079274504L;
 	private static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	@Inject
+	@EJB
 	private MailService mailService;
 
 	@Inject

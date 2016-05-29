@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,10 +22,10 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public class ServiceAdminController implements Serializable {
 	private static final long serialVersionUID = 4448497430743665911L;
 
-	@Inject
+	@EJB
 	private ServiceViewHelper serviceViewHelper;
 
-	@Inject
+	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
 
 	@Inject
@@ -56,7 +57,7 @@ public class ServiceAdminController implements Serializable {
 		servicesList = serviceViewHelper.getServicesBySummerhouse(selectedSummerhouse.getId());
 	}
 
-	public boolean isSummerhouseValid() {
+	private boolean isSummerhouseValid() {
 		return StringUtils.isNotBlank(service.getTitle()) && service.getPrice() != null;
 	}
 

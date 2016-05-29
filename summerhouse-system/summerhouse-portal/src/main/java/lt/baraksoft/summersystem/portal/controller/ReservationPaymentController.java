@@ -84,9 +84,6 @@ public class ReservationPaymentController implements Serializable {
 	ServiceDao serviceDao;
 
 	@Inject
-	private SummerhouseController summerhouseController;
-
-	@Inject
 	private SearchController searchController;
 
 	@Inject
@@ -122,8 +119,8 @@ public class ReservationPaymentController implements Serializable {
 
 		String a = navigationController.checkLoggedUser();
 
-		if (a.equals("toSignCheck")) {
-			return "toSignCheck";
+		if (a.equals("/signin.xhtml?faces-redirect=true")) {
+			return "/signin.xhtml?faces-redirect=true";
 		}
 
 		if (!FacesContext.getCurrentInstance().isPostback() && conversation.isTransient()) {
@@ -218,7 +215,6 @@ public class ReservationPaymentController implements Serializable {
 		} else {
 			selectedServiceViews.remove(serviceView);
 		}
-
 	}
 
 	public void goToThirdStep() {
@@ -328,7 +324,7 @@ public class ReservationPaymentController implements Serializable {
 	}
 
 	private void buildDateConstraint() {
-		reservationPaymentView.getReservationsList().stream().forEach(r -> addReservedDays(r));
+		reservationPaymentView.getReservationsList().stream().forEach(this::addReservedDays);
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("\"M-d-yyyy\"");
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");

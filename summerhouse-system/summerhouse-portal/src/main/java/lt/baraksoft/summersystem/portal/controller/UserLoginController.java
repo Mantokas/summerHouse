@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.portal.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,16 +17,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import lt.baraksoft.summersystem.portal.helper.*;
+import lt.baraksoft.summersystem.portal.view.PaymentView;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
-import lt.baraksoft.summersystem.portal.helper.AuthorizationService;
-import lt.baraksoft.summersystem.portal.helper.FacebookService;
-import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
-import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -65,11 +64,15 @@ public class UserLoginController implements Serializable {
 	@EJB
 	private ReservationViewHelper reservationViewHelper;
 
+    @EJB
+    private PaymentViewHelper paymentViewHelper;
+
 	@EJB
 	private AuthorizationService authorizationService;
 
 	private UserView userView = new UserView();
-	private List<ReservationView> myReservations;
+	private List<ReservationView> myReservations = new ArrayList<>();
+    private List<PaymentView> myPayments = new ArrayList<>();
 	private ReservationView selectedReservation;
 	private UserView loggedUser;
 	private String email;
@@ -89,11 +92,8 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void checkUserRole() {
-		if (loggedUser == null) {
-			admin = false;
-		} else
-			admin = authorizationService.isAdmin();
-	}
+        admin = loggedUser != null && authorizationService.isAdmin();
+    }
 
 	public void updateLoggedUser() {
 		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
@@ -102,6 +102,10 @@ public class UserLoginController implements Serializable {
 	public void collectMyReservations() {
 		myReservations = reservationViewHelper.getReservations();
 	}
+
+    public void collectMyPayments(){
+        myPayments = paymentViewHelper.getPaymentByUserID(loggedUser.getId());
+    }
 
 	public void checkReservation() {
 		if (selectedReservation == null) {
@@ -162,12 +166,11 @@ public class UserLoginController implements Serializable {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, LOGIN_FAILED);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		return;
 	}
 
 	public String checkIfLoggedIn() {
 		if (loggedUser != null) {
-			return "goToLoggedPage";
+			return "/index.xhtml?faces-redirect=true";
 		} else {
 			return "";
 		}
@@ -276,4 +279,12 @@ public class UserLoginController implements Serializable {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+
+    public List<PaymentView> getMyPayments() {
+        return myPayments;
+    }
+
+    public void setMyPayments(List<PaymentView> myPayments) {
+        this.myPayments = myPayments;
+    }
 }

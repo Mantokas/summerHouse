@@ -151,7 +151,6 @@ public class SearchController implements Serializable {
     }
 
     public SummerhouseView getSelectedSummerhouse() {
-
         return selectedSummerhouse;
     }
 
