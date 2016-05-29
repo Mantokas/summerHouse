@@ -115,25 +115,25 @@
 							<p:outputLabel for="capacity"
 								value="Vasarnamio talpinamų žmonių skaičius" />
 							<pe:inputNumber id="capacity"
-								value="#{summerhouseAdminController.summerhouse.capacity}">
+								value="#{summerhouseAdminController.summerhouse.capacity}" decimalPlaces="0">
 							</pe:inputNumber>
 
 							<p:outputLabel for="dateFrom" required="true"
 								value="Vasarnamis rezervuojamas nuo:" />
 							<p:calendar id="dateFrom"
-								value="#{summerhouseAdminController.dateFrom}" />
+								value="#{summerhouseAdminController.dateFrom}" pattern="yyyy-MM-dd"/>
 
 							<p:outputLabel for="dateTo" required="true"
 								value="Vasarnamis rezervuojamas iki:" />
 							<p:calendar id="dateTo"
-								value="#{summerhouseAdminController.dateTo}" />
+								value="#{summerhouseAdminController.dateTo}" pattern="yyyy-MM-dd"/>
 
 							<p:outputLabel for="price"
 								value="Vasarnamio nuomos savaitei kaina:" />
 							<pe:inputNumber id="price"
 								value="#{summerhouseAdminController.summerhouse.price}"
 								required="true" requiredMessage="Įveskite vasarnamio kainą!"
-								validatorMessage="Kaina gali susidėti tik iš skaičių!">
+								validatorMessage="Kaina gali susidėti tik iš skaičių!" decimalPlaces="0">
 							</pe:inputNumber>
 
 							<p:outputLabel for="description" value="Aprašymas" />

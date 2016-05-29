@@ -84,8 +84,6 @@
     width: 100%;
 }
 
-
-
 .breadcrumbas {
     list-style: none;
     overflow: hidden;
@@ -194,6 +192,15 @@
     border-radius: 1em;
     background-color: rgba(71, 255, 0, 0.13);
     height: 300px;
+}
+
+.customUserlist{
+    text-align: center;
+    border-width: medium;
+    border-color: green;
+    border-radius: 1em;
+    background-color: rgba(71, 255, 0, 0.13);
+    height: 400px;
 }
 
 .customDetailedUserInfo{
