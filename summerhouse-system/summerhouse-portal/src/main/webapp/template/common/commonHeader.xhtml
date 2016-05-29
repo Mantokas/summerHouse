@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
-<body>
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
 <ui:composition>
 
     <div class="container">
@@ -38,17 +37,17 @@
                             <li class="#{navigationController.getActiveClass(6)}">
                                 <p:commandLink value="Vasarnamių valdymas" type="submit"
                                                  action="#{navigationController.goToSumerhousesAdministration}" immediate="true"
-                                                 rendered="#{not empty userLoginController.loggedUser}"/>
+                                                 rendered="#{userLoginController.loggedUser ne null and userLoginController.admin}"/>
                             </li>
                             <li class="#{navigationController.getActiveClass(7)}">
                                 <p:commandLink value="Narių valdymas" type="submit"
                                                  action="#{navigationController.goToUsersAdministration}" immediate="true"
-                                                 rendered="#{not empty userLoginController.loggedUser}"/>
+                                                 rendered="#{userLoginController.loggedUser ne null and userLoginController.admin}"/>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="#{navigationController.getActiveClass(3)}">
-                                <p:commandLink rendered="#{not empty userLoginController.loggedUser}"
+                                <p:commandLink rendered="#{userLoginController.loggedUser ne null}"
                                                id="loggedUser"
                                                value="#{userLoginController.loggedUser.firstName} #{userLoginController.loggedUser.lastName}"
                                                action="#{navigationController.goToLoggedUserInfo}"/>
@@ -108,7 +107,7 @@
     </div> <!-- /container -->
 
 </ui:composition>
-</body>
+</h:body>
 </html>
 
 

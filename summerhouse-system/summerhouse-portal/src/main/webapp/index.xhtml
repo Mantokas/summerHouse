@@ -10,6 +10,8 @@
 <f:metadata>
 	<f:viewAction
 		action="#{navigationController.checkLoggedUserWithoutApproved}" />
+    <f:viewAction
+            action="#{userLoginController.checkUserRole}" />
 </f:metadata>
 
 <h:body>
@@ -87,7 +89,7 @@
 											 process="cars"
 								update=":form2:summerhousesDetail" icon="ui-icon-info"
 								value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
-								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
+								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}"/>
 							<p:commandButton id="reserveSummerhouse"
 											 styleClass="btn btn-default"
 											 process="cars"
