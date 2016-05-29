@@ -86,12 +86,12 @@
                         <p:panel header="#{service.title}" styleClass="customServiceViewsGreen" id="servicePanel">
                             <h:panelGrid columns="1" style="width:100%">
 
-                                <p:column headerText="Aprašymas">
-                                    <h:outputText value="#{service.description}"/>
-                                </p:column>
-                                <p:column headerText="Kaina">
-                                    <h:outputText value="#{service.price}"/>
-                                </p:column>
+                                <p:outputLabel for="description" value="Aprašymas"/>
+                                <h:outputText id="description" value="#{service.description}"/>
+
+                                <p:outputLabel for="price" value="Kaina"/>
+                                <h:outputText id="price" value="#{service.price}"/>
+
 
                                 <p:selectBooleanCheckbox value="#{reservationPaymentController.serviceAdded}">
                                     <p:ajax listener="#{reservationPaymentController.addOrRemoveServices(service)}" update=":form:msgs"/>

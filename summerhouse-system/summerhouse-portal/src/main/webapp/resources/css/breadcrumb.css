@@ -193,6 +193,7 @@
     border-color: green;
     border-radius: 1em;
     background-color: rgba(71, 255, 0, 0.13);
+    height: 300px;
 }
 
 .customDetailedUserInfo{
@@ -212,12 +213,20 @@
     max-height: 400px;
 }
 
+.summerhouseImage{
+    max-height: 180px;
+}
+
 .thirty-percent {
     width: 20%;
 }
 
 .seventy-percent {
     width: 80%;
+}
+
+.customDataGrid{
+
 }
 
 .customServiceViewsBlue{

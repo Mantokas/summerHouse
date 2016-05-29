@@ -68,18 +68,21 @@
 
 				<p:growl id="msgs2" showDetail="true" />
 
+				<div style="margin-right: 20%; margin-left: 20%">
+
 				<p:dataGrid rendered="#{searchController.visibleResults}" var="summerhouse" value="#{searchController.list}"
-					columns="4" layout="grid" rows="12" paginator="true" id="cars"
+					layout="grid" rows="12" paginator="true" id="cars" columns="3"
 					paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 					styleClass="customDataGrid"
 					emptyMessage="Nerasta vasarnamių">
 
-
 					<p:panel header="#{summerhouse.title}" styleClass="customResults">
 						<h:panelGrid columns="1" style="width:100%">
 
-							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
+							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive summerhouseImage"/>
+
+                            <h:panelGrid columns="2">
 							
 							<p:commandButton id="reviewSummerhouse"
 											 styleClass="btn btn-sm btn-default"
@@ -94,11 +97,13 @@
 								action="#{searchController.doSelectSummerhouse}"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 
+                            </h:panelGrid>
 						</h:panelGrid>
 					</p:panel>
 
 				</p:dataGrid>
 
+				</div>
 				<p:dialog header="Vasarnamio informacija"
 					widgetVar="summerhouseDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
