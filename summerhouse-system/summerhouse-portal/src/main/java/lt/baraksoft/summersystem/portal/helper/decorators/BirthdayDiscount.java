@@ -5,10 +5,8 @@ import lt.baraksoft.summersystem.portal.helper.DiscountService;
 
 import javax.decorator.Decorator;
 import javax.decorator.Delegate;
-import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 
 /**
@@ -17,12 +15,12 @@ import java.time.LocalDate;
 @Decorator
 public abstract class BirthdayDiscount implements DiscountService{
 
-    public static double BIRTHDAY_DISCOUNT_MULTIPLIER = 0.5;
+    public static final double BIRTHDAY_DISCOUNT_MULTIPLIER = 0.5;
 
     @Inject
     private UserLoginController loginController;
 
-    @Inject @Delegate DiscountService discountService;
+    @Inject @Delegate private DiscountService discountService;
 
     @Override
     public int applyDiscount(int price) {

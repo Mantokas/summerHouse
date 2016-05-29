@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 /**
  * Created by Žygimantas on 2016-05-28.
  */
-@Local
-public interface DiscountService extends Serializable{
+public interface DiscountService{
 
     int applyDiscount(int price);
 }

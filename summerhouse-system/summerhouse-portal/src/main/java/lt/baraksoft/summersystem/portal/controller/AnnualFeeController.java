@@ -69,7 +69,7 @@ public class AnnualFeeController implements Serializable {
 	@EJB
 	private PaymentViewHelper paymentViewHelper;
 
-    @Inject
+    @EJB
     private DiscountService discountService;
 
 	@EJB
@@ -107,7 +107,7 @@ public class AnnualFeeController implements Serializable {
 
 	public void calculateSum() {
 		yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
-		amount = yearLength * Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue());
+		amount = yearLength * discountService.applyDiscount(Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue()));
 	}
 
 	public String goToSummerhouses() {
@@ -132,7 +132,7 @@ public class AnnualFeeController implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			yearLength = Character.getNumericValue(selectedPaymentValue.charAt(0));
-			amount = yearLength * Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue());
+			amount = yearLength * discountService.applyDiscount(Integer.parseInt(configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue()));
 
 			UserView loggedUserView = userLoginController.getLoggedUser();
 
