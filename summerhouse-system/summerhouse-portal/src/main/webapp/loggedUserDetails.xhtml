@@ -110,15 +110,19 @@
 					<div id="addPhoto" align="center" style="display: none">
 						<p:fileUpload id="image" label="Pridėti nuotrauką"
 									  value="#{userLoginController.image}" mode="simple"
-									  skinSimple="true" styleClass="btn" />
+									  skinSimple="true"/>
 					</div>
 
 					<div id="saveChanges" align="center" style="display: none">
-						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" ajax="false"/>
+						<p:commandButton value="Išsaugoti pakeitimus"  actionListener="#{userLoginController.updateUser}" ajax="false"/>
+					</div>
+
+					<div id="cancel" align="center" style="display: none">
+						<p:commandButton value="Atšaukti" actionListener="#{userLoginController.doNotEdit}" oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
 					</div>
 
 					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
-						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
+						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
 					</div>
 
 				</h:form>
@@ -190,9 +194,10 @@
 				<h:outputScript>
 					//<![CDATA[
 
-                function changeButtonsState(id, id2, id3) {
+                function changeButtonsState(id, id2, id3, id4) {
 					document.getElementById(id3).style.display = 'block'
 					document.getElementById(id).style.display = 'block'
+					document.getElementById(id4).style.display = 'block'
 					document.getElementById(id2).style.display = 'none'
                 };
 

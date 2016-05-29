@@ -27,30 +27,76 @@
                     <p:growl id="msgs2" showDetail="true" />
 
                     <h1 style="text-align: center">Detali nario anketa</h1>
+                    <h:panelGrid columns="1" styleClass="panel panel-default">
+                        <h:graphicImage
+                                value="#{userController.selectedUser.encodedImage}"
+                                styleClass="user-view-img" />
+                    </h:panelGrid>
+                    <h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
+                        <h:outputLabel value="Vardas: " />
+                        <p:inputText value="#{userController.selectedUser.firstName}"
+                                     label="text"
+                                     disabled="true">
+                        </p:inputText>
 
-                    <div class="ui-datagrid ui-widget">
+                        <h:outputLabel value="Pavardė: "/>
 
-                        <p:panel styleClass="customDetailedUserInfo">
+                        <p:inputText value="#{userController.selectedUser.lastName}"
+                                     required="true"
+                                     label="text"
+                                     disabled="true">
+                        </p:inputText>
 
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="thirty-percent, seventy-percent">
-                                <p:column headerText="profileImage">
-                                    <h:graphicImage value="#{userController.selectedUser.encodedImage}"
-                                                    styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image ne null}"/>
-                                    <h:graphicImage value="resources/images/defaultUserImage.png"
-                                                    styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image eq null}"/>
-                                </p:column>
+                        <h:outputLabel value="El. paštas: "/>
+                        <p:inputText readonly="true"
+                                     disabled="true"
+                                     value="#{userController.selectedUser.email}"/>
 
-                                <p:column headerText="profile">
-                                    <h:panelGrid columns="2">
-                                        <h:outputText value="#{userController.selectedUser.firstName}"/>
-                                        <h:outputText value="#{userController.selectedUser.lastName}"/>
-                                    </h:panelGrid>
-                                </p:column>
+                        <h:outputLabel value="Statusas: "/>
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.approvedString}"
+                                     disabled="true"/>
 
-                            </h:panelGrid>
+                        <h:outputLabel value="Turimi taškai: "
+                                       rendered="#{userLoginController.loggedUser.approved}" />
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.points}"
+                                     rendered="#{userLoginController.loggedUser.approved}"
+                                     disabled="true"/>
 
-                        </p:panel>
+                        <h:outputLabel value="Priklauso grupei: " />
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.groupNumber}"
+                                     disabled="true"/>
 
+                        <h:outputLabel value="Narystė galioja iki: " />
+                        <p:inputText readonly="true"
+                                     value="Negalioja" rendered="#{userController.selectedUser.validTo == null}"
+                                     disabled="true"/>
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.validTo}" rendered="#{userController.selectedUser.validTo != null}"
+                                     disabled="true"/>
+
+                        <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.skypeName}"
+                                     disabled="true"
+                                     rendered="#{userLoginController.skypeNameEnabled}"/>
+
+                        <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.phoneNumber}"
+                                     disabled="true"
+                                     rendered="#{userLoginController.phoneNumberEnabled}"/>
+
+                        <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
+                        <p:inputText readonly="true"
+                                     value="#{userController.selectedUser.description}"
+                                     disabled="true"
+                                     rendered="#{userLoginController.descriptionEnabled}"/>
+                    </h:panelGrid>
+                    <div align="center">
+                        <p:commandButton value="Atgal" oncomplete="/allusers.xhtml?faces-redirect=true"/>
                     </div>
                 </h:form>
 

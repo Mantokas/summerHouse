@@ -162,6 +162,10 @@ public class UserLoginController implements Serializable {
 		editable = true;
 	}
 
+	public void doNotEdit() {
+		editable = false;
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
