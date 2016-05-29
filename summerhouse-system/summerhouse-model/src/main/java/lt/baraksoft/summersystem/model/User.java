@@ -60,6 +60,8 @@ public class User implements IEntity<Integer> {
 	private String email;
 	@Column(name = "facebook_id")
 	private String facebookId;
+	@Column(name = "birth_date")
+	private LocalDate birthdate;
 	@Column(name = "password")
 	private String password;
 	@Basic(optional = false)
@@ -230,6 +232,14 @@ public class User implements IEntity<Integer> {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public LocalDate getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(LocalDate birthdate) {
+		this.birthdate = birthdate;
 	}
 
 	public String getSkypeName() {

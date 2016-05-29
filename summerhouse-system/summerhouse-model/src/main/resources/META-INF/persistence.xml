@@ -10,6 +10,7 @@
     <class>lt.baraksoft.summersystem.model.Payment</class>
     <class>lt.baraksoft.summersystem.model.ConfigurationEntry</class>
     <class>lt.baraksoft.summersystem.model.AuditEntry</class>
+    <class>lt.baraksoft.summersystem.model.Role</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

@@ -5,12 +5,15 @@ import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.portal.helper.FacebookService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Žygimantas on 2016-05-16.
@@ -66,6 +69,19 @@ public class FacebookServiceImpl implements FacebookService {
         }
     }
 
+    @Override
+    public LocalDate getBirthday() {
+        try {
+            String birthdayString = facebook.getUser(facebook.getId(), new Reading().fields("birthday")).getBirthday();
+            if(birthdayString != null){
+                return LocalDate.parse(birthdayString, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            }
+            return null;
+        } catch (FacebookException e) {
+            return null;
+        }
+    }
+
     public void logout(){
         try {
             facebook.deleteAllPermissions();
@@ -73,6 +89,8 @@ public class FacebookServiceImpl implements FacebookService {
             e.printStackTrace();
         }
     }
+
+
 
 
 

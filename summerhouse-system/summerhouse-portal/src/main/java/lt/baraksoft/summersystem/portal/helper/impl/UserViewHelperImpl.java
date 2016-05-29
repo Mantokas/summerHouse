@@ -1,21 +1,26 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import lt.baraksoft.summersystem.dao.RoleDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
-public class UserViewHelperImpl implements UserViewHelper {
+public class UserViewHelperImpl implements UserViewHelper, Serializable{
 
 	@Inject
 	private UserDao userDao;
+
+	@Inject
+	private RoleDao roleDao;
 
 	@Override
 	public void save(UserView view) {
@@ -24,6 +29,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		entity.setLastname(view.getLastName());
 		entity.setEmail(view.getEmail());
 		entity.setFacebookId(view.getFacebookId());
+		entity.setBirthdate(view.getBirthday());
 		entity.setApproved(view.isApproved());
 		entity.setArchived(view.isArchived());
 		entity.setPassword(view.getPassword());
@@ -46,6 +52,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setLastName(entity.getLastname());
 		view.setEmail(entity.getEmail());
 		view.setFacebookId(entity.getFacebookId());
+		view.setBirthday(entity.getBirthdate());
 		view.setApproved(entity.isApproved());
 		view.setArchived(entity.isArchived());
 		view.setPassword(entity.getPassword());
@@ -89,10 +96,11 @@ public class UserViewHelperImpl implements UserViewHelper {
 
 	@Override
 	public boolean register(UserView view) {
-		String email = view.getEmail();
-		if (userDao.getUserByEmail(email) != null)
+		if (userDao.getUserByEmail(view.getEmail()) != null){
 			return false;
+		}
 		save(view);
+		roleDao.addBasicRole(view.getEmail());
 		return true;
 	}
 
@@ -103,6 +111,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		view.setLastName(entity.getLastname());
 		view.setEmail(entity.getEmail());
 		view.setFacebookId(entity.getFacebookId());
+		view.setBirthday(entity.getBirthdate());
 		view.setApproved(entity.isApproved());
 		view.setArchived(entity.isArchived());
 		view.setPassword(entity.getPassword());

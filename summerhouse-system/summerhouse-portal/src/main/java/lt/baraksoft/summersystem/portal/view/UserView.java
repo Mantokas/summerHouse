@@ -13,6 +13,7 @@ public class UserView implements Serializable {
 	private String password;
 	private String email;
 	private String facebookId;
+	private LocalDate birthday;
 	private boolean approved;
 	private boolean archived;
 	private int points;
@@ -23,11 +24,12 @@ public class UserView implements Serializable {
 	private String description;
     private String phoneNumber;
 
-	public UserView(String firstName, String lastName, String email, String facebookId) {
+	public UserView(String firstName, String lastName, String email, String facebookId, LocalDate birthday) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.facebookId = facebookId;
+		this.birthday = birthday;
 	};
 
 	public UserView() {
@@ -164,4 +166,12 @@ public class UserView implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
 }

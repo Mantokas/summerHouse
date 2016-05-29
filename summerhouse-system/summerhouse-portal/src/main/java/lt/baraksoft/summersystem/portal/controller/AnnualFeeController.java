@@ -1,5 +1,16 @@
 package lt.baraksoft.summersystem.portal.controller;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.dao.PaymentDao;
+import lt.baraksoft.summersystem.dao.UserDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntry;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
+import lt.baraksoft.summersystem.model.Payment;
+import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
+import lt.baraksoft.summersystem.portal.helper.DiscountService;
+import lt.baraksoft.summersystem.portal.interceptor.Log;
+import lt.baraksoft.summersystem.portal.view.UserView;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +22,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.inject.Decorated;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
@@ -56,6 +68,9 @@ public class AnnualFeeController implements Serializable {
 
 	@EJB
 	private PaymentViewHelper paymentViewHelper;
+
+    @Inject
+    private DiscountService discountService;
 
 	@EJB
 	private PaymentDao paymentDao;

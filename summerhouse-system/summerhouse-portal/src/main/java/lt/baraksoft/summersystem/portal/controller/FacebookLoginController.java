@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
 
+
 /**
  * Created by Žygimantas on 2016-05-04.
  */
@@ -50,7 +51,7 @@ public class FacebookLoginController implements Serializable{
             fbService.getCurrentInstance().getOAuthAccessToken(oauthCode);
             UserView user = userViewHelper.findUserByFbId(fbService.getUserId());
             if (user == null){
-                user = new UserView(fbService.getUserName(), fbService.getUserLastName(), fbService.getUserEmail(), fbService.getUserId());
+                user = new UserView(fbService.getUserName(), fbService.getUserLastName(), fbService.getUserEmail(), fbService.getUserId(), fbService.getBirthday());
                 userViewHelper.register(user);
             }
             user = userViewHelper.findUserByFbId(fbService.getUserId());

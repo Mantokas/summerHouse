@@ -14,6 +14,7 @@ public class User_ {
 	public static volatile SingularAttribute<User, String> lastname;
 	public static volatile SingularAttribute<User, String> email;
 	public static volatile SingularAttribute<User, String> facebookId;
+	public static volatile SingularAttribute<User, LocalDate> birthdate;
 	public static volatile SingularAttribute<User, String> password;
 	public static volatile SingularAttribute<User, Boolean> approved;
 	public static volatile SingularAttribute<User, Integer> points;

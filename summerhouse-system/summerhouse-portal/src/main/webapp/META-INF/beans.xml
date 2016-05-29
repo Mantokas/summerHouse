@@ -5,6 +5,10 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="all">
+    <decorators>
+        <class>lt.baraksoft.summersystem.portal.helper.decorators.WeekendDiscount</class>
+        <class>lt.baraksoft.summersystem.portal.helper.decorators.BirthdayDiscount</class>
+    </decorators>
     <interceptors>
         <class>lt.baraksoft.summersystem.portal.interceptor.LoggingInterceptor</class>
     </interceptors>

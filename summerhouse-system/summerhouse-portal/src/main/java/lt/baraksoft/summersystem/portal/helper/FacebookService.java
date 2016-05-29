@@ -4,6 +4,7 @@ import facebook4j.Facebook;
 
 import javax.ejb.Local;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Created by Žygimantas on 2016-05-16.
@@ -20,6 +21,8 @@ public interface FacebookService extends Serializable{
     String getUserEmail();
 
     String getUserLastName();
+
+    LocalDate getBirthday();
 
     void logout();
 
