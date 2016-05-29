@@ -29,8 +29,10 @@
                     <h1 style="text-align: center">Detali nario anketa</h1>
                     <h:panelGrid columns="1" styleClass="panel panel-default">
                         <h:graphicImage
-                                value="#{userController.selectedUser.encodedImage}"
+                                value="#{userController.selectedUser.encodedImage}" rendered="#{userController.selectedUser.encodedImage ne null}"
                                 styleClass="user-view-img" />
+                        <h:graphicImage value="resources/images/defaultUserImage.png"
+                                        styleClass="img-responsive customImage" rendered="#{userController.selectedUser.encodedImage eq null}"/>
                     </h:panelGrid>
                     <h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
                         <h:outputLabel value="Vardas: " />
