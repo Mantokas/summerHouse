@@ -15,4 +15,5 @@ import lt.baraksoft.summersystem.model.Service;
 public interface ServiceDao extends IGenericDao<Service, Integer> {
 
 	List<Service> getServicesBySummerhouse(Integer summerhouseId);
+	List<Service> getAllServices();
 }

@@ -26,7 +26,7 @@
 					selection="#{serviceAdminController.selectedService}">
 					<p:ajax event="rowSelect" update="edit, archive, reset" />
 					<f:facet name="header">
-                            Papildomos paslaugos
+                            Vasarnamio papildomos paslaugos
                         </f:facet>
 					<p:column headerText="Pavadinimas" sortBy="#{service.title}">
 						<h:outputText value="#{service.title}" />
@@ -97,9 +97,10 @@
 								value="#{serviceAdminController.service.description}"
 								required="false" />
 
-							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk" ajax="false"
+							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk"
 								actionListener="#{serviceAdminController.doSave}"
-								update=":serviceForm:singleDT, :form:servicesDetail" />
+								update=":serviceForm:singleDT, :form:servicesDetail"
+                            />
 
 						</h:panelGrid>
 					</p:outputPanel>

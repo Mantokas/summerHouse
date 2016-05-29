@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -47,7 +49,7 @@ public class ServiceAdminController implements Serializable {
 			return;
 		}
 
-		RequestContext.getCurrentInstance().execute("PF('summerhouseDialog').hide()");
+
 		if (service.getId() != 0) {
 			serviceViewHelper.save(service);
 		} else {
@@ -55,6 +57,7 @@ public class ServiceAdminController implements Serializable {
 			summerhouseViewHelper.save(selectedSummerhouse);
 		}
 		servicesList = serviceViewHelper.getServicesBySummerhouse(selectedSummerhouse.getId());
+        RequestContext.getCurrentInstance().execute("PF('summerhouseDialog').hide()");
 	}
 
 	private boolean isSummerhouseValid() {

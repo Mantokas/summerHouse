@@ -18,6 +18,8 @@ public interface ServiceViewHelper {
 
 	List<ServiceView> getServicesBySummerhouse(Integer summerhouseId);
 
+	List<ServiceView> getAllServices();
+
 	void save(ServiceView view);
 
 	Service buildEntity(ServiceView view);

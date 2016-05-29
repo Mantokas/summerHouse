@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 
 import lt.baraksoft.summersystem.dao.ServiceDao;
 import lt.baraksoft.summersystem.dao.generic.GenericDao;
+import lt.baraksoft.summersystem.model.Reservation_;
 import lt.baraksoft.summersystem.model.Service;
 import lt.baraksoft.summersystem.model.Service_;
 import lt.baraksoft.summersystem.model.Summerhouse_;
@@ -30,6 +31,15 @@ public class ServiceDaoImpl extends GenericDao<Service, Integer> implements Serv
 		criteria.select(root);
 
 		return getEntityManager().createQuery(criteria).getResultList();
+	}
 
+	@Override
+	public List<Service> getAllServices() {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Service> criteria = builder.createQuery(Service.class);
+		Root<Service> root = criteria.from(Service.class);
+		criteria.where(builder.equal(root.get(Service_.archived), false));
+		criteria.select(root);
+		return getEntityManager().createQuery(criteria).getResultList();
 	}
 }

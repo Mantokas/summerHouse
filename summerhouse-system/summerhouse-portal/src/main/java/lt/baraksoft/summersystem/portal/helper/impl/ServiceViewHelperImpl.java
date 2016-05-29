@@ -64,4 +64,9 @@ public class ServiceViewHelperImpl implements ServiceViewHelper {
 	public List<ServiceView> getServicesBySummerhouse(Integer summerhouseId) {
 		return buildViews(serviceDao.getServicesBySummerhouse(summerhouseId));
 	}
+
+	@Override
+	public List<ServiceView> getAllServices() {
+		return buildViews(serviceDao.getAllServices());
+	}
 }

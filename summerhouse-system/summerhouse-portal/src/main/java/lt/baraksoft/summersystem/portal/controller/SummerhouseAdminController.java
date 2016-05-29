@@ -72,7 +72,7 @@ public class SummerhouseAdminController implements Serializable {
 		summerhousesList = summerhouseViewHelper.getAllSummerhouses();
 	}
 
-	public boolean isSummerhouseValid() {
+	private boolean isSummerhouseValid() {
 		return StringUtils.isNotBlank(summerhouse.getTitle()) && StringUtils.isNotBlank(summerhouse.getAddress()) && summerhouse.getPrice() != null
 				&& summerhouse.getDateFrom() != null && summerhouse.getDateTo() != null;
 	}
