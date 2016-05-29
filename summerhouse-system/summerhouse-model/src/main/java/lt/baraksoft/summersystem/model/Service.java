@@ -6,17 +6,16 @@
 package lt.baraksoft.summersystem.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,9 +30,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "services")
-@NamedQueries({ @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"), @NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id"),
-		@NamedQuery(name = "Service.findByTitle", query = "SELECT s FROM Service s WHERE s.title = :title"), @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
-		@NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"), @NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.archived = :isArchived") })
+@NamedQueries({ @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
+		@NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id"),
+		@NamedQuery(name = "Service.findByTitle", query = "SELECT s FROM Service s WHERE s.title = :title"),
+		@NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price"),
+		@NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"),
+		@NamedQuery(name = "Service.findByIsArchived", query = "SELECT s FROM Service s WHERE s.archived = :isArchived") })
 public class Service implements IEntity<Integer> {
 	private static final long serialVersionUID = -3185403197832964682L;
 	@Id
@@ -55,9 +57,8 @@ public class Service implements IEntity<Integer> {
 	@Column(name = "is_archived")
 	private boolean archived;
 
-	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "service_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") })
-	@ManyToMany
-	private List<Summerhouse> summerhouseList;
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "serviceList")
+	private Set<Summerhouse> summerhouseList;
 
 	@ManyToMany(mappedBy = "serviceList")
 	private List<Reservation> reservationList;
@@ -122,11 +123,11 @@ public class Service implements IEntity<Integer> {
 		this.archived = archived;
 	}
 
-	public List<Summerhouse> getSummerhouseList() {
+	public Set<Summerhouse> getSummerhouseList() {
 		return summerhouseList;
 	}
 
-	public void setSummerhouseList(List<Summerhouse> summerhouseList) {
+	public void setSummerhouseList(Set<Summerhouse> summerhouseList) {
 		this.summerhouseList = summerhouseList;
 	}
 

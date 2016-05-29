@@ -46,7 +46,8 @@ public class SummerhouseViewHelperImpl implements SummerhouseViewHelper {
 		entity.setPrice(view.getPrice());
 		entity.setTitle(view.getTitle());
 		entity.setImage(view.getImage());
-		summerhouseDao.save(entity);
+		entity.setServiceList(serviceViewHelper.buildEntities(view.getServiceViews()));
+		summerhouseDao.update(entity);
 	}
 
 	@Override

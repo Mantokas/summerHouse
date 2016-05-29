@@ -17,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -75,7 +77,9 @@ public class Summerhouse implements IEntity<Integer> {
 	@Column(name = "is_archived")
 	private boolean archived;
 
-	@ManyToMany(mappedBy = "summerhouseList")
+	@JoinTable(name = "summerhouse_services", joinColumns = { @JoinColumn(name = "summerhouse_id", referencedColumnName = "id") }, inverseJoinColumns = {
+			@JoinColumn(name = "service_id", referencedColumnName = "id") })
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Service> serviceList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "summerhouse")

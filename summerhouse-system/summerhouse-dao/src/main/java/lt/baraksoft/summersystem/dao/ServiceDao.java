@@ -6,7 +6,6 @@ import javax.ejb.Local;
 
 import lt.baraksoft.summersystem.dao.generic.IGenericDao;
 import lt.baraksoft.summersystem.model.Service;
-import lt.baraksoft.summersystem.model.Summerhouse;
 
 /**
  * Created by LaurynasC on 2016-05-02.
@@ -15,5 +14,5 @@ import lt.baraksoft.summersystem.model.Summerhouse;
 @Local
 public interface ServiceDao extends IGenericDao<Service, Integer> {
 
-	List<Service> getServicesBySummerhouse(Summerhouse summerhouse);
+	List<Service> getServicesBySummerhouse(Integer summerhouseId);
 }

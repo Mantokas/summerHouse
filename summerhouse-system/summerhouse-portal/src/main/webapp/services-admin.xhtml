@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<f:metadata>
+	<f:viewAction action="#{navigationController.checkLoggedUser}" />
+	<f:viewAction action="#{serviceAdminController.init}" />
+</f:metadata>
+
+<h:body>
+	<ui:composition template="/template/common/commonLayout.xhtml">
+		<ui:define name="title">Vasarnamio paslaugų administravimas</ui:define>
+		<ui:define name="content">
+
+			<h:form id="serviceForm">
+				<p:dataTable id="singleDT" var="service"
+					rowKey="#{service.id}"
+					value="#{serviceAdminController.servicesList}"
+					selectionMode="single"
+					selection="#{serviceAdminController.selectedService}">
+					<p:ajax event="rowSelect" update="edit, archive, reset" />
+					<f:facet name="header">
+                            Papildomos paslaugos
+                        </f:facet>
+					<p:column headerText="Pavadinimas" sortBy="#{service.title}">
+						<h:outputText value="#{service.title}" />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:commandButton id="create"
+							action="#{serviceAdminController.doShowCreateDialog}"
+							update=":form:servicesDetail" icon="ui-icon-search"
+							value="Sukurti nauja" oncomplete="PF('serviceDialog').show()">
+							<p:resetInput target=":form:servicesDetail" />
+						</p:commandButton>
+						<p:commandButton id="edit"
+							action="#{serviceAdminController.doShowEditDialog}"
+							update=":form:servicesDetail" icon="ui-icon-search"
+							value="Redaguoti"
+							disabled="#{serviceAdminController.selectedService == null}"
+							oncomplete="PF('serviceDialog').show()">
+							<p:resetInput target=":form:servicesDetail" />
+						</p:commandButton>
+						<p:commandButton id="archive" process="singleDT"
+							update=":form:servicesDetail" icon="ui-icon-search"
+							value="Archyvuoti"
+							disabled="#{serviceAdminController.selectedService == null or serviceAdminController.selectedService.archived}"
+							oncomplete="PF('archiveConfirmationDialog').show()" />
+						<p:commandButton id="reset" process="singleDT"
+							action="#{serviceAdminController.doReset}"
+							update=":serviceForm:singleDT" icon="ui-icon-search"
+							value="Atstatyti"
+							disabled="#{serviceAdminController.selectedService == null or !serviceAdminController.selectedService.archived}" />
+					</f:facet>
+				</p:dataTable>
+			</h:form>
+
+			<p:dialog header="Paslaugos kurimas" widgetVar="serviceDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false" position="center" draggable="false">
+				<h:form id="form" styleClass="panel panel-default">
+					<p:outputPanel id="servicesDetail" style="text-align:center;">
+						<h:panelGrid columns="2" id="grid" cellpadding="5">
+							<p:outputLabel for="title" value="Pavadinimas" />
+							<p:inputText id="title" 
+								value="#{serviceAdminController.service.title}"
+								required="true"
+								requiredMessage="Įveskite paslaugos pavadinimą!"
+								validatorMessage="Pavadinimas gali susidėti tik iš raidžių!">
+								<f:validateRegex pattern="[a-zA-Z]+" />
+							</p:inputText>
+
+							<p:outputLabel for="price"
+								value="Vasarnamio nuomos savaitei kaina:" />
+							<pe:inputNumber id="price" 
+								value="#{serviceAdminController.service.price}"
+								required="true" requiredMessage="Įveskite paslaugos kainą!"
+								validatorMessage="Kaina gali susidėti tik iš skaičių!">
+							</pe:inputNumber>
+
+							<p:outputLabel for="description" value="Aprašymas" />
+							<p:inputText id="description"
+								value="#{serviceAdminController.service.description}"
+								required="false" />
+
+							<p:commandButton id="save" value="Išsaugoti" ajax="false"
+								actionListener="#{serviceAdminController.doSave}"
+								update=":serviceForm:singleDT, :form:servicesDetail" />
+
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:form>
+			</p:dialog>
+
+			<p:dialog header="Patvirtinimas"
+				widgetVar="archiveConfirmationDialog" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false">
+				<p:outputPanel id="servicesDetail2" style="text-align:center;">
+
+					<h:outputText value="Ar tikrai norite archyvuoti paslaugą?" />
+
+					<p:commandButton value="Patvirtinti"
+						oncomplete="PF('archiveConfirmationDialog').hide()"
+						update=":serviceForm:singleDT"
+						action="#{serviceAdminController.doArchive}" />
+
+					<p:commandButton value="Atšaukti"
+						oncomplete="PF('archiveConfirmationDialog').hide()" />
+
+				</p:outputPanel>
+			</p:dialog>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

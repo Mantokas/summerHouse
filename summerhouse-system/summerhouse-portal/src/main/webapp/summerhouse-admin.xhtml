@@ -23,7 +23,7 @@
 					value="#{summerhouseAdminController.summerhousesList}"
 					selectionMode="single"
 					selection="#{summerhouseAdminController.selectedSummerhouse}">
-					<p:ajax event="rowSelect" update="edit, archive, reset" />
+					<p:ajax event="rowSelect" update="edit, archive, reset, addService" />
 					<f:facet name="header">
                             Vasarnamiai
                         </f:facet>
@@ -81,6 +81,11 @@
 							update=":summerhouseForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}" />
+						<p:commandButton id="addService"
+							action="/services-admin.xhtml?faces-redirect=true"
+							update=":summerhouseForm:singleDT" icon="ui-icon-plus"
+							value="Valdyti vasarnamio pąslaugas"
+							disabled="#{summerhouseAdminController.selectedSummerhouse == null}" />
 					</f:facet>
 				</p:dataTable>
 			</h:form>

@@ -1,14 +1,17 @@
 package lt.baraksoft.summersystem.dao.impl;
 
-import lt.baraksoft.summersystem.dao.ServiceDao;
-import lt.baraksoft.summersystem.dao.generic.GenericDao;
-import lt.baraksoft.summersystem.model.*;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import lt.baraksoft.summersystem.dao.ServiceDao;
+import lt.baraksoft.summersystem.dao.generic.GenericDao;
+import lt.baraksoft.summersystem.model.Service;
+import lt.baraksoft.summersystem.model.Service_;
+import lt.baraksoft.summersystem.model.Summerhouse_;
 
 /**
  * Created by LaurynasC on 2016-05-02.
@@ -16,17 +19,17 @@ import java.util.List;
 @Stateless
 public class ServiceDaoImpl extends GenericDao<Service, Integer> implements ServiceDao {
 
-    @Override
-    public List<Service> getServicesBySummerhouse(Summerhouse summerhouse) {
+	@Override
+	public List<Service> getServicesBySummerhouse(Integer summerhouseId) {
 
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Service> criteria = builder.createQuery(Service.class);
-        Root<Service> root = criteria.from(Service.class);
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Service> criteria = builder.createQuery(Service.class);
+		Root<Service> root = criteria.from(Service.class);
 
-        criteria.where(builder.isMember(summerhouse, root.get(Service_.summerhouseList)));
+		criteria.where(builder.equal(root.join(Service_.summerhouseList).get(Summerhouse_.id), summerhouseId));
+		criteria.select(root);
 
-        criteria.select(root);
-        return getEntityManager().createQuery(criteria).getResultList();
+		return getEntityManager().createQuery(criteria).getResultList();
 
-    }
+	}
 }

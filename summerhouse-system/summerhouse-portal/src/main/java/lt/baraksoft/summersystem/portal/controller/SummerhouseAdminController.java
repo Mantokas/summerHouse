@@ -73,6 +73,10 @@ public class SummerhouseAdminController implements Serializable {
 				&& summerhouse.getDateFrom() != null && summerhouse.getDateTo() != null;
 	}
 
+	public void doShowServicesList() {
+		// Redirect to services with summerhouse id
+	}
+
 	public void doShowCreateDialog() {
 		dateFrom = null;
 		dateTo = null;
@@ -93,9 +97,6 @@ public class SummerhouseAdminController implements Serializable {
 	public void doReset() {
 		selectedSummerhouse.setArchived(false);
 		summerhouseViewHelper.save(selectedSummerhouse);
-	}
-
-	public void onSelect() {
 	}
 
 	public SummerhouseView getSummerhouse() {
