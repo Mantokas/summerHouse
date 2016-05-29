@@ -26,7 +26,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public class SummerhouseAdminController implements Serializable {
 	private static final long serialVersionUID = 1969079359482463164L;
 
-	private static final Long MAX_IMAGE_SIZE = 8000000L;
+	private static final Long MAX_IMAGE_SIZE = 4000000L;
 	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 
 	@Inject
@@ -45,6 +45,9 @@ public class SummerhouseAdminController implements Serializable {
 	}
 
 	public void doSave() {
+		if (dateFrom == null || dateTo == null) {
+			return;
+		}
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		try {

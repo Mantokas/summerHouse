@@ -51,7 +51,7 @@ public class UserLoginController implements Serializable {
 	private static final String ERROR_MESSAGE = "Klaida";
 	private static final String USER_UPDATED = "Duomenys atnaujinti";
 	private static final String USER_UPDATED2 = "";
-	private static final Long MAX_IMAGE_SIZE = 8000000L;
+	private static final Long MAX_IMAGE_SIZE = 4000000L;
 
 	@EJB
 	private UserViewHelper userViewHelper;

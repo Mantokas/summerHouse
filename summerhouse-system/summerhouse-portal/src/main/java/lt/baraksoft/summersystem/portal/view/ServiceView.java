@@ -55,4 +55,8 @@ public class ServiceView implements Serializable {
 		this.title = title;
 	}
 
+	public String getArchivedString() {
+		return archived ? "Archyvuota" : "Nearchyvuota";
+	}
+
 }

@@ -18,6 +18,7 @@
 		<ui:define name="content">
 
 			<h:form id="summerhouseForm">
+				<p:growl id="msg" showDetail="true" />
 				<p:dataTable id="singleDT" var="summerhouse"
 					rowKey="#{summerhouse.id}"
 					value="#{summerhouseAdminController.summerhousesList}"
@@ -54,14 +55,14 @@
 					</p:column>
 					<f:facet name="footer">
 						<p:commandButton id="create" process="singleDT"
-										 styleClass="btn btn-success"
+							styleClass="btn btn-success"
 							action="#{summerhouseAdminController.doShowCreateDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-plus"
 							value="Sukurti naują" oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
-										 styleClass="btn btn-info"
+							styleClass="btn btn-info"
 							action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
@@ -70,16 +71,15 @@
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
-										 styleClass="btn btn-danger"
-							update=":form:summerhousesDetail" icon="ui-icon-trash"
-							value="Archyvuoti"
+							styleClass="btn btn-danger" update=":form:summerhousesDetail"
+							icon="ui-icon-trash" value="Archyvuoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
-										 styleClass="btn btn-warning"
+							styleClass="btn btn-warning"
 							action="#{summerhouseAdminController.doReset}"
-							update=":summerhouseForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
-							value="Atstatyti"
+							update=":summerhouseForm:singleDT"
+							icon="ui-icon-arrowreturnthick-1-w" value="Atstatyti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}" />
 						<p:commandButton id="addService"
 							action="/services-admin.xhtml?faces-redirect=true"
@@ -90,13 +90,15 @@
 				</p:dataTable>
 			</h:form>
 
-			<p:dialog header="Vasarnamio kurimas" widgetVar="summerhouseDialog"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false" position="center" draggable="false">
-				<h:form id="form" enctype="multipart/form-data" styleClass="panel panel-default">
+			<h:form id="form" enctype="multipart/form-data"
+				styleClass="panel panel-default">
+				<p:dialog header="Vasarnamio kurimas" widgetVar="summerhouseDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					position="center" draggable="false">
 					<p:outputPanel id="summerhousesDetail" style="text-align:center;">
 						<h:graphicImage
-								value="#{summerhouseAdminController.summerhouse.encodedImage}"
-								styleClass="user-view-img" />
+							value="#{summerhouseAdminController.summerhouse.encodedImage}"
+							styleClass="user-view-img" />
 						<h:panelGrid columns="2" id="grid" cellpadding="5">
 							<p:outputLabel for="title" value="Pavadinimas" />
 							<p:inputText id="title"
@@ -115,25 +117,29 @@
 							<p:outputLabel for="capacity"
 								value="Vasarnamio talpinamų žmonių skaičius" />
 							<pe:inputNumber id="capacity"
-								value="#{summerhouseAdminController.summerhouse.capacity}" decimalPlaces="0">
+								value="#{summerhouseAdminController.summerhouse.capacity}"
+								decimalPlaces="0">
 							</pe:inputNumber>
 
 							<p:outputLabel for="dateFrom" required="true"
 								value="Vasarnamis rezervuojamas nuo:" />
 							<p:calendar id="dateFrom"
-								value="#{summerhouseAdminController.dateFrom}" pattern="yyyy-MM-dd"/>
+								value="#{summerhouseAdminController.dateFrom}"
+								pattern="yyyy-MM-dd" />
 
 							<p:outputLabel for="dateTo" required="true"
 								value="Vasarnamis rezervuojamas iki:" />
 							<p:calendar id="dateTo"
-								value="#{summerhouseAdminController.dateTo}" pattern="yyyy-MM-dd"/>
+								value="#{summerhouseAdminController.dateTo}"
+								pattern="yyyy-MM-dd" />
 
 							<p:outputLabel for="price"
 								value="Vasarnamio nuomos savaitei kaina:" />
 							<pe:inputNumber id="price"
 								value="#{summerhouseAdminController.summerhouse.price}"
 								required="true" requiredMessage="Įveskite vasarnamio kainą!"
-								validatorMessage="Kaina gali susidėti tik iš skaičių!" decimalPlaces="0">
+								validatorMessage="Kaina gali susidėti tik iš skaičių!"
+								decimalPlaces="0">
 							</pe:inputNumber>
 
 							<p:outputLabel for="description" value="Aprašymas" />
@@ -145,33 +151,36 @@
 								value="#{summerhouseAdminController.image}" mode="simple"
 								skinSimple="true" />
 
-							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk" ajax="false"
+							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk"
+								ajax="false"
 								actionListener="#{summerhouseAdminController.doSave}"
 								update=":summerhouseForm:singleDT, :form:summerhousesDetail" />
 
 						</h:panelGrid>
 					</p:outputPanel>
-				</h:form>
-			</p:dialog>
 
-			<p:dialog header="Patvirtinimas"
-				widgetVar="archiveConfirmationDialog" modal="true" showEffect="fade"
-				hideEffect="fade" resizable="false">
-				<p:outputPanel id="summerhousesDetail2" style="text-align:center;">
-
-					<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
-
-					<p:commandButton value="Patvirtinti" icon="ui-icon-check"
-						oncomplete="PF('archiveConfirmationDialog').hide()"
-						update=":summerhouseForm:singleDT"
-						action="#{summerhouseAdminController.doArchive}" />
-
-					<p:commandButton value="Atšaukti" icon="ui-icon-cancel"
-						oncomplete="PF('archiveConfirmationDialog').hide()" />
+				</p:dialog>
 
 
-				</p:outputPanel>
-			</p:dialog>
+				<p:dialog header="Patvirtinimas"
+					widgetVar="archiveConfirmationDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="summerhousesDetail2" style="text-align:center;">
+
+						<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
+
+						<p:commandButton value="Patvirtinti" icon="ui-icon-check"
+							oncomplete="PF('archiveConfirmationDialog').hide()"
+							update=":summerhouseForm:singleDT"
+							action="#{summerhouseAdminController.doArchive}" />
+
+						<p:commandButton value="Atšaukti" icon="ui-icon-cancel"
+							oncomplete="PF('archiveConfirmationDialog').hide()" />
+
+
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
 
 		</ui:define>
 	</ui:composition>

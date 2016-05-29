@@ -31,6 +31,12 @@
 					<p:column headerText="Pavadinimas" sortBy="#{service.title}">
 						<h:outputText value="#{service.title}" />
 					</p:column>
+					<p:column headerText="Kaina" sortBy="#{service.price}">
+						<h:outputText value="#{service.price}" />
+					</p:column>
+					<p:column headerText="Archyvuota" sortBy="#{service.archived}">
+						<h:outputText value="#{service.archivedString}" />
+					</p:column>
 
 					<f:facet name="footer">
 						<p:commandButton id="create"
