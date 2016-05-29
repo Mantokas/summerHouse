@@ -44,8 +44,11 @@ public class UserController implements Serializable {
         users = userViewHelper.getAllUsers();
 	}
 
-	public void doApprove(UserView userView) {
-        selectedUser = userView;
+	public void makeSelectedUser(UserView userView){
+		selectedUser = userView;
+	}
+
+	public void doApprove() {
 		if (!selectedUser.isApproved()) {
 			selectedUser.setApproved(true);
 			userViewHelper.save(selectedUser);

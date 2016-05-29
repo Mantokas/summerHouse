@@ -101,6 +101,7 @@ public class ReservationPaymentController implements Serializable {
     private Date reservationFrom;
     private Date reservationTo;
     private boolean dateIncorrect;
+    private boolean serviceAdded;
 
     public String initAndBeginConversation() {
         if (!conversation.isTransient()) {
@@ -199,6 +200,16 @@ public class ReservationPaymentController implements Serializable {
     private void createErrorMessage(String first, String second) {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, first, second);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void addOrRemoveServices(ServiceView serviceView){
+        if(serviceAdded){
+            selectedServiceViews.add(serviceView);
+        }
+        else{
+            selectedServiceViews.remove(serviceView);
+        }
+
     }
 
     public void goToThirdStep(){
@@ -426,5 +437,13 @@ public class ReservationPaymentController implements Serializable {
 
     public void setDateIncorrect(boolean dateIncorrect) {
         this.dateIncorrect = dateIncorrect;
+    }
+
+    public boolean isServiceAdded() {
+        return serviceAdded;
+    }
+
+    public void setServiceAdded(boolean serviceAdded) {
+        this.serviceAdded = serviceAdded;
     }
 }

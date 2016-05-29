@@ -34,7 +34,7 @@ public class UserViewHelperImpl implements UserViewHelper {
         entity.setSkypeName(view.getSkypeName());
         entity.setDescription(view.getDescription());
         entity.setPhoneNumber(view.getPhoneNumber());
-		userDao.save(entity);
+		userDao.update(entity);
 	}
 
 	@Override

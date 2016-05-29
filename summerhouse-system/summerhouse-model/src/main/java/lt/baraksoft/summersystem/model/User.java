@@ -8,6 +8,7 @@ package lt.baraksoft.summersystem.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -90,6 +91,7 @@ public class User implements IEntity<Integer> {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Reservation> reservationList;
+
 
 	@Version
 	private Integer version;

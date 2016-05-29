@@ -190,9 +190,9 @@
 .customResults{
     text-align: center;
     border-width: medium;
-    border-color: #180ba5;
+    border-color: green;
     border-radius: 1em;
-    background-color: rgba(16, 31, 255, 0.14);
+    background-color: rgba(71, 255, 0, 0.13);
 }
 
 .customDetailedUserInfo{
@@ -218,4 +218,20 @@
 
 .seventy-percent {
     width: 80%;
+}
+
+.customServiceViewsBlue{
+    text-align: center;
+    border-width: medium;
+    border-color: #180ba5;
+    border-radius: 1em;
+    background-color: rgba(16, 31, 255, 0.14);
+}
+
+.customServiceViewsGreen{
+    text-align: center;
+    border-width: medium;
+    border-color: green;
+    border-radius: 1em;
+    background-color: rgba(71, 255, 0, 0.13);
 }

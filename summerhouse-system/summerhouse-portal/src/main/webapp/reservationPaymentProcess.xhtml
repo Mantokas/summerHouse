@@ -73,25 +73,34 @@
 
                 </p:outputPanel>
 
-                <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('SECOND')}">
+                <p:outputPanel rendered="#{reservationPaymentController.isCurrentForm('SECOND')}" id="second">
 
-                    <p:dataTable id="services" var="services"
-                                 value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.serviceViews}"
-                                 selection="#{reservationPaymentController.selectedServiceViews}" rowKey="#{services.id}">
+                    <p:dataGrid var="service" value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.serviceViews}"
+                                columns="4" layout="grid" rows="12" id="servicesList" styleClass="customDataGrid"
+                                emptyMessage="Vasarnamis neturi papildomų paslaugų">
+
                         <f:facet name="header">
                             Vasarnamio papildomos paslaugos
                         </f:facet>
-                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                        <p:column headerText="Aprašymas">
-                            <h:outputText value="#{services.description}"/>
-                        </p:column>
-                        <p:column headerText="Kaina">
-                            <h:outputText value="#{services.price}"/>
-                        </p:column>
-                        <p:column headerText="Pavadinimas">
-                            <h:outputText value="#{services.title}"/>
-                        </p:column>
-                    </p:dataTable>
+
+                        <p:panel header="#{service.title}" styleClass="customServiceViewsGreen" id="servicePanel">
+                            <h:panelGrid columns="1" style="width:100%">
+
+                                <p:column headerText="Aprašymas">
+                                    <h:outputText value="#{service.description}"/>
+                                </p:column>
+                                <p:column headerText="Kaina">
+                                    <h:outputText value="#{service.price}"/>
+                                </p:column>
+
+                                <p:selectBooleanCheckbox value="#{reservationPaymentController.serviceAdded}">
+                                    <p:ajax listener="#{reservationPaymentController.addOrRemoveServices(service)}" update=":form:msgs"/>
+                                </p:selectBooleanCheckbox>
+
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:dataGrid>
 
                     <p:separator />
 

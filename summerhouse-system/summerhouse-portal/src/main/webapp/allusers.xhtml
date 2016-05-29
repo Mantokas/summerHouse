@@ -52,15 +52,13 @@
 
                                 <p:commandButton value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>
                                 <p:commandButton value="Patvirtinti" rendered="#{!user.approved}"
-                                                 oncomplete="PF('approveConfirmationDialog').show()" />
+                                                 oncomplete="PF('approveConfirmationDialog').show()" action="#{userController.makeSelectedUser(user)}"/>
 
                             </h:panelGrid>
                         </p:panel>
 
                     </p:dataGrid>
-                </h:form>
-				
-				<h:form id="form2">
+
 					<p:dialog header="Patvirtinimas"
 						widgetVar="approveConfirmationDialog" modal="true"
 						showEffect="fade" hideEffect="fade" resizable="false">
