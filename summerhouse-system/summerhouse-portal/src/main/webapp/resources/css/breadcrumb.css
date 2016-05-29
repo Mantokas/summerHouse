@@ -159,8 +159,8 @@
 }
 
 .customMainPage {
-    height: 600px !important;
-    background-image: url('../resources/images/Labanoras2.jpg' ) !important;
+    background-image: url('../resources/images/labanoras3.jpg' ) !important;
+    background-size: cover;
     text-align: center;
 }
 
@@ -168,8 +168,9 @@
     display: inline-block;
     padding: 0px 20px 20px 20px;
     border-radius: 2em;
-    background-color: rgba(202, 255, 183, 0.45);
-    margin-top: 240px;
+    background-color: rgba(202,255,183,0.60);
+    margin-top: 5%;
+    margin-bottom: 5%
 }
 
 .customMainPageSearch > span{
