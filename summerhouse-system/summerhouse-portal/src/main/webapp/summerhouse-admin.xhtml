@@ -55,26 +55,26 @@
 					<f:facet name="footer">
 						<p:commandButton id="create" process="singleDT"
 							action="#{summerhouseAdminController.doShowCreateDialog}"
-							update=":form:summerhousesDetail" icon="ui-icon-search"
+							update=":form:summerhousesDetail" icon="ui-icon-plus"
 							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
 							action="#{summerhouseAdminController.doShowEditDialog}"
-							update=":form:summerhousesDetail" icon="ui-icon-search"
+							update=":form:summerhousesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null}"
 							oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
-							update=":form:summerhousesDetail" icon="ui-icon-search"
+							update=":form:summerhousesDetail" icon="ui-icon-trash"
 							value="Archyvuoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
 							action="#{summerhouseAdminController.doReset}"
-							update=":summerhouseForm:singleDT" icon="ui-icon-search"
+							update=":summerhouseForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}" />
 					</f:facet>
@@ -132,11 +132,11 @@
 								value="#{summerhouseAdminController.summerhouse.description}"
 								required="false" />
 
-							<p:fileUpload id="image" label="Nuotrauka"
+							<p:fileUpload id="image" label="Pridėti nuotrauką"
 								value="#{summerhouseAdminController.image}" mode="simple"
 								skinSimple="true" />
 
-							<p:commandButton id="save" value="Issaugoti" ajax="false"
+							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk" ajax="false"
 								actionListener="#{summerhouseAdminController.doSave}"
 								update=":summerhouseForm:singleDT, :form:summerhousesDetail" />
 
@@ -152,12 +152,12 @@
 
 					<h:outputText value="Ar tikrai norite archyvuoti vasarnamį?" />
 
-					<p:commandButton value="Patvirtinti"
+					<p:commandButton value="Patvirtinti" icon="ui-icon-check"
 						oncomplete="PF('archiveConfirmationDialog').hide()"
 						update=":summerhouseForm:singleDT"
 						action="#{summerhouseAdminController.doArchive}" />
 
-					<p:commandButton value="Atšaukti"
+					<p:commandButton value="Atšaukti" icon="ui-icon-cancel"
 						oncomplete="PF('archiveConfirmationDialog').hide()" />
 
 

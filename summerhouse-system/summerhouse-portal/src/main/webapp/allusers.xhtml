@@ -51,8 +51,8 @@
                                 <h:graphicImage value="resources/images/defaultUserImage.png" styleClass="img-responsive" rendered="#{user.image == null}"/>
 
                             <h:panelGrid columns="2" style="width:100%">
-                                <p:commandButton value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>
-                                <p:commandButton value="Patvirtinti" rendered="#{!user.approved}"
+                                <p:commandButton value="Peržiūrėti" icon="ui-icon-info" action="#{userController.goToDetailedUser(user)}"/>
+                                <p:commandButton value="Patvirtinti" icon="ui-icon-check" rendered="#{!user.approved}"
                                                  oncomplete="PF('approveConfirmationDialog').show()" action="#{userController.makeSelectedUser(user)}"/>
                             </h:panelGrid>
 

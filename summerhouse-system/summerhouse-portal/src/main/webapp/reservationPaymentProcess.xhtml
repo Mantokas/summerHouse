@@ -22,7 +22,7 @@
             <h:form id="form">
 
                 <p:growl id="msgs" showDetail="true" />
-                <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true" styleClass="breadcrumb3steps">
+                <p:steps activeIndex="#{reservationPaymentController.activeIndex}" readonly="true" styleClass="breadcrumbas">
                     <p:menuitem value="Rezervacijos laikotarpis"/>
                     <p:menuitem value="Papildomos paslaugos"/>
                     <p:menuitem value="Patvirtinimas"/>
@@ -31,13 +31,13 @@
                 <p:outputPanel header="Headeris" rendered="#{reservationPaymentController.isCurrentForm('FIRST')}">
 
                     <h:panelGrid>
-                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.id}"/>
-                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.title}"/>
-                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.address}"/>
-                        <p:outputLabel value="#{reservationPaymentController.reservationPaymentView.selectedSummerhouse.price}"/>
+                        <p:outputLabel value="Vasarnamio ID: #{reservationPaymentController.reservationPaymentView.selectedSummerhouse.id}"/>
+                        <p:outputLabel value="Pavadinimas: #{reservationPaymentController.reservationPaymentView.selectedSummerhouse.title}"/>
+                        <p:outputLabel value="Adresas: #{reservationPaymentController.reservationPaymentView.selectedSummerhouse.address}"/>
+                        <p:outputLabel value="Kaina: #{reservationPaymentController.reservationPaymentView.selectedSummerhouse.price}"/>
                     </h:panelGrid>
 
-                    <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationPaymentView.reservationsList}">
+                    <p:dataTable id="reservations" var="reservation" value="#{reservationPaymentController.reservationPaymentView.reservationsList}" emptyMessage="Įrašų nerasta">
                         <f:facet name="header">
                             Vasarnamio esamos rezervacijos
                         </f:facet>
@@ -67,9 +67,11 @@
                     </p:calendar>
 
                     <p:separator />
+                    <div align="center">
+                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{reservationPaymentController.goToSecondStep}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                    </div>
 
-                    <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{reservationPaymentController.goToSecondStep}"/>
-                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
 
                 </p:outputPanel>
 
@@ -104,9 +106,14 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Tęsti" update="msgs,@form"
-                                     action="#{reservationPaymentController.goToThirdStep}"/>
-                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
+                    <div align="center">
+                        <p:commandButton value="Tęsti"
+                                         icon="ui-icon-carat-1-e"
+                                         update="msgs,@form"
+                                         action="#{reservationPaymentController.goToThirdStep}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                    </div>
+
 
                 </p:outputPanel>
 
@@ -123,9 +130,12 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Patvirtinti rezervaciją" update="msgs,@form"
-                                     action="#{reservationPaymentController.submitTransaction}"/>
-                    <p:commandButton value="Atšaukti" action="#{reservationPaymentController.goToSummerhouses}"/>
+                    <div align="center">
+                        <p:commandButton value="Patvirtinti rezervaciją" icon="ui-icon-check" update="msgs,@form"
+                                         action="#{reservationPaymentController.submitTransaction}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                    </div>
+
 
                 </p:outputPanel>
 

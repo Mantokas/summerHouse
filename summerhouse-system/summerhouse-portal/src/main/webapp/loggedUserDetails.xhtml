@@ -114,15 +114,25 @@
 					</div>
 
 					<div id="saveChanges" align="center" style="display: none">
-						<p:commandButton value="Išsaugoti pakeitimus"  actionListener="#{userLoginController.updateUser}" ajax="false"/>
+						<p:commandButton value="Išsaugoti pakeitimus"
+										 icon="ui-icon-disk"
+										 actionListener="#{userLoginController.updateUser}"
+										 ajax="false"/>
 					</div>
 
 					<div id="cancel" align="center" style="display: none">
-						<p:commandButton value="Atšaukti" actionListener="#{userLoginController.doNotEdit}" oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
+						<p:commandButton value="Atšaukti"
+										 icon="ui-icon-cancel"
+										 actionListener="#{userLoginController.doNotEdit}"
+										 oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
 					</div>
 
 					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
-						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
+						<p:commandButton value="Redaguoti duomenis"
+										 icon="ui-icon-pencil"
+										 onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel');"
+										 update="profileGrid"
+										 actionListener="#{userLoginController.doEdit}"/>
 					</div>
 
 				</h:form>
@@ -161,7 +171,7 @@
 						</p:column>
 
 						<f:facet name="footer">
-							<p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" update="@form"
+							<p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" icon="ui-icon-cancel" update="@form"
 											 action="#{userLoginController.checkReservation}"/>
 						</f:facet>
 					</p:dataTable>
@@ -173,10 +183,13 @@
 
 								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
 
-								<p:commandButton value="Patvirtinti" oncomplete="PF('cancelReservationDialog').hide()"
-												 update="@form,msgs,form1" action="#{userLoginController.cancelReservation}"/>
+								<p:commandButton value="Patvirtinti"
+												 oncomplete="PF('cancelReservationDialog').hide()"
+												 icon="ui-icon-check"
+												 update="@form,msgs,form1"
+												 action="#{userLoginController.cancelReservation}"/>
 
-								<p:commandButton value="Grįžti" oncomplete="PF('cancelReservationDialog').hide()"/>
+								<p:commandButton value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelReservationDialog').hide()"/>
 
 							</p:panelGrid>
 						</p:outputPanel>

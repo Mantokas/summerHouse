@@ -98,13 +98,13 @@
 
                     <f:facet name="footer">
                         <p:commandButton id="archive" process="singleDT"
-                                         update=":userForm:singleDT" icon="ui-icon-folder-collapsed"
+                                         update=":userForm:singleDT" icon="ui-icon-trash"
                                          value="Archyvuoti"
                                          disabled="#{userAdminController.selectedUser == null or userAdminController.selectedUser.archived}"
                                          oncomplete="PF('archiveConfirmationDialog').show()"/>
                         <p:commandButton id="reset" process="singleDT"
                                          action="#{userAdminController.doReset}"
-                                         update=":userForm:singleDT" icon="ui-icon-arrowrefresh-1-e"
+                                         update=":userForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
                                          value="Atstatyti"
                                          disabled="#{userAdminController.selectedUser == null or !userAdminController.selectedUser.archived}"/>
                         <p:commandButton id="addPoints" process="singleDT"
@@ -123,12 +123,14 @@
                           widgetVar="archiveConfirmationDialog" modal="true"
                           showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="confirmationDialog" style="text-align:center;">
-                        <h:outputText value="Ar tikrai norite archyvuoti vasarnamį?"/>
+                        <h:outputText value="Ar tikrai norite archyvuoti vartotoją?"/>
                         <p:commandButton value="Patvirtinti"
+                                         icon="ui-icon-check"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"
                                          update=":userForm:singleDT"
                                          action="#{userAdminController.doArchive}"/>
                         <p:commandButton value="Atšaukti"
+                                         icon="ui-icon-cancel"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"/>
                     </p:outputPanel>
                 </p:dialog>
@@ -140,6 +142,7 @@
                         <p:inputText id="pointsToAdd"
                                      value="#{userAdminController.points}"/>
                         <p:commandButton value="Pridėti"
+                                         icon="ui-icon-plus"
                                          update=":userForm:singleDT,:dialogsForm:pointsToAddDialog,msg"
                                          action="#{userAdminController.doAddPoints}"/>
                     </p:outputPanel>

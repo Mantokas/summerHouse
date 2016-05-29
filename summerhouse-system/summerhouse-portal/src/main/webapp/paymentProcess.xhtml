@@ -43,14 +43,14 @@
                         <p:separator styleClass="customSeparator"/>
 
                         <h:panelGrid columns="1" cellpadding="5">
-                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="customButton"/>
-                            <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}"/>
+                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="customButton"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}"/>
                         </h:panelGrid>
 
                     </p:outputPanel>
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('PAYMENT_PROPERTIES')}">
-                        <h1>Mokėjimo informacija</h1>
+                        <h1 align="center">Mokėjimo informacija</h1>
                         <h:panelGrid id="grid" columns="3" rendered="#{annualFeeController.loggedUser.validTo == null}">
                             <p:outputLabel for="valid" value="Dabartinė narystė galioja iki: "/>
                             <p:inputText id="valid" value="NEGALIOJA" readonly="true"/>
@@ -96,16 +96,21 @@
                         </h:panelGrid>
 
                         <p:separator />
+                        <div align="center">
+                            <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}"/>
+                        </div>
 
-                        <p:commandButton value="Tęsti" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
-                        <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}"/>
                     </p:outputPanel>
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('CONFIRMATION')}">
-                        <h1>Patvirtinimas</h1>
+                        <h1 align="center">Patvirtinimas</h1>
                         <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
-                        <p:commandButton value="Patvirtinti" action="#{annualFeeController.ok}" update="msgs,@form"/>
-                        <p:commandButton value="Atšaukti" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
+                        <div align="center">
+                            <p:commandButton value="Patvirtinti" icon="ui-icon-check" action="#{annualFeeController.ok}" update="msgs,@form"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
+                        </div>
+
                     </p:outputPanel>
 
                 </h:form>
