@@ -2,7 +2,9 @@ package lt.baraksoft.summersystem.portal.view;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class UserView implements Serializable {
 	private static final long serialVersionUID = 2954419213235282035L;
@@ -22,7 +24,8 @@ public class UserView implements Serializable {
 	private byte[] image;
 	private String skypeName;
 	private String description;
-    private String phoneNumber;
+	private String phoneNumber;
+	private List<String> approvers = new ArrayList<>();
 
 	public UserView(String firstName, String lastName, String email, String facebookId, LocalDate birthday) {
 		this.firstName = firstName;
@@ -159,13 +162,13 @@ public class UserView implements Serializable {
 		this.description = description;
 	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	public LocalDate getBirthday() {
 		return birthday;
@@ -173,5 +176,13 @@ public class UserView implements Serializable {
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
+	}
+
+	public List<String> getApprovers() {
+		return approvers;
+	}
+
+	public void setApprovers(List<String> approvers) {
+		this.approvers = approvers;
 	}
 }

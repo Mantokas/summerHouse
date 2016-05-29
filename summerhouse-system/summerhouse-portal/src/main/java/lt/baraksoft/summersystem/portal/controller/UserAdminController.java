@@ -34,6 +34,7 @@ public class UserAdminController implements Serializable {
 	private UserView selectedUser;
 	private String yearlyPayment;
 	private String maxUsersSize;
+	private String approversSize;
 	private UserView user = new UserView();
 	private String points = "";
 	private boolean skypeFieldVisible;
@@ -45,6 +46,7 @@ public class UserAdminController implements Serializable {
 		usersList = userViewHelper.getAllUsers();
 		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
 		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
+		approversSize = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue();
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
@@ -67,6 +69,10 @@ public class UserAdminController implements Serializable {
 
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE);
 		entry.setValue(maxUsersSize);
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE);
+		entry.setValue(approversSize);
 		configurationEntryDao.update(entry);
 
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD);
@@ -189,6 +195,14 @@ public class UserAdminController implements Serializable {
 
 	public void setDescriptionFieldVisible(boolean descriptionFieldVisible) {
 		this.descriptionFieldVisible = descriptionFieldVisible;
+	}
+
+	public String getApproversSize() {
+		return approversSize;
+	}
+
+	public void setApproversSize(String approversSize) {
+		this.approversSize = approversSize;
 	}
 
 }

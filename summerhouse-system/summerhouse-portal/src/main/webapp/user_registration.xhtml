@@ -63,7 +63,7 @@
 						requiredMessage="Pakartokite slaptažodį!" />
 
                     <p:outputLabel for="birthdate" value="Gimimo data:" />
-                    <p:inputMask id="birthdate" value="#{registrationController.userView.birthday}" mask="9999-99-99"
+                    <p:inputMask id="birthdate" value="#{registrationController.birthday}" mask="9999-99-99"
                                 validatorMessage="Neteisinga gimimo data" converterMessage="Neteisinga gimimo data">
                         <f:validateRegex
                                 pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$" />

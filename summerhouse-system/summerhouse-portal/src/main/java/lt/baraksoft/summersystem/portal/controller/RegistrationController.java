@@ -1,6 +1,9 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +34,7 @@ public class RegistrationController implements Serializable {
 	private UserView view;
 	private boolean emailExist;
 	private boolean dialogVisible;
+	private String birthday;
 
 	@PostConstruct
 	public void init() {
@@ -38,11 +42,19 @@ public class RegistrationController implements Serializable {
 	}
 
 	public void registerUser() {
-		emailExist = userViewHelper.register(view);
 		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			view.setBirthday(LocalDate.parse(birthday, formatter));
+		} catch (DateTimeParseException ex) {
+			context.addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Neteisinga gimimo data!", ""));
+		}
+
+		emailExist = userViewHelper.register(view);
 		if (!emailExist) {
 			context.addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
 		}
+
 		List<FacesMessage> messagesList = context.getMessageList();
 		if (messagesList.isEmpty()) {
 			RequestContext context2 = RequestContext.getCurrentInstance();
@@ -76,5 +88,13 @@ public class RegistrationController implements Serializable {
 
 	public void setDialogVisible(boolean dialogVisible) {
 		this.dialogVisible = dialogVisible;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 }

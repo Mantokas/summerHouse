@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.MailService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.Email;
@@ -31,38 +33,44 @@ public class UserController implements Serializable {
 	@Inject
 	private UserLoginController userLoginController;
 
+	@Inject
+	private ConfigurationEntryDao configurationEntryDao;
+
 	private UserView selectedUser;
+	private UserView loggedUser;
 	private List<UserView> users;
 	private String invitationEmail;
 
 	@PostConstruct
 	public void init() {
 		users = userViewHelper.getAllUsers();
+		loggedUser = userLoginController.getLoggedUser();
 	}
 
-	public void refreshUsers(){
-        users = userViewHelper.getAllUsers();
+	public void refreshUsers() {
+		users = userViewHelper.getAllUsers();
 	}
 
-	public void makeSelectedUser(UserView userView){
+	public void makeSelectedUser(UserView userView) {
 		selectedUser = userView;
 	}
 
 	public void doApprove() {
-		if (!selectedUser.isApproved()) {
-			selectedUser.setApproved(true);
+		int minApprovers = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue());
+		if (!selectedUser.isApproved() && !selectedUser.getApprovers().contains(loggedUser.getEmail())) {
+			selectedUser.getApprovers().add(loggedUser.getEmail());
+			selectedUser.setApproved(selectedUser.getApprovers().size() >= minApprovers ? true : false);
 			userViewHelper.save(selectedUser);
+		} else {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Klaida!", "Jūs jau patvirtinote šį vartotoją!"));
 		}
-        else{
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Klaida!", "Šis vartotojas yra klubo narys"));
-        }
 	}
 
-    public String goToDetailedUser(UserView userView){
-        selectedUser = userView;
-        return "/userinfo.xhtml?faces-redirect=true";
-    }
+	public String goToDetailedUser(UserView userView) {
+		selectedUser = userView;
+		return "/userinfo.xhtml?faces-redirect=true";
+	}
 
 	public void sendInvitationMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -78,8 +86,8 @@ public class UserController implements Serializable {
 		}
 
 		Email email = new Email();
-		email.setMessageContent("Klubo narys: " + userLoginController.getLoggedUser().getFirstName()
-				+" " + userLoginController.getLoggedUser().getLastName() + " atsiuntė jums pakvietimą prisijungti prie klubo! Spauskite ant nuorodos, kad galėtumėte pradėti registraciją \n http://193.219.91.103:13579/summerhouse-portal");
+		email.setMessageContent("Klubo narys: " + loggedUser.getFirstName() + " " + loggedUser.getLastName()
+				+ " atsiuntė jums pakvietimą prisijungti prie klubo! Spauskite ant nuorodos, kad galėtumėte pradėti registraciją \n http://193.219.91.103:13579/summerhouse-portal");
 		email.setRecipient(invitationEmail);
 		email.setSubject("Pakvietimas į klubą \"Labanoro draugai\"");
 		mailService.sendMessage(email);
@@ -108,5 +116,21 @@ public class UserController implements Serializable {
 
 	public void setUsers(List<UserView> users) {
 		this.users = users;
+	}
+
+	public UserView getLoggedUser() {
+		return loggedUser;
+	}
+
+	public void setLoggedUser(UserView loggedUser) {
+		this.loggedUser = loggedUser;
+	}
+
+	public ConfigurationEntryDao getConfigurationEntryDao() {
+		return configurationEntryDao;
+	}
+
+	public void setConfigurationEntryDao(ConfigurationEntryDao configurationEntryDao) {
+		this.configurationEntryDao = configurationEntryDao;
 	}
 }

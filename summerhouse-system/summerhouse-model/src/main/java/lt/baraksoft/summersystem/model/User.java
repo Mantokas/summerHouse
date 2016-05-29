@@ -6,16 +6,20 @@
 package lt.baraksoft.summersystem.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -94,6 +98,10 @@ public class User implements IEntity<Integer> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Reservation> reservationList;
 
+	@ElementCollection
+	@CollectionTable(name = "Users_Approvers", joinColumns = @JoinColumn(name = "id") )
+	@Column(name = "approver")
+	private Set<String> approvers = new HashSet<>();
 
 	@Version
 	private Integer version;
@@ -266,6 +274,14 @@ public class User implements IEntity<Integer> {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public Set<String> getApprovers() {
+		return approvers;
+	}
+
+	public void setApprovers(Set<String> approvers) {
+		this.approvers = approvers;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -291,4 +307,5 @@ public class User implements IEntity<Integer> {
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.User[ id=" + id + " ]";
 	}
+
 }

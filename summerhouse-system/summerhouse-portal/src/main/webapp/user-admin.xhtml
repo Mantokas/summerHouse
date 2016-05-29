@@ -41,6 +41,14 @@
                                  validatorMessage="Kiekis gali susidėti tik iš skaičių">
                         <f:validateRegex pattern="^[0-9]*$"/>
                     </p:inputText>
+                    
+                    <p:outputLabel for="approversSize" value="Minimalus patvirtinimų skaičius" />
+                    <p:inputText style="margin-bottom: 5px"
+                                 id="approversSize"
+                                 value="#{userAdminController.approversSize}"
+                                 validatorMessage="Kiekis gali susidėti tik iš skaičių">
+                        <f:validateRegex pattern="^[0-9]*$"/>
+                    </p:inputText>
 
                     <h:outputText value="Skype laukas" />
                     <p:selectBooleanCheckbox style="margin-bottom: 5px"

@@ -1,7 +1,7 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,7 +14,7 @@ import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
-public class UserViewHelperImpl implements UserViewHelper, Serializable{
+public class UserViewHelperImpl implements UserViewHelper {
 
 	@Inject
 	private UserDao userDao;
@@ -37,33 +37,16 @@ public class UserViewHelperImpl implements UserViewHelper, Serializable{
 		entity.setGroupNumber(view.getGroupNumber());
 		entity.setValidTo(view.getValidTo());
 		entity.setImage(view.getImage());
-        entity.setSkypeName(view.getSkypeName());
-        entity.setDescription(view.getDescription());
-        entity.setPhoneNumber(view.getPhoneNumber());
+		entity.setSkypeName(view.getSkypeName());
+		entity.setDescription(view.getDescription());
+		entity.setPhoneNumber(view.getPhoneNumber());
+		entity.setApprovers(new HashSet<>(view.getApprovers()));
 		userDao.update(entity);
 	}
 
 	@Override
 	public UserView getUser(Integer id) {
-		User entity = userDao.get(id);
-		UserView view = new UserView();
-		view.setId(entity.getId());
-		view.setFirstName(entity.getFirstname());
-		view.setLastName(entity.getLastname());
-		view.setEmail(entity.getEmail());
-		view.setFacebookId(entity.getFacebookId());
-		view.setBirthday(entity.getBirthdate());
-		view.setApproved(entity.isApproved());
-		view.setArchived(entity.isArchived());
-		view.setPassword(entity.getPassword());
-		view.setPoints(entity.getPoints());
-		view.setGroupNumber(entity.getGroupNumber());
-		view.setValidTo(entity.getValidTo());
-		view.setImage(entity.getImage());
-        view.setSkypeName(entity.getSkypeName());
-        view.setDescription(entity.getDescription());
-        view.setPhoneNumber(entity.getPhoneNumber());
-		return view;
+		return buildView(userDao.get(id));
 	}
 
 	@Override
@@ -96,7 +79,7 @@ public class UserViewHelperImpl implements UserViewHelper, Serializable{
 
 	@Override
 	public boolean register(UserView view) {
-		if (userDao.getUserByEmail(view.getEmail()) != null){
+		if (userDao.getUserByEmail(view.getEmail()) != null) {
 			return false;
 		}
 		save(view);
@@ -120,9 +103,10 @@ public class UserViewHelperImpl implements UserViewHelper, Serializable{
 		view.setImage(entity.getImage());
 		view.setValidTo(entity.getValidTo());
 		view.setImage(entity.getImage());
-        view.setSkypeName(entity.getSkypeName());
-        view.setDescription(entity.getDescription());
-        view.setPhoneNumber(entity.getPhoneNumber());
+		view.setSkypeName(entity.getSkypeName());
+		view.setDescription(entity.getDescription());
+		view.setPhoneNumber(entity.getPhoneNumber());
+		view.getApprovers().addAll(entity.getApprovers());
 		return view;
 	}
 }
