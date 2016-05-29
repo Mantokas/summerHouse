@@ -54,6 +54,7 @@
 		<navigation-case>
 			<from-outcome>goToLoggedPage</from-outcome>
 			<to-view-id>/index.xhtml?faces-redirect=true</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	
