@@ -34,6 +34,9 @@
 					<p:column headerText="Kaina" sortBy="#{service.price}">
 						<h:outputText value="#{service.price}" />
 					</p:column>
+					<p:column headerText="Aprašymas" sortBy="#{service.description}">
+						<h:outputText value="#{service.description}" />
+					</p:column>
 					<p:column headerText="Archyvuota" sortBy="#{service.archived}">
 						<h:outputText value="#{service.archivedString}" />
 					</p:column>

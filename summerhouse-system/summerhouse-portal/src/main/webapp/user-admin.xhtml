@@ -17,7 +17,10 @@
         <ui:define name="title">Naudotojų administravimas</ui:define>
         <ui:define name="content">
 
+            <p:growl id="msgs" showDetail="true"/>
+
             <h:form id="configs">
+
                 <h:panelGrid columns="2" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
                     <f:facet name="header">
                         <h:panelGroup >
@@ -65,7 +68,7 @@
                         <h:panelGroup styleClass="panel-footer" style="display:block; text-align:center;
                          margin-bottom: -10px;    margin-left: -10px;    margin-right: -10px;">
                             <p:commandButton styleClass="btn btn-success"
-                                             id="saveConfigs"
+                                             id="saveConfigs" update="msgs"
                                              icon="ui-icon-disk"
                                              value="Išsaugoti nustatymus" action="#{userAdminController.doSaveConfigs}"/>
                         </h:panelGroup>
@@ -75,6 +78,8 @@
             </h:form>
 
             <h:form id="userForm">
+                <p:growl id="msgs2" showDetail="true"/>
+
                 <p:dataTable id="singleDT" var="user" rowKey="#{user.id}"
                              value="#{userAdminController.usersList}" selectionMode="single"
                              selection="#{userAdminController.selectedUser}">
@@ -82,14 +87,14 @@
                     <f:facet name="header">
                         Naudotojai
                     </f:facet>
+                    <p:column headerText="El. pašto adresas" sortBy="#{user.email}">
+                        <h:outputText value="#{user.email}"/>
+                    </p:column>
                     <p:column headerText="Vardas" sortBy="#{user.firstName}">
                         <h:outputText value="#{user.firstName}"/>
                     </p:column>
                     <p:column headerText="Pavardė" sortBy="#{user.lastName}">
                         <h:outputText value="#{user.lastName}"/>
-                    </p:column>
-                    <p:column headerText="El. pašto adresas" sortBy="#{user.email}">
-                        <h:outputText value="#{user.email}"/>
                     </p:column>
                     <p:column headerText="Archyvuotas" sortBy="#{user.archivedString}">
                         <h:outputText value="#{user.archivedString}"/>
@@ -107,20 +112,20 @@
                     <f:facet name="footer">
                         <p:commandButton id="archive" process="singleDT"
                                          styleClass="btn btn-danger"
-                                         update=":userForm:singleDT" icon="ui-icon-trash"
+                                         update="@form" icon="ui-icon-trash"
                                          value="Archyvuoti"
                                          disabled="#{userAdminController.selectedUser == null or userAdminController.selectedUser.archived}"
                                          oncomplete="PF('archiveConfirmationDialog').show()"/>
                         <p:commandButton id="reset" process="singleDT"
                                          styleClass="btn btn-warning"
                                          action="#{userAdminController.doReset}"
-                                         update=":userForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
+                                         update="@form" icon="ui-icon-arrowreturnthick-1-w"
                                          value="Atstatyti"
                                          disabled="#{userAdminController.selectedUser == null or !userAdminController.selectedUser.archived}"/>
                         <p:commandButton id="addPoints" process="singleDT"
                                          styleClass="btn btn-success"
-                                         update=":userForm:singleDT" icon="ui-icon-plus"
-                                         value="Pridėti tašų"
+                                         update="@form" icon="ui-icon-plus"
+                                         value="Pridėti taškų"
                                          disabled="#{userAdminController.selectedUser == null}"
                                          oncomplete="PF('pointsDialog').show()"/>
                     </f:facet>

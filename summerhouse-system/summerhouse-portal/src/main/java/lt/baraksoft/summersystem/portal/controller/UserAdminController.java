@@ -25,6 +25,9 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class UserAdminController implements Serializable {
 	private static final long serialVersionUID = -8711749859957428877L;
 
+    private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
+    private static final String CHANGES_SAVED2 = "";
+
 	@EJB
 	private UserViewHelper userViewHelper;
 
@@ -61,7 +64,13 @@ public class UserAdminController implements Serializable {
 	public void doReset() {
 		selectedUser.setArchived(false);
 		userViewHelper.save(selectedUser);
+        createChangesSuccessMessage();
 	}
+
+    private void createChangesSuccessMessage(){
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, CHANGES_SAVED, CHANGES_SAVED2);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
 	public void doSaveConfigs() {
 		ConfigurationEntry entry = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE);
@@ -87,6 +96,8 @@ public class UserAdminController implements Serializable {
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD);
 		entry.setValue(String.valueOf(descriptionFieldVisible));
 		configurationEntryDao.update(entry);
+
+        createChangesSuccessMessage();
 	}
 
 	public void doAddPoints() {
@@ -108,6 +119,8 @@ public class UserAdminController implements Serializable {
 		userViewHelper.save(selectedUser);
 		points = "";
 		RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
+
+        createChangesSuccessMessage();
 	}
 
 	public UserViewHelper getUserViewHelper() {
