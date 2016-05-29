@@ -94,7 +94,7 @@
 								value="#{serviceAdminController.service.description}"
 								required="false" />
 
-							<p:commandButton id="save" value="Išsaugoti" ajax="false"
+							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk" ajax="false"
 								actionListener="#{serviceAdminController.doSave}"
 								update=":serviceForm:singleDT, :form:servicesDetail" />
 
@@ -111,16 +111,16 @@
 					<h:outputText value="Ar tikrai norite archyvuoti paslaugą?" />
 
 					<p:commandButton value="Patvirtinti"
+						icon="ui-icon-check"
 						oncomplete="PF('archiveConfirmationDialog').hide()"
 						update=":serviceForm:singleDT"
 						action="#{serviceAdminController.doArchive}" />
 
-					<p:commandButton value="Atšaukti"
+					<p:commandButton value="Atšaukti" icon="ui-icon-cancel"
 						oncomplete="PF('archiveConfirmationDialog').hide()" />
 
 				</p:outputPanel>
 			</p:dialog>
-
 		</ui:define>
 	</ui:composition>
 </h:body>

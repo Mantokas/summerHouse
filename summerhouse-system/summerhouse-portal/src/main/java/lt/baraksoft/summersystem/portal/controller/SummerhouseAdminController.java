@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,7 +30,7 @@ public class SummerhouseAdminController implements Serializable {
 	private static final Long MAX_IMAGE_SIZE = 4000000L;
 	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 
-	@Inject
+	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
 
 	private List<SummerhouseView> summerhousesList;
