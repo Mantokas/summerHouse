@@ -17,6 +17,9 @@
             action="#{userLoginController.collectMyReservations}" />
     <f:viewAction
             action="#{userLoginController.updateLoggedUser}" />
+	<f:viewAction
+			action="#{userLoginController.updateDisabledFields}" />
+
 </f:metadata>
 
 <h:body>
@@ -26,10 +29,14 @@
 
 				<h:form enctype="multipart/form-data" id="form1" >
 					<h2 align="center">Vartotojo profilis</h2>
+
 					<h:panelGrid columns="1" styleClass="panel panel-default">
 						<h:graphicImage
-								value="#{userLoginController.loggedUser.encodedImage}"
+								value="#{userLoginController.loggedUser.encodedImage}" rendered="#{userLoginController.loggedUser.encodedImage ne null}"
 								styleClass="user-view-img" />
+                        <h:graphicImage value="resources/images/defaultUserImage.png"
+                                        styleClass="img-responsive customImage" rendered="#{userLoginController.loggedUser.encodedImage eq null}"/>
+
 					</h:panelGrid>
 					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
 						<h:outputLabel value="Vardas: " />
@@ -55,7 +62,7 @@
 
 						<h:outputLabel value="El. paštas: "/>
 						<p:inputText readonly="true"
-									 disabled="#{!userLoginController.editable}"
+									 disabled="true"
 									 value="#{userLoginController.loggedUser.email}"/>
 
 						<h:outputLabel value="Statusas: "/>
@@ -84,20 +91,17 @@
                                      disabled="true"/>
 
                         <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
-                        <p:inputText readonly="true"
-                                     value="#{userLoginController.loggedUser.skypeName}"
+                        <p:inputText value="#{userLoginController.loggedUser.skypeName}"
 									 disabled="#{!userLoginController.editable}"
 									 rendered="#{userLoginController.skypeNameEnabled}"/>
 
                         <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
-                        <p:inputText readonly="true"
-                                     value="#{userLoginController.loggedUser.phoneNumber}"
+                        <p:inputMask value="#{userLoginController.loggedUser.phoneNumber}"
 									 disabled="#{!userLoginController.editable}"
-                                     rendered="#{userLoginController.phoneNumberEnabled}"/>
+                                     rendered="#{userLoginController.phoneNumberEnabled}" mask="+370 999 99999"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
-                        <p:inputText readonly="true"
-                                     value="#{userLoginController.loggedUser.description}"
+                        <p:inputText value="#{userLoginController.loggedUser.description}"
 									 disabled="#{!userLoginController.editable}"
                                      rendered="#{userLoginController.descriptionEnabled}"/>
 					</h:panelGrid>
@@ -110,25 +114,12 @@
 					</div>
 
 					<div id="saveChanges" align="center" style="display: none">
-						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();" ajax="false"/>
+						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" ajax="false"/>
 					</div>
 
 					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
 						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
 					</div>
-
-					<p:confirmDialog header="Patvirtinimas"
-						widgetVar="infoUpdateConfirmDialog" modal="true" showEffect="fade"
-						hideEffect="fade" resizable="false">
-						<p:outputPanel style="text-align:center;">
-							<p:panelGrid>
-
-								<h:outputText value="Informacija atnaujinta!"/><br/>
-								<p:commandButton value="Gerai" oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
-
-							</p:panelGrid>
-						</p:outputPanel>
-					</p:confirmDialog>
 
 				</h:form>
 
@@ -143,7 +134,7 @@
 						selectionMode="single"
 						selection="#{userLoginController.selectedReservation}"
 						rowKey="#{reservation.id}"
-						rendered="#{userLoginController.loggedUser.approved}" emptyMessage="Vartotojas neturi rezervacijų">
+						rendered="#{userLoginController.loggedUser.approved}" emptyMessage="Neturite rezervacijų">
 						<f:facet name="header">
 							Rezervacijos
 						</f:facet>

@@ -34,8 +34,10 @@
 
                             <h:panelGrid columns="2" style="width:100%" columnClasses="thirty-percent, seventy-percent">
                                 <p:column headerText="profileImage">
-                                    <h:graphicImage value="#{userController.selectedUser.encodedImage}" styleClass="img-responsive customImage"/>
-                                    <h:graphicImage value="resources/images/defaultUserImage.png" styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image == null}"/>
+                                    <h:graphicImage value="#{userController.selectedUser.encodedImage}"
+                                                    styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image ne null}"/>
+                                    <h:graphicImage value="resources/images/defaultUserImage.png"
+                                                    styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image eq null}"/>
                                 </p:column>
 
                                 <p:column headerText="profile">
