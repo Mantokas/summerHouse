@@ -11,11 +11,10 @@
 	<h:head>
 		<h:outputScript library="primefaces" name="jquery/jquery.js"/>
 		<h:outputScript library="js" name="bootstrap.js"/>
-		<title><ui:insert name="title">PSK web APP</ui:insert></title>
+		<title><ui:insert name="title">Prisijungimas</ui:insert></title>
 		<h:outputStylesheet library="css" name="bootstrap.css"/>
 		<h:outputStylesheet library="css" name="footer-style.css"/>
-		<h:outputStylesheet library="css" name="navbar.css"/>
-		<h:outputStylesheet library="css" name="breadcrumb.css"/>
+		<h:outputStylesheet library="css" name="signin.css"/>
     </h:head>
     <h:body>
 
@@ -27,14 +26,11 @@
 			</ui:insert>
 	    </div>
 
-
 	    <div id="content" >
 		   	<ui:insert name="content" >
 		   		<ui:include src="/template/common/commonContent.xhtml" />
 		   	</ui:insert>
 	    </div>
-
-
 
 	    <div id="footer">
 	    	<ui:insert name="footer" >

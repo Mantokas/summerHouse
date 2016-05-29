@@ -1,7 +1,13 @@
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: rgb(255, 255, 255);
+  padding: 0px;
+  background-image: url('../resources/images/signin.jpg')!important;
+  width: 100%;
+  text-align: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
 }
 
 .form-signin {
@@ -46,18 +52,13 @@ body {
   max-width: 100%;
 }
 
-.customlogin {
-  background-image: url('../resources/images/Labanoras2.jpg') !important;
-  text-align: center;
-  min-height: 500px;
-  width: 100%;
-  height: 600px;
-}
+
 
 .customloginform {
   display: inline-block;
   padding: 20px;
   border-radius: 2em;
   background-color: rgba(255, 255, 255, 0.56);
-  margin-top: 240px;
+  margin-top: 60%;
+  margin-bottom: 60%;
 }
