@@ -40,7 +40,7 @@
                                         styleClass="img-responsive customImage" rendered="#{userLoginController.loggedUser.encodedImage eq null}"/>
 
 					</h:panelGrid>
-					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
+					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default panel-default-padding">
 						<h:outputLabel value="Vardas: " />
 						<p:inputText value="#{userLoginController.loggedUser.firstName}"
 									 required="true"
@@ -206,12 +206,13 @@
 								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
 
 								<p:commandButton value="Patvirtinti"
+												 styleClass="btn btn-success"
 												 oncomplete="PF('cancelReservationDialog').hide()"
 												 icon="ui-icon-check"
 												 update="@form,msgs,form1"
 												 action="#{userLoginController.cancelReservation}"/>
 
-								<p:commandButton value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelReservationDialog').hide()"/>
+								<p:commandButton styleClass="btn btn-warning" value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelReservationDialog').hide()"/>
 
 							</p:panelGrid>
 						</p:outputPanel>

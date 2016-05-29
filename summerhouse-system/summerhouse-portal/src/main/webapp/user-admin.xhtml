@@ -21,7 +21,7 @@
 
             <h:form id="configs">
 
-                <h:panelGrid columns="2" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
+                <h:panelGrid columns="2" styleClass="panel panel-default panel-default-padding">
                     <f:facet name="header">
                         <h:panelGroup >
                             <h3 class="panel-title" style="font-weight: bold;text-align: center;margin-bottom: 5px;">Nustatymai</h3>
@@ -44,7 +44,7 @@
                                  validatorMessage="Kiekis gali susidėti tik iš skaičių">
                         <f:validateRegex pattern="^[0-9]*$"/>
                     </p:inputText>
-                    
+
                     <p:outputLabel for="approversSize" value="Minimalus patvirtinimų skaičius" />
                     <p:inputText style="margin-bottom: 5px"
                                  id="approversSize"
@@ -80,7 +80,7 @@
             <h:form id="userForm">
                 <p:growl id="msgs2" showDetail="true"/>
 
-                <p:dataTable id="singleDT" var="user" rowKey="#{user.id}"
+                <p:dataTable id="singleDT" var="user" rowKey="#{user.id}" styleClass="panel panel-default"
                              value="#{userAdminController.usersList}" selectionMode="single"
                              selection="#{userAdminController.selectedUser}">
                     <p:ajax event="rowSelect" update="archive, reset, addPoints"/>

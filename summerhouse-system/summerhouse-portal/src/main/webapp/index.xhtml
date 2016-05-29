@@ -29,7 +29,7 @@
 				<h:panelGroup styleClass="customMainPageSearch">
 					<h:panelGroup>
                         <div>
-                            <h2>
+                            <h2 style="color: black;">
                                 <p:outputLabel value="Vasarnamių paieška"/>
                             </h2>
                         </div>
@@ -47,8 +47,8 @@
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 
-						<p:outputLabel for="title" value="Pavadinimas:" />
-						<p:inputText id="title"
+						<p:outputLabel for="searchtitle" value="Pavadinimas:" />
+						<p:inputText id="searchtitle"
 							value="#{searchController.searchObject.title}"
 							style="margin-left: 10px; margin-right: 20px">
 						</p:inputText>
@@ -79,7 +79,7 @@
 					styleClass="customDataGrid"
 					emptyMessage="Nerasta vasarnamių">
 
-					<p:panel header="#{summerhouse.title}" styleClass="customResults" style="overflow: overlay;">
+					<p:panel header="#{summerhouse.title}" styleClass="panel panel-default customResults" style="overflow: overlay;">
 						<h:panelGrid columns="1" style="width:100%; margin-bottom: 10px;">
 							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
 						</h:panelGrid>
@@ -93,7 +93,8 @@
 							<p:commandButton id="reserveSummerhouse"
 											 styleClass="btn btn-default"
 											 process="cars"
-								value="Rezervuoti" icon="ui-icon-plus" update="@form"
+											 style="padding: 1px"
+								value="Rezervuoti"  update="@form"
 								action="#{searchController.doSelectSummerhouse}"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 
@@ -105,35 +106,59 @@
 				<p:dialog header="Vasarnamio informacija"
 					widgetVar="summerhouseDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
-					<p:outputPanel id="summerhousesDetail" style="text-align:center;">
 
-						<p:panelGrid columns="2">
-							<h:outputText value="Pavadinimas:" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.title}" />
+					<p:outputPanel id="summerhousesDetail" style="text-align:center;" >
+					<h:graphicImage
+							value="#{summerhouseAdminController.summerhouse.encodedImage}"
+							styleClass="user-view-img" />
+					<h:panelGrid columns="2" id="grid" cellpadding="5" styleClass="panel panel-default panel-default-padding" style="margin-top: 5px">
+					<p:outputLabel for="title" value="Pavadinimas" />
+					<p:inputText id="title"
+								 value="#{searchController.selectedSummerhouse.title}"
+								 disabled="true"
+								 />
 
-							<h:outputText value="Adresas:" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.address}" />
+					<p:outputLabel for="adress" value="Adresas" />
+					<p:inputText id="adress"
+								 value="#{searchController.selectedSummerhouse.address}"
+								 disabled="true"
+					/>
+					<p:outputLabel for="capacity"
+								   value="Vasarnamio talpinamų žmonių skaičius" />
+					<p:inputText  id="capacity"
+								  value="#{searchController.selectedSummerhouse.capacity}"
+								  disabled="true"
+									/>
 
-							<h:outputText value="Aprašymas:" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.description}" />
+					<p:outputLabel for="dateFrom" required="true"
+								   value="Vasarnamis rezervuojamas nuo:" />
+					<p:inputText  id="dateFrom"
+								  value="#{searchController.selectedSummerhouse.dateFrom}"
+								  disabled="true"
+								/>
 
-							<h:outputText value="Maksimalus vietų skaičius" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.capacity}" />
+					<p:outputLabel  for="dateTo" required="true"
+								   value="Vasarnamis rezervuojamas iki:" />
+					<p:inputText  id="dateTo"
+								  value="#{searchController.selectedSummerhouse.dateTo}"
+								  disabled="true"
+								 />
 
-							<h:outputText value="Galima rezervuoti nuo" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.dateFrom}" />
+					<p:outputLabel for="price"
+								   value="Vasarnamio nuomos savaitei kaina:" />
+					<p:inputText id="price"
+								 value="#{searchController.selectedSummerhouse.price}"
+								 disabled="true"
+									/>
 
-							<h:outputText value="Galima rezervuoti iki" />
-							<h:outputText
-								value="#{searchController.selectedSummerhouse.dateTo}" />
-						</p:panelGrid>
+					<p:outputLabel for="description" value="Aprašymas" />
+					<p:inputText id="description"
+								 value="#{searchController.selectedSummerhouse.description}"
+								 disabled="true" />
 
-                        <p:dataGrid var="reservation" value="#{searchController.reservations}" columns="1" layout="grid"
+					</h:panelGrid>
+                        <p:dataGrid style="margin-top: 5px"
+								var="reservation" value="#{searchController.reservations}" columns="1" layout="grid"
                                     id="reservationList" rowIndexVar="row" emptyMessage="Rezervacijų nėra">
 
                             <f:facet name="header">

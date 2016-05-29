@@ -43,12 +43,14 @@
 
 					<f:facet name="footer">
 						<p:commandButton id="create"
+							styleClass="btn btn-success"
 							action="#{serviceAdminController.doShowCreateDialog}"
 							update=":form:servicesDetail" icon="ui-icon-plus"
 							value="Sukurti naują" oncomplete="PF('serviceDialog').show()">
 							<p:resetInput target=":form:servicesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit"
+							styleClass="btn btn-info"
 							action="#{serviceAdminController.doShowEditDialog}"
 							update=":form:servicesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
@@ -57,11 +59,13 @@
 							<p:resetInput target=":form:servicesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
+										 styleClass="btn btn-danger"
 							update=":form:servicesDetail" icon="ui-icon-trash"
 							value="Archyvuoti"
 							disabled="#{serviceAdminController.selectedService == null or serviceAdminController.selectedService.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
+										 styleClass="btn btn-warning"
 							action="#{serviceAdminController.doReset}"
 							update=":serviceForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"
@@ -98,6 +102,7 @@
 								required="false" />
 
 							<p:commandButton id="save" value="Išsaugoti" icon="ui-icon-disk"
+											 styleClass="btn btn-success"
 								actionListener="#{serviceAdminController.doSave}"
 								update=":serviceForm:singleDT, :form:servicesDetail"
                             />

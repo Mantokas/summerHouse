@@ -188,10 +188,9 @@
 
 .customResults{
     text-align: center;
-    border-width: medium;
-    border-color: green;
-    border-radius: 1em;
-    background-color: rgba(71, 255, 0, 0.13);
+    border-width: 2px;
+    border-color: #556955;
+    background-color: rgba(85, 98, 54, 0.41);
     height: 300px;
 }
 
@@ -236,6 +235,19 @@
 .customDataGrid{
 
 }
+
+.customDataGrid > div{
+    border: 0px;
+    background: transparent;
+}
+.customDataGrid > .ui-paginator.ui-paginator-bottom{
+
+}
+
+#summerhousesDetail .panel .panel-default .panel-default-padding table > td{
+    color: black;
+}
+
 
 .customServiceViewsBlue{
     text-align: center;
