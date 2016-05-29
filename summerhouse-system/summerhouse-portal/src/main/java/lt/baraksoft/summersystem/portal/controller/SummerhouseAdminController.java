@@ -48,9 +48,9 @@ public class SummerhouseAdminController implements Serializable {
 		summerhouse.setDateFrom(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		summerhouse.setDateTo(dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		try {
-			if (image != null && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
+			if (image != null && image.getSize() > 0 && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
 				summerhouse.setImage(IOUtils.toByteArray(image.getInputstream()));
-			} else if (image != null) {
+			} else if (image != null && image.getSize() > 0) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Klaida!", IMAGE_TOO_LARGE);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return;

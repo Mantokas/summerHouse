@@ -48,8 +48,8 @@ public class UserLoginController implements Serializable {
 	private static final String RESERVATION_CANCEL_SUCCESSFUL2 = "";
 	private static final String IMAGE_TOO_LARGE = "Paveiksliukas yra per didelis!";
 	private static final String ERROR_MESSAGE = "Klaida";
-    private static final String USER_UPDATED = "Duomenys atnaujinti";
-    private static final String USER_UPDATED2 = "";
+	private static final String USER_UPDATED = "Duomenys atnaujinti";
+	private static final String USER_UPDATED2 = "";
 	private static final Long MAX_IMAGE_SIZE = 8000000L;
 
 	@EJB
@@ -72,20 +72,20 @@ public class UserLoginController implements Serializable {
 	private String password;
 	private UploadedFile image;
 	private boolean editable;
-    private boolean skypeNameEnabled;
-    private boolean descriptionEnabled;
-    private boolean phoneNumberEnabled;
+	private boolean skypeNameEnabled;
+	private boolean descriptionEnabled;
+	private boolean phoneNumberEnabled;
 
-    @PostConstruct
-    public void updateDisabledFields(){
-        skypeNameEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
-        descriptionEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
-        phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
-    }
+	@PostConstruct
+	public void updateDisabledFields() {
+		skypeNameEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
+		descriptionEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
+		phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
+	}
 
-    public void updateLoggedUser(){
-        loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
-    }
+	public void updateLoggedUser() {
+		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
+	}
 
 	public void collectMyReservations() {
 		myReservations = reservationViewHelper.getReservations();
@@ -115,12 +115,12 @@ public class UserLoginController implements Serializable {
 
 	public void updateUser() {
 		try {
-            FacesMessage msg;
-			if (image != null && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
+			FacesMessage msg;
+			if (image != null && image.getSize() > 0 && (image.getSize() * 2) < MAX_IMAGE_SIZE) {
 				loggedUser.setImage(IOUtils.toByteArray(image.getInputstream()));
-                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, USER_UPDATED, USER_UPDATED2);
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else if (image != null) {
+				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, USER_UPDATED, USER_UPDATED2);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else if (image != null && image.getSize() > 0) {
 				msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, IMAGE_TOO_LARGE);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return;
@@ -230,27 +230,27 @@ public class UserLoginController implements Serializable {
 		this.editable = editable;
 	}
 
-    public boolean isSkypeNameEnabled() {
-        return skypeNameEnabled;
-    }
+	public boolean isSkypeNameEnabled() {
+		return skypeNameEnabled;
+	}
 
-    public void setSkypeNameEnabled(boolean skypeNameEnabled) {
-        this.skypeNameEnabled = skypeNameEnabled;
-    }
+	public void setSkypeNameEnabled(boolean skypeNameEnabled) {
+		this.skypeNameEnabled = skypeNameEnabled;
+	}
 
-    public boolean isDescriptionEnabled() {
-        return descriptionEnabled;
-    }
+	public boolean isDescriptionEnabled() {
+		return descriptionEnabled;
+	}
 
-    public void setDescriptionEnabled(boolean descriptionEnabled) {
-        this.descriptionEnabled = descriptionEnabled;
-    }
+	public void setDescriptionEnabled(boolean descriptionEnabled) {
+		this.descriptionEnabled = descriptionEnabled;
+	}
 
-    public boolean isPhoneNumberEnabled() {
-        return phoneNumberEnabled;
-    }
+	public boolean isPhoneNumberEnabled() {
+		return phoneNumberEnabled;
+	}
 
-    public void setPhoneNumberEnabled(boolean phoneNumberEnabled) {
-        this.phoneNumberEnabled = phoneNumberEnabled;
-    }
+	public void setPhoneNumberEnabled(boolean phoneNumberEnabled) {
+		this.phoneNumberEnabled = phoneNumberEnabled;
+	}
 }
