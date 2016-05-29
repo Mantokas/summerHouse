@@ -51,9 +51,11 @@
 							style="margin-left: 10px; margin-right: 20px">
 						</p:inputText>
 
-						<h:commandButton styleClass="leftMargin" value="Ieškoti"
-							action="#{searchController.doUpdateSummerhouseList}"
-							update=":form2" />
+						<h:commandButton styleClass="btn btn-default leftMargin"
+										 value="Ieškoti"
+										 icon="ui-icon-search"
+										 action="#{searchController.doUpdateSummerhouseList}"
+										 update=":form2" />
 
 					</h:panelGroup>
 
@@ -79,11 +81,15 @@
 
 							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
 							
-							<p:commandButton id="reviewSummerhouse" process="cars"
+							<p:commandButton id="reviewSummerhouse"
+											 styleClass="btn btn-sm btn-default"
+											 process="cars"
 								update=":form2:summerhousesDetail" icon="ui-icon-search"
 								value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
-							<p:commandButton id="reserveSummerhouse" process="cars"
+							<p:commandButton id="reserveSummerhouse"
+											 styleClass="btn btn-sm btn-default"
+											 process="cars"
 								value="Rezervuoti" update="@form"
 								action="#{searchController.doSelectSummerhouse}"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />

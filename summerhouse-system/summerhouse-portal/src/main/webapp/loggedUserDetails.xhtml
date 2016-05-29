@@ -24,22 +24,14 @@
 		<ui:define name="content">
 			<f:view>
 
-				<h:form style="padding-left: 10px; margin-bottom: 20px;">
-					<p:commandButton styleClass="btn btn-lg btn-success"
-									 value="Sumokėti metinį narystės mokestį" type="submit"
-									 action="#{navigationController.goToPayment}" immediate="true"/>
-
-				</h:form>
-
-
 				<h:form enctype="multipart/form-data" id="form1" >
 					<h2 align="center">Vartotojo profilis</h2>
-					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5">
-                     <div></div>
+					<h:panelGrid columns="1" styleClass="panel panel-default">
 						<h:graphicImage
-							value="#{userLoginController.loggedUser.encodedImage}"
-							styleClass="user-view-img" />
-
+								value="#{userLoginController.loggedUser.encodedImage}"
+								styleClass="user-view-img" />
+					</h:panelGrid>
+					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
 						<h:outputLabel value="Vardas: " />
 						<p:inputText value="#{userLoginController.loggedUser.firstName}"
 									 required="true"
@@ -57,13 +49,13 @@
 									 validatorMessage="Pavardė gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
-									 disabled="true">
+									 disabled="#{!userLoginController.editable}">
 							<f:validateRegex pattern="[a-zA-ZA-ZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
 						<h:outputLabel value="El. paštas: "/>
 						<p:inputText readonly="true"
-									 disabled="true"
+									 disabled="#{!userLoginController.editable}"
 									 value="#{userLoginController.loggedUser.email}"/>
 
 						<h:outputLabel value="Statusas: "/>
@@ -94,18 +86,22 @@
                         <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
                         <p:inputText readonly="true"
                                      value="#{userLoginController.loggedUser.skypeName}"
-                                     disabled="true" rendered="#{userLoginController.skypeNameEnabled}"/>
+									 disabled="#{!userLoginController.editable}"
+									 rendered="#{userLoginController.skypeNameEnabled}"/>
 
                         <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
                         <p:inputText readonly="true"
                                      value="#{userLoginController.loggedUser.phoneNumber}"
-                                     disabled="true" rendered="#{userLoginController.phoneNumberEnabled}"/>
+									 disabled="#{!userLoginController.editable}"
+                                     rendered="#{userLoginController.phoneNumberEnabled}"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
                         <p:inputText readonly="true"
                                      value="#{userLoginController.loggedUser.description}"
-                                     disabled="true" rendered="#{userLoginController.descriptionEnabled}"/>
+									 disabled="#{!userLoginController.editable}"
+                                     rendered="#{userLoginController.descriptionEnabled}"/>
 					</h:panelGrid>
+
 
 					<div id="addPhoto" align="center" style="display: none">
 						<p:fileUpload id="image" label="Pridėti nuotrauką"
@@ -117,7 +113,7 @@
 						<p:commandButton value="Išsaugoti pakeitimus" actionListener="#{userLoginController.updateUser}" onsuccess="PF('infoUpdateConfirmDialog').show();" ajax="false"/>
 					</div>
 
-					<div id="edit" align="center" style="display: block">
+					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
 						<p:commandButton value="Redaguoti duomenis" onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto'); " update="profileGrid" actionListener="#{userLoginController.doEdit}"/>
 					</div>
 
@@ -142,6 +138,7 @@
 					<p:growl styleClass="top" id="msgs" showDetail="true" />
 
 					<p:dataTable id="singleDT" var="reservation"
+								 styleClass="panel panel-default"
 						value="#{userLoginController.myReservations}"
 						selectionMode="single"
 						selection="#{userLoginController.selectedReservation}"
@@ -191,6 +188,14 @@
 					</p:dialog>
 
 				</h:form>
+
+				<h:form style="padding-left: 10px; margin-bottom: 20px;">
+					<p:commandButton styleClass="btn btn-lg btn-success"
+									 value="Sumokėti metinį narystės mokestį" type="submit"
+									 action="#{navigationController.goToPayment}" immediate="true"/>
+
+				</h:form>
+
 				<h:outputScript>
 					//<![CDATA[
 
