@@ -77,33 +77,30 @@
 					styleClass="customDataGrid"
 					emptyMessage="Nerasta vasarnamių">
 
-					<p:panel header="#{summerhouse.title}" styleClass="customResults">
-						<h:panelGrid columns="1" style="width:100%">
 
-							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive summerhouseImage"/>
-
-                            <h:panelGrid columns="2">
-							
+					<p:panel header="#{summerhouse.title}" styleClass="customResults" style="overflow: overlay;">
+						<h:panelGrid columns="1" style="width:100%; margin-bottom: 10px;">
+							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
+						</h:panelGrid>
+						<h:panelGrid columns="1" >
 							<p:commandButton id="reviewSummerhouse"
-											 styleClass="btn btn-sm btn-default"
+											 styleClass="btn btn-default"
 											 process="cars"
 								update=":form2:summerhousesDetail" icon="ui-icon-info"
 								value="Peržiūrėti" oncomplete="PF('summerhouseDialog').show()"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 							<p:commandButton id="reserveSummerhouse"
-											 styleClass="btn btn-sm btn-default"
+											 styleClass="btn btn-default"
 											 process="cars"
 								value="Rezervuoti" icon="ui-icon-plus" update="@form"
 								action="#{searchController.doSelectSummerhouse}"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 
                             </h:panelGrid>
-						</h:panelGrid>
 					</p:panel>
-
 				</p:dataGrid>
-
 				</div>
+
 				<p:dialog header="Vasarnamio informacija"
 					widgetVar="summerhouseDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
@@ -166,7 +163,7 @@
 						<p:inputText id="email"
 							value="#{mainController.recommendationEmail}" required="true"
 							requiredMessage="Prašome įvesti el. pašto adresą!" />
-						<p:commandButton style="margin: 10px;"
+						<p:commandButton style="margin: 10px;" styleClass="btn"
 							value="Prašyti rekomendacijos"
 							icon="ui-icon-check"
 							actionListener="#{mainController.sendApproveMessage}"

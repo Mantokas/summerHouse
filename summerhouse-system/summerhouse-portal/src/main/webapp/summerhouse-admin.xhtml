@@ -54,12 +54,14 @@
 					</p:column>
 					<f:facet name="footer">
 						<p:commandButton id="create" process="singleDT"
+										 styleClass="btn btn-success"
 							action="#{summerhouseAdminController.doShowCreateDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-plus"
 							value="Sukurti nauja" oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
+										 styleClass="btn btn-info"
 							action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
@@ -68,11 +70,13 @@
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
+										 styleClass="btn btn-danger"
 							update=":form:summerhousesDetail" icon="ui-icon-trash"
 							value="Archyvuoti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
+										 styleClass="btn btn-warning"
 							action="#{summerhouseAdminController.doReset}"
 							update=":summerhouseForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"

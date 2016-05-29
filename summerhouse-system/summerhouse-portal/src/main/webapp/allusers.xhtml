@@ -47,12 +47,15 @@
                         <p:panel header="#{user.firstName} #{user.lastName}" styleClass="customResults">
                             <h:panelGrid columns="1" style="width:100%">
 
-                                <h:graphicImage value="#{user.encodedImage}" styleClass="img-responsive"/>
-                                <h:graphicImage value="resources/images/defaultUserImage.png" styleClass="img-responsive" rendered="#{user.image == null}"/>
+                                <h:graphicImage style="margin-bottom: 5px" value="#{user.encodedImage}" styleClass="img-responsive"/>
+                                <h:graphicImage style="margin-bottom: 5px" value="resources/images/defaultUserImage.png" styleClass="img-responsive" rendered="#{user.image == null}"/>
 
                             <h:panelGrid columns="2" style="width:100%">
-                                <p:commandButton value="Peržiūrėti" icon="ui-icon-info" action="#{userController.goToDetailedUser(user)}"/>
-                                <p:commandButton value="Patvirtinti" icon="ui-icon-check" rendered="#{!user.approved}"
+                                <p:commandButton icon="ui-icon-info"
+										styleClass="btn btn-default" style="margin-bottom: 5px"
+										value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>
+                                <p:commandButton icon="ui-icon-check"
+										styleClass="btn btn-default"  value="Patvirtinti" rendered="#{!user.approved}"
                                                  oncomplete="PF('approveConfirmationDialog').show()" action="#{userController.makeSelectedUser(user)}"/>
                             </h:panelGrid>
 

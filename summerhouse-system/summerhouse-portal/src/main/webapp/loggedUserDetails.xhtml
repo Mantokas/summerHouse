@@ -117,11 +117,13 @@
 						<p:commandButton value="Išsaugoti pakeitimus"
 										 icon="ui-icon-disk"
 										 actionListener="#{userLoginController.updateUser}"
-										 ajax="false"/>
+										 ajax="false"
+										 styleClass="btn btn-success" />
 					</div>
 
 					<div id="cancel" align="center" style="display: none">
 						<p:commandButton value="Atšaukti"
+										 styleClass="btn btn-warning"
 										 icon="ui-icon-cancel"
 										 actionListener="#{userLoginController.doNotEdit}"
 										 oncomplete="/loggedUserDetails.xhtml?faces-redirect=true"/>
@@ -130,6 +132,7 @@
 					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
 						<p:commandButton value="Redaguoti duomenis"
 										 icon="ui-icon-pencil"
+										 styleClass="btn btn-info"
 										 onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel');"
 										 update="profileGrid"
 										 actionListener="#{userLoginController.doEdit}"/>
@@ -137,7 +140,7 @@
 
 				</h:form>
 
-				<h:form id="form2"
+				<h:form id="form2" style="margin-top: 20px"
 						rendered="#{userLoginController.loggedUser != null}">
 
 					<p:growl styleClass="top" id="msgs" showDetail="true" />
@@ -171,7 +174,7 @@
 						</p:column>
 
 						<f:facet name="footer">
-							<p:commandButton id="cancelReservation" value="Atšaukti rezervaciją" icon="ui-icon-cancel" update="@form"
+							<p:commandButton styleClass="btn btn-danger" id="cancelReservation" value="Atšaukti rezervaciją" icon="ui-icon-cancel" update="@form"
 											 action="#{userLoginController.checkReservation}"/>
 						</f:facet>
 					</p:dataTable>

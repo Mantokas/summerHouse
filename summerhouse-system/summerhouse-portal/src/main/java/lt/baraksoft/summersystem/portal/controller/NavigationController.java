@@ -79,14 +79,16 @@ public class NavigationController implements Serializable {
 	}
 
 	public String checkLoggedUser() {
-		if (userLoginController.getLoggedUser() == null || !userLoginController.getLoggedUser().isApproved())
-			return "/signin.xhtml?faces-redirect=true";
+		if (userLoginController.getLoggedUser() == null || !userLoginController.getLoggedUser().isApproved()){
+			currentTab = 1;
+			return "/signin.xhtml?faces-redirect=true";}
 		return "";
 	}
 
     public String checkLoggedUserWithoutApproved() {
-        if (userLoginController.getLoggedUser() == null)
-            return "/signin.xhtml?faces-redirect=true";
+        if (userLoginController.getLoggedUser() == null){
+			currentTab = 1;
+            return "/signin.xhtml?faces-redirect=true";}
         return "";
     }
 
