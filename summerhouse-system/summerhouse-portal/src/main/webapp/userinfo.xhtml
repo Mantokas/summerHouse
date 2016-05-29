@@ -20,43 +20,38 @@
 
         <ui:define name="content">
             <f:view>
-                <h:form>
+                <h:form id="form5"
+                        rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
+                        enctype="multipart/form-data">
 
-                    <p:dataTable id="userDetail" var="userView" value="#{detailedUserController.selectedUser}">
-                        <f:facet name="header">
-                            Detali klubo nario anketa
-                        </f:facet>
+                    <p:growl id="msgs2" showDetail="true" />
 
-                        <p:column headerText="Vardas">
-                            <h:outputText value="#{userView.firstName}"/>
-                        </p:column>
+                    <h1 style="text-align: center">Detali nario anketa</h1>
 
-                        <p:column headerText="Pavardė">
-                            <h:outputText value="#{userView.lastName}"/>
-                        </p:column>
+                    <div class="ui-datagrid ui-widget">
 
-                        <p:column headerText="El. paštas">
-                            <h:outputText value="#{userView.email}"/>
-                        </p:column>
+                        <p:panel styleClass="customDetailedUserInfo">
 
-                        <p:column headerText="Grupės nr.">
-                            <h:outputText value="#{userView.groupNumber}"/>
-                        </p:column>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="thirty-percent, seventy-percent">
+                                <p:column headerText="profileImage">
+                                    <h:graphicImage value="#{userController.selectedUser.encodedImage}" styleClass="img-responsive customImage"/>
+                                    <h:graphicImage value="resources/images/defaultUserImage.png" styleClass="img-responsive customImage" rendered="#{userController.selectedUser.image == null}"/>
+                                </p:column>
 
-                        <p:column headerText="Taškų kiekis">
-                            <h:outputText value="#{userView.points}"/>
-                        </p:column>
+                                <p:column headerText="profile">
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="#{userController.selectedUser.firstName}"/>
+                                        <h:outputText value="#{userController.selectedUser.lastName}"/>
+                                    </h:panelGrid>
+                                </p:column>
 
-                        <p:column headerText="Statusas" rendered="#{userView.approved}">
-                            <h:outputText value="Klubo narys"/>
-                        </p:column>
+                            </h:panelGrid>
 
-                        <p:column headerText="Statusas" rendered="#{!userView.approved}">
-                            <h:outputText value="Kandidatas"/>
-                        </p:column>
+                        </p:panel>
 
-                    </p:dataTable>
+                    </div>
                 </h:form>
+
             </f:view>
         </ui:define>
     </ui:composition>

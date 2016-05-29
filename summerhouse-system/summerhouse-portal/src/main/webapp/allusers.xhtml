@@ -5,17 +5,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>Nariai</title>
-</h:head>
 
 <f:metadata>
 	<f:viewAction action="#{navigationController.checkLoggedUser}" />
+    <f:viewAction action="#{userController.refreshUsers}" />
 </f:metadata>
 
 <h:body>
 
 	<ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="title">Nariai</ui:define>
 		<ui:define name="content">
 
 			<h:form id="formInvite" styleClass="panel panel-default">
@@ -33,39 +32,33 @@
 			</h:form>
 
 			<f:view>
-				<h:form id="form" styleClass="panel panel-default">
-					<p:growl id="msgs" showDetail="true" />
-					<div class="table-responsive">
-						<p:dataTable id="singleDT" tableStyleClass="table table-striped"
-							var="userView" rowKey="#{userView.id}"
-							value="#{userController.users}" selectionMode="single"
-							selection="#{userController.selectedUser}">
-							<p:ajax event="rowSelect" update="approve" />
-							<f:facet name="header">
-                   				 Klubo narių anketos
-                			</f:facet>
-							<p:column headerText="Vardas" sortBy="#{userView.firstName}">
-								<h:outputText value="#{userView.firstName}" />
-							</p:column>
-							<p:column headerText="Pavardė" sortBy="#{userView.lastName}">
-								<h:outputText value="#{userView.lastName}" />
-							</p:column>
-							<p:column headerText="El. paštas" sortBy="#{userView.email}">
-								<h:outputText value="#{userView.email}" />
-							</p:column>
-							<p:column headerText="Statusas" sortBy="#{userView.approved}">
-								<h:outputText value="#{userView.approvedString}" />
-							</p:column>
-							<f:facet name="footer">
-								<p:commandButton id="approve" process="singleDT"
-									update=":form2:usersDetail" icon="ui-icon-check"
-									value="Patvirtinti"
-									disabled="#{userController.selectedUser == null or userController.selectedUser.approved}"
-									oncomplete="PF('approveConfirmationDialog').show()" />
-							</f:facet>
-						</p:dataTable>
-					</div>
-				</h:form>
+                <h:form id="form5"
+                        rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
+                        enctype="multipart/form-data">
+
+                    <p:growl id="msgs2" showDetail="true" />
+
+                    <p:dataGrid var="user" value="#{userController.users}"
+                                columns="6" layout="grid" rows="12" paginator="true" id="userAccount"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                styleClass="customDataGrid">
+
+                        <p:panel header="#{user.firstName} #{user.lastName}" styleClass="customResults">
+                            <h:panelGrid columns="1" style="width:100%">
+
+                                <h:graphicImage value="#{user.encodedImage}" styleClass="img-responsive"/>
+                                <h:graphicImage value="resources/images/defaultUserImage.png" styleClass="img-responsive" rendered="#{user.image == null}"/>
+
+                                <p:commandButton value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>
+                                <p:commandButton value="Patvirtinti" rendered="#{!user.approved}"
+                                                 oncomplete="PF('approveConfirmationDialog').show()" />
+
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:dataGrid>
+                </h:form>
 				
 				<h:form id="form2">
 					<p:dialog header="Patvirtinimas"
@@ -75,7 +68,7 @@
 							<h:outputText value="Ar tikrai norite patvirtinti naudotoją?" />
 							<p:commandButton value="Patvirtinti"
 								oncomplete="PF('approveConfirmationDialog').hide()"
-								update=":form:singleDT" action="#{userController.doApprove}" />
+								update=":form5" action="#{userController.doApprove}" />
 							<p:commandButton value="Atšaukti"
 								oncomplete="PF('approveConfirmationDialog').hide()" />
 						</p:outputPanel>

@@ -190,11 +190,32 @@
 .customResults{
     text-align: center;
     border-width: medium;
-    border-color: #00a517;
+    border-color: #180ba5;
     border-radius: 1em;
-    background-color: rgba(72, 255, 0, 0.2);
+    background-color: rgba(16, 31, 255, 0.14);
+}
+
+.customDetailedUserInfo{
+    text-align: center;
+    border-width: medium;
+    border-color: #180ba5;
+    border-radius: 1em;
+    background-color: rgba(16, 31, 255, 0.14);
+    max-height: 500px;
 }
 
 .customDataGrid > div > div > div{
     padding: 10px;
+}
+
+.customImage{
+    max-height: 400px;
+}
+
+.thirty-percent {
+    width: 20%;
+}
+
+.seventy-percent {
+    width: 80%;
 }

@@ -75,14 +75,14 @@ public class UserLoginController implements Serializable {
     private boolean phoneNumberEnabled;
 
     @PostConstruct
-    public void init(){
+    public void updateDisabledFields(){
         skypeNameEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
         descriptionEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
         phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
     }
 
     public void updateLoggedUser(){
-        loggedUser = userViewHelper.getUser(loggedUser.getId());
+        loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
     }
 
 	public void collectMyReservations() {

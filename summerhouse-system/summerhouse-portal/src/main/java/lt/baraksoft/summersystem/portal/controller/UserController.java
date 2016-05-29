@@ -22,10 +22,12 @@ public class UserController implements Serializable {
 	private static final long serialVersionUID = -4973058412300951890L;
 	private static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	@Inject
+	@EJB
 	private MailService mailService;
+
 	@EJB
 	private UserViewHelper userViewHelper;
+
 	@Inject
 	private UserLoginController userLoginController;
 
@@ -38,12 +40,26 @@ public class UserController implements Serializable {
 		users = userViewHelper.getAllUsers();
 	}
 
-	public void doApprove() {
+	public void refreshUsers(){
+        users = userViewHelper.getAllUsers();
+	}
+
+	public void doApprove(UserView userView) {
+        selectedUser = userView;
 		if (!selectedUser.isApproved()) {
 			selectedUser.setApproved(true);
 			userViewHelper.save(selectedUser);
 		}
+        else{
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Klaida!", "Šis vartotojas yra klubo narys"));
+        }
 	}
+
+    public String goToDetailedUser(UserView userView){
+        selectedUser = userView;
+        return "/userinfo.xhtml?faces-redirect=true";
+    }
 
 	public void sendInvitationMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -90,5 +106,4 @@ public class UserController implements Serializable {
 	public void setUsers(List<UserView> users) {
 		this.users = users;
 	}
-
 }
