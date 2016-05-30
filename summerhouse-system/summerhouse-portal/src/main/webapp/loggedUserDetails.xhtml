@@ -43,7 +43,7 @@
 					<h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default panel-default-padding">
 						<h:outputLabel value="Vardas: " />
 						<p:inputText value="#{userLoginController.loggedUser.firstName}"
-									 required="true"
+									 required="true" style="margin-bottom: 5px"
 									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
@@ -54,7 +54,7 @@
 						<h:outputLabel value="Pavardė: "/>
 
 						<p:inputText value="#{userLoginController.loggedUser.lastName}"
-									 required="true"
+									 required="true" style="margin-bottom: 5px"
 									 validatorMessage="Pavardė gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
@@ -63,47 +63,48 @@
 						</p:inputText>
 
 						<h:outputLabel value="El. paštas: "/>
-						<p:inputText readonly="true"
+						<p:inputText readonly="true" style="margin-bottom: 5px"
 									 value="#{userLoginController.loggedUser.email}"/>
 
 						<h:outputLabel value="Statusas: "/>
-						<p:inputText readonly="true"
+						<p:inputText readonly="true" style="margin-bottom: 5px"
 									 value="#{userLoginController.loggedUser.approvedString}"
 									 />
 
 						<h:outputLabel value="Turimi taškai: "
 							rendered="#{userLoginController.loggedUser.approved}" />
-						<p:inputText readonly="true"
+						<p:inputText readonly="true" style="margin-bottom: 5px"
 									 value="#{userLoginController.loggedUser.points}"
 							         rendered="#{userLoginController.loggedUser.approved}"
 									 />
 
 						<h:outputLabel value="Priklauso grupei: " />
-						<p:inputText readonly="true"
+						<p:inputText readonly="true" style="margin-bottom: 5px"
 							         value="#{userLoginController.loggedUser.groupNumber}"
 									 />
 
 						<h:outputLabel value="Narystė galioja iki: " />
-						<p:inputText readonly="true"
+						<p:inputText readonly="true" style="margin-bottom: 5px"
 									 value="Negalioja" rendered="#{userLoginController.loggedUser.validTo == null}"
 						             />
-                        <p:inputText readonly="true"
+                        <p:inputText readonly="true" style="margin-bottom: 5px"
                                      value="#{userLoginController.loggedUser.validTo}" rendered="#{userLoginController.loggedUser.validTo != null}"
                                      />
 
                         <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
                         <p:inputText value="#{userLoginController.loggedUser.skypeName}"
 									 readonly="#{!userLoginController.editable}"
-									 rendered="#{userLoginController.skypeNameEnabled}"/>
+									 rendered="#{userLoginController.skypeNameEnabled}"
+									 style="margin-bottom: 5px"/>
 
                         <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
                         <p:inputMask value="#{userLoginController.loggedUser.phoneNumber}"
-									 readonly="#{!userLoginController.editable}"
+									 readonly="#{!userLoginController.editable}" style="margin-bottom: 5px"
                                      rendered="#{userLoginController.phoneNumberEnabled}" mask="+370 999 99999"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
                         <p:inputText value="#{userLoginController.loggedUser.description}"
-									 readonly="#{!userLoginController.editable}"
+									 readonly="#{!userLoginController.editable}" style="margin-bottom: 5px"
                                      rendered="#{userLoginController.descriptionEnabled}"/>
 					</h:panelGrid>
 
