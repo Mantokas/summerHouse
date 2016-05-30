@@ -281,8 +281,39 @@
     background-color: rgba(71, 255, 0, 0.13);
 }
 
-.customUsersDatatable{
-    margin-left: 20%;
-    margin-right: 20%;
-    background-color: #5cb85c;
+.ui-datatable{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.ui-datatable .ui-datatable-header{
+    background-color: green;
+    color: white;
+    border-color: #1f7a00;
+}
+
+.ui-datatable .ui-datatable-footer{
+    background-color: green;
+    color: white;
+    border-color: #1f7a00;
+}
+
+.ui-paginator.ui-paginator-bottom{
+    background-color: #cbeab9;
+}
+
+.ui-datatable-odd{
+    background-color: #cbeab9;
+}
+
+.ui-datatable-even{
+    background-color: #cbeab9;
+}
+
+#userAccount .ui-datatable{
+    background-color: #0f0f0f;
+}
+
+.ui-datatable th {
+    background: rgb(234, 236, 144);
 }

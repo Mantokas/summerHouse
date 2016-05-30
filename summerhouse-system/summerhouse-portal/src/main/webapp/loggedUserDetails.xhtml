@@ -134,7 +134,7 @@
 					<div id="edit" align="center" style="display: block; margin-bottom: 20px;">
 						<p:commandButton value="Redaguoti duomenis"
 										 icon="ui-icon-pencil"
-										 styleClass="btn btn-info"
+										 styleClass="btn btn-success"
 										 onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel');"
 										 update="profileGrid"
 										 actionListener="#{userLoginController.doEdit}"/>
@@ -196,6 +196,9 @@
                         <p:column headerText="Paskirtis" priority="2">
                             <h:outputText value="#{payment.purpose}" />
                         </p:column>
+						<f:facet name="footer">
+                            <h:outputText value="." style="color: green" />
+						</f:facet>
                     </p:dataTable>
 
 					<p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
@@ -225,7 +228,7 @@
 									 value="Sumokėti metinį narystės mokestį" type="submit"
 									 action="#{navigationController.goToPayment}" immediate="true"/>
 
-				</h:form>
+                </h:form>
 
 				<h:outputScript>
 					//<![CDATA[

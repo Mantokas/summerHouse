@@ -36,28 +36,28 @@
 							update="msgs2" />
 					</h:panelGrid>
 
-					<p:dataTable var="user" value="#{userController.users}"
-						layout="grid" paginator="true" id="userAccount"
-						paginatorPosition="bottom" rows="12"
-						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-						styleClass="customUsersDatatable panel panel-default">
+                    <p:dataTable var="user" value="#{userController.users}"
+                                layout="grid" paginator="true" id="userAccount"
+                                paginatorPosition="bottom" rows="12" style="text-align: center"
+                                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                styleClass="customUsersDatatable" rowStyleClass="customDatatableRowStyle">
 
 						<f:facet name="header">
                             Sistemos vartotojai
                         </f:facet>
 
-						<p:column headerText="El.paštas" sortBy="#{user.email}">
-							<h:commandLink value="#{user.email}"
-								action="#{userController.goToDetailedUser(user)}" />
-						</p:column>
+                        <p:column headerText="El.paštas" sortBy="#{user.email}" priority="1" width="35%">
+                            <h:commandButton value="#{user.email}" action="#{userController.goToDetailedUser(user)}"
+                                             styleClass="btn btn-success" style="width: 70%"/>
+                        </p:column>
 
-						<p:column headerText="Vardas" sortBy="#{user.firstName}">
-							<h:outputText value="#{user.firstName}" />
-						</p:column>
+                        <p:column headerText="Vardas" sortBy="#{user.firstName}" priority="2">
+                            <h:outputText value="#{user.firstName}"/>
+                        </p:column>
 
-						<p:column headerText="Statusas" sortBy="#{user.approvedString}">
-							<h:outputText value="#{user.approvedString}" />
-						</p:column>
+                        <p:column headerText="Statusas" sortBy="#{user.approvedString}" priority="4">
+                            <h:outputText value="#{user.approvedString}" />
+                        </p:column>
 
 						<f:facet name="footer">
                             Sistemoje yra #{fn:length(userController.users)} vartotojų.

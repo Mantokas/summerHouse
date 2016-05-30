@@ -111,23 +111,27 @@ public class SearchController implements Serializable {
 	}
 
     public void checkReservationAbility(){
-        long groupNumber = (long)loggedUser.getGroupNumber();
+        if (loggedUser != null){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        LocalDate reservationStartDate = LocalDate.parse(configurationEntryDao.getByType
-                (ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
+            long groupNumber = (long)loggedUser.getGroupNumber();
 
-        LocalDate startDate = reservationStartDate.plusWeeks(groupNumber-1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+            LocalDate reservationStartDate = LocalDate.parse(configurationEntryDao.getByType
+                    (ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
 
-        if (LocalDate.now().isBefore(reservationStartDate)){
-            reservationAvailable = false;
+            LocalDate startDate = reservationStartDate.plusWeeks(groupNumber-1);
+
+            if (LocalDate.now().isBefore(reservationStartDate)){
+                reservationAvailable = false;
+            }
+            else if (LocalDate.now().isAfter(startDate)){
+                reservationAvailable = true;
+            }
+            else{
+                reservationAvailable = false;
+            }
         }
-        else if (LocalDate.now().isAfter(startDate)){
-            reservationAvailable = true;
-        }
-        else{
-            reservationAvailable = false;
-        }
+        reservationAvailable = false;
     }
 
 	public Date getToday() {
