@@ -95,4 +95,14 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 		return getEntityManager().createQuery(criteria).getResultList();
 	}
 
+	@Override
+	public List<User> getLastGroupUsers(Integer groupNumber) {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		criteria.where(builder.equal(root.get(User_.groupNumber), groupNumber));
+		criteria.select(root);
+		return getEntityManager().createQuery(criteria).getResultList();
+	}
+
 }

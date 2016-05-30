@@ -26,4 +26,6 @@ public interface UserViewHelper {
 	UserView getUserByEmail(String email);
 
 	int getUsersCount();
+
+    List<UserView> getLastGroupUsers(Integer groupNumber);
 }

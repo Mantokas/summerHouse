@@ -117,15 +117,17 @@ public class SearchController implements Serializable {
         LocalDate reservationStartDate = LocalDate.parse(configurationEntryDao.getByType
                 (ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
 
-        LocalDate deadline = reservationStartDate.plusWeeks(groupNumber);
+        LocalDate startDate = reservationStartDate.plusWeeks(groupNumber-1);
 
         if (LocalDate.now().isBefore(reservationStartDate)){
             reservationAvailable = false;
         }
-        else if (LocalDate.now().isBefore(deadline)){
+        else if (LocalDate.now().isAfter(startDate)){
             reservationAvailable = true;
         }
-
+        else{
+            reservationAvailable = false;
+        }
     }
 
 	public Date getToday() {

@@ -85,6 +85,14 @@ public class UserViewHelperImpl implements UserViewHelper {
 	}
 
 	@Override
+	public List<UserView> getLastGroupUsers(Integer groupNumber) {
+		List<User> entities = userDao.getLastGroupUsers(groupNumber);
+		List<UserView> views = new ArrayList<>();
+		entities.stream().forEach(e -> views.add(buildView(e)));
+		return views;
+	}
+
+	@Override
 	public UserView findUserByFbId(String facebookId) {
 		User entity = userDao.getUserByFacebookId(facebookId);
 		return entity != null ? buildView(entity) : null;

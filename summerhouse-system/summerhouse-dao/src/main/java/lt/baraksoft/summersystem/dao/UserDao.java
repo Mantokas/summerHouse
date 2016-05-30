@@ -21,4 +21,6 @@ public interface UserDao extends IGenericDao<User, Integer> {
 	List<User> getUsersByApprovedArchived(boolean approved, boolean archived);
 
 	int getUsersCount();
+
+	List<User> getLastGroupUsers(Integer groupNumber);
 }
