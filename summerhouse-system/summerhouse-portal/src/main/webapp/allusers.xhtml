@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 
 <f:metadata>
 	<f:viewAction action="#{navigationController.checkLoggedUser}" />
@@ -18,14 +18,14 @@
 		<ui:define name="content">
 
 			<f:view>
-                <h:form id="form5" styleClass="panel panel-default"
+                <h:form id="form5" styleClass="panel panel-default" style="background-color: transparent; border-color: transparent"
                         rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
                         enctype="multipart/form-data">
 
                     <p:growl id="msgs2" showDetail="true" />
 
 					<h:panelGrid columns="3" cellpadding="5">
-						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:" />
+						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:" style="margin-right: 10px"/>
 						<p:inputText id="email"
 									 value="#{userController.invitationEmail}"/>
 						<p:commandButton style="margin: 10px;" styleClass="btn btn-success"
@@ -34,32 +34,33 @@
 										 update="msgs2" />
 					</h:panelGrid>
 
-                    <p:dataGrid var="user" value="#{userController.users}"
-                                columns="4" layout="grid" rows="6" paginator="true" id="userAccount"
-                                paginatorPosition="bottom"
+                    <p:dataTable var="user" value="#{userController.users}"
+                                layout="grid" paginator="true" id="userAccount"
+                                paginatorPosition="bottom" rows="12"
                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                styleClass="customDataGrid">
+                                styleClass="customUsersDatatable panel panel-default">
 
-                        <p:panel header="#{user.firstName} #{user.lastName}" styleClass="customUserlist" style="overflow: overlay;">
-                            <h:panelGrid columns="1" style="width:100%">
+                        <f:facet name="header">
+                            Sistemos vartotojai
+                        </f:facet>
 
-                                <h:graphicImage style="margin-bottom: 5px;" value="#{user.encodedImage}" styleClass="img-responsive"/>
-                                <h:graphicImage style="margin-bottom: 5px;" value="resources/images/defaultUserImage.png"
-												styleClass="img-responsive" rendered="#{user.image == null}"/>
+                        <p:column headerText="El.paštas" sortBy="#{user.email}">
+                            <h:commandLink value="#{user.email}" action="#{userController.goToDetailedUser(user)}"/>
+                        </p:column>
 
-                            <h:panelGrid columns="1" style="width:100%">
-                                <p:commandButton icon="ui-icon-info"
-										styleClass="btn btn-default" style="margin-bottom: 5px"
-										value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>
-                                <p:commandButton icon="ui-icon-check" styleClass="btn btn-default"  value="Patvirtinti"
-                                                 rendered="#{!user.approved}" oncomplete="PF('approveConfirmationDialog').show()"
-                                                 action="#{userController.makeSelectedUser(user)}"/>
-                            </h:panelGrid>
+                        <p:column headerText="Vardas" sortBy="#{user.firstName}">
+                            <h:outputText value="#{user.firstName}" />
+                        </p:column>
 
-                            </h:panelGrid>
-                        </p:panel>
+                        <p:column headerText="Statusas" sortBy="#{user.approvedString}">
+                            <h:outputText value="#{user.approvedString}" />
+                        </p:column>
 
-                    </p:dataGrid>
+                        <f:facet name="footer">
+                            Sistemoje yra #{fn:length(userController.users)} vartotojų.
+                        </f:facet>
+
+                    </p:dataTable>
 
 					<p:dialog header="Patvirtinimas"
 						widgetVar="approveConfirmationDialog" modal="true"

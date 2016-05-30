@@ -91,7 +91,7 @@
                                      rendered="#{userLoginController.phoneNumberEnabled}"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
-                        <p:inputText readonly="true"
+                        <p:inputTextarea readonly="true" style="overflow: overlay; max-height: 100px;"
                                      value="#{userController.selectedUser.description}"
 
                                      rendered="#{userLoginController.descriptionEnabled}"/>

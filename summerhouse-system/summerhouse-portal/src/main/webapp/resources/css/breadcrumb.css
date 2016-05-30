@@ -276,3 +276,9 @@
     border-radius: 1em;
     background-color: rgba(71, 255, 0, 0.13);
 }
+
+.customUsersDatatable{
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #5cb85c;
+}

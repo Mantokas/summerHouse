@@ -119,6 +119,7 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void collectMyPayments() {
+		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
 		myPayments = paymentViewHelper.getPaymentByUserID(loggedUser.getId());
 	}
 
