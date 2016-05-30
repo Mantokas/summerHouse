@@ -1,6 +1,8 @@
 package lt.baraksoft.summersystem.portal.helper.impl;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.dao.ReservationDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.model.Reservation;
 import lt.baraksoft.summersystem.portal.helper.GroupService;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
@@ -26,6 +28,9 @@ public class GroupServiceImpl implements GroupService{
     private ReservationDao reservationDao;
 
     @Inject
+    private ConfigurationEntryDao configurationEntryDao;
+
+    @Inject
     private ReservationViewHelper reservationViewHelper;
 
     @Inject
@@ -38,6 +43,8 @@ public class GroupServiceImpl implements GroupService{
     public void calculateGroups(List<UserView> users) {
         Map<String, Integer> usersReservations = new HashMap<>();
 
+        int groupSize = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue());
+
         users.stream().forEach(userView -> usersReservations.put(userView.getEmail(), calculateLastYearHoliday(userView))); //sukuria hashmap is vartotoju ir ju pernai atostogautu dienu
 
         Map<String, Integer> sortedUsersReservations = sortMapByValues(usersReservations); //rusiuoja pagal atostogautas dienas
@@ -48,7 +55,7 @@ public class GroupServiceImpl implements GroupService{
 
             Iterator it = sortedUsersReservations.entrySet().iterator();
             int count = 0;
-            while (it.hasNext() && count < 5) { //// TODO: 2016-05-30 konfiguruojamas
+            while (it.hasNext() && count < groupSize) {
                 Map.Entry pair = (Map.Entry) it.next();
 
                 int finalGroupNumber = groupNumber;

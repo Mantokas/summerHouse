@@ -12,6 +12,8 @@
 		action="#{navigationController.checkLoggedUserWithoutApproved}" />
     <f:viewAction
             action="#{userLoginController.checkUserRole}"/>
+    <f:viewAction
+            action="#{searchController.checkReservationAbility}"/>
 </f:metadata>
 
 <h:body >
@@ -97,7 +99,7 @@
 											 styleClass="btn btn-default"
 											 process="cars"
 											 style="padding: 1px"
-								value="Rezervuoti"  update="@form"
+								value="Rezervuoti"  update="@form" rendered="#{searchController.reservationAvailable}"
 								action="#{searchController.doSelectSummerhouse}"
 								actionListener="#{searchController.makeSelectedSummerhouse(summerhouse)}" />
 
