@@ -40,7 +40,7 @@ public class UserController implements Serializable {
 	private UserView loggedUser;
 	private List<UserView> users;
 	private String invitationEmail;
-    private int lastGroup = 0;
+	private int lastGroup = 0;
 
 	@PostConstruct
 	public void init() {
@@ -60,31 +60,31 @@ public class UserController implements Serializable {
 		int minApprovers = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue());
 		if (!selectedUser.isApproved() && !selectedUser.getApprovers().contains(loggedUser.getEmail())) {
 			selectedUser.getApprovers().add(loggedUser.getEmail());
-			if (selectedUser.getApprovers().size() >= minApprovers){        //naujai patvirtintam nariui priskiriama paskutine grupe
+			if (selectedUser.getApprovers().size() >= minApprovers) { // naujai patvirtintam nariui priskiriama paskutine grupe
 				selectedUser.setApproved(true);
 
-                users = userViewHelper.getAllUsers();
-                users.stream().forEach(userView -> {
-                    if (userView.getGroupNumber() > lastGroup){
-                        lastGroup = userView.getGroupNumber();
-                    }
-                });
+				users = userViewHelper.getAllUsers();
+				users.stream().forEach(userView -> {
+					if (userView.getGroupNumber() > lastGroup) {
+						lastGroup = userView.getGroupNumber();
+					}
+				});
 
-                List<UserView> lastGroupUsers = userViewHelper.getLastGroupUsers(lastGroup);
+				List<UserView> lastGroupUsers = userViewHelper.getLastGroupUsers(lastGroup);
 
-                Integer maxSize = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue());
+				Integer maxSize = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue());
 
-                if (lastGroupUsers.size() < maxSize){
-                    selectedUser.setGroupNumber(lastGroup);
-                }
-                else{
-                    selectedUser.setGroupNumber(lastGroup+1);
-                }
-			}
-			else{
+				if (lastGroupUsers.size() < maxSize) {
+					selectedUser.setGroupNumber(lastGroup);
+				} else {
+					selectedUser.setGroupNumber(lastGroup + 1);
+				}
+			} else {
 				selectedUser.setApproved(false);
 			}
 			userViewHelper.save(selectedUser);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Naudotojas patvirtintas!"));
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Jūs jau patvirtinote šį vartotoją!"));
