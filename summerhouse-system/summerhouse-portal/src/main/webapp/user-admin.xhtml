@@ -104,9 +104,7 @@
                     </f:facet>
                 </h:panelGrid>
 
-                <p:commandButton styleClass="btn btn-success"
-                                 value="Suskirstyti vartotojus į pirmumo grupes"
-                                 action="#{userAdminController.calculateGroups}" update=":userForm" style="margin-bottom: 1rem;"/>
+
 
             </h:form>
 
@@ -146,21 +144,25 @@
                         <p:commandButton id="archive" process="singleDT"
                                          styleClass="btn btn-danger"
                                          update="@form" icon="ui-icon-trash"
-                                         value="Archyvuoti"
+                                         value="Archyvuoti" 
                                          disabled="#{userAdminController.selectedUser == null or userAdminController.selectedUser.archived}"
                                          oncomplete="PF('archiveConfirmationDialog').show()"/>
                         <p:commandButton id="reset" process="singleDT"
                                          styleClass="btn btn-warning"
                                          action="#{userAdminController.doReset}"
                                          update="@form" icon="ui-icon-arrowreturnthick-1-w"
-                                         value="Atstatyti"
+                                         value="Atstatyti" style="margin-left: 0.5rem;"
                                          disabled="#{userAdminController.selectedUser == null or !userAdminController.selectedUser.archived}"/>
                         <p:commandButton id="addPoints" process="singleDT"
                                          styleClass="btn btn-success"
                                          update="@form" icon="ui-icon-plus"
                                          value="Pridėti taškų"
                                          disabled="#{userAdminController.selectedUser == null}"
-                                         oncomplete="PF('pointsDialog').show()"/>
+                                         oncomplete="PF('pointsDialog').show()"
+                                         style="margin-left: 0.5rem;"/>
+                        <p:commandButton styleClass="btn btn-success"
+                                 		 value="Suskirstyti vartotojus į pirmumo grupes"
+                                 		 action="#{userAdminController.calculateGroups}" update="@form" style="margin-left: 0.5rem;"/>
                     </f:facet>
                 </p:dataTable>
             </h:form>

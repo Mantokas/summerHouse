@@ -34,6 +34,7 @@ public class UserAdminController implements Serializable {
 
 	private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
 	private static final String CHANGES_SAVED2 = "";
+	private static final String CHANGES_SAVED3 = "Nariai sėkmingai suskirstyti į grupes!";
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	@EJB
@@ -92,11 +93,11 @@ public class UserAdminController implements Serializable {
 	public void doReset() {
 		selectedUser.setArchived(false);
 		userViewHelper.save(selectedUser);
-		createChangesSuccessMessage();
+		createChangesSuccessMessage(CHANGES_SAVED);
 	}
 
-	private void createChangesSuccessMessage() {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, CHANGES_SAVED, CHANGES_SAVED2);
+	private void createChangesSuccessMessage(String message) {
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, message, CHANGES_SAVED2);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -142,7 +143,7 @@ public class UserAdminController implements Serializable {
 		entry.setValue(df.format(reservationsStart));
 		configurationEntryDao.update(entry);
 
-		createChangesSuccessMessage();
+		createChangesSuccessMessage(CHANGES_SAVED);
 	}
 
 	public void doAddPoints() {
@@ -166,15 +167,14 @@ public class UserAdminController implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
 
 		reloadUsersList();
-		createChangesSuccessMessage();
+		createChangesSuccessMessage(CHANGES_SAVED);
 	}
 
 	public void calculateGroups() {
 		List<UserView> usersList = userViewHelper.getUsersByApprovedArchived(true, false);
-
 		groupService.calculateGroups(usersList);
-
 		reloadUsersList();
+		createChangesSuccessMessage(CHANGES_SAVED3);
 	}
 
 	public UserViewHelper getUserViewHelper() {
