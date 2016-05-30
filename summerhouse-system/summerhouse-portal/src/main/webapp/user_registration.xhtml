@@ -27,7 +27,9 @@
 				<h3 style="text-align: center">Registracija šiuo metu negalima,
 					prašome pabandyti vėliau!</h3>
 				<div align="center">
-					<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+					<p:commandButton value="Atgal"
+									 styleClass="btn btn-info"
+									 icon="ui-icon-carat-1-w"
 						action="/signin.xhtml?faces-redirect=true" immediate="true" />
 				</div>
 			</h:form>
@@ -112,22 +114,17 @@
 
 				<div align="center" style="margin-bottom: 1rem;">
 					<p:commandButton value="Išvalyti laukus" icon="ui-icon-close"
+									 styleClass="btn btn-warning"
 						type="reset" update="grid" style="margin-right: 1rem"/>
 					<p:commandButton value="Registruotis" icon="ui-icon-check"
-						action="#{registrationController.registerUser}" />
+									 styleClass="btn btn-danger"
+						actionListener="#{registrationController.registerUser}"
+									 action="#{navigationController.goToMain}"/>
 				</div>
-
-
-				<p:dialog header="Patvirtinimas" widgetVar="confirmDialog"
-					minHeight="40">
-					<p:outputLabel value="Naudotojas sukurtas!" />
-					<p:commandButton value="Gerai" icon="ui-icon-check" type="submit"
-						action="#{navigationController.goToMain}"
-						actionListener="#{registrationController.setLoggedUser}" />
-				</p:dialog>
 
 				<div align="center">
 					<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+									 styleClass="btn btn-info"
 						action="/signin.xhtml?faces-redirect=true" immediate="true" />
 				</div>
 

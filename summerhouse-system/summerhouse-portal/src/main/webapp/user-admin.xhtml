@@ -82,16 +82,16 @@
                     <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonlyInput="true" pages="3"
                         pattern="yyyy-MM-dd"/>
 
-                    <h:outputText value="Skype laukas" />
-                    <p:selectBooleanCheckbox style="margin-bottom: 5px; margin-top: 5px;"
+                    <p:outputLabel for="skype" value="Skype laukas" />
+                    <p:selectBooleanCheckbox id="skype" style="margin-bottom: 5px; margin-top: 5px;"
                             value="#{userAdminController.skypeFieldVisible}"/>
 
-                    <h:outputText value="Telefono numerio laukas" />
-                    <p:selectBooleanCheckbox style="margin-bottom: 5px"
+                    <p:outputLabel for="tel" value="Telefono numerio laukas" />
+                    <p:selectBooleanCheckbox id="tel" style="margin-bottom: 5px"
                             value="#{userAdminController.telephoneFieldVisible}"/>
 
-                    <h:outputText value="Aprašymo laukas" />
-                    <p:selectBooleanCheckbox style="margin-bottom: 5px"
+                    <p:outputLabel for="desc" value="Aprašymo laukas" />
+                    <p:selectBooleanCheckbox id="desc" style="margin-bottom: 5px"
                             value="#{userAdminController.descriptionFieldVisible}"/>
                     <f:facet name="footer">
                         <h:panelGroup styleClass="panel-footer" style="display:block; text-align:center;
@@ -177,11 +177,12 @@
                         <p:commandButton value="Patvirtinti"
                                          styleClass="btn btn-success"
                                          icon="ui-icon-check"
+                                         style="margin-right: 10px"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"
                                          update=":userForm:singleDT"
                                          action="#{userAdminController.doArchive}"/>
                         <p:commandButton value="Atšaukti"
-                                         styleClass="btn btn-warning"
+                                         styleClass="btn btn-danger"
                                          icon="ui-icon-cancel"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"/>
                     </p:outputPanel>

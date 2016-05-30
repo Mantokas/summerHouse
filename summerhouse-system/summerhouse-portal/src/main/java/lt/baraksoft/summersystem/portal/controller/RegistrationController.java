@@ -55,11 +55,7 @@ public class RegistrationController implements Serializable {
 			context.addMessage(":userRegistrationForm:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Toks el. paštas jau egzistuoja!", ""));
 		}
 
-		List<FacesMessage> messagesList = context.getMessageList();
-		if (messagesList.isEmpty()) {
-			RequestContext context2 = RequestContext.getCurrentInstance();
-			context2.execute("PF('confirmDialog').show();");
-		}
+		setLoggedUser();
 	}
 
 	public void setLoggedUser() {

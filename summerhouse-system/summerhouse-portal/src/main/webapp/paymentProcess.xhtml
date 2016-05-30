@@ -40,75 +40,77 @@
 
                         </h:panelGrid>
 
-                        <p:separator styleClass="customSeparator"/>
 
-                        <h:panelGrid columns="1" cellpadding="5">
-                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="customButton"/>
-                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}"/>
+
+                        <h:panelGrid columns="2" cellpadding="5">
+                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" style="margin-right: 10px; margin-top: 100px" update="msgs,@form" actionListener="#{annualFeeController.checkPaymentAmount}" styleClass="btn btn-success"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" style="margin-top: 100px" action="#{annualFeeController.goToSummerhouses}" styleClass="btn btn-danger"/>
                         </h:panelGrid>
+
+                        <p:separator styleClass="customSeparator"/>
 
                     </p:outputPanel>
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('PAYMENT_PROPERTIES')}">
-                        <h1 align="center">Mokėjimo informacija</h1>
                         <h:panelGrid id="grid" columns="3" rendered="#{annualFeeController.loggedUser.validTo == null}">
                             <p:outputLabel for="valid" value="Dabartinė narystė galioja iki: "/>
-                            <p:inputText id="valid" value="NEGALIOJA" readonly="true"/>
+                            <p:inputText id="valid" value="NEGALIOJA" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="valid"/>
 
                             <p:outputLabel for="firstname" value="Mokėtojo vardas: "/>
-                            <p:inputText id="firstname" value="#{annualFeeController.loggedUser.firstname}" readonly="true"/>
+                            <p:inputText id="firstname" value="#{annualFeeController.loggedUser.firstname}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="firstname"/>
 
                             <p:outputLabel for="lastname" value="Mokėtojo vardas: "/>
-                            <p:inputText id="lastname" value="#{annualFeeController.loggedUser.lastname}" readonly="true"/>
+                            <p:inputText id="lastname" value="#{annualFeeController.loggedUser.lastname}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="lastname"/>
 
                             <p:outputLabel for="purpose" value="Mokėjimo paskirtis: "/>
-                            <p:inputText id="purpose" value="#{annualFeeController.purpose}" readonly="true"/>
+                            <p:inputText id="purpose" value="#{annualFeeController.purpose}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="purpose"/>
 
                             <p:outputLabel for="sum" value="Suma: "/>
-                            <p:inputText id="sum" value="#{annualFeeController.amount} taškų" readonly="true"/>
+                            <p:inputText id="sum" value="#{annualFeeController.amount} taškų" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="sum"/>
                         </h:panelGrid>
 
                         <h:panelGrid id="grid2" columns="3" rendered="#{annualFeeController.loggedUser.validTo != null}">
                             <p:outputLabel for="valid2" value="Dabartinė narystė galioja iki: "/>
-                            <p:inputText id="valid2" value="#{annualFeeController.loggedUser.validTo}" readonly="true"/>
+                            <p:inputText id="valid2" value="#{annualFeeController.loggedUser.validTo}" readonly="true" style="margin-bottom: 5px" />
                             <p:message for="valid2"/>
 
                             <p:outputLabel for="firstname2" value="Mokėtojo vardas: "/>
-                            <p:inputText id="firstname2" value="#{annualFeeController.loggedUser.firstname}" readonly="true"/>
+                            <p:inputText id="firstname2" value="#{annualFeeController.loggedUser.firstname}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="firstname2"/>
 
                             <p:outputLabel for="lastname2" value="Mokėtojo vardas: "/>
-                            <p:inputText id="lastname2" value="#{annualFeeController.loggedUser.lastname}" readonly="true"/>
+                            <p:inputText id="lastname2" value="#{annualFeeController.loggedUser.lastname}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="lastname2"/>
 
                             <p:outputLabel for="purpose2" value="Mokėjimo paskirtis: "/>
-                            <p:inputText id="purpose2" value="#{annualFeeController.purpose}" readonly="true"/>
+                            <p:inputText id="purpose2" value="#{annualFeeController.purpose}" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="purpose2"/>
 
                             <p:outputLabel for="sum2" value="Suma: "/>
-                            <p:inputText id="sum2" value="#{annualFeeController.amount} taškų" readonly="true"/>
+                            <p:inputText id="sum2" value="#{annualFeeController.amount} taškų" readonly="true" style="margin-bottom: 5px"/>
                             <p:message for="sum2"/>
                         </h:panelGrid>
 
-                        <p:separator />
                         <div align="center">
-                            <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
-                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}"/>
+                            <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" style="margin-right: 10px; margin-top: 10px" styleClass="btn btn-success" update="msgs,@form" actionListener="#{annualFeeController.createPayment}"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" styleClass="btn btn-danger" style="margin-top: 10px" action="#{annualFeeController.goToSummerhouses}"/>
                         </div>
+
+                        <p:separator styleClass="customSeparator"/>
 
                     </p:outputPanel>
 
                     <p:outputPanel rendered="#{annualFeeController.isCurrentForm('CONFIRMATION')}">
-                        <h1 align="center">Patvirtinimas</h1>
+                       <h2 align="center">Ar tikrai norite atlikti mokėjimą?</h2>
                         <!-- Tai paskutinis žingsnis - išjungiame AJAX, naudojame JSF navigaciją: -->
                         <div align="center">
-                            <p:commandButton value="Patvirtinti" icon="ui-icon-check" action="#{annualFeeController.ok}" update="msgs,@form"/>
-                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
+                            <p:commandButton value="Patvirtinti" icon="ui-icon-check" style="margin-right: 10px; margin-top: 20px;" styleClass="btn btn-success" action="#{annualFeeController.ok}" update="msgs,@form"/>
+                            <p:commandButton value="Atšaukti" icon="ui-icon-cancel" styleClass="btn btn-danger" style="margin-top: 20px;" action="#{annualFeeController.goToSummerhouses}" ajax="false"/>
                         </div>
 
                     </p:outputPanel>

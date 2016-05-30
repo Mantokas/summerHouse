@@ -66,7 +66,8 @@ public class MainController implements Serializable {
 
 		Email email = new Email();
 		email.setMessageContent("Naujas narys: " + userLoginController.getLoggedUser().getEmail()
-				+ " atsiuntė jums rekomendacijos prašymą! Prisijunkite prie sistemos, kad galėtumėte patvirtinti naują naudotoją.");
+				+ " atsiuntė jums rekomendacijos prašymą! Prisijunkite prie sistemos, kad galėtumėte patvirtinti naują naudotoją. Nuoroda į sistemą \n" +
+				"http://193.219.91.103:13579/summerhouse-portal");
 		email.setRecipient(recommendationEmail);
 		email.setSubject("Labanoro draugai");
 		mailService.sendMessage(email);

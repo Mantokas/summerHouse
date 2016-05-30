@@ -13,7 +13,6 @@ public class DiscountServiceImpl implements DiscountService{
 
     @Override
     public int applyDiscount(int price) {
-        System.out.println("Pretending to be doing some shit");
         return price;
     }
 }

@@ -62,7 +62,7 @@
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit" process="singleDT"
-							styleClass="btn btn-info"
+							styleClass="btn btn-success"
 							action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-pencil"
 							value="Redaguoti" style="margin-left: 0.5rem;"
@@ -101,13 +101,12 @@
 							value="#{summerhouseAdminController.summerhouse.encodedImage}"
 							styleClass="user-view-img" />
 						<h:panelGrid columns="2" id="grid" cellpadding="5">
-							<p:outputLabel for="title" value="Pavadinimas: " />
-							<p:inputText id="title"
+							<p:outputLabel for="title" value="Pavadinimas: " style="margin-top: 10px"/>
+							<p:inputText id="title" style="margin-top: 10px;"
 								value="#{summerhouseAdminController.summerhouse.title}"
 								required="true"
 								requiredMessage="Įveskite vasarnamio pavadinimą!"
 								validatorMessage="Pavadinimas gali susidėti tik iš raidžių!">
-								<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 							</p:inputText>
 
 							<p:outputLabel for="adress" value="Adresas: " />

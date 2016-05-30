@@ -50,7 +50,7 @@
 							<p:resetInput target=":form:servicesDetail" />
 						</p:commandButton>
 						<p:commandButton id="edit"
-							styleClass="btn btn-info"
+							styleClass="btn btn-success"
 							action="#{serviceAdminController.doShowEditDialog}"
 							update=":form:servicesDetail" icon="ui-icon-pencil"
 							value="Redaguoti"
@@ -70,6 +70,9 @@
 							update=":serviceForm:singleDT" icon="ui-icon-arrowreturnthick-1-w"
 							value="Atstatyti"
 							disabled="#{serviceAdminController.selectedService == null or !serviceAdminController.selectedService.archived}" />
+						<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+										 styleClass="btn btn-warning"
+										 action="/summerhouse-admin.xhtml?faces-redirect=true" />
 					</f:facet>
 				</p:dataTable>
 			</h:form>
@@ -120,12 +123,14 @@
 					<h:outputText value="Ar tikrai norite archyvuoti paslaugą?" />
 
 					<p:commandButton value="Patvirtinti"
+									 styleClass="btn btn-success"
 						icon="ui-icon-check"
 						oncomplete="PF('archiveConfirmationDialog').hide()"
 						update=":serviceForm:singleDT"
 						action="#{serviceAdminController.doArchive}" />
 
 					<p:commandButton value="Atšaukti" icon="ui-icon-cancel"
+									 styleClass="btn btn-danger"
 						oncomplete="PF('archiveConfirmationDialog').hide()" />
 
 				</p:outputPanel>

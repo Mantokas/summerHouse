@@ -90,10 +90,10 @@
     font: 18px Helvetica, Arial, Sans-Serif;
     text-align: center;
     background-color: transparent;
-    padding-top: 10%;
+    padding-top: 5%;
     padding-right: 10%;
     padding-left: 10%;
-    padding-bottom: 10%;
+    padding-bottom: 5%;
 }
 .breadcrumbas li {
     float: left;
@@ -110,7 +110,7 @@
 }
 
 .customSeparator{
-    margin-top: 100px;
+    margin-top: 10px;
     margin-bottom: 100px;
     background-color: green;
 }
