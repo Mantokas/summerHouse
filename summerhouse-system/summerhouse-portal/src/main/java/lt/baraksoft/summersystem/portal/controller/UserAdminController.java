@@ -32,7 +32,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class UserAdminController implements Serializable {
 	private static final long serialVersionUID = -8711749859957428877L;
 
-	private static final String CHANGES_SAVED = "Pakeitimai i�?saugoti";
+	private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
 	private static final String CHANGES_SAVED2 = "";
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 
@@ -50,7 +50,7 @@ public class UserAdminController implements Serializable {
 	private String yearlyPayment;
 	private String maxUsersSize;
 	private String approversSize;
-    private String groupSize;
+	private String groupSize;
 	private String maxEmailsAvailable;
 	private Date reservationsStart;
 	private UserView user = new UserView();
@@ -70,7 +70,7 @@ public class UserAdminController implements Serializable {
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
-        groupSize = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue();
+		groupSize = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue();
 
 		today = new Date();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
@@ -111,7 +111,7 @@ public class UserAdminController implements Serializable {
 		entry.setValue(approversSize);
 		configurationEntryDao.update(entry);
 
-		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE);
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_REC_EMAILS_SENT);
 		entry.setValue(maxEmailsAvailable);
 		configurationEntryDao.update(entry);
 
@@ -127,9 +127,9 @@ public class UserAdminController implements Serializable {
 		entry.setValue(String.valueOf(descriptionFieldVisible));
 		configurationEntryDao.update(entry);
 
-        entry = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE);
-        entry.setValue(String.valueOf(groupSize));
-        configurationEntryDao.update(entry);
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE);
+		entry.setValue(String.valueOf(groupSize));
+		configurationEntryDao.update(entry);
 
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE);
 		DateFormat df = new SimpleDateFormat(DATE_PATTERN);
@@ -149,7 +149,7 @@ public class UserAdminController implements Serializable {
 		try {
 			pts = Integer.valueOf(points);
 		} catch (NumberFormatException ex) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Ta�?kai gali susidėti tik i�? skaičių!");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Ta�?kai gali susidėti tik i�? skaičių!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return;
 		}
@@ -291,11 +291,11 @@ public class UserAdminController implements Serializable {
 		this.maxEmailsAvailable = maxEmailsAvailable;
 	}
 
-    public String getGroupSize() {
-        return groupSize;
-    }
+	public String getGroupSize() {
+		return groupSize;
+	}
 
-    public void setGroupSize(String groupSize) {
-        this.groupSize = groupSize;
-    }
+	public void setGroupSize(String groupSize) {
+		this.groupSize = groupSize;
+	}
 }
