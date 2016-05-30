@@ -80,9 +80,9 @@
 					<p:inputMask id="birthdate" style="margin-bottom: 7px"
 						value="#{registrationController.birthday}" mask="9999-99-99"
 						validatorMessage="Neteisinga gimimo data"
-						converterMessage="Neteisinga gimimo data">
+						converterMessage="Neteisinga gimimo data" required="false">
 						<f:validateRegex
-							pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$" />
+							pattern="^$|^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$" />
 					</p:inputMask>
 
 					<p:outputLabel for="skypeName" value="Skype vardas:"

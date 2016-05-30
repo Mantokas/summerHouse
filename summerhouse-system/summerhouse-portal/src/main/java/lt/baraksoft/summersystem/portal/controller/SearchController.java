@@ -33,7 +33,7 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 @Named
 @SessionScoped
 @Stateful
-public class SearchController implements Serializable {
+public class SearchController implements Serializable{
 
 	private static final long serialVersionUID = 7491298817566550329L;
     private static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -69,7 +69,8 @@ public class SearchController implements Serializable {
         loggedUser = userLoginController.getLoggedUser();
 	}
 
-	public void makeSelectedSummerhouse(SummerhouseView summerhouse) {
+	public void makeSelectedSummerhouse(SummerhouseView summerhouse){
+
 		selectedSummerhouse = summerhouse;
         reservations = reservationPaymentHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}
@@ -121,7 +122,7 @@ public class SearchController implements Serializable {
 
             LocalDate startDate = reservationStartDate.plusWeeks(groupNumber-1);
 
-            if (LocalDate.now().isBefore(reservationStartDate)){
+            if (LocalDate.now().isBefore(startDate)){
                 reservationAvailable = false;
             }
             else if (LocalDate.now().isAfter(startDate)){
@@ -131,7 +132,6 @@ public class SearchController implements Serializable {
                 reservationAvailable = false;
             }
         }
-        reservationAvailable = false;
     }
 
 	public Date getToday() {

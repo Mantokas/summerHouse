@@ -44,7 +44,7 @@
     </resource-ref>
 
     <error-page>
-        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/WEB-INF/errorpages/sessionExpired.xhtml</location>
+        <location>/errorPage.xhtml</location>
     </error-page>
+
 </web-app>
