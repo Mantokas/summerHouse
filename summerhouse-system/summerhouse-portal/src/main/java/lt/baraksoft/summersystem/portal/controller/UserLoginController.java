@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import lt.baraksoft.summersystem.portal.helper.CryptoService;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
@@ -25,7 +24,7 @@ import org.primefaces.model.UploadedFile;
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.AuthorizationService;
-import lt.baraksoft.summersystem.portal.helper.FacebookService;
+import lt.baraksoft.summersystem.portal.helper.CryptoService;
 import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
 import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
@@ -43,7 +42,7 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class UserLoginController implements Serializable {
 	private static final long serialVersionUID = -7850630443992388923L;
 
-	private static final String LOGIN_FAILED = "Blogai įvesti prisijungimo duomenys";
+	private static final String LOGIN_FAILED = "Blogai įvesti prisijungimo duomenys arba naudotojas yra pašalintas!";
 	private static final String RESERVATION_CANCEL_ERROR_MESSAGE = "Rezervacija nebegali būti atšaukta";
 	private static final String RESERVATION_CANCEL_ERROR_MESSAGE2 = "Iki pradžios liko mažiau nei ";
 	private static final String RESERVATION_CANCEL_ERROR_MESSAGE3 = " dienos";
@@ -61,7 +60,7 @@ public class UserLoginController implements Serializable {
 	private UserViewHelper userViewHelper;
 
 	@Inject
-	private FacebookService fbService;
+	private FacebookLoginController facebookLoginController;
 
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
@@ -179,7 +178,7 @@ public class UserLoginController implements Serializable {
 
 	public void validateLogin() {
 		UserView user = userViewHelper.getUserByEmail(email);
-		if (user != null && cryptoService.checkPassword(password, user.getPassword())){
+		if (user != null && !user.isArchived() && cryptoService.checkPassword(password, user.getPassword())) {
 			loggedUser = user;
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, LOGIN_FAILED);
@@ -305,5 +304,13 @@ public class UserLoginController implements Serializable {
 
 	public void setFormVisible(boolean formVisible) {
 		this.formVisible = formVisible;
+	}
+
+	public FacebookLoginController getFacebookLoginController() {
+		return facebookLoginController;
+	}
+
+	public void setFacebookLoginController(FacebookLoginController facebookLoginController) {
+		this.facebookLoginController = facebookLoginController;
 	}
 }
