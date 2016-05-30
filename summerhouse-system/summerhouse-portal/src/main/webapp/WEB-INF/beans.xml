@@ -12,4 +12,7 @@
     <interceptors>
         <class>lt.baraksoft.summersystem.portal.interceptor.LoggingInterceptor</class>
     </interceptors>
+<!--    <alternatives>
+        <class>lt.baraksoft.summersystem.portal.helper.impl.GroupServiceAltImpl</class>
+    </alternatives>-->
 </beans>
