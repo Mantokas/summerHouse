@@ -1090,7 +1090,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background: linear-gradient(to top, rgba(255,0,0,0), rgb(85, 98, 54));;
+  background: linear-gradient(to top, rgba(255,0,0,0), rgb(85, 98, 54));
 }
 input,
 button,
@@ -3014,7 +3014,7 @@ select[multiple].input-lg {
 }
 .btn {
   display: inline-block !important;
-  padding: 6px 12px;
+  padding: 6px 12px !important;
   margin-bottom: 0;
   font-size: 14px !important;
   font-weight: normal !important;
@@ -4533,7 +4533,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #171717;
-  background-color: rgb(97, 109, 68);
+  background: linear-gradient(to top,  rgb(88, 101, 58), rgb(178, 187, 175));
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,

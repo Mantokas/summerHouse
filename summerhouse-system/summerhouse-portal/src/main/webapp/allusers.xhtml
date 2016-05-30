@@ -67,9 +67,11 @@
 						<p:outputPanel id="usersDetail" style="text-align:center;">
 							<h:outputText value="Ar tikrai norite patvirtinti naudotoją?" />
 							<p:commandButton value="Patvirtinti"
+											 styleClass="btn btn-success"
 								oncomplete="PF('approveConfirmationDialog').hide()"
 								update=":form5" action="#{userController.doApprove}" />
 							<p:commandButton value="Atšaukti"
+											 styleClass="btn btn-warning"
 								oncomplete="PF('approveConfirmationDialog').hide()" />
 						</p:outputPanel>
 					</p:dialog>

@@ -172,6 +172,18 @@
     margin-top: 5%;
     margin-bottom: 5%
 }
+.customAprovingForm {
+    display: inline-block;
+    padding-top: 0px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    border-radius: 2em;
+    background-color: rgba(202,255,183,0.60);
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
 
 .customMainPageSearch > span{
     margin-left: 10px;

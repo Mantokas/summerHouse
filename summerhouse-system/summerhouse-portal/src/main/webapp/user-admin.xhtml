@@ -165,11 +165,13 @@
                     <p:outputPanel id="confirmationDialog" style="text-align:center;">
                         <h:outputText value="Ar tikrai norite archyvuoti vartotoją?"/>
                         <p:commandButton value="Patvirtinti"
+                                         styleClass="btn btn-success"
                                          icon="ui-icon-check"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"
                                          update=":userForm:singleDT"
                                          action="#{userAdminController.doArchive}"/>
                         <p:commandButton value="Atšaukti"
+                                         styleClass="btn btn-warning"
                                          icon="ui-icon-cancel"
                                          oncomplete="PF('archiveConfirmationDialog').hide()"/>
                     </p:outputPanel>
@@ -178,13 +180,18 @@
                 <p:dialog header="Taškai" widgetVar="pointsDialog" modal="true"
                           showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="pointsToAddDialog" style="text-align:center;">
+                        <h:panelGrid columns="3" cellpadding="5">
                         <h:outputText value="Įveskite pridedamą taškų kiekį"/>
                         <p:inputText id="pointsToAdd"
+                                     style="margin: 5px"
                                      value="#{userAdminController.points}"/>
                         <p:commandButton value="Pridėti"
                                          icon="ui-icon-plus"
+                                         styleClass="btn btn-success"
+                                         style="margin: 10px"
                                          update=":userForm:singleDT,:dialogsForm:pointsToAddDialog,msg"
                                          action="#{userAdminController.doAddPoints}"/>
+                        </h:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
             </h:form>

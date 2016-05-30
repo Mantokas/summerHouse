@@ -47,7 +47,7 @@
 									 validatorMessage="Vardas gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
-									 disabled="#{!userLoginController.editable}">
+									 readonly="#{!userLoginController.editable}">
 							<f:validateRegex pattern="[a-zA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
@@ -58,53 +58,52 @@
 									 validatorMessage="Pavardė gali susidėti tik iš raidžių!"
 									 label="text"
 									 title="Redaguoti"
-									 disabled="#{!userLoginController.editable}">
+									 readonly="#{!userLoginController.editable}">
 							<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
 						</p:inputText>
 
 						<h:outputLabel value="El. paštas: "/>
 						<p:inputText readonly="true"
-									 disabled="true"
 									 value="#{userLoginController.loggedUser.email}"/>
 
 						<h:outputLabel value="Statusas: "/>
 						<p:inputText readonly="true"
 									 value="#{userLoginController.loggedUser.approvedString}"
-									 disabled="true"/>
+									 />
 
 						<h:outputLabel value="Turimi taškai: "
 							rendered="#{userLoginController.loggedUser.approved}" />
 						<p:inputText readonly="true"
 									 value="#{userLoginController.loggedUser.points}"
 							         rendered="#{userLoginController.loggedUser.approved}"
-									 disabled="true"/>
+									 />
 
 						<h:outputLabel value="Priklauso grupei: " />
 						<p:inputText readonly="true"
 							         value="#{userLoginController.loggedUser.groupNumber}"
-									 disabled="true"/>
+									 />
 
 						<h:outputLabel value="Narystė galioja iki: " />
 						<p:inputText readonly="true"
 									 value="Negalioja" rendered="#{userLoginController.loggedUser.validTo == null}"
-						             disabled="true"/>
+						             />
                         <p:inputText readonly="true"
                                      value="#{userLoginController.loggedUser.validTo}" rendered="#{userLoginController.loggedUser.validTo != null}"
-                                     disabled="true"/>
+                                     />
 
                         <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
                         <p:inputText value="#{userLoginController.loggedUser.skypeName}"
-									 disabled="#{!userLoginController.editable}"
+									 readonly="#{!userLoginController.editable}"
 									 rendered="#{userLoginController.skypeNameEnabled}"/>
 
                         <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
                         <p:inputMask value="#{userLoginController.loggedUser.phoneNumber}"
-									 disabled="#{!userLoginController.editable}"
+									 readonly="#{!userLoginController.editable}"
                                      rendered="#{userLoginController.phoneNumberEnabled}" mask="+370 999 99999"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
                         <p:inputText value="#{userLoginController.loggedUser.description}"
-									 disabled="#{!userLoginController.editable}"
+									 readonly="#{!userLoginController.editable}"
                                      rendered="#{userLoginController.descriptionEnabled}"/>
 					</h:panelGrid>
 
@@ -220,7 +219,7 @@
 
 				</h:form>
 
-				<h:form style="padding-left: 10px; margin-bottom: 20px;">
+				<h:form style="padding-left: 10px; margin-bottom: 20px; margin-top: 10px">
 					<p:commandButton styleClass="btn btn-lg btn-success"
 									 value="Sumokėti metinį narystės mokestį" type="submit"
 									 action="#{navigationController.goToPayment}" immediate="true"/>
