@@ -101,9 +101,15 @@
 							rendered="#{userLoginController.descriptionEnabled}" />
 					</h:panelGrid>
 					<div align="center">
-						<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+						<p:commandButton value="Patvirtinti" rendered="#{!userController.selectedUser.approved}"
 							styleClass="btn btn-success"
-							action="/allusers.xhtml?faces-redirect=true" />
+							action="#{userController.doApprove}"
+						update="msgs2"/>
+					</div>
+					<div align="center" style="margin-top: 10px;">
+						<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+										 styleClass="btn btn-info" style="width: 113px"
+										 action="/allusers.xhtml?faces-redirect=true" />
 					</div>
 				</h:form>
 

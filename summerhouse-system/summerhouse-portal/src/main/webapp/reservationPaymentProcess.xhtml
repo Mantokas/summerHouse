@@ -65,11 +65,12 @@
                         <p:ajax event="dateSelect" update=":form:button1,msgs"/>
                     </p:calendar>
 
-                    <p:separator />
+
                     <div align="center">
-                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" update="msgs,@form" actionListener="#{reservationPaymentController.goToSecondStep}"/>
-                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                        <p:commandButton value="Tęsti" icon="ui-icon-carat-1-e" styleClass="btn btn-success" style="margin-right: 10px; margin-top: 20px" update="msgs,@form" actionListener="#{reservationPaymentController.goToSecondStep}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" styleClass="btn btn-danger"  style="margin-right: 10px; margin-top: 20px" action="#{reservationPaymentController.goToSummerhouses}"/>
                     </div>
+                    <p:separator />
 
 
                 </p:outputPanel>
@@ -103,16 +104,18 @@
 
                     </p:dataGrid>
 
-                    <p:separator />
-
                     <div align="center">
                         <p:commandButton value="Tęsti"
                                          icon="ui-icon-carat-1-e"
                                          update="msgs,@form"
+                                         styleClass="btn btn-success" style="margin-right: 10px; margin-top: 20px"
                                          action="#{reservationPaymentController.goToThirdStep}"/>
-                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel"
+                                         styleClass="btn btn-danger" style="margin-right: 10px; margin-top: 20px"
+                                         action="#{reservationPaymentController.goToSummerhouses}"/>
                     </div>
 
+                    <p:separator />
 
                 </p:outputPanel>
 
@@ -127,14 +130,15 @@
                         <p:outputLabel value="Taškai po: #{reservationPaymentController.reservationPaymentView.pointsAfter}"/>
                     </h:panelGrid>
 
-                    <p:separator />
+
 
                     <div align="center">
-                        <p:commandButton value="Patvirtinti rezervaciją" icon="ui-icon-check" update="msgs,@form"
+                        <p:commandButton value="Patvirtinti rezervaciją" icon="ui-icon-check" update="msgs,@form" styleClass="btn btn-success" style="margin-right: 10px; margin-top: 20px"
                                          action="#{reservationPaymentController.submitTransaction}"/>
-                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel" action="#{reservationPaymentController.goToSummerhouses}"/>
+                        <p:commandButton value="Atšaukti" icon="ui-icon-cancel"  styleClass="btn btn-danger" style="margin-right: 10px; margin-top: 20px"action="#{reservationPaymentController.goToSummerhouses}"/>
                     </div>
 
+                    <p:separator />
 
                 </p:outputPanel>
 
