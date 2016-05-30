@@ -111,7 +111,7 @@ public class SearchController implements Serializable {
 	}
 
     public void checkReservationAbility(){
-        long groupNumber = (long) loggedUser.getGroupNumber();
+        long groupNumber = (long)loggedUser.getGroupNumber();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         LocalDate reservationStartDate = LocalDate.parse(configurationEntryDao.getByType
