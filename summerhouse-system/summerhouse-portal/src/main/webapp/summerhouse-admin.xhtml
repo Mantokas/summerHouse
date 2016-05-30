@@ -65,24 +65,24 @@
 							styleClass="btn btn-info"
 							action="#{summerhouseAdminController.doShowEditDialog}"
 							update=":form:summerhousesDetail" icon="ui-icon-pencil"
-							value="Redaguoti"
+							value="Redaguoti" style="margin-left: 0.5rem;"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null}"
 							oncomplete="PF('summerhouseDialog').show()">
 							<p:resetInput target=":form:summerhousesDetail" />
 						</p:commandButton>
 						<p:commandButton id="archive" process="singleDT"
 							styleClass="btn btn-danger" update=":form:summerhousesDetail"
-							icon="ui-icon-trash" value="Archyvuoti"
+							icon="ui-icon-trash" value="Archyvuoti" style="margin-left: 0.5rem;"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
 							oncomplete="PF('archiveConfirmationDialog').show()" />
 						<p:commandButton id="reset" process="singleDT"
-							styleClass="btn btn-warning"
+							styleClass="btn btn-warning" style="margin-left: 0.5rem;"
 							action="#{summerhouseAdminController.doReset}"
 							update=":summerhouseForm:singleDT"
 							icon="ui-icon-arrowreturnthick-1-w" value="Atstatyti"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or !summerhouseAdminController.selectedSummerhouse.archived}" />
 						<p:commandButton id="addService"
-							styleClass="btn btn-success"
+							styleClass="btn btn-success" style="margin-left: 0.5rem;"
 							action="/services-admin.xhtml?faces-redirect=true"
 							update=":summerhouseForm:singleDT" icon="ui-icon-gear"
 							value="Valdyti vasarnamio paslaugas"
