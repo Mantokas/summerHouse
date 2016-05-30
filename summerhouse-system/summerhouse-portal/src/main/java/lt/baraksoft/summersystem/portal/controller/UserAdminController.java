@@ -44,6 +44,7 @@ public class UserAdminController implements Serializable {
 	private String yearlyPayment;
 	private String maxUsersSize;
 	private String approversSize;
+    private String reservationsStart;
 	private UserView user = new UserView();
 	private String points = "";
 	private boolean skypeFieldVisible;
@@ -59,6 +60,7 @@ public class UserAdminController implements Serializable {
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
+        reservationsStart = configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue();
 	}
 
     private void reloadUsersList(){
@@ -135,9 +137,9 @@ public class UserAdminController implements Serializable {
 
 	public void calculateGroups(){
         List<UserView> usersList = userViewHelper.getUsersByApprovedArchived(true, false);
-        int peopleInGroup = 5;      // TODO: 2016-05-30 konfiguruojamas parametras
 
-        groupService.calculateGroups(usersList, peopleInGroup);
+
+        groupService.calculateGroups(usersList);
 
         reloadUsersList();
 	}
@@ -238,4 +240,11 @@ public class UserAdminController implements Serializable {
 		this.approversSize = approversSize;
 	}
 
+    public String getReservationsStart() {
+        return reservationsStart;
+    }
+
+    public void setReservationsStart(String reservationsStart) {
+        this.reservationsStart = reservationsStart;
+    }
 }

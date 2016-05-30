@@ -54,6 +54,9 @@
                         <f:validateRegex pattern="^[0-9]*$"/>
                     </p:inputText>
 
+                    <p:outputLabel for="multi" value="Rezervavimo startas:" />
+                    <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonly="true" pages="3" />
+
                     <h:outputText value="Skype laukas" />
                     <p:selectBooleanCheckbox style="margin-bottom: 5px"
                             value="#{userAdminController.skypeFieldVisible}"/>

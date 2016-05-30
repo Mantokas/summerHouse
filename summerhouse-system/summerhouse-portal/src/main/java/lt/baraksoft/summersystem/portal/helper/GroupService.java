@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Local
 public interface GroupService {
-    void calculateGroups(List<UserView> users, int usersInGroup);
+    void calculateGroups(List<UserView> users);
 }

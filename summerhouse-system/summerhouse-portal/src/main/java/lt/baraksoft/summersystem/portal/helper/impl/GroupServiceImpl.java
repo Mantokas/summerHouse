@@ -35,7 +35,7 @@ public class GroupServiceImpl implements GroupService{
     private final Integer GROUP_NUMBER_START = 1;
 
     @Override
-    public void calculateGroups(List<UserView> users, int usersInGroup) {
+    public void calculateGroups(List<UserView> users) {
         Map<String, Integer> usersReservations = new HashMap<>();
 
         users.stream().forEach(userView -> usersReservations.put(userView.getEmail(), calculateLastYearHoliday(userView))); //sukuria hashmap is vartotoju ir ju pernai atostogautu dienu
@@ -48,7 +48,7 @@ public class GroupServiceImpl implements GroupService{
 
             Iterator it = sortedUsersReservations.entrySet().iterator();
             int count = 0;
-            while (it.hasNext() && count < usersInGroup) {
+            while (it.hasNext() && count < 5) { //// TODO: 2016-05-30 konfiguruojamas
                 Map.Entry pair = (Map.Entry) it.next();
 
                 int finalGroupNumber = groupNumber;
