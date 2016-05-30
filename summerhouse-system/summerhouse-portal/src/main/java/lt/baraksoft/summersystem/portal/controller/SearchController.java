@@ -3,6 +3,7 @@ package lt.baraksoft.summersystem.portal.controller;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.ReservationPaymentHelper;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.UserView;
@@ -33,12 +36,16 @@ import lt.baraksoft.summersystem.portal.view.SummerhouseView;
 public class SearchController implements Serializable {
 
 	private static final long serialVersionUID = 7491298817566550329L;
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	@EJB
 	private SummerhouseViewHelper summerhouseViewHelper;
 
 	@Inject
 	private UserLoginController userLoginController;
+
+    @Inject
+    private ConfigurationEntryDao configurationEntryDao;
 
     @EJB
     private ReservationPaymentHelper reservationPaymentHelper;
@@ -52,6 +59,7 @@ public class SearchController implements Serializable {
 	private Date today;
 	private boolean visibleResults;
     private UserView loggedUser;
+    private boolean reservationAvailable;
 
 	@PostConstruct
 	public void init() {
@@ -101,6 +109,24 @@ public class SearchController implements Serializable {
             context.scrollTo("form2:cars");
         }
 	}
+
+    public void checkReservationAbility(){
+        long groupNumber = (long) loggedUser.getGroupNumber();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        LocalDate reservationStartDate = LocalDate.parse(configurationEntryDao.getByType
+                (ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
+
+        LocalDate deadline = reservationStartDate.plusWeeks(groupNumber);
+
+        if (LocalDate.now().isBefore(reservationStartDate)){
+            reservationAvailable = false;
+        }
+        else if (LocalDate.now().isBefore(deadline)){
+            reservationAvailable = true;
+        }
+
+    }
 
 	public Date getToday() {
 		return today;
@@ -168,5 +194,13 @@ public class SearchController implements Serializable {
 
     public void setLoggedUser(UserView loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public boolean isReservationAvailable() {
+        return reservationAvailable;
+    }
+
+    public void setReservationAvailable(boolean reservationAvailable) {
+        this.reservationAvailable = reservationAvailable;
     }
 }

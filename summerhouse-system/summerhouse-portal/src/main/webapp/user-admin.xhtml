@@ -56,7 +56,15 @@
 
                     <p:outputLabel for="multi" value="Rezervavimo startas:" />
                     <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonlyInput="true" pages="3"
-                        pattern="yyyy-MM-dd" mindate="#{userAdminController.today}"/>
+                        pattern="yyyy-MM-dd"  style="margin-bottom: 5px"/>
+
+                    <p:outputLabel for="groupSize" value="Narių skaičius grupėje:"/>
+                    <p:inputText style="margin-bottom: 5px; margin-top: 5px"
+                                 id="groupSize"
+                                 value="#{userAdminController.groupSize}"
+                                 validatorMessage="Kiekis gali susidėti tik iš skaičių">
+                        <f:validateRegex pattern="^[0-9]*$"/>
+                    </p:inputText>
 
                     <h:outputText value="Skype laukas" />
                     <p:selectBooleanCheckbox style="margin-bottom: 5px"

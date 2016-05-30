@@ -51,6 +51,7 @@ public class UserAdminController implements Serializable {
 	private String yearlyPayment;
 	private String maxUsersSize;
 	private String approversSize;
+    private String groupSize;
     private Date reservationsStart;
 	private UserView user = new UserView();
 	private String points = "";
@@ -68,6 +69,7 @@ public class UserAdminController implements Serializable {
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
+        groupSize = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE).getValue();
         today = new Date();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
@@ -119,6 +121,10 @@ public class UserAdminController implements Serializable {
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD);
 		entry.setValue(String.valueOf(descriptionFieldVisible));
 		configurationEntryDao.update(entry);
+
+        entry = configurationEntryDao.getByType(ConfigurationEntryEnum.GROUP_SIZE);
+        entry.setValue(String.valueOf(groupSize));
+        configurationEntryDao.update(entry);
 
         entry = configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE);
         DateFormat df = new SimpleDateFormat(DATE_PATTERN);
@@ -271,5 +277,13 @@ public class UserAdminController implements Serializable {
 
     public void setToday(Date today) {
         this.today = today;
+    }
+
+    public String getGroupSize() {
+        return groupSize;
+    }
+
+    public void setGroupSize(String groupSize) {
+        this.groupSize = groupSize;
     }
 }
