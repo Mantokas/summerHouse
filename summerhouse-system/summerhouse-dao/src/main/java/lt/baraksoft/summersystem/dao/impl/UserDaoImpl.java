@@ -26,6 +26,15 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 	}
 
 	@Override
+	public int getUsersCount() {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		criteria.select(root);
+		return getEntityManager().createQuery(criteria).getResultList().size();
+	}
+
+	@Override
 	public User getUserByLogin(String email, String password) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<User> criteria = cb.createQuery(User.class);

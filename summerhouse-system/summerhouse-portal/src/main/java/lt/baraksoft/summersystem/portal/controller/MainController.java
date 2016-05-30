@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
+import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
 import lt.baraksoft.summersystem.portal.helper.MailService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.Email;
@@ -30,8 +32,12 @@ public class MainController implements Serializable {
 	@EJB
 	private UserViewHelper userViewHelper;
 
+	@Inject
+	private ConfigurationEntryDao configurationEntryDao;
+
 	private String recommendationEmail;
 	private String errorMessage;
+	private int emailsSent;
 
 	@PostConstruct
 	public void init() {
@@ -41,6 +47,12 @@ public class MainController implements Serializable {
 	public void sendApproveMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		errorMessage = "";
+		int maxEmailsAvailable = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_REC_EMAILS_SENT).getValue());
+		if (emailsSent >= maxEmailsAvailable) {
+			context.addMessage(null, new FacesMessage("Klaida!", "Pasiektas maksimalus išsiųstų prašymų kiekis. Prašome bandyti vėliau!"));
+			return;
+		}
+
 		if (!recommendationEmail.matches(EMAIL_REGEX)) {
 			context.addMessage(null, new FacesMessage("Klaida!", "El. paštas įvestas neteisingai!"));
 			return;
@@ -59,6 +71,7 @@ public class MainController implements Serializable {
 		email.setSubject("Labanoro draugai");
 		mailService.sendMessage(email);
 		context.addMessage(null, new FacesMessage("Pavyko!", "Rekomendacijos užklausa išsiųsta naudotojui!"));
+		emailsSent++;
 	}
 
 	public String getRecommendationEmail() {
@@ -75,6 +88,14 @@ public class MainController implements Serializable {
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+
+	public int getEmailsSent() {
+		return emailsSent;
+	}
+
+	public void setEmailsSent(int emailsSent) {
+		this.emailsSent = emailsSent;
 	}
 
 }

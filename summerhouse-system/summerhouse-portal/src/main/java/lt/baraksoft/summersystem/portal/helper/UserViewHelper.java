@@ -24,4 +24,6 @@ public interface UserViewHelper {
 	UserView findUserByFbId(String id);
 
 	UserView getUserByEmail(String email);
+
+	int getUsersCount();
 }

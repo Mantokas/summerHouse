@@ -2,7 +2,6 @@ package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -18,13 +17,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lt.baraksoft.summersystem.portal.helper.GroupService;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntry;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
+import lt.baraksoft.summersystem.portal.helper.GroupService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -33,15 +32,15 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 public class UserAdminController implements Serializable {
 	private static final long serialVersionUID = -8711749859957428877L;
 
-    private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
-    private static final String CHANGES_SAVED2 = "";
-    private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
+	private static final String CHANGES_SAVED2 = "";
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	@EJB
 	private UserViewHelper userViewHelper;
 
-    @EJB
-    private GroupService groupService;
+	@EJB
+	private GroupService groupService;
 
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
@@ -51,13 +50,14 @@ public class UserAdminController implements Serializable {
 	private String yearlyPayment;
 	private String maxUsersSize;
 	private String approversSize;
-    private Date reservationsStart;
+	private String maxEmailsAvailable;
+	private Date reservationsStart;
 	private UserView user = new UserView();
 	private String points = "";
 	private boolean skypeFieldVisible;
 	private boolean telephoneFieldVisible;
 	private boolean descriptionFieldVisible;
-    private Date today;
+	private Date today;
 
 	@PostConstruct
 	public void init() {
@@ -65,19 +65,20 @@ public class UserAdminController implements Serializable {
 		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
 		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
 		approversSize = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue();
+		maxEmailsAvailable = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_REC_EMAILS_SENT).getValue();
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
-        today = new Date();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        LocalDate date = LocalDate.parse(configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
-        reservationsStart = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
+		today = new Date();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+		LocalDate date = LocalDate.parse(configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
+		reservationsStart = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
 
-    private void reloadUsersList(){
-        usersList = userViewHelper.getAllUsers();
-    }
+	private void reloadUsersList() {
+		usersList = userViewHelper.getAllUsers();
+	}
 
 	public void doArchive() {
 		selectedUser.setArchived(true);
@@ -87,13 +88,13 @@ public class UserAdminController implements Serializable {
 	public void doReset() {
 		selectedUser.setArchived(false);
 		userViewHelper.save(selectedUser);
-        createChangesSuccessMessage();
+		createChangesSuccessMessage();
 	}
 
-    private void createChangesSuccessMessage(){
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, CHANGES_SAVED, CHANGES_SAVED2);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+	private void createChangesSuccessMessage() {
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, CHANGES_SAVED, CHANGES_SAVED2);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
 	public void doSaveConfigs() {
 		ConfigurationEntry entry = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE);
@@ -108,6 +109,10 @@ public class UserAdminController implements Serializable {
 		entry.setValue(approversSize);
 		configurationEntryDao.update(entry);
 
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE);
+		entry.setValue(maxEmailsAvailable);
+		configurationEntryDao.update(entry);
+
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD);
 		entry.setValue(String.valueOf(skypeFieldVisible));
 		configurationEntryDao.update(entry);
@@ -120,12 +125,12 @@ public class UserAdminController implements Serializable {
 		entry.setValue(String.valueOf(descriptionFieldVisible));
 		configurationEntryDao.update(entry);
 
-        entry = configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE);
-        DateFormat df = new SimpleDateFormat(DATE_PATTERN);
-        entry.setValue(df.format(reservationsStart));
-        configurationEntryDao.update(entry);
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE);
+		DateFormat df = new SimpleDateFormat(DATE_PATTERN);
+		entry.setValue(df.format(reservationsStart));
+		configurationEntryDao.update(entry);
 
-        createChangesSuccessMessage();
+		createChangesSuccessMessage();
 	}
 
 	public void doAddPoints() {
@@ -148,17 +153,16 @@ public class UserAdminController implements Serializable {
 		points = "";
 		RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
 
-        reloadUsersList();
-        createChangesSuccessMessage();
+		reloadUsersList();
+		createChangesSuccessMessage();
 	}
 
-	public void calculateGroups(){
-        List<UserView> usersList = userViewHelper.getUsersByApprovedArchived(true, false);
+	public void calculateGroups() {
+		List<UserView> usersList = userViewHelper.getUsersByApprovedArchived(true, false);
 
+		groupService.calculateGroups(usersList);
 
-        groupService.calculateGroups(usersList);
-
-        reloadUsersList();
+		reloadUsersList();
 	}
 
 	public UserViewHelper getUserViewHelper() {
@@ -257,19 +261,27 @@ public class UserAdminController implements Serializable {
 		this.approversSize = approversSize;
 	}
 
-    public Date getReservationsStart() {
-        return reservationsStart;
-    }
+	public Date getReservationsStart() {
+		return reservationsStart;
+	}
 
-    public void setReservationsStart(Date reservationsStart) {
-        this.reservationsStart = reservationsStart;
-    }
+	public void setReservationsStart(Date reservationsStart) {
+		this.reservationsStart = reservationsStart;
+	}
 
-    public Date getToday() {
-        return today;
-    }
+	public Date getToday() {
+		return today;
+	}
 
-    public void setToday(Date today) {
-        this.today = today;
-    }
+	public void setToday(Date today) {
+		this.today = today;
+	}
+
+	public String getMaxEmailsAvailable() {
+		return maxEmailsAvailable;
+	}
+
+	public void setMaxEmailsAvailable(String maxEmailsAvailable) {
+		this.maxEmailsAvailable = maxEmailsAvailable;
+	}
 }

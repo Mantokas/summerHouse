@@ -17,14 +17,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import lt.baraksoft.summersystem.portal.helper.*;
-import lt.baraksoft.summersystem.portal.view.PaymentView;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
 import lt.baraksoft.summersystem.dao.ConfigurationEntryDao;
 import lt.baraksoft.summersystem.model.ConfigurationEntryEnum;
+import lt.baraksoft.summersystem.portal.helper.AuthorizationService;
+import lt.baraksoft.summersystem.portal.helper.FacebookService;
+import lt.baraksoft.summersystem.portal.helper.PaymentViewHelper;
+import lt.baraksoft.summersystem.portal.helper.ReservationViewHelper;
+import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
+import lt.baraksoft.summersystem.portal.view.PaymentView;
 import lt.baraksoft.summersystem.portal.view.ReservationView;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
@@ -64,15 +68,15 @@ public class UserLoginController implements Serializable {
 	@EJB
 	private ReservationViewHelper reservationViewHelper;
 
-    @EJB
-    private PaymentViewHelper paymentViewHelper;
+	@EJB
+	private PaymentViewHelper paymentViewHelper;
 
 	@EJB
 	private AuthorizationService authorizationService;
 
 	private UserView userView = new UserView();
 	private List<ReservationView> myReservations = new ArrayList<>();
-    private List<PaymentView> myPayments = new ArrayList<>();
+	private List<PaymentView> myPayments = new ArrayList<>();
 	private ReservationView selectedReservation;
 	private UserView loggedUser;
 	private String email;
@@ -83,6 +87,7 @@ public class UserLoginController implements Serializable {
 	private boolean descriptionEnabled;
 	private boolean phoneNumberEnabled;
 	private boolean admin;
+	private boolean formVisible;
 
 	@PostConstruct
 	public void updateDisabledFields() {
@@ -92,8 +97,18 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void checkUserRole() {
-        admin = loggedUser != null && authorizationService.isAdmin();
-    }
+		admin = loggedUser != null && authorizationService.isAdmin();
+	}
+
+	public void checkRegistrationLimit() {
+		formVisible = false;
+		int maxUsers = Integer.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue());
+
+		if (userViewHelper.getUsersCount() >= maxUsers) {
+			return;
+		}
+		formVisible = true;
+	}
 
 	public void updateLoggedUser() {
 		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
@@ -103,9 +118,9 @@ public class UserLoginController implements Serializable {
 		myReservations = reservationViewHelper.getReservations();
 	}
 
-    public void collectMyPayments(){
-        myPayments = paymentViewHelper.getPaymentByUserID(loggedUser.getId());
-    }
+	public void collectMyPayments() {
+		myPayments = paymentViewHelper.getPaymentByUserID(loggedUser.getId());
+	}
 
 	public void checkReservation() {
 		if (selectedReservation == null) {
@@ -280,11 +295,19 @@ public class UserLoginController implements Serializable {
 		this.admin = admin;
 	}
 
-    public List<PaymentView> getMyPayments() {
-        return myPayments;
-    }
+	public List<PaymentView> getMyPayments() {
+		return myPayments;
+	}
 
-    public void setMyPayments(List<PaymentView> myPayments) {
-        this.myPayments = myPayments;
-    }
+	public void setMyPayments(List<PaymentView> myPayments) {
+		this.myPayments = myPayments;
+	}
+
+	public boolean isFormVisible() {
+		return formVisible;
+	}
+
+	public void setFormVisible(boolean formVisible) {
+		this.formVisible = formVisible;
+	}
 }

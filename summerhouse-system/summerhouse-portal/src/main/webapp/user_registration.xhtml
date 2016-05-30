@@ -8,7 +8,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:metadata>
-    <f:viewAction action="#{userLoginController.updateDisabledFields}"/>
+	<f:viewAction action="#{userLoginController.updateDisabledFields}" />
+	<f:viewAction action="#{userLoginController.checkRegistrationLimit}" />
 </f:metadata>
 
 <h:body>
@@ -18,29 +19,41 @@
 		</ui:define>
 		<ui:define name="content">
 
-            <h1 style="text-align: center">Vartotojo registracija</h1>
+			<h1 style="text-align: center; margin-bottom: 5rem;">Vartotojo registracija</h1>
+			<h:form id="maxUsersFrom"
+				rendered="#{!userLoginController.formVisible}">
+				<h3 style="text-align: center">Pasiektas maksimalus naudotojų
+					skaičius</h3>
+				<h3 style="text-align: center">Registracija šiuo metu negalima,
+					prašome pabandyti vėliau!</h3>
+				<div align="center">
+					<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+						action="/signin.xhtml?faces-redirect=true" immediate="true" />
+				</div>
+			</h:form>
 
-			<h:form id="userRegistrationForm">
+			<h:form id="userRegistrationForm"
+				rendered="#{userLoginController.formVisible}">
 
 				<h:panelGrid columns="2" id="grid" cellpadding="5">
-					<p:outputLabel for="firstName" value="Vardas:" />
-					<p:inputText id="firstName"
-						value="#{registrationController.userView.firstName}"
-						required="true" requiredMessage="Įveskite vardą!"
-						validatorMessage="Vardas gali susidėti tik iš raidžių!">
-						<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
-					</p:inputText>
+						<p:outputLabel for="firstName" value="Vardas:" />
+						<p:inputText id="firstName" style="margin-bottom: 7px"
+							value="#{registrationController.userView.firstName}"
+							required="true" requiredMessage="Įveskite vardą!"
+							validatorMessage="Vardas gali susidėti tik iš raidžių!">
+							<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
+						</p:inputText>
 
-					<p:outputLabel for="lastName" value="Pavardė:" />
-					<p:inputText id="lastName"
-						value="#{registrationController.userView.lastName}"
-						required="true" requiredMessage="Įveskite pavardę!"
-						validatorMessage="Pavardė gali susidėti tik iš raidžių!">
-						<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
-					</p:inputText>
+						<p:outputLabel for="lastName" value="Pavardė:" />
+						<p:inputText id="lastName" style="margin-bottom: 7px"
+							value="#{registrationController.userView.lastName}"
+							required="true" requiredMessage="Įveskite pavardę!"
+							validatorMessage="Pavardė gali susidėti tik iš raidžių!">
+							<f:validateRegex pattern="[a-zA-ZA-ŽžZČčĄąĘęĖėĮįŠšŲųŪū]+" />
+						</p:inputText>
 
 					<p:outputLabel for="email" value="El. paštas:" />
-					<p:inputText id="email"
+					<p:inputText id="email" style="margin-bottom: 7px"
 						value="#{registrationController.userView.email}" required="true"
 						requiredMessage="Įveskite el. paštą!"
 						validatorMessage="Blogas el. pašto formatas!">
@@ -49,37 +62,45 @@
 					</p:inputText>
 
 					<p:outputLabel for="password" value="Slaptažodis:" />
-					<p:password id="password"
+					<p:password id="password" style="margin-bottom: 7px"
 						value="#{registrationController.userView.password}"
 						match="password2" required="true"
 						requiredMessage="Įveskite slaptažodį!"
-						validatorMessage="Slaptažodžiai nesutampa!" feedback="true" promptLabel="Įveskite slaptažodį"
-                                weakLabel="Silpnas"
-                                goodLabel="Geras"
-                                strongLabel="Stiprus"/>
+						validatorMessage="Slaptažodžiai nesutampa!" feedback="true"
+						promptLabel="Įveskite slaptažodį" weakLabel="Silpnas"
+						goodLabel="Geras" strongLabel="Stiprus" />
 
 					<p:outputLabel for="password2" value="Pakartokite slaptažodį:" />
-					<p:password id="password2" required="true"
+					<p:password id="password2" style="margin-bottom: 7px" required="true"
 						requiredMessage="Pakartokite slaptažodį!" />
 
-                    <p:outputLabel for="birthdate" value="Gimimo data:" />
-                    <p:inputMask id="birthdate" value="#{registrationController.birthday}" mask="9999-99-99"
-                                validatorMessage="Neteisinga gimimo data" converterMessage="Neteisinga gimimo data">
-                        <f:validateRegex
-                                pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$" />
-                    </p:inputMask>
+					<p:outputLabel for="birthdate" value="Gimimo data:" />
+					<p:inputMask id="birthdate" style="margin-bottom: 7px"
+						value="#{registrationController.birthday}" mask="9999-99-99"
+						validatorMessage="Neteisinga gimimo data"
+						converterMessage="Neteisinga gimimo data">
+						<f:validateRegex
+							pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$" />
+					</p:inputMask>
 
-					<p:outputLabel for="skypeName" value="Skype vardas:" rendered="#{userLoginController.skypeNameEnabled}"/>
-					<p:inputText id="skypeName" required="false" value="#{registrationController.userView.skypeName}"
-                                 rendered="#{userLoginController.skypeNameEnabled}"/>
+					<p:outputLabel for="skypeName" value="Skype vardas:"
+						rendered="#{userLoginController.skypeNameEnabled}" />
+					<p:inputText id="skypeName" required="false" style="margin-bottom: 7px"
+						value="#{registrationController.userView.skypeName}"
+						rendered="#{userLoginController.skypeNameEnabled}" />
 
-					<p:outputLabel for="description" value="Aprašymas:" rendered="#{userLoginController.descriptionEnabled}"/>
-					<p:inputText id="description" required="false" rendered="#{userLoginController.descriptionEnabled}"
-                                 value="#{registrationController.userView.description}"/>
+					<p:outputLabel for="description" value="Aprašymas:"
+						rendered="#{userLoginController.descriptionEnabled}" />
+					<p:inputText id="description" required="false" style="margin-bottom: 7px"
+						rendered="#{userLoginController.descriptionEnabled}"
+						value="#{registrationController.userView.description}" />
 
-					<p:outputLabel for="phoneNumber" value="Mobilaus telefono nr.:" rendered="#{userLoginController.phoneNumberEnabled}"/>
-					<p:inputMask id="phoneNumber" required="false" mask="+370 999 99999" rendered="#{userLoginController.phoneNumberEnabled}"
-                                 value="#{registrationController.userView.phoneNumber}"/>
+					<p:outputLabel for="phoneNumber" value="Mobilaus telefono nr.:"
+						rendered="#{userLoginController.phoneNumberEnabled}" />
+					<p:inputMask id="phoneNumber" required="false" style="margin-bottom: 7px"
+						mask="+370 999 99999"
+						rendered="#{userLoginController.phoneNumberEnabled}"
+						value="#{registrationController.userView.phoneNumber}" />
 
 				</h:panelGrid>
 
@@ -89,11 +110,11 @@
 
 				<p:messages id="messages" autoUpdate="true" />
 
-				<div align="center">
-					<p:commandButton value="Išvalyti laukus" icon="ui-icon-close" type="reset" update="grid" />
-					<p:commandButton value="Registruotis"
-									 icon="ui-icon-check"
-									 action="#{registrationController.registerUser}" />
+				<div align="center" style="margin-bottom: 1rem;">
+					<p:commandButton value="Išvalyti laukus" icon="ui-icon-close"
+						type="reset" update="grid" style="margin-right: 1rem"/>
+					<p:commandButton value="Registruotis" icon="ui-icon-check"
+						action="#{registrationController.registerUser}" />
 				</div>
 
 
@@ -101,11 +122,13 @@
 					minHeight="40">
 					<p:outputLabel value="Naudotojas sukurtas!" />
 					<p:commandButton value="Gerai" icon="ui-icon-check" type="submit"
-						action="#{navigationController.goToMain}" actionListener="#{registrationController.setLoggedUser}"/>
+						action="#{navigationController.goToMain}"
+						actionListener="#{registrationController.setLoggedUser}" />
 				</p:dialog>
 
 				<div align="center">
-					<p:commandButton value="Atgal" icon="ui-icon-carat-1-w" action="/signin.xhtml?faces-redirect=true" immediate="true"/>
+					<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+						action="/signin.xhtml?faces-redirect=true" immediate="true" />
 				</div>
 
 			</h:form>

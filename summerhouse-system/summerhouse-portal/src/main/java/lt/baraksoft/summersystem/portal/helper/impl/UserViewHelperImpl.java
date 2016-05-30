@@ -50,6 +50,11 @@ public class UserViewHelperImpl implements UserViewHelper {
 	}
 
 	@Override
+	public int getUsersCount() {
+		return userDao.getUsersCount();
+	}
+
+	@Override
 	public List<UserView> getAllUsers() {
 		List<User> entities = userDao.getAllUsers();
 		List<UserView> views = new ArrayList<>();

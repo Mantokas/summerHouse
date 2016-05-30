@@ -53,13 +53,21 @@
                                  validatorMessage="Kiekis gali susidėti tik iš skaičių">
                         <f:validateRegex pattern="^[0-9]*$"/>
                     </p:inputText>
+                    
+                    <p:outputLabel for="maxEmailsAvailable" value="Maksimalus išsiųstų prašymų skaičius" />
+                    <p:inputText style="margin-bottom: 5px"
+                                 id="maxEmailsAvailable"
+                                 value="#{userAdminController.maxEmailsAvailable}"
+                                 validatorMessage="Kiekis gali susidėti tik iš skaičių">
+                        <f:validateRegex pattern="^[0-9]*$"/>
+                    </p:inputText>
 
                     <p:outputLabel for="multi" value="Rezervavimo startas:" />
                     <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonlyInput="true" pages="3"
-                        pattern="yyyy-MM-dd" mindate="#{userAdminController.today}"/>
+                        pattern="yyyy-MM-dd" mindate="#{userAdminController.today}" />
 
                     <h:outputText value="Skype laukas" />
-                    <p:selectBooleanCheckbox style="margin-bottom: 5px"
+                    <p:selectBooleanCheckbox style="margin-bottom: 5px; margin-top: 5px;"
                             value="#{userAdminController.skypeFieldVisible}"/>
 
                     <h:outputText value="Telefono numerio laukas" />
