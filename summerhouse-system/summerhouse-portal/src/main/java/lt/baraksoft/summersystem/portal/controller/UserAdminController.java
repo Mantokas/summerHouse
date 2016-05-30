@@ -1,7 +1,13 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +35,7 @@ public class UserAdminController implements Serializable {
 
     private static final String CHANGES_SAVED = "Pakeitimai išsaugoti";
     private static final String CHANGES_SAVED2 = "";
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	@EJB
 	private UserViewHelper userViewHelper;
@@ -44,12 +51,13 @@ public class UserAdminController implements Serializable {
 	private String yearlyPayment;
 	private String maxUsersSize;
 	private String approversSize;
-    private String reservationsStart;
+    private Date reservationsStart;
 	private UserView user = new UserView();
 	private String points = "";
 	private boolean skypeFieldVisible;
 	private boolean telephoneFieldVisible;
 	private boolean descriptionFieldVisible;
+    private Date today;
 
 	@PostConstruct
 	public void init() {
@@ -60,8 +68,12 @@ public class UserAdminController implements Serializable {
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
-        reservationsStart = configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue();
-	}
+        today = new Date();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        LocalDate date = LocalDate.parse(configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE).getValue(), formatter);
+        reservationsStart = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
 
     private void reloadUsersList(){
         usersList = userViewHelper.getAllUsers();
@@ -107,6 +119,11 @@ public class UserAdminController implements Serializable {
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD);
 		entry.setValue(String.valueOf(descriptionFieldVisible));
 		configurationEntryDao.update(entry);
+
+        entry = configurationEntryDao.getByType(ConfigurationEntryEnum.RESERVATION_START_DATE);
+        DateFormat df = new SimpleDateFormat(DATE_PATTERN);
+        entry.setValue(df.format(reservationsStart));
+        configurationEntryDao.update(entry);
 
         createChangesSuccessMessage();
 	}
@@ -240,11 +257,19 @@ public class UserAdminController implements Serializable {
 		this.approversSize = approversSize;
 	}
 
-    public String getReservationsStart() {
+    public Date getReservationsStart() {
         return reservationsStart;
     }
 
-    public void setReservationsStart(String reservationsStart) {
+    public void setReservationsStart(Date reservationsStart) {
         this.reservationsStart = reservationsStart;
+    }
+
+    public Date getToday() {
+        return today;
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
     }
 }

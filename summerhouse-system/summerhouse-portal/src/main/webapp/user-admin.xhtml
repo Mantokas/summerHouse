@@ -3,9 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions">
 
 <f:metadata>
@@ -55,7 +55,8 @@
                     </p:inputText>
 
                     <p:outputLabel for="multi" value="Rezervavimo startas:" />
-                    <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonly="true" pages="3" />
+                    <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonlyInput="true" pages="3"
+                        pattern="yyyy-MM-dd" mindate="#{userAdminController.today}"/>
 
                     <h:outputText value="Skype laukas" />
                     <p:selectBooleanCheckbox style="margin-bottom: 5px"
@@ -72,7 +73,7 @@
                         <h:panelGroup styleClass="panel-footer" style="display:block; text-align:center;
                          margin-bottom: -10px;    margin-left: -10px;    margin-right: -10px;">
                             <p:commandButton styleClass="btn btn-success"
-                                             id="saveConfigs" update="msgs"
+                                             id="saveConfigs" update="msgs,@form"
                                              icon="ui-icon-disk"
                                              value="Išsaugoti nustatymus" action="#{userAdminController.doSaveConfigs}"/>
                         </h:panelGroup>
