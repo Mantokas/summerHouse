@@ -69,6 +69,14 @@
                                  validatorMessage="Kiekis gali susidėti tik iš skaičių">
                         <f:validateRegex pattern="^[0-9]*$"/>
                     </p:inputText>
+                    
+                    <p:outputLabel for="cancelReservationDays" value="Rezervacijos atšaukimo terminas:"/>
+                    <p:inputText style="margin-bottom: 5px;"
+                                 id="cancelReservationDays"
+                                 value="#{userAdminController.cancelReservationDays}"
+                                 validatorMessage="Terminas gali susidėti tik iš skaičių">
+                        <f:validateRegex pattern="^[0-9]*$"/>
+                    </p:inputText>
 
                     <p:outputLabel for="multi" value="Rezervavimo startas:" />
                     <p:calendar id="multi" value="#{userAdminController.reservationsStart}" readonlyInput="true" pages="3"

@@ -52,6 +52,7 @@ public class UserAdminController implements Serializable {
 	private String approversSize;
 	private String groupSize;
 	private String maxEmailsAvailable;
+	private String cancelReservationDays;
 	private Date reservationsStart;
 	private UserView user = new UserView();
 	private String points = "";
@@ -67,6 +68,7 @@ public class UserAdminController implements Serializable {
 		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
 		approversSize = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue();
 		maxEmailsAvailable = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_REC_EMAILS_SENT).getValue();
+		cancelReservationDays = configurationEntryDao.getByType(ConfigurationEntryEnum.DAYS_CANCEL_RESERVATION).getValue();
 		skypeFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD).getValue());
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
@@ -113,6 +115,10 @@ public class UserAdminController implements Serializable {
 
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_REC_EMAILS_SENT);
 		entry.setValue(maxEmailsAvailable);
+		configurationEntryDao.update(entry);
+
+		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.DAYS_CANCEL_RESERVATION);
+		entry.setValue(cancelReservationDays);
 		configurationEntryDao.update(entry);
 
 		entry = configurationEntryDao.getByType(ConfigurationEntryEnum.SKYPE_FIELD);
@@ -297,5 +303,13 @@ public class UserAdminController implements Serializable {
 
 	public void setGroupSize(String groupSize) {
 		this.groupSize = groupSize;
+	}
+
+	public String getCancelReservationDays() {
+		return cancelReservationDays;
+	}
+
+	public void setCancelReservationDays(String cancelReservationDays) {
+		this.cancelReservationDays = cancelReservationDays;
 	}
 }
