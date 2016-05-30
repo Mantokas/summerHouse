@@ -1,78 +1,79 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 
 <f:metadata>
 	<f:viewAction action="#{navigationController.checkLoggedUser}" />
-    <f:viewAction action="#{userController.refreshUsers}" />
+	<f:viewAction action="#{userController.refreshUsers}" />
 </f:metadata>
 
 <h:body>
 
 	<ui:composition template="/template/common/commonLayout.xhtml">
-        <ui:define name="title">Nariai</ui:define>
+		<ui:define name="title">Nariai</ui:define>
 		<ui:define name="content">
 
 			<f:view>
-                <h:form id="form5" styleClass="panel panel-default" style="background-color: transparent; border-color: transparent"
-                        rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
-                        enctype="multipart/form-data">
+				<h:form id="form5" styleClass="panel panel-default"
+					style="background-color: transparent; border-color: transparent"
+					rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
+					enctype="multipart/form-data">
 
-                    <p:growl id="msgs2" showDetail="true" />
+					<p:growl id="msgs2" showDetail="true" />
 
 					<h:panelGrid columns="3" cellpadding="5">
-						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:" style="margin-right: 10px"/>
-						<p:inputText id="email"
-									 value="#{userController.invitationEmail}"/>
-						<p:commandButton style="margin: 10px;" styleClass="btn btn-success"
-										 value="Siųsti pakvietimą"
-										 actionListener="#{userController.sendInvitationMessage}"
-										 update="msgs2" />
+						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:"
+							style="margin-right: 10px" />
+						<p:inputText id="email" value="#{userController.invitationEmail}" />
+						<p:commandButton style="margin: 10px;"
+							styleClass="btn btn-success" value="Siųsti pakvietimą"
+							actionListener="#{userController.sendInvitationMessage}"
+							update="msgs2" />
 					</h:panelGrid>
 
-                    <p:dataTable var="user" value="#{userController.users}"
-                                layout="grid" paginator="true" id="userAccount"
-                                paginatorPosition="bottom" rows="12"
-                                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                styleClass="customUsersDatatable panel panel-default">
+					<p:dataTable var="user" value="#{userController.users}"
+						layout="grid" paginator="true" id="userAccount"
+						paginatorPosition="bottom" rows="12"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						styleClass="customUsersDatatable panel panel-default">
 
-                        <f:facet name="header">
+						<f:facet name="header">
                             Sistemos vartotojai
                         </f:facet>
 
-                        <p:column headerText="El.paštas" sortBy="#{user.email}">
-                            <h:commandLink value="#{user.email}" action="#{userController.goToDetailedUser(user)}"/>
-                        </p:column>
+						<p:column headerText="El.paštas" sortBy="#{user.email}">
+							<h:commandLink value="#{user.email}"
+								action="#{userController.goToDetailedUser(user)}" />
+						</p:column>
 
-                        <p:column headerText="Vardas" sortBy="#{user.firstName}">
-                            <h:outputText value="#{user.firstName}" />
-                        </p:column>
+						<p:column headerText="Vardas" sortBy="#{user.firstName}">
+							<h:outputText value="#{user.firstName}" />
+						</p:column>
 
-                        <p:column headerText="Statusas" sortBy="#{user.approvedString}">
-                            <h:outputText value="#{user.approvedString}" />
-                        </p:column>
+						<p:column headerText="Statusas" sortBy="#{user.approvedString}">
+							<h:outputText value="#{user.approvedString}" />
+						</p:column>
 
-                        <f:facet name="footer">
+						<f:facet name="footer">
                             Sistemoje yra #{fn:length(userController.users)} vartotojų.
                         </f:facet>
 
-                    </p:dataTable>
+					</p:dataTable>
 
 					<p:dialog header="Patvirtinimas"
 						widgetVar="approveConfirmationDialog" modal="true"
 						showEffect="fade" hideEffect="fade" resizable="false">
 						<p:outputPanel id="usersDetail" style="text-align:center;">
 							<h:outputText value="Ar tikrai norite patvirtinti naudotoją?" />
-							<p:commandButton value="Patvirtinti"
-											 styleClass="btn btn-success"
+							<p:commandButton value="Patvirtinti" styleClass="btn btn-success"
 								oncomplete="PF('approveConfirmationDialog').hide()"
 								update=":form5" action="#{userController.doApprove}" />
-							<p:commandButton value="Atšaukti"
-											 styleClass="btn btn-warning"
+							<p:commandButton value="Atšaukti" styleClass="btn btn-warning"
 								oncomplete="PF('approveConfirmationDialog').hide()" />
 						</p:outputPanel>
 					</p:dialog>

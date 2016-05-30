@@ -206,6 +206,10 @@
     height: auto;
 }
 
+.customResults .ui-widget-header{
+    background-color: #CBEAB9;
+}
+
 .customUserlist{
     text-align: center;
     border-width: medium;

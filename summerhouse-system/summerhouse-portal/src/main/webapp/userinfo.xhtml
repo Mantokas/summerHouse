@@ -2,108 +2,114 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Detailed userView info</title>
+	<title>Detailed userView info</title>
 </h:head>
 
 <f:metadata>
-    <f:viewAction action="#{navigationController.checkLoggedUser}"/>
+	<f:viewAction action="#{navigationController.checkLoggedUser}" />
 </f:metadata>
 
 <h:body>
-    <ui:composition template="/template/common/commonLayout.xhtml">
+	<ui:composition template="/template/common/commonLayout.xhtml">
 
-        <ui:define name="content">
-            <f:view>
-                <h:form id="form5"
-                        rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
-                        enctype="multipart/form-data">
+		<ui:define name="content">
+			<f:view>
+				<h:form id="form5"
+					rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
+					enctype="multipart/form-data">
 
-                    <p:growl id="msgs2" showDetail="true" />
+					<p:growl id="msgs2" showDetail="true" />
 
-                    <h1 style="text-align: center">Detali nario anketa</h1>
-                    <h:panelGrid columns="1" styleClass="panel panel-default">
-                        <h:graphicImage
-                                value="#{userController.selectedUser.encodedImage}" rendered="#{userController.selectedUser.encodedImage ne null}"
-                                styleClass="user-view-img" />
-                        <h:graphicImage value="resources/images/defaultUserImage.png"
-                                        styleClass="img-responsive customImage" rendered="#{userController.selectedUser.encodedImage eq null}"/>
-                    </h:panelGrid>
-                    <h:panelGrid id="profileGrid" columns="2" columnClasses="column" cellpadding="5" styleClass="panel panel-default" style=" padding: 10px; border-collapse: inherit;">
-                        <h:outputLabel value="Vardas: " />
-                        <p:inputText value="#{userController.selectedUser.firstName}"
-                                     label="text"
-                                     readonly="true">
-                        </p:inputText>
+					<h1 style="text-align: center">Detali nario anketa</h1>
+					<h:panelGrid columns="1" styleClass="panel panel-default">
+						<h:graphicImage
+							value="#{userController.selectedUser.encodedImage}"
+							rendered="#{userController.selectedUser.encodedImage ne null}"
+							styleClass="user-view-img" />
+						<h:graphicImage value="resources/images/defaultUserImage.png"
+							styleClass="img-responsive customImage"
+							rendered="#{userController.selectedUser.encodedImage eq null}" />
+					</h:panelGrid>
+					<h:panelGrid id="profileGrid" columns="2" columnClasses="column"
+						cellpadding="5" styleClass="panel panel-default"
+						style=" padding: 10px; border-collapse: inherit;">
+						<h:outputLabel value="Vardas: " />
+						<p:inputText value="#{userController.selectedUser.firstName}"
+							label="text" readonly="true" style="margin-bottom: 5px">
+						</p:inputText>
 
-                        <h:outputLabel value="Pavardė: "/>
+						<h:outputLabel value="Pavardė: " />
+						<p:inputText value="#{userController.selectedUser.lastName}"
+							required="true" label="text" readonly="true"
+							style="margin-bottom: 5px">
+						</p:inputText>
 
-                        <p:inputText value="#{userController.selectedUser.lastName}"
-                                     required="true"
-                                     label="text"
-                                     readonly="true">
-                        </p:inputText>
+						<h:outputLabel value="El. paštas: " />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.email}"
+							style="margin-bottom: 5px" />
 
-                        <h:outputLabel value="El. paštas: "/>
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.email}"/>
+						<h:outputLabel value="Statusas: " />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.approvedString}"
+							style="margin-bottom: 5px" />
 
-                        <h:outputLabel value="Statusas: "/>
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.approvedString}"
-                                     />
+						<h:outputLabel value="Turimi taškai: "
+							rendered="#{userLoginController.loggedUser.approved}" />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.points}"
+							rendered="#{userLoginController.loggedUser.approved}"
+							style="margin-bottom: 5px" />
 
-                        <h:outputLabel value="Turimi taškai: "
-                                       rendered="#{userLoginController.loggedUser.approved}" />
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.points}"
-                                     rendered="#{userLoginController.loggedUser.approved}"
-                                     />
+						<h:outputLabel value="Priklauso grupei: " />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.groupNumber}"
+							style="margin-bottom: 5px" />
 
-                        <h:outputLabel value="Priklauso grupei: " />
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.groupNumber}"
-                                     />
+						<h:outputLabel value="Narystė galioja iki: " />
+						<p:inputText readonly="true" value="Negalioja"
+							rendered="#{userController.selectedUser.validTo == null}" />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.validTo}"
+							rendered="#{userController.selectedUser.validTo != null}"
+							style="margin-bottom: 5px" />
 
-                        <h:outputLabel value="Narystė galioja iki: " />
-                        <p:inputText readonly="true"
-                                     value="Negalioja" rendered="#{userController.selectedUser.validTo == null}"
-                                     />
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.validTo}" rendered="#{userController.selectedUser.validTo != null}"
-                                     />
+						<h:outputLabel value="Skype vardas: "
+							rendered="#{userLoginController.skypeNameEnabled}" />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.skypeName}"
+							style="margin-bottom: 5px"
+							rendered="#{userLoginController.skypeNameEnabled}" />
 
-                        <h:outputLabel value="Skype vardas: " rendered="#{userLoginController.skypeNameEnabled}"/>
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.skypeName}"
+						<h:outputLabel value="Tel.nr.: "
+							rendered="#{userLoginController.phoneNumberEnabled}" />
+						<p:inputText readonly="true"
+							value="#{userController.selectedUser.phoneNumber}"
+							style="margin-bottom: 5px"
+							rendered="#{userLoginController.phoneNumberEnabled}" />
 
-                                     rendered="#{userLoginController.skypeNameEnabled}"/>
+						<h:outputLabel value="Aprašymas: "
+							rendered="#{userLoginController.descriptionEnabled}" />
+						<p:inputTextarea readonly="true"
+							style="overflow: overlay; max-height: 100px; margin-bottom: 5px;"
+							value="#{userController.selectedUser.description}"
+							rendered="#{userLoginController.descriptionEnabled}" />
+					</h:panelGrid>
+					<div align="center">
+						<p:commandButton value="Atgal" icon="ui-icon-carat-1-w"
+							styleClass="btn btn-info"
+							action="/allusers.xhtml?faces-redirect=true" />
+					</div>
+				</h:form>
 
-                        <h:outputLabel value="Tel.nr.: " rendered="#{userLoginController.phoneNumberEnabled}"/>
-                        <p:inputText readonly="true"
-                                     value="#{userController.selectedUser.phoneNumber}"
-
-                                     rendered="#{userLoginController.phoneNumberEnabled}"/>
-
-                        <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
-                        <p:inputTextarea readonly="true" style="overflow: overlay; max-height: 100px;"
-                                     value="#{userController.selectedUser.description}"
-
-                                     rendered="#{userLoginController.descriptionEnabled}"/>
-                    </h:panelGrid>
-                    <div align="center">
-                        <p:commandButton value="Atgal" icon="ui-icon-carat-1-w" styleClass="btn btn-info" action="/allusers.xhtml?faces-redirect=true"/>
-                    </div>
-                </h:form>
-
-            </f:view>
-        </ui:define>
-    </ui:composition>
+			</f:view>
+		</ui:define>
+	</ui:composition>
 
 </h:body>
 </html>
