@@ -10,11 +10,15 @@ import javax.inject.Inject;
 import lt.baraksoft.summersystem.dao.RoleDao;
 import lt.baraksoft.summersystem.dao.UserDao;
 import lt.baraksoft.summersystem.model.User;
+import lt.baraksoft.summersystem.portal.helper.CryptoService;
 import lt.baraksoft.summersystem.portal.helper.UserViewHelper;
 import lt.baraksoft.summersystem.portal.view.UserView;
 
 @Stateless
 public class UserViewHelperImpl implements UserViewHelper {
+
+	@Inject
+	private CryptoService cryptoService;
 
 	@Inject
 	private UserDao userDao;
@@ -103,6 +107,7 @@ public class UserViewHelperImpl implements UserViewHelper {
 		if (userDao.getUserByEmail(view.getEmail()) != null) {
 			return false;
 		}
+		view.setPassword(cryptoService.hashPassword(view.getPassword()));
 		save(view);
 		roleDao.addBasicRole(view.getEmail());
 		return true;

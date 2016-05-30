@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import lt.baraksoft.summersystem.portal.helper.CryptoService;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
@@ -74,7 +75,9 @@ public class UserLoginController implements Serializable {
 	@EJB
 	private AuthorizationService authorizationService;
 
-	private UserView userView = new UserView();
+	@EJB
+	private CryptoService cryptoService;
+
 	private List<ReservationView> myReservations = new ArrayList<>();
 	private List<PaymentView> myPayments = new ArrayList<>();
 	private ReservationView selectedReservation;
@@ -175,10 +178,10 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void validateLogin() {
-		userView.setEmail(email);
-		userView.setPassword(password);
-		loggedUser = userViewHelper.findUserByLogin(userView);
-		if (loggedUser == null) {
+		UserView user = userViewHelper.getUserByEmail(email);
+		if (user != null && cryptoService.checkPassword(password, user.getPassword())){
+			loggedUser = user;
+		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_MESSAGE, LOGIN_FAILED);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
@@ -214,14 +217,6 @@ public class UserLoginController implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public UserView getUserView() {
-		return userView;
-	}
-
-	public void setUserView(UserView userView) {
-		this.userView = userView;
 	}
 
 	public void setLoggedUser(UserView loggedUser) {
