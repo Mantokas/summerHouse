@@ -82,12 +82,14 @@
 					emptyMessage="Nerasta vasarnamių">
 
 					<p:panel header="#{summerhouse.title}" styleClass="panel panel-default customResults" style="overflow: overlay;">
-						<h:panelGrid columns="1" style="width:100%; margin-bottom: 10px;">
+                        <div align="center">
+						<h:panelGrid columns="1" style="margin-bottom: 10px;">
 
 							<h:graphicImage  value="#{summerhouse.encodedImage}" styleClass="img-responsive" rendered="#{summerhouse.image ne null}"/>
 							<h:graphicImage  value="resources/images/defaultSummerhouseImage.png" styleClass="img-responsive" rendered="#{summerhouse.image eq null}"/>
 
 						</h:panelGrid>
+                        </div>
 						<h:panelGrid columns="1" >
 							<p:commandButton id="reviewSummerhouse"
 											 styleClass="btn btn-default"
