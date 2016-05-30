@@ -75,7 +75,7 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 		}
 
 		if (search.getTitle() != null && !search.getTitle().isEmpty()) {
-			predicates.add(builder.like(root.get(Summerhouse_.title), search.getTitle()));
+			predicates.add(builder.like(root.get(Summerhouse_.title), search.getTitle() + "%"));
 		}
 
 		return predicates;
