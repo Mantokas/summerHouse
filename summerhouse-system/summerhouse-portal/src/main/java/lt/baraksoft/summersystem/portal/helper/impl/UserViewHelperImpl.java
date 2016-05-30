@@ -58,6 +58,14 @@ public class UserViewHelperImpl implements UserViewHelper {
 	}
 
 	@Override
+	public List<UserView> getUsersByApprovedArchived(boolean approved, boolean archived) {
+		List<User> entities = userDao.getUsersByApprovedArchived(approved, archived);
+		List<UserView> views = new ArrayList<>();
+		entities.stream().forEach(e -> views.add(buildView(e)));
+		return views;
+	}
+
+	@Override
 	public UserView findUserByLogin(UserView view) {
 		String email = view.getEmail();
 		String password = view.getPassword();

@@ -63,7 +63,7 @@ public class UserController implements Serializable {
 			userViewHelper.save(selectedUser);
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage("Klaida!", "Jūs jau patvirtinote šį vartotoją!"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Jūs jau patvirtinote šį vartotoją!"));
 		}
 	}
 
@@ -75,13 +75,13 @@ public class UserController implements Serializable {
 	public void sendInvitationMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (!invitationEmail.matches(EMAIL_REGEX)) {
-			context.addMessage(null, new FacesMessage("Klaida!", "El. paštas įvestas neteisingai!"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "El. paštas įvestas neteisingai!"));
 			return;
 		}
 
 		UserView oldUser = userViewHelper.getUserByEmail(invitationEmail);
 		if (oldUser != null) {
-			context.addMessage(null, new FacesMessage("Klaida!", "Toks naudotojas sistemoje jau yra!"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida!", "Toks naudotojas sistemoje jau yra!"));
 			return;
 		}
 

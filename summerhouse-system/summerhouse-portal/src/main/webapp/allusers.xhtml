@@ -17,9 +17,6 @@
         <ui:define name="title">Nariai</ui:define>
 		<ui:define name="content">
 
-
-
-
 			<f:view>
                 <h:form id="form5" styleClass="panel panel-default"
                         rendered="#{userLoginController.loggedUser != null and userLoginController.loggedUser.approved}"
@@ -30,8 +27,7 @@
 					<h:panelGrid columns="3" cellpadding="5">
 						<p:outputLabel for="email" value="Naujo vartotojo el. paštas:" />
 						<p:inputText id="email"
-									 value="#{userController.invitationEmail}" required="true"
-									 requiredMessage="Prašome įvesti el. pašto adresą!" />
+									 value="#{userController.invitationEmail}"/>
 						<p:commandButton style="margin: 10px;" styleClass="btn btn-success"
 										 value="Siųsti pakvietimą"
 										 actionListener="#{userController.sendInvitationMessage}"
@@ -48,9 +44,10 @@
                             <h:panelGrid columns="1" style="width:100%">
 
                                 <h:graphicImage style="margin-bottom: 5px;" value="#{user.encodedImage}" styleClass="img-responsive"/>
-                                <h:graphicImage style="margin-bottom: 5px;" value="resources/images/defaultUserImage.png" styleClass="img-responsive" rendered="#{user.image == null}"/>
+                                <h:graphicImage style="margin-bottom: 5px;" value="resources/images/defaultUserImage.png"
+												styleClass="img-responsive" rendered="#{user.image == null}"/>
 
-                            <h:panelGrid columns="2" style="width:100%">
+                            <h:panelGrid columns="1" style="width:100%">
                                 <p:commandButton icon="ui-icon-info"
 										styleClass="btn btn-default" style="margin-bottom: 5px"
 										value="Peržiūrėti" action="#{userController.goToDetailedUser(user)}"/>

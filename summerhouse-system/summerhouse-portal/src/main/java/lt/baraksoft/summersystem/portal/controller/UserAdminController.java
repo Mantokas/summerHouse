@@ -1,6 +1,7 @@
 package lt.baraksoft.summersystem.portal.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lt.baraksoft.summersystem.portal.helper.GroupService;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
@@ -31,6 +33,9 @@ public class UserAdminController implements Serializable {
 	@EJB
 	private UserViewHelper userViewHelper;
 
+    @EJB
+    private GroupService groupService;
+
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
 
@@ -47,7 +52,7 @@ public class UserAdminController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		usersList = userViewHelper.getAllUsers();
+		reloadUsersList();
 		yearlyPayment = configurationEntryDao.getByType(ConfigurationEntryEnum.YEARLY_PAYMENT_PRICE).getValue();
 		maxUsersSize = configurationEntryDao.getByType(ConfigurationEntryEnum.MAX_USERS_SIZE).getValue();
 		approversSize = configurationEntryDao.getByType(ConfigurationEntryEnum.APPROVERS_SIZE).getValue();
@@ -55,6 +60,10 @@ public class UserAdminController implements Serializable {
 		telephoneFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 		descriptionFieldVisible = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.DESCRIPTION_FIELD).getValue());
 	}
+
+    private void reloadUsersList(){
+        usersList = userViewHelper.getAllUsers();
+    }
 
 	public void doArchive() {
 		selectedUser.setArchived(true);
@@ -120,7 +129,17 @@ public class UserAdminController implements Serializable {
 		points = "";
 		RequestContext.getCurrentInstance().execute("PF('pointsDialog').hide()");
 
+        reloadUsersList();
         createChangesSuccessMessage();
+	}
+
+	public void calculateGroups(){
+        List<UserView> usersList = userViewHelper.getUsersByApprovedArchived(true, false);
+        int peopleInGroup = 5;      // TODO: 2016-05-30 konfiguruojamas parametras
+
+        groupService.calculateGroups(usersList, peopleInGroup);
+
+        reloadUsersList();
 	}
 
 	public UserViewHelper getUserViewHelper() {

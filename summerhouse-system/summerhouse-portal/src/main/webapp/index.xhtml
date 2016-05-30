@@ -73,7 +73,7 @@
 				<div style="margin-right: 10%; margin-left: 10%">
 
 				<p:dataGrid rendered="#{searchController.visibleResults}" var="summerhouse" value="#{searchController.list}"
-					layout="grid" rows="12" paginator="true" id="cars" columns="4"
+					layout="grid" rows="12" paginator="true" id="cars" columns="1"
 					paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 					styleClass="customDataGrid"
@@ -81,7 +81,10 @@
 
 					<p:panel header="#{summerhouse.title}" styleClass="panel panel-default customResults" style="overflow: overlay;">
 						<h:panelGrid columns="1" style="width:100%; margin-bottom: 10px;">
-							<h:graphicImage value="#{summerhouse.encodedImage}" styleClass="img-responsive"/>
+
+							<h:graphicImage  value="#{summerhouse.encodedImage}" styleClass="img-responsive" rendered="#{summerhouse.image ne null}"/>
+							<h:graphicImage  value="resources/images/defaultSummerhouseImage.png" styleClass="img-responsive" rendered="#{summerhouse.image eq null}"/>
+
 						</h:panelGrid>
 						<h:panelGrid columns="1" >
 							<p:commandButton id="reviewSummerhouse"

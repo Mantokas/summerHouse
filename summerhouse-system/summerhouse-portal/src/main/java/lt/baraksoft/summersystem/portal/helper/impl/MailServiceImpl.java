@@ -26,6 +26,7 @@ public class MailServiceImpl implements MailService {
 
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
+
 	private String senderEmail;
 	private String senderPassword;
 

@@ -49,7 +49,6 @@ public class ServiceAdminController implements Serializable {
 			return;
 		}
 
-
 		if (service.getId() != 0) {
 			serviceViewHelper.save(service);
 		} else {
@@ -57,7 +56,7 @@ public class ServiceAdminController implements Serializable {
 			summerhouseViewHelper.save(selectedSummerhouse);
 		}
 		servicesList = serviceViewHelper.getServicesBySummerhouse(selectedSummerhouse.getId());
-        RequestContext.getCurrentInstance().execute("PF('summerhouseDialog').hide()");
+        RequestContext.getCurrentInstance().execute("PF('serviceDialog').hide()");
 	}
 
 	private boolean isSummerhouseValid() {

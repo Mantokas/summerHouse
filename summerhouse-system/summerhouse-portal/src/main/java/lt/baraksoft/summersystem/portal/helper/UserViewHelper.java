@@ -15,6 +15,8 @@ public interface UserViewHelper {
 
 	List<UserView> getAllUsers();
 
+	List<UserView> getUsersByApprovedArchived(boolean approved, boolean archived);
+
 	UserView findUserByLogin(UserView view);
 
 	boolean register(UserView view);

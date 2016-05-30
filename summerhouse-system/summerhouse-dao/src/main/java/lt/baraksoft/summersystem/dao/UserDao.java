@@ -18,4 +18,6 @@ public interface UserDao extends IGenericDao<User, Integer> {
 	User getUserByEmail(String email);
 
 	User getUserByFacebookId(String facebookId);
+
+	List<User> getUsersByApprovedArchived(boolean approved, boolean archived);
 }

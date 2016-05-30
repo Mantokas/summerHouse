@@ -76,4 +76,14 @@ public class UserDaoImpl extends GenericDao<User, Integer> implements UserDao {
 		}
 	}
 
+	@Override
+	public List<User> getUsersByApprovedArchived(boolean approved, boolean archived) {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		criteria.where(builder.and(builder.equal(root.get(User_.approved), approved), builder.equal(root.get(User_.archived), archived)));
+		criteria.select(root);
+		return getEntityManager().createQuery(criteria).getResultList();
+	}
+
 }
