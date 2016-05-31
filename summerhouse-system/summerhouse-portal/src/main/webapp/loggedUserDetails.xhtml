@@ -206,7 +206,7 @@
 					<p:dialog header="Patvirtinimas" widgetVar="cancelReservationDialog"
 							  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 						<p:outputPanel id="summerhousesDetail2" style="text-align:center;">
-							<p:panelGrid columns="1">
+							<h:panelGrid columns="1">
 
 								<h:outputText value="Ar tikrai norite atšaukti šią rezervaciją?"/>
 
@@ -214,12 +214,13 @@
 												 styleClass="btn btn-success"
 												 oncomplete="PF('cancelReservationDialog').hide()"
 												 icon="ui-icon-check"
+												 style="margin-top: 10px; margin-bottom: 10px;"
 												 update="@form,msgs,form1"
 												 action="#{userLoginController.cancelReservation}"/>
 
 								<p:commandButton styleClass="btn btn-warning" value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelReservationDialog').hide()"/>
 
-							</p:panelGrid>
+							</h:panelGrid>
 						</p:outputPanel>
 					</p:dialog>
 
