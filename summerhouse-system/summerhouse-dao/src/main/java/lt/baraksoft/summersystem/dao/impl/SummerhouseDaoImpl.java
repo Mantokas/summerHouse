@@ -42,6 +42,7 @@ public class SummerhouseDaoImpl extends GenericDao<Summerhouse, Integer> impleme
 
 		List<Predicate> predicates = buildPredicates(search, builder, root, criteria);
 		criteria.where(toArray(predicates));
+		criteria.distinct(true);
 		return getEntityManager().createQuery(criteria).getResultList();
 	}
 
