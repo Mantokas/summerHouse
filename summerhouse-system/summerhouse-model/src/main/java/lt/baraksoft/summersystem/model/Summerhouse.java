@@ -207,29 +207,23 @@ public class Summerhouse implements IEntity<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are
-		// not set
-		if (!(object instanceof Summerhouse)) {
-			return false;
-		}
-		Summerhouse other = (Summerhouse) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		return "lt.baraksoft.summersystem.model.Summerhouse[ id=" + id + " ]";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Summerhouse that = (Summerhouse) o;
+
+		return title != null ? title.equals(that.title) : that.title == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return title != null ? title.hashCode() : 0;
+	}
 }

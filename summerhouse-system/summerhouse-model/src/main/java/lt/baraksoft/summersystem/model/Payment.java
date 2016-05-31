@@ -99,4 +99,20 @@ public class Payment implements IEntity<Integer>{
     public void setPurpose(String purpose) {
         this.purpose = purpose;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Payment payment = (Payment) o;
+
+        return purpose.equals(payment.purpose);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return purpose.hashCode();
+    }
 }

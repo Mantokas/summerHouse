@@ -1,6 +1,5 @@
 package lt.baraksoft.summersystem.portal.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -20,7 +18,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.input.NullInputStream;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
@@ -119,7 +116,7 @@ public class UserLoginController implements Serializable {
 		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
 	}
 
-	public void collectMyReservations() {
+	public void collectMyReservations(){
 		myReservations = reservationViewHelper.getReservations();
 	}
 

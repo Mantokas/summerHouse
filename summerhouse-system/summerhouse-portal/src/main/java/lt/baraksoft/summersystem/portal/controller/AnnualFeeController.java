@@ -14,6 +14,8 @@ import lt.baraksoft.summersystem.portal.view.UserView;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +85,7 @@ public class AnnualFeeController implements Serializable {
 
 	private int activeIndex = 0;
 	private String selectedPaymentValue;
+	private String paymentNo;
 	private List<String> clubPayTypes = new ArrayList<>();
 	private User loggedUser;
 	private String purpose;
@@ -144,7 +147,8 @@ public class AnnualFeeController implements Serializable {
 						"Mokėjimui reikia " + amount + " taškų, Jūs turite " + points + " taškų");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			} else {
-				purpose = "Narystės pratęsimas " + selectedPaymentValue;
+				paymentNo = "P".concat(String.valueOf(LocalDateTime.now().toEpochSecond(ZoneOffset.MAX)));
+				purpose = "Narystės pratęsimas " + paymentNo;
 				loggedUser.setPoints(points - amount);
 				currentForm = CURRENT_FORM.PAYMENT_PROPERTIES;
 				activeIndex = 1;
@@ -260,5 +264,13 @@ public class AnnualFeeController implements Serializable {
 
 	public void setYearLength(int yearLength) {
 		this.yearLength = yearLength;
+	}
+
+	public String getPaymentNo() {
+		return paymentNo;
+	}
+
+	public void setPaymentNo(String paymentNo) {
+		this.paymentNo = paymentNo;
 	}
 }

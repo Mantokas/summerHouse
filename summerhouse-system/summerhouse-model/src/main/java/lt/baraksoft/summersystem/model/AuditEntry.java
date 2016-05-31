@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Entity
 public class AuditEntry implements IEntity<Integer>{
 
+    private static final long serialVersionUID = -8034914034750823569L;
+
     public AuditEntry(String entry, LocalDateTime dateCreated){
         this.entry = entry;
         this.dateCreated = dateCreated;
@@ -52,5 +54,21 @@ public class AuditEntry implements IEntity<Integer>{
     @Override
     public Integer getVersion() {
         return version;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AuditEntry that = (AuditEntry) o;
+
+        return dateCreated != null ? dateCreated.equals(that.dateCreated) : that.dateCreated == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return dateCreated != null ? dateCreated.hashCode() : 0;
     }
 }
