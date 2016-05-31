@@ -253,8 +253,9 @@
 }
 
 .customDataGrid > div{
-    border: 0px;
+    border: 0;
     background: transparent;
+    text-align: center;
 }
 .customDataGrid > .ui-paginator.ui-paginator-bottom{
 
