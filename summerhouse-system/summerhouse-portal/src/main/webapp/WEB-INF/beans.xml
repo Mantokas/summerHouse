@@ -6,13 +6,25 @@
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="all">
     <decorators>
+        <!-- [Extensibility/Glass-box extensibility] Sistema turi būti organizuota taip,
+        kad po jos sukūrimo sistemą būtų galima papildyti nuolaidų sistemomis
+        (pvz., kažkiek procentų nuolaida šį mėnesį gimusiems, Kalėdų/Velykų laikotarpio nuolaida, ...).
+        Naujų nuolaidų sistemų kodo pridėjimas į sistemą bei įjungimas/išjungimas turi būti atliekamas nekeičiant seno kodo
+         (tik redaguojant kokį nors konfigūracinį failą). {CDI Decorators}.-->
         <class>lt.baraksoft.summersystem.portal.helper.decorators.WeekendDiscount</class>
         <class>lt.baraksoft.summersystem.portal.helper.decorators.BirthdayDiscount</class>
     </decorators>
     <interceptors>
+        <!-- Visi dalykinio funkcionalumo (angl. business logic) veiksmai, susiję su pinigais/apmokėjimais,
+        privalo būti audituojami (fiksuojami faile arba DB), įrašant naudotojo vardą, teises (administratorius ar ne),
+        laiką, vykdomą klasės metodą (klasės pavadinimas + metodo pavadinimas). Tam, kad auditavimo kodą įdėti/pašalinti,
+        neturi reikėti modifikuoti/perkompiliuoti audituojamo sistemos kodo {Java EE/CDI Interceptors}. -->
         <class>lt.baraksoft.summersystem.portal.interceptor.LoggingInterceptor</class>
     </interceptors>
 <!--    <alternatives>
+    &lt;!&ndash; [Extensibility/Glass-box extensibility] Turi būti įmanoma po sistemos sukūrimo į sistemą pridėti naujus į rezervavimo
+    pirmumo grupių skirstymo algoritmus taip, kad nereikėtų modifikuoti ir kompiliuoti seno kodo (būtų pridedamas tik naujas,
+    ir galimai redaguojamas konfigūracinis failas). {CDI Alternatives}.&ndash;&gt;
         <class>lt.baraksoft.summersystem.portal.helper.impl.GroupServiceAltImpl</class>
     </alternatives>-->
 </beans>
