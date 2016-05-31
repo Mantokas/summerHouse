@@ -129,7 +129,7 @@
 
 					<div id="cancel" align="center" style="display: none">
 						<p:commandButton value="Atšaukti"
-										 style="width: 198px;"
+										 style="width: 198px; margin-bottom: 10px"
 										 styleClass="btn btn-warning"
 										 icon="ui-icon-cancel"
 										 actionListener="#{userLoginController.doNotEdit}"
@@ -143,6 +143,14 @@
 										 onclick="changeButtonsState('saveChanges', 'edit', 'addPhoto', 'cancel');"
 										 update="profileGrid"
 										 actionListener="#{userLoginController.doEdit}"/>
+					</div>
+					
+					<div id="deleteAcc" align="center" style="display: block; margin-bottom: 20px;">
+						<p:commandButton value="Išsiregistruoti" style="width: 200px"
+										 icon="ui-icon-pencil"
+										 styleClass="btn btn-danger"										
+										 update="profileGrid"
+										 oncomplete="PF('cancelDeleteDialog').show()" />
 					</div>
 
 				</h:form>
@@ -222,6 +230,27 @@
 												 action="#{userLoginController.cancelReservation}"/>
 
 								<p:commandButton styleClass="btn btn-warning" value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelReservationDialog').hide()"/>
+
+							</h:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+					
+					<p:dialog header="Patvirtinimas" widgetVar="cancelDeleteDialog"
+							  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel id="deleteDetail" style="text-align:center;">
+							<h:panelGrid columns="1">
+
+								<h:outputText value="Ar tikrai norite išsiregistruoti?"/>
+
+								<p:commandButton value="Patvirtinti"
+												 styleClass="btn btn-success"
+												 oncomplete="PF('cancelDeleteDialog').hide()"
+												 icon="ui-icon-check"
+												 style="margin-top: 10px; margin-bottom: 10px;"
+												 update="@form,msgs,form1"
+												 action="#{userLoginController.deleteAcc}"/>
+
+								<p:commandButton style="width: 130px" styleClass="btn btn-warning" value="Grįžti" icon="ui-icon-carat-1-w" oncomplete="PF('cancelDeleteDialog').hide()"/>
 
 							</h:panelGrid>
 						</p:outputPanel>

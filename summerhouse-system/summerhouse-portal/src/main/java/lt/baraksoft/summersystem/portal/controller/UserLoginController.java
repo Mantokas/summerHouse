@@ -62,8 +62,8 @@ public class UserLoginController implements Serializable {
 	@Inject
 	private FacebookLoginController facebookLoginController;
 
-    @Inject
-    private ReservationPaymentController reservationPaymentController;
+	@Inject
+	private ReservationPaymentController reservationPaymentController;
 
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
@@ -101,7 +101,7 @@ public class UserLoginController implements Serializable {
 		phoneNumberEnabled = Boolean.valueOf(configurationEntryDao.getByType(ConfigurationEntryEnum.TELEPHONE_FIELD).getValue());
 	}
 
-	public void checkUserRole(){
+	public void checkUserRole() {
 		admin = loggedUser != null && authorizationService.isAdmin();
 	}
 
@@ -119,7 +119,17 @@ public class UserLoginController implements Serializable {
 		loggedUser = userViewHelper.getUserByEmail(loggedUser.getEmail());
 	}
 
-	public void collectMyReservations(){
+	public String deleteAcc() {
+		loggedUser.setArchived(true);
+		userViewHelper.save(loggedUser);
+		loggedUser = null;
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+		request.getSession().invalidate();
+		return "/signin.xhtml?faces-redirect=true";
+	}
+
+	public void collectMyReservations() {
 		myReservations = reservationViewHelper.getReservations();
 	}
 
@@ -128,7 +138,7 @@ public class UserLoginController implements Serializable {
 		myPayments = paymentViewHelper.getPaymentByUserID(loggedUser.getId());
 	}
 
-	public void checkReservation(){
+	public void checkReservation() {
 		if (selectedReservation == null) {
 			return;
 		}
