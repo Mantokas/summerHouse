@@ -70,7 +70,6 @@ public class SearchController implements Serializable{
 	}
 
 	public void makeSelectedSummerhouse(SummerhouseView summerhouse){
-
 		selectedSummerhouse = summerhouse;
         reservations = reservationPaymentHelper.getReservationsBySummerhouse(selectedSummerhouse.getId());
 	}

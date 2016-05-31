@@ -62,6 +62,9 @@ public class UserLoginController implements Serializable {
 	@Inject
 	private FacebookLoginController facebookLoginController;
 
+    @Inject
+    private ReservationPaymentController reservationPaymentController;
+
 	@Inject
 	private ConfigurationEntryDao configurationEntryDao;
 
@@ -170,6 +173,7 @@ public class UserLoginController implements Serializable {
 	}
 
 	public void logout() {
+		reservationPaymentController.checkConversation();
 		loggedUser = null;
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) ec.getRequest();

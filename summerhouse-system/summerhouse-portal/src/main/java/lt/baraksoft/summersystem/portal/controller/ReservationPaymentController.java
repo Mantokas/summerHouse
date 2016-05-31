@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
@@ -110,6 +111,10 @@ public class ReservationPaymentController implements Serializable {
 	private boolean dateIncorrect;
 	private boolean serviceAdded;
 
+	@PostConstruct
+	public void init() {
+	}
+
 	public String initAndBeginConversation() {
 		if (!conversation.isTransient()) {
 			conversation.end();
@@ -122,8 +127,6 @@ public class ReservationPaymentController implements Serializable {
 		if (a.equals("/signin.xhtml?faces-redirect=true")) {
 			return "/signin.xhtml?faces-redirect=true";
 		}
-
-		if (!FacesContext.getCurrentInstance().isPostback() && conversation.isTransient()) {
 			conversation.begin();
 
 			reservationPaymentView.setSelectedSummerhouse(searchController.getSelectedSummerhouse());
@@ -134,7 +137,7 @@ public class ReservationPaymentController implements Serializable {
 			reservationPaymentView.setPointsBefore(loggedUser.getPoints());
 			loggedUserEntity = userDao.get(loggedUser.getId());
 			reservationFrom = getNextMonday();
-		}
+
 
 		return "";
 	}
@@ -352,6 +355,14 @@ public class ReservationPaymentController implements Serializable {
 			dateFrom = dateFrom.plusDays(7);
 		}
 	}
+
+    public void checkConversation(){
+        if (!conversation.isTransient()) {
+            conversation.end();
+            currentForm = PaymentStepEnum.FIRST;
+            activeIndex = 0;
+        }
+    }
 
 	public int getActiveIndex() {
 		return activeIndex;
