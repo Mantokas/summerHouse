@@ -103,9 +103,12 @@
                                      rendered="#{userLoginController.phoneNumberEnabled}" mask="+370 999 99999"/>
 
                         <h:outputLabel value="Aprašymas: " rendered="#{userLoginController.descriptionEnabled}"/>
-                        <p:inputText value="#{userLoginController.loggedUser.description}"
-									 readonly="#{!userLoginController.editable}" style="margin-bottom: 5px"
-                                     rendered="#{userLoginController.descriptionEnabled}"/>
+						<p:inputTextarea id="description" style="overflow: overlay; max-height: 100px; width: 180px; margin-bottom: 5px;"
+										 value="#{userLoginController.loggedUser.description}"
+										 readonly="#{!userLoginController.editable}"
+										 rendered="#{userLoginController.descriptionEnabled}"
+						/>
+
 					</h:panelGrid>
 
 
@@ -183,7 +186,7 @@
 						</f:facet>
 					</p:dataTable>
 
-                    <p:dataTable var="payment" value="#{userLoginController.myPayments}" emptyMessage="Neturite mokėjimų">
+                    <p:dataTable var="payment" value="#{userLoginController.myPayments}" emptyMessage="Neturite mokėjimų" rendered="#{userLoginController.loggedUser.approved}">
                         <f:facet name="header">
                             Mokėjimai
                         </f:facet>
@@ -226,7 +229,7 @@
 
 				</h:form>
 
-				<h:form style="text-align: center; margin-bottom: 20px; margin-top: 10px">
+				<h:form style="text-align: center; margin-bottom: 20px; margin-top: 10px" rendered="#{userLoginController.loggedUser.approved}">
 					<p:commandButton styleClass="btn btn-lg btn-success"
 									 value="Sumokėti metinį narystės mokestį" type="submit"
 									 action="#{navigationController.goToPayment}" immediate="true"/>
