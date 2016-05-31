@@ -75,7 +75,7 @@
 							styleClass="btn btn-danger" update=":form:summerhousesDetail"
 							icon="ui-icon-trash" value="Archyvuoti" style="margin-left: 0.5rem;"
 							disabled="#{summerhouseAdminController.selectedSummerhouse == null or summerhouseAdminController.selectedSummerhouse.archived}"
-							oncomplete="PF('archiveConfirmationDialog').show()" />
+							oncomplete="PF('archiveConfirmationDialog').show()"/>
 						<p:commandButton id="reset" process="singleDT"
 							styleClass="btn btn-warning" style="margin-left: 0.5rem;"
 							action="#{summerhouseAdminController.doReset}"
@@ -163,8 +163,10 @@
 					</p:outputPanel>
 
 				</p:dialog>
+            </h:form>
 
 
+            <h:form>
 				<p:dialog header="Patvirtinimas"
 					widgetVar="archiveConfirmationDialog" modal="true"
 					showEffect="fade" hideEffect="fade" resizable="false">
@@ -185,7 +187,7 @@
 
 					</p:outputPanel>
 				</p:dialog>
-			</h:form>
+            </h:form>
 
 		</ui:define>
 	</ui:composition>

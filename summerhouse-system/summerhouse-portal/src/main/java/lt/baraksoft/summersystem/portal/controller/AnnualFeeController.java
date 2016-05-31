@@ -68,6 +68,9 @@ public class AnnualFeeController implements Serializable {
 	@Inject
 	private UserLoginController userLoginController;
 
+	@Inject
+	private NavigationController navigationController;
+
 	@EJB
 	private PaymentViewHelper paymentViewHelper;
 
@@ -130,7 +133,7 @@ public class AnnualFeeController implements Serializable {
 
 		conversation.begin();
 
-		if (selectedPaymentValue.equals("")) {
+		if (selectedPaymentValue.equals("0")) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Nepasirinkote mokėjimo!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
@@ -199,17 +202,19 @@ public class AnnualFeeController implements Serializable {
 			facesContext.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Metinis mokestis sumokėtas!", "Dabar narystė galioja iki " + loggedUser.getValidTo()));
 			conversation.end();
-
+			navigationController.setCurrentTab(1);
 			return PAGE_INDEX_REDIRECT;
 		} catch (OptimisticLockException ole) {
 			em.clear();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Klaida", "Apmokėjimas atšauktas. Taškai nenuimti");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			navigationController.setCurrentTab(1);
 			return PAGE_INDEX_REDIRECT;
 		} catch (PersistenceException pe) {
 			em.clear();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persistence exception", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			navigationController.setCurrentTab(1);
 			return PAGE_INDEX_REDIRECT;
 		}
 	}
