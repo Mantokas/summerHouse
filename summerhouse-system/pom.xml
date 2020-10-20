@@ -20,7 +20,7 @@
 		<persistence-api.version>1.0.2</persistence-api.version>
 		<hibernate-core.version>5.1.0.Final</hibernate-core.version>
 		<hibernate-jpa-api.version>1.0.0.Final</hibernate-jpa-api.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<facebook4j.version>[2.4,)</facebook4j.version>
 	</properties>
 
